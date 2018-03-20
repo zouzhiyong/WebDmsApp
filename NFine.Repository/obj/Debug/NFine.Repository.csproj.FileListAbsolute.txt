@@ -39,3 +39,4 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\obj\Debug\NFine.Reposi
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\obj\Debug\NFine.Repository.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\obj\Debug\NFine.Repository.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Repository.dll.config
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\MySql.Data.dll

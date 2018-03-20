@@ -87,3 +87,4 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\obj\Debug\NFine.Appli
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\obj\Debug\NFine.Application.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\obj\Debug\NFine.Application.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\NFine.Application.dll.config
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\MySql.Data.dll
