@@ -35,3 +35,4 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\obj\Debug\NFine.Domain.csp
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\obj\Debug\NFine.Domain.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\obj\Debug\NFine.Domain.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\NFine.Domain.dll.config
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\MySql.Data.dll
