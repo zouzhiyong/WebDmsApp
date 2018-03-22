@@ -10,6 +10,7 @@ using NFine.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NFine.Code;
 
 namespace NFine.Application.SystemManage
 {
@@ -17,10 +18,31 @@ namespace NFine.Application.SystemManage
     {
         private IOrganizeRepository service = new OrganizeRepository();
 
+        public List<OrganizeEntity> GetList(int F_Layers)
+        {
+            if (OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                return service.IQueryable().OrderBy(t => t.F_CreatorTime).ToList();
+            }
+            else
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                if (F_Layers == 1)
+                {
+                    return service.IQueryable(t => t.F_Id== CompanyId).OrderBy(t => t.F_CreatorTime).ToList();
+                }else
+                {
+                    return service.IQueryable(t => t.F_ParentId== CompanyId).OrderBy(t => t.F_CreatorTime).ToList();
+                }
+                
+            }               
+        }
+
         public List<OrganizeEntity> GetList()
         {
             return service.IQueryable().OrderBy(t => t.F_CreatorTime).ToList();
         }
+
         public OrganizeEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);

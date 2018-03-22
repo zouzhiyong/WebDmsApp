@@ -21,6 +21,9 @@
     function initControl() {
         $("#F_OrganizeId").bindSelect({
             url: "/SystemManage/Organize/GetTreeSelectJson",
+            param: { F_Layers: 1 },
+            id: "F_Id",
+            text: "F_FullName"
         });
         $("#F_Type").bindSelect({
             url: "/SystemManage/ItemsData/GetSelectJson",

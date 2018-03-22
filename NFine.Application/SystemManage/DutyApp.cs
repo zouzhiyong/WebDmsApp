@@ -26,6 +26,11 @@ namespace NFine.Application.SystemManage
                 expression = expression.Or(t => t.F_EnCode.Contains(keyword));
             }
             expression = expression.And(t => t.F_Category == 2);
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_OrganizeId == CompanyId);
+            }
             return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
         }
         public RoleEntity GetForm(string keyValue)

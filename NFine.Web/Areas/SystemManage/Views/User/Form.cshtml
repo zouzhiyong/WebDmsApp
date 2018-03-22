@@ -24,10 +24,16 @@
         $("#F_IsAdministrator").bindSelect()
         $("#F_EnabledMark").bindSelect()
         $("#F_OrganizeId").bindSelect({
-            url: "/SystemManage/Organize/GetTreeSelectJson"
+            url: "/SystemManage/Organize/GetTreeSelectJson",
+            param: { F_Layers: 1 },
+            id: "F_Id",
+            text: "F_FullName"
         });
         $("#F_DepartmentId").bindSelect({
             url: "/SystemManage/Organize/GetTreeSelectJson",
+            param: { F_Layers: 2 },
+            id: "F_Id",
+            text: "F_FullName"
         });
         $("#F_RoleId").bindSelect({
             url: "/SystemManage/Role/GetGridJson",

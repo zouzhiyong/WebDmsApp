@@ -28,6 +28,11 @@ namespace NFine.Application.SystemManage
                 expression = expression.Or(t => t.F_MobilePhone.Contains(keyword));
             }
             expression = expression.And(t => t.F_Account != "admin");
+            if(!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_OrganizeId == CompanyId);
+            }            
             return service.FindList(expression, pagination);
         }
         public UserEntity GetForm(string keyValue)

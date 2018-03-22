@@ -11,7 +11,7 @@ namespace NFine.Domain.Entity.BaseManage
     public class WarehouseEntity : IEntity<WarehouseEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
     {
         public string F_Id { get; set; }
-        public int F_CorpID { get; set; }
+        public string F_CorpID { get; set; }
         public string F_Code { get; set; }
         public string F_Name { get; set; }
         public string F_Address { get; set; }
