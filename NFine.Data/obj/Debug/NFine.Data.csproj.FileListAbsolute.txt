@@ -21,6 +21,8 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\NFine.Data.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\NFine.Data.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\EntityFramework.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\MySql.Data.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\MySql.Data.Entity.EF6.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\NFine.Code.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\Newtonsoft.Json.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\log4net.dll
@@ -32,8 +34,6 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\EntityFramework.Sq
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\Newtonsoft.Json.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\log4net.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\NPOI.xml
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\obj\Debug\NFine.Data.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\obj\Debug\NFine.Data.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\obj\Debug\NFine.Data.pdb
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\MySql.Data.dll
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\MySql.Data.Entity.EF6.dll
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\obj\Debug\NFine.Data.csprojResolveAssemblyReference.cache

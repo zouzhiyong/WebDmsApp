@@ -64,6 +64,7 @@ D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Application
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Application\obj\Debug\NFine.Application.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Application\obj\Debug\NFine.Application.dll
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Application\obj\Debug\NFine.Application.pdb
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\NFine.Application.dll.config
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\NFine.Application.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\NFine.Application.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\Newtonsoft.Json.dll
@@ -74,6 +75,7 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\NFine.Repos
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\log4net.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\NPOI.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\EntityFramework.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\MySql.Data.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\ICSharpCode.SharpZipLib.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\NFine.Code.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\NFine.Data.pdb
@@ -86,5 +88,3 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\EntityFrame
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\obj\Debug\NFine.Application.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\obj\Debug\NFine.Application.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\obj\Debug\NFine.Application.pdb
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\NFine.Application.dll.config
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\MySql.Data.dll

@@ -25,6 +25,8 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\bin\Debug\NFine.Mapping.d
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\bin\Debug\NFine.Mapping.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\bin\Debug\EntityFramework.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\bin\Debug\EntityFramework.SqlServer.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\bin\Debug\MySql.Data.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\bin\Debug\MySql.Data.Entity.EF6.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\bin\Debug\NFine.Domain.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\bin\Debug\NFine.Code.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\bin\Debug\NFine.Data.dll
@@ -43,5 +45,3 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\bin\Debug\NPOI.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\obj\Debug\NFine.Mapping.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\obj\Debug\NFine.Mapping.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\obj\Debug\NFine.Mapping.pdb
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\bin\Debug\MySql.Data.dll
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Mapping\bin\Debug\MySql.Data.Entity.EF6.dll

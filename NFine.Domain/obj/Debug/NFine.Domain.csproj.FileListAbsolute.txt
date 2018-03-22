@@ -16,6 +16,7 @@ D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Domain\bin\
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Domain\obj\Debug\NFine.Domain.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Domain\obj\Debug\NFine.Domain.dll
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Domain\obj\Debug\NFine.Domain.pdb
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\NFine.Domain.dll.config
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\NFine.Domain.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\NFine.Domain.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\NFine.Code.dll
@@ -24,6 +25,7 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\Newtonsoft.Json.
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\log4net.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\NPOI.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\EntityFramework.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\MySql.Data.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\ICSharpCode.SharpZipLib.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\NFine.Code.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\NFine.Data.pdb
@@ -34,5 +36,3 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\EntityFramework.
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\obj\Debug\NFine.Domain.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\obj\Debug\NFine.Domain.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\obj\Debug\NFine.Domain.pdb
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\NFine.Domain.dll.config
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\MySql.Data.dll
