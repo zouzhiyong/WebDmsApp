@@ -11,3 +11,5 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\obj\Debug\NFine.MySQLM
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\obj\Debug\NFine.MySQLModel.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\obj\Debug\NFine.MySQLModel.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\MySql.Web.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\zh-Hans\EntityFramework.resources.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll

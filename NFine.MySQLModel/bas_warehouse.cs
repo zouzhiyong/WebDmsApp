@@ -25,7 +25,9 @@ namespace NFine.MySQLModel
         public long F_IsBin { get; set; }
         public long F_IsRequireReceive { get; set; }
         public long F_IsRequireShipment { get; set; }
-        public long F_EnabledMark { get; set; }
+        public Nullable<sbyte> F_DeleteMark { get; set; }
+        public Nullable<sbyte> F_EnabledMark { get; set; }
+        public string F_Description { get; set; }
         public System.DateTime F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }
         public System.DateTime F_LastModifyTime { get; set; }
