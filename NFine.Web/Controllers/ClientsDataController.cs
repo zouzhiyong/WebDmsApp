@@ -27,7 +27,7 @@ namespace NFine.Web.Controllers
                 organize = this.GetOrganizeList(),
                 role = this.GetRoleList(),
                 duty = this.GetDutyList(),
-                user = "",
+                user = this.GetUserList(),
                 authorizeMenu = this.GetMenuList(),
                 authorizeButton = this.GetMenuButtonList(),
             };
@@ -81,6 +81,25 @@ namespace NFine.Web.Controllers
             }
             return dictionary;
         }
+
+        private object GetUserList()
+        {
+            UserApp userApp = new UserApp();
+            var data = userApp.GetList();
+            Dictionary<string, object> dictionary = new Dictionary<string, object>();
+            foreach (UserEntity item in data)
+            {
+                var fieldItem = new
+                {
+                    encode = item.F_Account,
+                    fullname = item.F_RealName
+                };
+                dictionary.Add(item.F_Id, fieldItem);
+            }
+            return dictionary;
+        }
+
+
         private object GetDutyList()
         {
             DutyApp dutyApp = new DutyApp();

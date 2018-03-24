@@ -26,12 +26,12 @@ namespace NFine.MySQLModel
         public System.DateTime F_PreviousVisitTime { get; set; }
         public System.DateTime F_LastVisitTime { get; set; }
         public System.DateTime F_ChangePasswordDate { get; set; }
-        public Nullable<sbyte> F_MultiUserLogin { get; set; }
+        public Nullable<bool> F_MultiUserLogin { get; set; }
         public Nullable<int> F_LogOnCount { get; set; }
-        public Nullable<sbyte> F_UserOnLine { get; set; }
+        public Nullable<bool> F_UserOnLine { get; set; }
         public string F_Question { get; set; }
         public string F_AnswerQuestion { get; set; }
-        public Nullable<sbyte> F_CheckIPAddress { get; set; }
+        public Nullable<bool> F_CheckIPAddress { get; set; }
         public string F_Language { get; set; }
         public string F_Theme { get; set; }
     }

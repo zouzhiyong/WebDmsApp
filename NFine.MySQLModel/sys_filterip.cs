@@ -15,12 +15,12 @@ namespace NFine.MySQLModel
     public partial class sys_filterip
     {
         public string F_Id { get; set; }
-        public Nullable<sbyte> F_Type { get; set; }
+        public Nullable<bool> F_Type { get; set; }
         public string F_StartIP { get; set; }
         public string F_EndIP { get; set; }
         public Nullable<int> F_SortCode { get; set; }
-        public Nullable<sbyte> F_DeleteMark { get; set; }
-        public Nullable<sbyte> F_EnabledMark { get; set; }
+        public Nullable<bool> F_DeleteMark { get; set; }
+        public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }
         public System.DateTime F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }
@@ -28,5 +28,6 @@ namespace NFine.MySQLModel
         public string F_LastModifyUserId { get; set; }
         public System.DateTime F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
+        public string F_OrganizeId { get; set; }
     }
 }

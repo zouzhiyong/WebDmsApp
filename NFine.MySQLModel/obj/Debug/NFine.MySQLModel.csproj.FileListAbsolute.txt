@@ -10,6 +10,6 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\EntityFramew
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\EntityFramework.SqlServer.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\zh-Hans\EntityFramework.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\obj\Debug\NFine.MySQLModel.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\obj\Debug\NFine.MySQLModel.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\obj\Debug\NFine.MySQLModel.pdb
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\obj\Debug\NFine.MySQLModel.csprojResolveAssemblyReference.cache

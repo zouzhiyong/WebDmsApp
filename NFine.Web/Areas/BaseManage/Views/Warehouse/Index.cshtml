@@ -48,13 +48,13 @@
                 },
                 { label: '手机', name: 'F_MobilePhone', width: 80, align: 'left' },
                 {
-                    label: '公司', name: 'F_CorpID', width: 150, align: 'left',
+                    label: '公司', name: 'F_OrganizeId', width: 150, align: 'left',
                     formatter: function (cellvalue, options, rowObject) {
                         return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
                     }
                 },
                 {
-                    label: '地址', name: 'F_Address', width:180, align: 'left'
+                    label: '地址', name: 'F_Address', width:150, align: 'left'
                 },                
                 {
                     label: '创建时间', name: 'F_CreatorTime', width: 80, align: 'left',
@@ -66,7 +66,7 @@
                         return cellvalue == 1 ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
                     }
                 },
-                { label: '备注', name: 'F_Description', width: 300, align: 'left' }
+                { label: '备注', name: 'F_Description', width: 150, align: 'left' }
             ],
             pager: "#gridPager",
             sortname: 'F_CreatorTime desc',
@@ -149,7 +149,7 @@
             <tr>
                 <td>
                     <div class="input-group">
-                        <input id="txt_keyword" type="text" class="form-control" placeholder="仓库" style="width: 200px;">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="仓库名称" style="width: 200px;">
                         <span class="input-group-btn">
                             <button id="btn_search" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
                         </span>

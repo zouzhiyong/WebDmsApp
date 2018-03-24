@@ -21,5 +21,6 @@ namespace NFine.MySQLModel
         public Nullable<int> F_SortCode { get; set; }
         public System.DateTime F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }
+        public string F_OrganizeId { get; set; }
     }
 }

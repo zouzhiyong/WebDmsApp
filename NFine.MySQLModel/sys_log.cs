@@ -23,9 +23,10 @@ namespace NFine.MySQLModel
         public string F_IPAddressName { get; set; }
         public string F_ModuleId { get; set; }
         public string F_ModuleName { get; set; }
-        public Nullable<sbyte> F_Result { get; set; }
+        public Nullable<bool> F_Result { get; set; }
         public string F_Description { get; set; }
         public System.DateTime F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }
+        public string F_OrganizeId { get; set; }
     }
 }

@@ -20,11 +20,11 @@ namespace NFine.MySQLModel
         public string F_EnCode { get; set; }
         public string F_FullName { get; set; }
         public string F_Type { get; set; }
-        public Nullable<sbyte> F_AllowEdit { get; set; }
-        public Nullable<sbyte> F_AllowDelete { get; set; }
+        public Nullable<bool> F_AllowEdit { get; set; }
+        public Nullable<bool> F_AllowDelete { get; set; }
         public Nullable<int> F_SortCode { get; set; }
-        public Nullable<sbyte> F_DeleteMark { get; set; }
-        public Nullable<sbyte> F_EnabledMark { get; set; }
+        public Nullable<bool> F_DeleteMark { get; set; }
+        public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }
         public System.DateTime F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }

@@ -15,8 +15,7 @@ namespace NFine.MySQLModel
     public partial class bas_warehouse
     {
         public string F_Id { get; set; }
-        public string F_CorpID { get; set; }
-        public string F_Code { get; set; }
+        public string F_OrganizeId { get; set; }
         public string F_Name { get; set; }
         public string F_Address { get; set; }
         public string F_Contact { get; set; }
@@ -28,11 +27,12 @@ namespace NFine.MySQLModel
         public Nullable<bool> F_DeleteMark { get; set; }
         public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }
-        public System.DateTime F_CreatorTime { get; set; }
+        public Nullable<System.DateTime> F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }
-        public System.DateTime F_LastModifyTime { get; set; }
+        public Nullable<System.DateTime> F_LastModifyTime { get; set; }
         public string F_LastModifyUserId { get; set; }
-        public System.DateTime F_DeleteTime { get; set; }
+        public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
+        public Nullable<int> F_SortCode { get; set; }
     }
 }

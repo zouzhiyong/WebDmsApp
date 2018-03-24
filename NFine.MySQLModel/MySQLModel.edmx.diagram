@@ -5,22 +5,23 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d4665aebef824ae48245bfc60ea78ba3" Name="Diagram1">
-        <EntityTypeShape EntityType="nfinebaseModel.bas_warehouse" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_area" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_dbbackup" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_filterip" Width="1.5" PointX="2.75" PointY="5.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_items" Width="1.5" PointX="4.75" PointY="5.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_itemsdetail" Width="1.5" PointX="6.75" PointY="0.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_log" Width="1.5" PointX="6.75" PointY="6.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_module" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_modulebutton" Width="1.5" PointX="8.75" PointY="6.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_moduleform" Width="1.5" PointX="10.75" PointY="0.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_moduleforminstance" Width="1.5" PointX="0.75" PointY="10.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_organize" Width="1.5" PointX="2.75" PointY="10.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_role" Width="1.5" PointX="10.75" PointY="5.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_roleauthorize" Width="1.5" PointX="4.75" PointY="11.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_user" Width="1.5" PointX="10.75" PointY="11.75" />
-        <EntityTypeShape EntityType="nfinebaseModel.sys_userlogon" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.bas_supplier" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.bas_warehouse" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_area" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_dbbackup" Width="1.5" PointX="4.75" PointY="5.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_filterip" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_items" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_itemsdetail" Width="1.5" PointX="6.75" PointY="5.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_log" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_module" Width="1.5" PointX="8.75" PointY="5.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_modulebutton" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_moduleform" Width="1.5" PointX="10.75" PointY="7.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_moduleforminstance" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_organize" Width="1.5" PointX="2.75" PointY="11.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_role" Width="1.5" PointX="4.75" PointY="11.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_roleauthorize" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_user" Width="1.5" PointX="12.75" PointY="4.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_userlogon" Width="1.5" PointX="6.75" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

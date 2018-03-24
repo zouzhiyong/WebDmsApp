@@ -24,13 +24,13 @@ namespace NFine.MySQLModel
         public Nullable<int> F_Location { get; set; }
         public string F_JsEvent { get; set; }
         public string F_UrlAddress { get; set; }
-        public Nullable<sbyte> F_Split { get; set; }
-        public Nullable<sbyte> F_IsPublic { get; set; }
-        public Nullable<sbyte> F_AllowEdit { get; set; }
-        public Nullable<sbyte> F_AllowDelete { get; set; }
+        public Nullable<bool> F_Split { get; set; }
+        public Nullable<bool> F_IsPublic { get; set; }
+        public Nullable<bool> F_AllowEdit { get; set; }
+        public Nullable<bool> F_AllowDelete { get; set; }
         public Nullable<int> F_SortCode { get; set; }
-        public Nullable<sbyte> F_DeleteMark { get; set; }
-        public Nullable<sbyte> F_EnabledMark { get; set; }
+        public Nullable<bool> F_DeleteMark { get; set; }
+        public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }
         public System.DateTime F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }
@@ -38,5 +38,6 @@ namespace NFine.MySQLModel
         public string F_LastModifyUserId { get; set; }
         public System.DateTime F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
+        public string F_OrganizeId { get; set; }
     }
 }

@@ -13,5 +13,6 @@ namespace NFine.Domain
         string F_Id { get; set; }
         string F_CreatorUserId { get; set; }
         DateTime? F_CreatorTime { get; set; }
+        string F_OrganizeId { get; set; }
     }
 }

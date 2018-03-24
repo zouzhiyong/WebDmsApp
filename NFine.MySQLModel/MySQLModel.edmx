@@ -5,13 +5,40 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="nfinebaseModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bas_supplier">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="F_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="F_HelperCode" Type="varchar" MaxLength="20" />
+          <Property Name="F_SupplierCategoryID" Type="int" />
+          <Property Name="F_Tel" Type="varchar" MaxLength="20" />
+          <Property Name="F_MobilePhone" Type="varchar" MaxLength="20" />
+          <Property Name="F_Fax" Type="varchar" MaxLength="20" />
+          <Property Name="F_Address" Type="varchar" MaxLength="100" />
+          <Property Name="F_PostCode" Type="varchar" MaxLength="10" />
+          <Property Name="F_City" Type="varchar" MaxLength="20" />
+          <Property Name="F_Contact" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="F_EmployeeID" Type="varchar" MaxLength="50" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
+          <Property Name="F_Description" Type="varchar" MaxLength="255" />
+          <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_LastModifyTime" Type="timestamp" Precision="0" />
+          <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_DeleteTime" Type="timestamp" Precision="0" />
+          <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+          <Property Name="F_SortCode" Type="int" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="bas_warehouse">
           <Key>
             <PropertyRef Name="F_Id" />
           </Key>
           <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="F_CorpID" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="F_Code" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="F_Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="F_Address" Type="varchar" MaxLength="100" />
           <Property Name="F_Contact" Type="varchar" MaxLength="20" />
@@ -23,12 +50,13 @@
           <Property Name="F_DeleteMark" Type="bool" />
           <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
-          <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
-          <Property Name="F_LastModifyTime" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="F_LastModifyTime" Type="timestamp" Precision="0" />
           <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
-          <Property Name="F_DeleteTime" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="F_DeleteTime" Type="timestamp" Precision="0" />
           <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+          <Property Name="F_SortCode" Type="int" />
         </EntityType>
         <EntityType Name="sys_area">
           <Key>
@@ -41,8 +69,8 @@
           <Property Name="F_FullName" Type="varchar" MaxLength="50" />
           <Property Name="F_SimpleSpelling" Type="varchar" MaxLength="50" />
           <Property Name="F_SortCode" Type="int" />
-          <Property Name="F_DeleteMark" Type="tinyint" />
-          <Property Name="F_EnabledMark" Type="tinyint" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
@@ -50,6 +78,7 @@
           <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
           <Property Name="F_DeleteTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sys_dbbackup">
           <Key>
@@ -63,8 +92,8 @@
           <Property Name="F_FilePath" Type="varchar" MaxLength="255" />
           <Property Name="F_BackupTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_SortCode" Type="int" />
-          <Property Name="F_DeleteMark" Type="tinyint" />
-          <Property Name="F_EnabledMark" Type="tinyint" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
@@ -72,18 +101,19 @@
           <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
           <Property Name="F_DeleteTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sys_filterip">
           <Key>
             <PropertyRef Name="F_Id" />
           </Key>
           <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="F_Type" Type="tinyint" />
+          <Property Name="F_Type" Type="bool" />
           <Property Name="F_StartIP" Type="varchar" MaxLength="50" />
           <Property Name="F_EndIP" Type="varchar" MaxLength="50" />
           <Property Name="F_SortCode" Type="int" />
-          <Property Name="F_DeleteMark" Type="tinyint" />
-          <Property Name="F_EnabledMark" Type="tinyint" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
@@ -91,6 +121,7 @@
           <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
           <Property Name="F_DeleteTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sys_items">
           <Key>
@@ -100,11 +131,11 @@
           <Property Name="F_ParentId" Type="varchar" MaxLength="50" />
           <Property Name="F_EnCode" Type="varchar" MaxLength="50" />
           <Property Name="F_FullName" Type="varchar" MaxLength="50" />
-          <Property Name="F_IsTree" Type="tinyint" />
+          <Property Name="F_IsTree" Type="bool" />
           <Property Name="F_Layers" Type="int" />
           <Property Name="F_SortCode" Type="int" />
-          <Property Name="F_DeleteMark" Type="tinyint" />
-          <Property Name="F_EnabledMark" Type="tinyint" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
@@ -112,6 +143,7 @@
           <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
           <Property Name="F_DeleteTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sys_itemsdetail">
           <Key>
@@ -123,11 +155,11 @@
           <Property Name="F_ItemCode" Type="varchar" MaxLength="50" />
           <Property Name="F_ItemName" Type="varchar" MaxLength="50" />
           <Property Name="F_SimpleSpelling" Type="varchar" MaxLength="255" />
-          <Property Name="F_IsDefault" Type="tinyint" />
+          <Property Name="F_IsDefault" Type="bool" />
           <Property Name="F_Layers" Type="int" />
           <Property Name="F_SortCode" Type="int" />
-          <Property Name="F_DeleteMark" Type="tinyint" />
-          <Property Name="F_EnabledMark" Type="tinyint" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
@@ -135,6 +167,7 @@
           <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
           <Property Name="F_DeleteTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sys_log">
           <Key>
@@ -149,10 +182,11 @@
           <Property Name="F_IPAddressName" Type="varchar" MaxLength="50" />
           <Property Name="F_ModuleId" Type="varchar" MaxLength="50" />
           <Property Name="F_ModuleName" Type="varchar" MaxLength="50" />
-          <Property Name="F_Result" Type="tinyint" />
+          <Property Name="F_Result" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sys_module">
           <Key>
@@ -166,14 +200,14 @@
           <Property Name="F_Icon" Type="varchar" MaxLength="50" />
           <Property Name="F_UrlAddress" Type="varchar" MaxLength="255" />
           <Property Name="F_Target" Type="varchar" MaxLength="50" />
-          <Property Name="F_IsMenu" Type="tinyint" />
-          <Property Name="F_IsExpand" Type="tinyint" />
-          <Property Name="F_IsPublic" Type="tinyint" />
-          <Property Name="F_AllowEdit" Type="tinyint" />
-          <Property Name="F_AllowDelete" Type="tinyint" />
+          <Property Name="F_IsMenu" Type="bool" />
+          <Property Name="F_IsExpand" Type="bool" />
+          <Property Name="F_IsPublic" Type="bool" />
+          <Property Name="F_AllowEdit" Type="bool" />
+          <Property Name="F_AllowDelete" Type="bool" />
           <Property Name="F_SortCode" Type="int" />
-          <Property Name="F_DeleteMark" Type="tinyint" />
-          <Property Name="F_EnabledMark" Type="tinyint" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
@@ -181,6 +215,7 @@
           <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
           <Property Name="F_DeleteTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sys_modulebutton">
           <Key>
@@ -196,13 +231,13 @@
           <Property Name="F_Location" Type="int" />
           <Property Name="F_JsEvent" Type="varchar" MaxLength="50" />
           <Property Name="F_UrlAddress" Type="varchar" MaxLength="255" />
-          <Property Name="F_Split" Type="tinyint" />
-          <Property Name="F_IsPublic" Type="tinyint" />
-          <Property Name="F_AllowEdit" Type="tinyint" />
-          <Property Name="F_AllowDelete" Type="tinyint" />
+          <Property Name="F_Split" Type="bool" />
+          <Property Name="F_IsPublic" Type="bool" />
+          <Property Name="F_AllowEdit" Type="bool" />
+          <Property Name="F_AllowDelete" Type="bool" />
           <Property Name="F_SortCode" Type="int" />
-          <Property Name="F_DeleteMark" Type="tinyint" />
-          <Property Name="F_EnabledMark" Type="tinyint" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
@@ -210,6 +245,7 @@
           <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
           <Property Name="F_DeleteTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sys_moduleform">
           <Key>
@@ -221,8 +257,8 @@
           <Property Name="F_FullName" Type="varchar" MaxLength="50" />
           <Property Name="F_FormJson" Type="longtext" />
           <Property Name="F_SortCode" Type="int" />
-          <Property Name="F_DeleteMark" Type="tinyint" />
-          <Property Name="F_EnabledMark" Type="tinyint" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
@@ -230,6 +266,7 @@
           <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
           <Property Name="F_DeleteTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sys_moduleforminstance">
           <Key>
@@ -242,6 +279,7 @@
           <Property Name="F_SortCode" Type="int" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sys_organize">
           <Key>
@@ -262,11 +300,11 @@
           <Property Name="F_Email" Type="varchar" MaxLength="50" />
           <Property Name="F_AreaId" Type="varchar" MaxLength="50" />
           <Property Name="F_Address" Type="varchar" MaxLength="255" />
-          <Property Name="F_AllowEdit" Type="tinyint" />
-          <Property Name="F_AllowDelete" Type="tinyint" />
+          <Property Name="F_AllowEdit" Type="bool" />
+          <Property Name="F_AllowDelete" Type="bool" />
           <Property Name="F_SortCode" Type="int" />
-          <Property Name="F_DeleteMark" Type="tinyint" />
-          <Property Name="F_EnabledMark" Type="tinyint" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
@@ -274,6 +312,7 @@
           <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
           <Property Name="F_DeleteTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sys_role">
           <Key>
@@ -285,11 +324,11 @@
           <Property Name="F_EnCode" Type="varchar" MaxLength="50" />
           <Property Name="F_FullName" Type="varchar" MaxLength="50" />
           <Property Name="F_Type" Type="varchar" MaxLength="50" />
-          <Property Name="F_AllowEdit" Type="tinyint" />
-          <Property Name="F_AllowDelete" Type="tinyint" />
+          <Property Name="F_AllowEdit" Type="bool" />
+          <Property Name="F_AllowDelete" Type="bool" />
           <Property Name="F_SortCode" Type="int" />
-          <Property Name="F_DeleteMark" Type="tinyint" />
-          <Property Name="F_EnabledMark" Type="tinyint" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
@@ -310,6 +349,7 @@
           <Property Name="F_SortCode" Type="int" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="sys_user">
           <Key>
@@ -360,16 +400,17 @@
           <Property Name="F_PreviousVisitTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_LastVisitTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_ChangePasswordDate" Type="timestamp" Precision="0" Nullable="false" />
-          <Property Name="F_MultiUserLogin" Type="tinyint" />
+          <Property Name="F_MultiUserLogin" Type="bool" />
           <Property Name="F_LogOnCount" Type="int" />
-          <Property Name="F_UserOnLine" Type="tinyint" />
+          <Property Name="F_UserOnLine" Type="bool" />
           <Property Name="F_Question" Type="varchar" MaxLength="50" />
           <Property Name="F_AnswerQuestion" Type="varchar" MaxLength="255" />
-          <Property Name="F_CheckIPAddress" Type="tinyint" />
+          <Property Name="F_CheckIPAddress" Type="bool" />
           <Property Name="F_Language" Type="varchar" MaxLength="50" />
           <Property Name="F_Theme" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="nfinebaseModelStoreContainer">
+          <EntitySet Name="bas_supplier" EntityType="Self.bas_supplier" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="bas_warehouse" EntityType="Self.bas_warehouse" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="sys_area" EntityType="Self.sys_area" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="sys_dbbackup" EntityType="Self.sys_dbbackup" Schema="nfinebase" store:Type="Tables" />
@@ -392,6 +433,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="nfinebaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="nfinebaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bas_supplier" EntityType="nfinebaseModel.bas_supplier" />
           <EntitySet Name="bas_warehouse" EntityType="nfinebaseModel.bas_warehouse" />
           <EntitySet Name="sys_area" EntityType="nfinebaseModel.sys_area" />
           <EntitySet Name="sys_dbbackup" EntityType="nfinebaseModel.sys_dbbackup" />
@@ -409,13 +451,40 @@
           <EntitySet Name="sys_user" EntityType="nfinebaseModel.sys_user" />
           <EntitySet Name="sys_userlogon" EntityType="nfinebaseModel.sys_userlogon" />
         </EntityContainer>
+        <EntityType Name="bas_supplier">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_HelperCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_SupplierCategoryID" Type="Int32" />
+          <Property Name="F_Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_MobilePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="F_PostCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="F_City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_Contact" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_EmployeeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
+          <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_CreatorTime" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_LastModifyTime" Type="DateTime" />
+          <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_DeleteTime" Type="DateTime" />
+          <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_SortCode" Type="Int32" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="bas_warehouse">
           <Key>
             <PropertyRef Name="F_Id" />
           </Key>
           <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="F_CorpID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="F_Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="F_Contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -427,12 +496,13 @@
           <Property Name="F_DeleteMark" Type="Boolean" />
           <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="F_CreatorTime" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="F_LastModifyTime" Type="DateTime" Nullable="false" />
+          <Property Name="F_LastModifyTime" Type="DateTime" />
           <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="F_DeleteTime" Type="DateTime" Nullable="false" />
+          <Property Name="F_DeleteTime" Type="DateTime" />
           <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_SortCode" Type="Int32" />
         </EntityType>
         <EntityType Name="sys_area">
           <Key>
@@ -445,8 +515,8 @@
           <Property Name="F_FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_SimpleSpelling" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_SortCode" Type="Int32" />
-          <Property Name="F_DeleteMark" Type="SByte" />
-          <Property Name="F_EnabledMark" Type="SByte" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -454,6 +524,7 @@
           <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_DeleteTime" Type="DateTime" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_dbbackup">
           <Key>
@@ -467,8 +538,8 @@
           <Property Name="F_FilePath" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_BackupTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_SortCode" Type="Int32" />
-          <Property Name="F_DeleteMark" Type="SByte" />
-          <Property Name="F_EnabledMark" Type="SByte" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -476,18 +547,19 @@
           <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_DeleteTime" Type="DateTime" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_filterip">
           <Key>
             <PropertyRef Name="F_Id" />
           </Key>
           <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="F_Type" Type="SByte" />
+          <Property Name="F_Type" Type="Boolean" />
           <Property Name="F_StartIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_EndIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_SortCode" Type="Int32" />
-          <Property Name="F_DeleteMark" Type="SByte" />
-          <Property Name="F_EnabledMark" Type="SByte" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -495,6 +567,7 @@
           <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_DeleteTime" Type="DateTime" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_items">
           <Key>
@@ -504,11 +577,11 @@
           <Property Name="F_ParentId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_EnCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="F_IsTree" Type="SByte" />
+          <Property Name="F_IsTree" Type="Boolean" />
           <Property Name="F_Layers" Type="Int32" />
           <Property Name="F_SortCode" Type="Int32" />
-          <Property Name="F_DeleteMark" Type="SByte" />
-          <Property Name="F_EnabledMark" Type="SByte" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -516,6 +589,7 @@
           <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_DeleteTime" Type="DateTime" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_itemsdetail">
           <Key>
@@ -527,11 +601,11 @@
           <Property Name="F_ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_SimpleSpelling" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="F_IsDefault" Type="SByte" />
+          <Property Name="F_IsDefault" Type="Boolean" />
           <Property Name="F_Layers" Type="Int32" />
           <Property Name="F_SortCode" Type="Int32" />
-          <Property Name="F_DeleteMark" Type="SByte" />
-          <Property Name="F_EnabledMark" Type="SByte" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -539,6 +613,7 @@
           <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_DeleteTime" Type="DateTime" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_log">
           <Key>
@@ -553,10 +628,11 @@
           <Property Name="F_IPAddressName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_ModuleId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_ModuleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="F_Result" Type="SByte" />
+          <Property Name="F_Result" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_module">
           <Key>
@@ -570,14 +646,14 @@
           <Property Name="F_Icon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_UrlAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_Target" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="F_IsMenu" Type="SByte" />
-          <Property Name="F_IsExpand" Type="SByte" />
-          <Property Name="F_IsPublic" Type="SByte" />
-          <Property Name="F_AllowEdit" Type="SByte" />
-          <Property Name="F_AllowDelete" Type="SByte" />
+          <Property Name="F_IsMenu" Type="Boolean" />
+          <Property Name="F_IsExpand" Type="Boolean" />
+          <Property Name="F_IsPublic" Type="Boolean" />
+          <Property Name="F_AllowEdit" Type="Boolean" />
+          <Property Name="F_AllowDelete" Type="Boolean" />
           <Property Name="F_SortCode" Type="Int32" />
-          <Property Name="F_DeleteMark" Type="SByte" />
-          <Property Name="F_EnabledMark" Type="SByte" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -585,6 +661,7 @@
           <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_DeleteTime" Type="DateTime" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_modulebutton">
           <Key>
@@ -600,13 +677,13 @@
           <Property Name="F_Location" Type="Int32" />
           <Property Name="F_JsEvent" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_UrlAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="F_Split" Type="SByte" />
-          <Property Name="F_IsPublic" Type="SByte" />
-          <Property Name="F_AllowEdit" Type="SByte" />
-          <Property Name="F_AllowDelete" Type="SByte" />
+          <Property Name="F_Split" Type="Boolean" />
+          <Property Name="F_IsPublic" Type="Boolean" />
+          <Property Name="F_AllowEdit" Type="Boolean" />
+          <Property Name="F_AllowDelete" Type="Boolean" />
           <Property Name="F_SortCode" Type="Int32" />
-          <Property Name="F_DeleteMark" Type="SByte" />
-          <Property Name="F_EnabledMark" Type="SByte" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -614,6 +691,7 @@
           <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_DeleteTime" Type="DateTime" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_moduleform">
           <Key>
@@ -625,8 +703,8 @@
           <Property Name="F_FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_FormJson" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="F_SortCode" Type="Int32" />
-          <Property Name="F_DeleteMark" Type="SByte" />
-          <Property Name="F_EnabledMark" Type="SByte" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -634,6 +712,7 @@
           <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_DeleteTime" Type="DateTime" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_moduleforminstance">
           <Key>
@@ -646,6 +725,7 @@
           <Property Name="F_SortCode" Type="Int32" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_organize">
           <Key>
@@ -666,11 +746,11 @@
           <Property Name="F_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_AreaId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="F_AllowEdit" Type="SByte" />
-          <Property Name="F_AllowDelete" Type="SByte" />
+          <Property Name="F_AllowEdit" Type="Boolean" />
+          <Property Name="F_AllowDelete" Type="Boolean" />
           <Property Name="F_SortCode" Type="Int32" />
-          <Property Name="F_DeleteMark" Type="SByte" />
-          <Property Name="F_EnabledMark" Type="SByte" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -678,6 +758,7 @@
           <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_DeleteTime" Type="DateTime" Nullable="false" />
           <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_role">
           <Key>
@@ -689,11 +770,11 @@
           <Property Name="F_EnCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="F_AllowEdit" Type="SByte" />
-          <Property Name="F_AllowDelete" Type="SByte" />
+          <Property Name="F_AllowEdit" Type="Boolean" />
+          <Property Name="F_AllowDelete" Type="Boolean" />
           <Property Name="F_SortCode" Type="Int32" />
-          <Property Name="F_DeleteMark" Type="SByte" />
-          <Property Name="F_EnabledMark" Type="SByte" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -714,6 +795,7 @@
           <Property Name="F_SortCode" Type="Int32" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="sys_user">
           <Key>
@@ -764,12 +846,12 @@
           <Property Name="F_PreviousVisitTime" Type="DateTime" Nullable="false" />
           <Property Name="F_LastVisitTime" Type="DateTime" Nullable="false" />
           <Property Name="F_ChangePasswordDate" Type="DateTime" Nullable="false" />
-          <Property Name="F_MultiUserLogin" Type="SByte" />
+          <Property Name="F_MultiUserLogin" Type="Boolean" />
           <Property Name="F_LogOnCount" Type="Int32" />
-          <Property Name="F_UserOnLine" Type="SByte" />
+          <Property Name="F_UserOnLine" Type="Boolean" />
           <Property Name="F_Question" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_AnswerQuestion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="F_CheckIPAddress" Type="SByte" />
+          <Property Name="F_CheckIPAddress" Type="Boolean" />
           <Property Name="F_Language" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_Theme" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -779,9 +861,39 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="nfinebaseModelStoreContainer" CdmEntityContainer="nfinebaseEntities">
+          <EntitySetMapping Name="bas_supplier">
+            <EntityTypeMapping TypeName="nfinebaseModel.bas_supplier">
+              <MappingFragment StoreEntitySet="bas_supplier">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
+                <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+                <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
+                <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
+                <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
+                <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
+                <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+                <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+                <ScalarProperty Name="F_Description" ColumnName="F_Description" />
+                <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
+                <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+                <ScalarProperty Name="F_EmployeeID" ColumnName="F_EmployeeID" />
+                <ScalarProperty Name="F_Contact" ColumnName="F_Contact" />
+                <ScalarProperty Name="F_City" ColumnName="F_City" />
+                <ScalarProperty Name="F_PostCode" ColumnName="F_PostCode" />
+                <ScalarProperty Name="F_Address" ColumnName="F_Address" />
+                <ScalarProperty Name="F_Fax" ColumnName="F_Fax" />
+                <ScalarProperty Name="F_MobilePhone" ColumnName="F_MobilePhone" />
+                <ScalarProperty Name="F_Tel" ColumnName="F_Tel" />
+                <ScalarProperty Name="F_SupplierCategoryID" ColumnName="F_SupplierCategoryID" />
+                <ScalarProperty Name="F_HelperCode" ColumnName="F_HelperCode" />
+                <ScalarProperty Name="F_Name" ColumnName="F_Name" />
+                <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="bas_warehouse">
             <EntityTypeMapping TypeName="nfinebaseModel.bas_warehouse">
               <MappingFragment StoreEntitySet="bas_warehouse">
+                <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
                 <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
                 <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
                 <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -799,8 +911,7 @@
                 <ScalarProperty Name="F_Contact" ColumnName="F_Contact" />
                 <ScalarProperty Name="F_Address" ColumnName="F_Address" />
                 <ScalarProperty Name="F_Name" ColumnName="F_Name" />
-                <ScalarProperty Name="F_Code" ColumnName="F_Code" />
-                <ScalarProperty Name="F_CorpID" ColumnName="F_CorpID" />
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_Id" ColumnName="F_Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -808,6 +919,7 @@
           <EntitySetMapping Name="sys_area">
             <EntityTypeMapping TypeName="nfinebaseModel.sys_area">
               <MappingFragment StoreEntitySet="sys_area">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
                 <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
                 <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -830,6 +942,7 @@
           <EntitySetMapping Name="sys_dbbackup">
             <EntityTypeMapping TypeName="nfinebaseModel.sys_dbbackup">
               <MappingFragment StoreEntitySet="sys_dbbackup">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
                 <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
                 <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -853,6 +966,7 @@
           <EntitySetMapping Name="sys_filterip">
             <EntityTypeMapping TypeName="nfinebaseModel.sys_filterip">
               <MappingFragment StoreEntitySet="sys_filterip">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
                 <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
                 <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -873,6 +987,7 @@
           <EntitySetMapping Name="sys_items">
             <EntityTypeMapping TypeName="nfinebaseModel.sys_items">
               <MappingFragment StoreEntitySet="sys_items">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
                 <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
                 <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -895,6 +1010,7 @@
           <EntitySetMapping Name="sys_itemsdetail">
             <EntityTypeMapping TypeName="nfinebaseModel.sys_itemsdetail">
               <MappingFragment StoreEntitySet="sys_itemsdetail">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
                 <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
                 <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -919,6 +1035,7 @@
           <EntitySetMapping Name="sys_log">
             <EntityTypeMapping TypeName="nfinebaseModel.sys_log">
               <MappingFragment StoreEntitySet="sys_log">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
                 <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
                 <ScalarProperty Name="F_Description" ColumnName="F_Description" />
@@ -938,6 +1055,7 @@
           <EntitySetMapping Name="sys_module">
             <EntityTypeMapping TypeName="nfinebaseModel.sys_module">
               <MappingFragment StoreEntitySet="sys_module">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
                 <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
                 <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -967,6 +1085,7 @@
           <EntitySetMapping Name="sys_modulebutton">
             <EntityTypeMapping TypeName="nfinebaseModel.sys_modulebutton">
               <MappingFragment StoreEntitySet="sys_modulebutton">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
                 <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
                 <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -997,6 +1116,7 @@
           <EntitySetMapping Name="sys_moduleform">
             <EntityTypeMapping TypeName="nfinebaseModel.sys_moduleform">
               <MappingFragment StoreEntitySet="sys_moduleform">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
                 <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
                 <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -1018,6 +1138,7 @@
           <EntitySetMapping Name="sys_moduleforminstance">
             <EntityTypeMapping TypeName="nfinebaseModel.sys_moduleforminstance">
               <MappingFragment StoreEntitySet="sys_moduleforminstance">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
                 <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
                 <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
@@ -1031,6 +1152,7 @@
           <EntitySetMapping Name="sys_organize">
             <EntityTypeMapping TypeName="nfinebaseModel.sys_organize">
               <MappingFragment StoreEntitySet="sys_organize">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
                 <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
                 <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -1088,6 +1210,7 @@
           <EntitySetMapping Name="sys_roleauthorize">
             <EntityTypeMapping TypeName="nfinebaseModel.sys_roleauthorize">
               <MappingFragment StoreEntitySet="sys_roleauthorize">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
                 <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
                 <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />

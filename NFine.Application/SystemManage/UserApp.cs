@@ -10,6 +10,7 @@ using NFine.Domain.IRepository.SystemManage;
 using NFine.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NFine.Application.SystemManage
 {
@@ -17,6 +18,22 @@ namespace NFine.Application.SystemManage
     {
         private IUserRepository service = new UserRepository();
         private UserLogOnApp userLogOnApp = new UserLogOnApp();
+
+        public List<UserEntity> GetList(string keyword = "")
+        {
+            var expression = ExtLinq.True<UserEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.F_Account.Contains(keyword));
+                expression = expression.Or(t => t.F_RealName.Contains(keyword));
+                expression = expression.Or(t => t.F_MobilePhone.Contains(keyword));
+            }
+
+            string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+            expression = expression.And(t => t.F_OrganizeId == CompanyId);
+
+            return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+        }
 
         public List<UserEntity> GetList(Pagination pagination, string keyword)
         {

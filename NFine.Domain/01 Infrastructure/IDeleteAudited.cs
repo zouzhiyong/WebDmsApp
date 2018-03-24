@@ -23,6 +23,10 @@ namespace NFine.Domain
         /// <summary>
         /// 删除实体时间
         /// </summary>
-        DateTime? F_DeleteTime { get; set; } 
+        DateTime? F_DeleteTime { get; set; }
+        /// <summary>
+        /// 删除实体机构
+        /// </summary>
+        string F_OrganizeId { get; set; }
     }
 }
