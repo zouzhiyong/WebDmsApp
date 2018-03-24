@@ -30,3 +30,4 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Code\bin\Debug\NPOI.OOXML.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Code\bin\Debug\NPOI.OpenXml4Net.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Code\obj\Debug\NFine.Code.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Code\obj\Debug\NFine.Code.pdb
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Code\obj\Debug\NFine.Code.csprojResolveAssemblyReference.cache
