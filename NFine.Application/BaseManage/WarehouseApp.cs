@@ -5,35 +5,33 @@
  * Website：http://www.nfine.cn
 *********************************************************************************/
 using NFine.Code;
-using NFine.Domain.Entity.SystemManage;
-using NFine.Domain.IRepository.SystemManage;
-using NFine.Repository.SystemManage;
+using NFine.Domain.Entity.BaseManage;
+using NFine.Domain.IRepository.BaseManage;
 using System.Collections.Generic;
 using System.Linq;
+using NFine.Repository.BaseManage;
 
 namespace NFine.Application.BaseManage
 {
     public class WarehouseApp
     {
-        private IRoleRepository service = new RoleRepository();
+        private IWarehouseRepository service = new WarehouseRepository();
 
-        public List<RoleEntity> GetList(string keyword = "")
+        public List<WarehouseEntity> GetList(Pagination pagination, string keyword)
         {
-            var expression = ExtLinq.True<RoleEntity>();
+            var expression = ExtLinq.True<WarehouseEntity>();
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.F_FullName.Contains(keyword));
-                expression = expression.Or(t => t.F_EnCode.Contains(keyword));
+                expression = expression.And(t => t.F_Name.Contains(keyword));
             }
-            expression = expression.And(t => t.F_Category == 2);
             if (!OperatorProvider.Provider.GetCurrent().IsSystem)
             {
                 string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_OrganizeId == CompanyId);
+                expression = expression.And(t => t.F_CorpID == CompanyId);
             }
-            return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+            return service.FindList(expression, pagination);
         }
-        public RoleEntity GetForm(string keyValue)
+        public WarehouseEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
         }
@@ -41,18 +39,17 @@ namespace NFine.Application.BaseManage
         {
             service.Delete(t => t.F_Id == keyValue);
         }
-        public void SubmitForm(RoleEntity roleEntity, string keyValue)
+        public void SubmitForm(WarehouseEntity WarehouseEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {
-                roleEntity.Modify(keyValue);
-                service.Update(roleEntity);
+                WarehouseEntity.Modify(keyValue);
+                service.Update(WarehouseEntity);
             }
             else
             {
-                roleEntity.Create();
-                roleEntity.F_Category = 2;
-                service.Insert(roleEntity);
+                WarehouseEntity.Create();
+                service.Insert(WarehouseEntity);
             }
         }
     }

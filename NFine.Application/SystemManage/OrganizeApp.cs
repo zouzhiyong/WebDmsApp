@@ -40,7 +40,15 @@ namespace NFine.Application.SystemManage
 
         public List<OrganizeEntity> GetList()
         {
-            return service.IQueryable().OrderBy(t => t.F_CreatorTime).ToList();
+            if (OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                return service.IQueryable().OrderBy(t => t.F_CreatorTime).ToList();
+            }
+            else
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                return service.IQueryable(t => t.F_Id == CompanyId || t.F_ParentId == CompanyId).OrderBy(t => t.F_CreatorTime).ToList();
+            } 
         }
 
         public OrganizeEntity GetForm(string keyValue)

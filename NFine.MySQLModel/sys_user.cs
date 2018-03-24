@@ -19,7 +19,7 @@ namespace NFine.MySQLModel
         public string F_RealName { get; set; }
         public string F_NickName { get; set; }
         public string F_HeadIcon { get; set; }
-        public Nullable<sbyte> F_Gender { get; set; }
+        public Nullable<bool> F_Gender { get; set; }
         public System.DateTime F_Birthday { get; set; }
         public string F_MobilePhone { get; set; }
         public string F_Email { get; set; }
@@ -31,10 +31,10 @@ namespace NFine.MySQLModel
         public string F_DepartmentId { get; set; }
         public string F_RoleId { get; set; }
         public string F_DutyId { get; set; }
-        public Nullable<sbyte> F_IsAdministrator { get; set; }
+        public Nullable<bool> F_IsAdministrator { get; set; }
         public Nullable<int> F_SortCode { get; set; }
-        public Nullable<sbyte> F_DeleteMark { get; set; }
-        public Nullable<sbyte> F_EnabledMark { get; set; }
+        public Nullable<bool> F_DeleteMark { get; set; }
+        public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }
         public System.DateTime F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }

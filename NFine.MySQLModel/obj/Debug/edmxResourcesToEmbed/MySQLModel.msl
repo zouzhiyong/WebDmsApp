@@ -16,7 +16,7 @@
           <ScalarProperty Name="F_IsRequireShipment" ColumnName="F_IsRequireShipment" />
           <ScalarProperty Name="F_IsRequireReceive" ColumnName="F_IsRequireReceive" />
           <ScalarProperty Name="F_IsBin" ColumnName="F_IsBin" />
-          <ScalarProperty Name="F_Phone" ColumnName="F_Phone" />
+          <ScalarProperty Name="F_MobilePhone" ColumnName="F_MobilePhone" />
           <ScalarProperty Name="F_Tel" ColumnName="F_Tel" />
           <ScalarProperty Name="F_Contact" ColumnName="F_Contact" />
           <ScalarProperty Name="F_Address" ColumnName="F_Address" />

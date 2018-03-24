@@ -17,10 +17,10 @@ namespace NFine.Domain.Entity.BaseManage
         public string F_Address { get; set; }
         public string F_Contact { get; set; }
         public string F_Tel { get; set; }
-        public string F_Phone { get; set; }
-        public long F_IsBin { get; set; }
-        public long F_IsRequireReceive { get; set; }
-        public long F_IsRequireShipment { get; set; }
+        public string F_MobilePhone { get; set; }
+        public bool? F_IsBin { get; set; }
+        public bool? F_IsRequireReceive { get; set; }
+        public bool? F_IsRequireShipment { get; set; }
         public bool? F_DeleteMark { get; set; }
         public bool? F_EnabledMark { get; set; }
         public string F_Description { get; set; }
@@ -30,5 +30,6 @@ namespace NFine.Domain.Entity.BaseManage
         public string F_LastModifyUserId { get; set; }
         public System.DateTime? F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
+        public int? F_SortCode { get; set; }
     }
 }

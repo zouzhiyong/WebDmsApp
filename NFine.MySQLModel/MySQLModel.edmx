@@ -10,18 +10,18 @@
             <PropertyRef Name="F_Id" />
           </Key>
           <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="F_CorpID" Type="int" Nullable="false" />
+          <Property Name="F_CorpID" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="F_Code" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="F_Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="F_Address" Type="varchar" MaxLength="100" />
           <Property Name="F_Contact" Type="varchar" MaxLength="20" />
           <Property Name="F_Tel" Type="varchar" MaxLength="20" />
-          <Property Name="F_Phone" Type="varchar" MaxLength="20" />
-          <Property Name="F_IsBin" Type="uint" Nullable="false" />
-          <Property Name="F_IsRequireReceive" Type="uint" Nullable="false" />
-          <Property Name="F_IsRequireShipment" Type="uint" Nullable="false" />
-          <Property Name="F_DeleteMark" Type="tinyint" />
-          <Property Name="F_EnabledMark" Type="tinyint" />
+          <Property Name="F_MobilePhone" Type="varchar" MaxLength="20" />
+          <Property Name="F_IsBin" Type="bool" />
+          <Property Name="F_IsRequireReceive" Type="bool" />
+          <Property Name="F_IsRequireShipment" Type="bool" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
@@ -320,7 +320,7 @@
           <Property Name="F_RealName" Type="varchar" MaxLength="50" />
           <Property Name="F_NickName" Type="varchar" MaxLength="50" />
           <Property Name="F_HeadIcon" Type="varchar" MaxLength="50" />
-          <Property Name="F_Gender" Type="tinyint" />
+          <Property Name="F_Gender" Type="bool" />
           <Property Name="F_Birthday" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="F_MobilePhone" Type="varchar" MaxLength="20" />
           <Property Name="F_Email" Type="varchar" MaxLength="50" />
@@ -332,10 +332,10 @@
           <Property Name="F_DepartmentId" Type="varchar" MaxLength="255" />
           <Property Name="F_RoleId" Type="varchar" MaxLength="255" />
           <Property Name="F_DutyId" Type="varchar" MaxLength="255" />
-          <Property Name="F_IsAdministrator" Type="tinyint" />
+          <Property Name="F_IsAdministrator" Type="bool" />
           <Property Name="F_SortCode" Type="int" />
-          <Property Name="F_DeleteMark" Type="tinyint" />
-          <Property Name="F_EnabledMark" Type="tinyint" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
           <Property Name="F_CreatorTime" Type="timestamp" Precision="0" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
@@ -414,18 +414,18 @@
             <PropertyRef Name="F_Id" />
           </Key>
           <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="F_CorpID" Type="Int32" Nullable="false" />
+          <Property Name="F_CorpID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="F_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="F_Contact" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="F_Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="F_Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="F_IsBin" Type="Int64" Nullable="false" />
-          <Property Name="F_IsRequireReceive" Type="Int64" Nullable="false" />
-          <Property Name="F_IsRequireShipment" Type="Int64" Nullable="false" />
-          <Property Name="F_DeleteMark" Type="SByte" />
-          <Property Name="F_EnabledMark" Type="SByte" />
+          <Property Name="F_MobilePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_IsBin" Type="Boolean" />
+          <Property Name="F_IsRequireReceive" Type="Boolean" />
+          <Property Name="F_IsRequireShipment" Type="Boolean" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -724,7 +724,7 @@
           <Property Name="F_RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_NickName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_HeadIcon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="F_Gender" Type="SByte" />
+          <Property Name="F_Gender" Type="Boolean" />
           <Property Name="F_Birthday" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="F_MobilePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="F_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -736,10 +736,10 @@
           <Property Name="F_DepartmentId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_RoleId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_DutyId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="F_IsAdministrator" Type="SByte" />
+          <Property Name="F_IsAdministrator" Type="Boolean" />
           <Property Name="F_SortCode" Type="Int32" />
-          <Property Name="F_DeleteMark" Type="SByte" />
-          <Property Name="F_EnabledMark" Type="SByte" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="F_CreatorTime" Type="DateTime" Nullable="false" />
           <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -773,7 +773,7 @@
           <Property Name="F_Language" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_Theme" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -794,7 +794,7 @@
                 <ScalarProperty Name="F_IsRequireShipment" ColumnName="F_IsRequireShipment" />
                 <ScalarProperty Name="F_IsRequireReceive" ColumnName="F_IsRequireReceive" />
                 <ScalarProperty Name="F_IsBin" ColumnName="F_IsBin" />
-                <ScalarProperty Name="F_Phone" ColumnName="F_Phone" />
+                <ScalarProperty Name="F_MobilePhone" ColumnName="F_MobilePhone" />
                 <ScalarProperty Name="F_Tel" ColumnName="F_Tel" />
                 <ScalarProperty Name="F_Contact" ColumnName="F_Contact" />
                 <ScalarProperty Name="F_Address" ColumnName="F_Address" />
@@ -1177,6 +1177,7 @@
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+        <DesignerProperty Name="DDLGenerationTemplate" Value="$(VSEFTools)\DBGen\SSDLToMySQL.tt" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

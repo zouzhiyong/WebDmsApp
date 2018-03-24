@@ -15,18 +15,18 @@ namespace NFine.MySQLModel
     public partial class bas_warehouse
     {
         public string F_Id { get; set; }
-        public int F_CorpID { get; set; }
+        public string F_CorpID { get; set; }
         public string F_Code { get; set; }
         public string F_Name { get; set; }
         public string F_Address { get; set; }
         public string F_Contact { get; set; }
         public string F_Tel { get; set; }
-        public string F_Phone { get; set; }
-        public long F_IsBin { get; set; }
-        public long F_IsRequireReceive { get; set; }
-        public long F_IsRequireShipment { get; set; }
-        public Nullable<sbyte> F_DeleteMark { get; set; }
-        public Nullable<sbyte> F_EnabledMark { get; set; }
+        public string F_MobilePhone { get; set; }
+        public Nullable<bool> F_IsBin { get; set; }
+        public Nullable<bool> F_IsRequireReceive { get; set; }
+        public Nullable<bool> F_IsRequireShipment { get; set; }
+        public Nullable<bool> F_DeleteMark { get; set; }
+        public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }
         public System.DateTime F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }
