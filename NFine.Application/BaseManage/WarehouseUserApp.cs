@@ -22,29 +22,22 @@ namespace NFine.Application.BaseManage
         private IWarehouseUserRepository service = new WarehouseUserRepository();
         private UserApp userApp = new UserApp();
 
-        public List<WarehouseUserEntity> GetList(string ObjectId)
+        public List<WarehouseUserEntity> GetList(string keyword = "")
         {
-            return service.IQueryable(t => t.F_WarehouseId == ObjectId).ToList();
+            return service.IQueryable(t => t.F_WarehouseId == keyword).ToList();
         }
         public List<UserEntity> GetUserList(string warehouseId)
         {
             var data = new List<UserEntity>();
             string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-            if (OperatorProvider.Provider.GetCurrent().IsSystem)
+            var userdata = userApp.GetList();
+            var warehouseuserdata = service.IQueryable(t => t.F_WarehouseId == warehouseId && t.F_OrganizeId == CompanyId).ToList();
+            foreach (var item in warehouseuserdata)
             {
-                data = userApp.GetList();
-            }
-            else
-            {
-                var userdata = userApp.GetList();
-                var warehouseuserdata = service.IQueryable(t => t.F_WarehouseId == warehouseId && t.F_OrganizeId == CompanyId).ToList();
-                foreach (var item in warehouseuserdata)
+                UserEntity userEntity = userdata.Find(t => t.F_Id == item.F_UserId);
+                if (userEntity != null)
                 {
-                    UserEntity userEntity = userdata.Find(t => t.F_Id == item.F_UserId);
-                    if (userEntity != null)
-                    {
-                        data.Add(userEntity);
-                    }
+                    data.Add(userEntity);
                 }
             }
             return data.OrderBy(t => t.F_SortCode).ToList();

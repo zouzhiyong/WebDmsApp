@@ -22,6 +22,8 @@
             });
         }
         gridList();
+
+        
     });
 
     function gridList() {
@@ -31,7 +33,6 @@
             postData: { warehouseId: keyValue },
             height: $(window).height() - 128,
             shrinkToFit: false,
-            multiboxonly: true,
             multiselect: true,
             colModel: [
                 { label: '主键', name: 'F_Id', hidden: true },
@@ -62,7 +63,23 @@
                     }
                 }
             ],
-            sortname: 'F_CreatorTime desc'
+            sortname: 'F_CreatorTime desc',
+            loadComplete: function () {
+                //var rows = $gridList.jqGrid('getRowData');  //输出所有匹配的
+                console.log($gridList.jqGrid("getRowData"))
+                //$.ajax({
+                //    url: rootUrl + "/BaseManage/WarehouseUser/GetGridJson",
+                //    data: { keyword: keyValue },
+                //    dataType: "json",
+                //    async: false,
+                //    success: function (data) {                        
+                //        for (var i = 0; i < rows.length; i++) {
+                //            //行数据
+                //            $gridList.jqGrid('setSelection', i);
+                //        }                        
+                //    }
+                //});
+            }
         });
         $("#btn_search").click(function () {
             $gridList.jqGrid('setGridParam', {
