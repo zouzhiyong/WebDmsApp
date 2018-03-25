@@ -2,6 +2,10 @@
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
+<script src="~/Content/js/jqgrid/jqgrid.min.js"></script>
+@*<link href="~/Content/js/jqgrid/jqgrid.css" rel="stylesheet" />*@
+<script src="~/Content/js/jqgrid/grid.locale-cn.js"></script>
+
 <script>
     var keyValue = $.request("keyValue");
     $(function () {
@@ -17,7 +21,54 @@
                 }
             });
         }
+        gridList();
     });
+
+    function gridList() {
+        var $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: rootUrl + "/SystemManage/User/GetGridJson",
+            height: $(window).height() - 128,
+            shrinkToFit: false,
+            multiboxonly: true,
+            multiselect: true,
+            colModel: [
+                { label: '主键', name: 'F_Id', hidden: true },
+                { label: '用户名称', name: 'F_RealName',  align: 'left' },             
+                { label: '手机', name: 'F_MobilePhone', width: 80, align: 'left' },
+                {
+                    label: '公司', name: 'F_OrganizeId',  align: 'left',
+                    formatter: function (cellvalue, options, rowObject) {
+                        return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
+                    }
+                },
+                {
+                    label: '部门', name: 'F_DepartmentId', width: 80, align: 'left',
+                    formatter: function (cellvalue, options, rowObject) {
+                        return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
+                    }
+                },
+                {
+                    label: '岗位', name: 'F_DutyId', width: 80, align: 'left',
+                    formatter: function (cellvalue, options, rowObject) {
+                        return top.clients.duty[cellvalue] == null ? "" : top.clients.duty[cellvalue].fullname;
+                    }
+                },
+                {
+                    label: "有效", name: "F_EnabledMark", width: 60, align: "center",
+                    formatter: function (cellvalue) {
+                        return cellvalue == 1 ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
+                    }
+                }
+            ],
+            sortname: 'F_CreatorTime desc'
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val() },
+            }).trigger('reloadGrid');
+        });
+    }
 
     function initControl() {
         $("#F_OrganizeId").bindSelect({
@@ -73,7 +124,8 @@
                     <tr>
                         <th class="formTitle">公司</th>
                         <td class="formValue">
-                            <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required"></select>
+                            <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required">
+                            </select>
                         </td>
                         <th class="formTitle">仓库地址</th>
                         <td class="formValue">
@@ -107,8 +159,10 @@
                     </tr>
                 </table>
             </div>
-            <div class="tab-pane fade in" id="page2" style="padding-top: 20px; margin-right: 30px;">
-
+            <div class="tab-pane fade in" id="page2" style="padding-top: 10px;">
+                <div class="gridPanel">
+                    <table id="gridList"></table>
+                </div>
             </div>
         </div>
     </div>
