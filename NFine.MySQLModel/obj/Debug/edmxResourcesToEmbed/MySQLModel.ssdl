@@ -53,6 +53,25 @@
     <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
     <Property Name="F_SortCode" Type="int" />
   </EntityType>
+  <EntityType Name="bas_warehouseuser">
+    <Key>
+      <PropertyRef Name="F_Id" />
+    </Key>
+    <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_WarehouseId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_UserId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_DeleteMark" Type="bool" />
+    <Property Name="F_EnabledMark" Type="bool" />
+    <Property Name="F_Description" Type="varchar" MaxLength="255" />
+    <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+    <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_LastModifyTime" Type="timestamp" Precision="0" />
+    <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_DeleteTime" Type="timestamp" Precision="0" />
+    <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+    <Property Name="F_SortCode" Type="int" />
+  </EntityType>
   <EntityType Name="sys_area">
     <Key>
       <PropertyRef Name="F_Id" />
@@ -407,6 +426,7 @@
   <EntityContainer Name="nfinebaseModelStoreContainer">
     <EntitySet Name="bas_supplier" EntityType="Self.bas_supplier" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="bas_warehouse" EntityType="Self.bas_warehouse" Schema="nfinebase" store:Type="Tables" />
+    <EntitySet Name="bas_warehouseuser" EntityType="Self.bas_warehouseuser" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_area" EntityType="Self.sys_area" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_dbbackup" EntityType="Self.sys_dbbackup" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_filterip" EntityType="Self.sys_filterip" Schema="nfinebase" store:Type="Tables" />

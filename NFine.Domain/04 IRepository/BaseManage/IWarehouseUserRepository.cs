@@ -4,15 +4,12 @@
  * Description: NFine快速开发平台
  * Website：http://www.nfine.cn
 *********************************************************************************/
-using System.Collections.Generic;
 using NFine.Data;
 using NFine.Domain.Entity.BaseManage;
 
 namespace NFine.Domain.IRepository.BaseManage
 {
-    public interface IWarehouseRepository : IRepositoryBase<WarehouseEntity>
+    public interface IWarehouseUserRepository : IRepositoryBase<WarehouseUserEntity>
     {
-        void DeleteForm(string keyValue);
-        void SubmitForm(WarehouseEntity warehouseEntity, List<WarehouseUserEntity> warehouseUserEntitys, string keyValue);
     }
 }

@@ -36,9 +36,9 @@ namespace NFine.Web.Areas.BaseManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(WarehouseEntity warehouseEntity, string permissionIds, string keyValue)
+        public ActionResult SubmitForm(WarehouseEntity warehouseEntity, string userIds, string keyValue)
         {
-            warehouseApp.SubmitForm(warehouseEntity, keyValue);
+            warehouseApp.SubmitForm(warehouseEntity, userIds.Split(','), keyValue);
             return Success("操作成功。");
         }
         [HttpPost]

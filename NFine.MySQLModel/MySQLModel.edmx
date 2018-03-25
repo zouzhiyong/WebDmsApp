@@ -58,6 +58,25 @@
           <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
           <Property Name="F_SortCode" Type="int" />
         </EntityType>
+        <EntityType Name="bas_warehouseuser">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="F_WarehouseId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="F_UserId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
+          <Property Name="F_Description" Type="varchar" MaxLength="255" />
+          <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_LastModifyTime" Type="timestamp" Precision="0" />
+          <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_DeleteTime" Type="timestamp" Precision="0" />
+          <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+          <Property Name="F_SortCode" Type="int" />
+        </EntityType>
         <EntityType Name="sys_area">
           <Key>
             <PropertyRef Name="F_Id" />
@@ -412,6 +431,7 @@
         <EntityContainer Name="nfinebaseModelStoreContainer">
           <EntitySet Name="bas_supplier" EntityType="Self.bas_supplier" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="bas_warehouse" EntityType="Self.bas_warehouse" Schema="nfinebase" store:Type="Tables" />
+          <EntitySet Name="bas_warehouseuser" EntityType="Self.bas_warehouseuser" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="sys_area" EntityType="Self.sys_area" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="sys_dbbackup" EntityType="Self.sys_dbbackup" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="sys_filterip" EntityType="Self.sys_filterip" Schema="nfinebase" store:Type="Tables" />
@@ -435,6 +455,7 @@
         <EntityContainer Name="nfinebaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="bas_supplier" EntityType="nfinebaseModel.bas_supplier" />
           <EntitySet Name="bas_warehouse" EntityType="nfinebaseModel.bas_warehouse" />
+          <EntitySet Name="bas_warehouseuser" EntityType="nfinebaseModel.bas_warehouseuser" />
           <EntitySet Name="sys_area" EntityType="nfinebaseModel.sys_area" />
           <EntitySet Name="sys_dbbackup" EntityType="nfinebaseModel.sys_dbbackup" />
           <EntitySet Name="sys_filterip" EntityType="nfinebaseModel.sys_filterip" />
@@ -493,6 +514,25 @@
           <Property Name="F_IsBin" Type="Boolean" />
           <Property Name="F_IsRequireReceive" Type="Boolean" />
           <Property Name="F_IsRequireShipment" Type="Boolean" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
+          <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_CreatorTime" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_LastModifyTime" Type="DateTime" />
+          <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_DeleteTime" Type="DateTime" />
+          <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_SortCode" Type="Int32" />
+        </EntityType>
+        <EntityType Name="bas_warehouseuser">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_WarehouseId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_OrganizeId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_DeleteMark" Type="Boolean" />
           <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -912,6 +952,26 @@
                 <ScalarProperty Name="F_Address" ColumnName="F_Address" />
                 <ScalarProperty Name="F_Name" ColumnName="F_Name" />
                 <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
+                <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bas_warehouseuser">
+            <EntityTypeMapping TypeName="nfinebaseModel.bas_warehouseuser">
+              <MappingFragment StoreEntitySet="bas_warehouseuser">
+                <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+                <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
+                <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
+                <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
+                <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
+                <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+                <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+                <ScalarProperty Name="F_Description" ColumnName="F_Description" />
+                <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
+                <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
+                <ScalarProperty Name="F_UserId" ColumnName="F_UserId" />
+                <ScalarProperty Name="F_WarehouseId" ColumnName="F_WarehouseId" />
                 <ScalarProperty Name="F_Id" ColumnName="F_Id" />
               </MappingFragment>
             </EntityTypeMapping>

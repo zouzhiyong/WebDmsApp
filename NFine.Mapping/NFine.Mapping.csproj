@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseManage\SupplierMap.cs" />
+    <Compile Include="BaseManage\WarehouseUserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseManage\WarehouseMap.cs" />
     <Compile Include="SystemManage\AreaMap.cs" />

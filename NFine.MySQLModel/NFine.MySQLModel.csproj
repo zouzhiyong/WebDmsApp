@@ -76,6 +76,9 @@
     <Compile Include="bas_warehouse.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="bas_warehouseuser.cs">
+      <DependentUpon>MySQLModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="MySQLModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

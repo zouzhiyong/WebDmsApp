@@ -3,6 +3,7 @@
   <EntityContainer Name="nfinebaseEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="bas_supplier" EntityType="nfinebaseModel.bas_supplier" />
     <EntitySet Name="bas_warehouse" EntityType="nfinebaseModel.bas_warehouse" />
+    <EntitySet Name="bas_warehouseuser" EntityType="nfinebaseModel.bas_warehouseuser" />
     <EntitySet Name="sys_area" EntityType="nfinebaseModel.sys_area" />
     <EntitySet Name="sys_dbbackup" EntityType="nfinebaseModel.sys_dbbackup" />
     <EntitySet Name="sys_filterip" EntityType="nfinebaseModel.sys_filterip" />
@@ -61,6 +62,25 @@
     <Property Name="F_IsBin" Type="Boolean" />
     <Property Name="F_IsRequireReceive" Type="Boolean" />
     <Property Name="F_IsRequireShipment" Type="Boolean" />
+    <Property Name="F_DeleteMark" Type="Boolean" />
+    <Property Name="F_EnabledMark" Type="Boolean" />
+    <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="F_CreatorTime" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_LastModifyTime" Type="DateTime" />
+    <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_DeleteTime" Type="DateTime" />
+    <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="F_SortCode" Type="Int32" />
+  </EntityType>
+  <EntityType Name="bas_warehouseuser">
+    <Key>
+      <PropertyRef Name="F_Id" />
+    </Key>
+    <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_WarehouseId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_OrganizeId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_DeleteMark" Type="Boolean" />
     <Property Name="F_EnabledMark" Type="Boolean" />
     <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />

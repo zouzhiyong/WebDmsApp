@@ -10,13 +10,14 @@ using NFine.Domain.IRepository.BaseManage;
 using System.Collections.Generic;
 using System.Linq;
 using NFine.Repository.BaseManage;
+using NFine.Application.SystemManage;
 
 namespace NFine.Application.BaseManage
 {
     public class WarehouseApp
     {
         private IWarehouseRepository service = new WarehouseRepository();
-
+        private UserApp userApp = new UserApp();
         public List<WarehouseEntity> GetList(Pagination pagination, string keyword)
         {
             var expression = ExtLinq.True<WarehouseEntity>();
@@ -39,18 +40,42 @@ namespace NFine.Application.BaseManage
         {
             service.Delete(t => t.F_Id == keyValue);
         }
-        public void SubmitForm(WarehouseEntity WarehouseEntity, string keyValue)
+
+        public void SubmitForm(WarehouseEntity warehouseEntity, string[] userIds, string keyValue)
         {
+            string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
             if (!string.IsNullOrEmpty(keyValue))
             {
-                WarehouseEntity.Modify(keyValue);
-                service.Update(WarehouseEntity);
+                warehouseEntity.F_Id = keyValue;
             }
             else
             {
-                WarehouseEntity.Create();
-                service.Insert(WarehouseEntity);
+                warehouseEntity.F_Id = Common.GuId();
             }
+            var userdata = userApp.GetList();
+            List<WarehouseUserEntity> warehouseUserEntitys = new List<WarehouseUserEntity>();
+            foreach (var itemId in userIds)
+            {
+                WarehouseUserEntity warehouseUserEntity = new WarehouseUserEntity();
+                warehouseUserEntity.F_Id = Common.GuId();
+                warehouseUserEntity.F_WarehouseId = warehouseEntity.F_Id;
+                warehouseUserEntity.F_UserId = itemId;
+                warehouseUserEntity.F_OrganizeId = CompanyId;
+                warehouseUserEntitys.Add(warehouseUserEntity);
+            }
+            service.SubmitForm(warehouseEntity, warehouseUserEntitys, keyValue);
         }
+        //public void SubmitForm(WarehouseEntity WarehouseEntity, string keyValue)
+        //{
+        //    if (!string.IsNullOrEmpty(keyValue))
+        //    {
+        //        WarehouseEntity.Modify(keyValue);
+        //        service.Update(WarehouseEntity);
+        //    }
+        //    else
+        //    {
+        //        WarehouseEntity.Create();
+        //        service.Insert(WarehouseEntity);
+        //    }
     }
 }

@@ -27,6 +27,7 @@ namespace NFine.MySQLModel
     
         public virtual DbSet<bas_supplier> bas_supplier { get; set; }
         public virtual DbSet<bas_warehouse> bas_warehouse { get; set; }
+        public virtual DbSet<bas_warehouseuser> bas_warehouseuser { get; set; }
         public virtual DbSet<sys_area> sys_area { get; set; }
         public virtual DbSet<sys_dbbackup> sys_dbbackup { get; set; }
         public virtual DbSet<sys_filterip> sys_filterip { get; set; }

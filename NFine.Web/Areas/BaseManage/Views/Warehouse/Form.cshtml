@@ -28,6 +28,7 @@
         var $gridList = $("#gridList");
         $gridList.dataGrid({
             url: rootUrl + "/SystemManage/User/GetGridJson",
+            postData: { warehouseId: keyValue },
             height: $(window).height() - 128,
             shrinkToFit: false,
             multiboxonly: true,
@@ -80,12 +81,19 @@
     }
 
     function submitForm() {
+        var postData = $("#form1").formSerialize();
+        var arr = [];
+        $("#gridList").jqGridRowValue().map(function (item) {
+            arr.push(item.F_Id);
+        });
+        postData["userIds"] = String(arr);
+        
         if (!$('#form1').formValid()) {
             return false;
         }
         $.submitForm({
             url: rootUrl + "/BaseManage/Warehouse/SubmitForm?keyValue=" + keyValue,
-            param: $("#form1").formSerialize(),
+            param: postData,
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
