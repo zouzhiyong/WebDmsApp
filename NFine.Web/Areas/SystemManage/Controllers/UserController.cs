@@ -21,6 +21,14 @@ namespace NFine.Web.Areas.SystemManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
+        public ActionResult GetSelectJson(string keyword)
+        {
+            var data = userApp.GetList(keyword);
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
         public ActionResult GetGridJson(Pagination pagination, string keyword)
         {
             var data = new
@@ -32,6 +40,7 @@ namespace NFine.Web.Areas.SystemManage.Controllers
             };
             return Content(data.ToJson());
         }
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetFormJson(string keyValue)
@@ -63,7 +72,7 @@ namespace NFine.Web.Areas.SystemManage.Controllers
         }
         [HttpPost]
         [HandlerAjaxOnly]
-        [HandlerAuthorize]
+        //[HandlerAuthorize]
         [ValidateAntiForgeryToken]
         public ActionResult SubmitRevisePassword(string userPassword, string keyValue)
         {
@@ -72,7 +81,7 @@ namespace NFine.Web.Areas.SystemManage.Controllers
         }
         [HttpPost]
         [HandlerAjaxOnly]
-        [HandlerAuthorize]
+        //[HandlerAuthorize]
         [ValidateAntiForgeryToken]
         public ActionResult DisabledAccount(string keyValue)
         {

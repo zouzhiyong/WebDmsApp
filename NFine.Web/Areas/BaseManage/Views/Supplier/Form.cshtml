@@ -19,7 +19,11 @@
         }
     });
     function initControl() {
-        $("#F_SupplierCategoryID").bindSelect()
+        $("#F_EmployeeID").bindSelect({
+            url: rootUrl + "/SystemManage/User/GetSelectJson",
+            id: "F_Account",
+            text: "F_RealName"
+        });
     }
     function submitForm() {
         if (!$('#form1').formValid()) {
@@ -81,9 +85,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle">类型</th>
+                    <th class="formTitle">采购员</th>
                     <td class="formValue">
-                        <select id="F_SupplierCategoryID" name="F_SupplierCategoryID" class="form-control">
+                        <select id="F_EmployeeID" name="F_EmployeeID" class="form-control">
                             <option value="">==请选择==</option>
                         </select>
                     </td>
