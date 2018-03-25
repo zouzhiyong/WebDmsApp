@@ -126,6 +126,7 @@
     <Compile Include="Areas\BaseManage\BaseManageAreaRegistration.cs" />
     <Compile Include="Areas\BaseManage\Controllers\SupplierController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\WarehouseController.cs" />
+    <Compile Include="Areas\BaseManage\Controllers\WarehouseUserController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\BarCodeController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\PrintController.cs" />
     <Compile Include="Areas\ExampleManage\Controllers\SendMailController.cs" />

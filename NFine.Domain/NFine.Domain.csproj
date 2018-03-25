@@ -60,6 +60,7 @@
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
     <Compile Include="04 IRepository\BaseManage\ISupplierRepository.cs" />
     <Compile Include="04 IRepository\BaseManage\IWarehouseRepository.cs" />
+    <Compile Include="04 IRepository\BaseManage\IWarehouseUserRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IAreaRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsDetailRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsRepository.cs" />

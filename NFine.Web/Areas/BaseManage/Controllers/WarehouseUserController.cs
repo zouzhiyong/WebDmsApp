@@ -19,33 +19,33 @@ namespace NFine.Web.Areas.BaseManage.Controllers
     {
         private WarehouseUserApp warehouseuserApp = new WarehouseUserApp();
         private UserApp userApp = new UserApp();
-        public ActionResult GetGridJson(string warehouseId)
-        {
-            var userdata = userApp.GetList();
-            var warehouseuserdata = new List<WarehouseUserEntity>();
-            if (!string.IsNullOrEmpty(warehouseId))
-            {
-                warehouseuserdata = warehouseuserApp.GetList(warehouseId);
-            }
+        //public ActionResult GetGridJson(string warehouseId)
+        //{
+        //    var userdata = userApp.GetList();
+        //    var warehouseuserdata = new List<WarehouseUserEntity>();
+        //    if (!string.IsNullOrEmpty(warehouseId))
+        //    {
+        //        warehouseuserdata = warehouseuserApp.GetList(warehouseId);
+        //    }
 
-            foreach (UserEntity item in userdata)
-            {
-                //TreeViewModel tree = new TreeViewModel();
-                //bool hasChildren = moduledata.Count(t => t.F_ParentId == item.F_Id) == 0 ? false : true;
-                //tree.id = item.F_Id;
-                //tree.text = item.F_FullName;
-                //tree.value = item.F_EnCode;
-                //tree.parentId = item.F_ParentId;
-                //tree.isexpand = true;
-                //tree.complete = true;
-                //tree.showcheck = true;
-                //tree.checkstate = authorizedata.Count(t => t.F_ItemId == item.F_Id);
-                //tree.hasChildren = true;
-                //tree.img = item.F_Icon == "" ? "" : item.F_Icon;
-                //treeList.Add(tree);
-            }
+        //    foreach (UserEntity item in userdata)
+        //    {
+        //        //TreeViewModel tree = new TreeViewModel();
+        //        //bool hasChildren = moduledata.Count(t => t.F_ParentId == item.F_Id) == 0 ? false : true;
+        //        //tree.id = item.F_Id;
+        //        //tree.text = item.F_FullName;
+        //        //tree.value = item.F_EnCode;
+        //        //tree.parentId = item.F_ParentId;
+        //        //tree.isexpand = true;
+        //        //tree.complete = true;
+        //        //tree.showcheck = true;
+        //        //tree.checkstate = authorizedata.Count(t => t.F_ItemId == item.F_Id);
+        //        //tree.hasChildren = true;
+        //        //tree.img = item.F_Icon == "" ? "" : item.F_Icon;
+        //        //treeList.Add(tree);
+        //    }
             
-            return Content(treeList.TreeViewJson());
-        }
+        //    return Content(treeList.TreeViewJson());
+        //}
     }
 }
