@@ -11,7 +11,7 @@
             treeGrid: true,
             treeGridModel: "adjacency",
             ExpandColumn: "F_EnCode",
-            url: rootUrl + "SystemManage/ItemsType/GetTreeGridJson",
+            url: rootUrl + "/SystemManage/ItemsType/GetTreeGridJson",
             height: $(window).height() - 90,
             colModel: [
                 { label: "主键", name: "F_Id", hidden: true, key: true },
@@ -32,7 +32,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增分类",
-            url: rootUrl + "SystemManage/ItemsType/Form",
+            url: rootUrl + "/SystemManage/ItemsType/Form",
             width: "450px",
             height: "380px",
             callBack: function (iframeId) {
@@ -45,7 +45,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改分类",
-            url: rootUrl + "SystemManage/ItemsType/Form?keyValue=" + keyValue,
+            url: rootUrl + "/SystemManage/ItemsType/Form?keyValue=" + keyValue,
             width: "450px",
             height: "380px",
             callBack: function (iframeId) {
@@ -55,7 +55,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: rootUrl + "SystemManage/ItemsType/DeleteForm",
+            url: rootUrl + "/SystemManage/ItemsType/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
             success: function () {
                 $("#gridList").resetSelection();
@@ -68,7 +68,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看分类",
-            url: rootUrl + "SystemManage/ItemsType/Details?keyValue=" + keyValue,
+            url: rootUrl + "/SystemManage/ItemsType/Details?keyValue=" + keyValue,
             width: "450px",
             height: "510px",
             btn: null,

@@ -6,7 +6,7 @@
     var keyValue = $.request("keyValue");
     $(function () {
         $.ajax({
-            url: rootUrl + "SystemManage/ItemsData/GetFormJson",
+            url: rootUrl + "/SystemManage/ItemsData/GetFormJson",
             data: { keyValue: keyValue },
             dataType: "json",
             async: false,

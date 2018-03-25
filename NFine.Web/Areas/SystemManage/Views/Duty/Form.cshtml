@@ -8,7 +8,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: rootUrl + "SystemManage/Duty/GetFormJson",
+                url: rootUrl + "/SystemManage/Duty/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -20,8 +20,8 @@
     });
     function initControl() {
         $("#F_OrganizeId").bindSelect({
-            url: rootUrl + "SystemManage/Organize/GetTreeSelectJson",
-            param: { F_Layers: 1 },
+            url: rootUrl + "/SystemManage/Organize/GetTreeSelectJson",
+            param: { F_CategoryId: 'Company' },
             id: "F_Id",
             text: "F_FullName"
         });
@@ -31,7 +31,7 @@
             return false;
         }
         $.submitForm({
-            url: rootUrl + "SystemManage/Duty/SubmitForm?keyValue=" + keyValue,
+            url: rootUrl + "/SystemManage/Duty/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");

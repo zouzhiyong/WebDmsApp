@@ -10,7 +10,7 @@
     });
     function treeView() {
         $("#itemTree").treeview({
-            url: rootUrl + "SystemManage/ItemsType/GetTreeJson",
+            url: rootUrl + "/SystemManage/ItemsType/GetTreeJson",
             onnodeclick: function (item) {
                 $("#txt_keyword").val('');
                 $('#btn_search').trigger("click");
@@ -47,7 +47,7 @@
         });
         $("#btn_search").click(function () {
             $gridList.jqGrid('setGridParam', {
-                url: rootUrl + "SystemManage/ItemsData/GetGridJson",
+                url: rootUrl + "/SystemManage/ItemsData/GetGridJson",
                 postData: { itemId: $("#itemTree").getCurrentNode().id, keyword: $("#txt_keyword").val() },
             }).trigger('reloadGrid');
         });
@@ -61,7 +61,7 @@
         $.modalOpen({
             id: "Form",
             title: itemName + " 》新增字典",
-            url: rootUrl + "SystemManage/ItemsData/Form?itemId=" + itemId,
+            url: rootUrl + "/SystemManage/ItemsData/Form?itemId=" + itemId,
             width: "450px",
             height: "350px",
             callBack: function (iframeId) {
@@ -75,7 +75,7 @@
         $.modalOpen({
             id: "Form",
             title: itemName + " 》修改字典",
-            url: rootUrl + "SystemManage/ItemsData/Form?keyValue=" + keyValue,
+            url: rootUrl + "/SystemManage/ItemsData/Form?keyValue=" + keyValue,
             width: "450px",
             height: "350px",
             callBack: function (iframeId) {
@@ -85,7 +85,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: rootUrl + "SystemManage/ItemsData/DeleteForm",
+            url: rootUrl + "/SystemManage/ItemsData/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
             success: function () {
                 $("#gridList").resetSelection();
@@ -98,7 +98,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看字典",
-            url: rootUrl + "SystemManage/ItemsData/Details?keyValue=" + keyValue,
+            url: rootUrl + "/SystemManage/ItemsData/Details?keyValue=" + keyValue,
             width: "450px",
             height: "470px",
             btn: null,
@@ -108,7 +108,7 @@
         $.modalOpen({
             id: "ItemsType",
             title: "字典分类",
-            url: rootUrl + "SystemManage/ItemsType/Index",
+            url: rootUrl + "/SystemManage/ItemsType/Index",
             width: "800px",
             height: "550px",
             btn: null,

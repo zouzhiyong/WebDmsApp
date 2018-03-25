@@ -8,7 +8,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: rootUrl + "BaseManage/Supplier/GetFormJson",
+                url: rootUrl + "/BaseManage/Supplier/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -26,7 +26,7 @@
             return false;
         }
         $.submitForm({
-            url: rootUrl + "BaseManage/Supplier/SubmitForm?keyValue=" + keyValue,
+            url: rootUrl + "/BaseManage/Supplier/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");

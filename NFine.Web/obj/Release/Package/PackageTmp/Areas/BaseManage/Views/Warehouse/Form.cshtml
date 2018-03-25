@@ -8,7 +8,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: rootUrl + "BaseManage/Warehouse/GetFormJson",
+                url: rootUrl + "/BaseManage/Warehouse/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -19,12 +19,21 @@
         }
     });
 
+    function initControl() {
+        $("#F_OrganizeId").bindSelect({
+            url: rootUrl + "/SystemManage/Organize/GetTreeSelectJson",
+            param: { F_CategoryId: 'Company' },
+            id: "F_Id",
+            text: "F_FullName"
+        });
+    }
+
     function submitForm() {
         if (!$('#form1').formValid()) {
             return false;
         }
         $.submitForm({
-            url: rootUrl + "BaseManage/Warehouse/SubmitForm?keyValue=" + keyValue,
+            url: rootUrl + "/BaseManage/Warehouse/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -58,6 +67,16 @@
                     <td class="formValue">
                         <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control required" placeholder="请输入电话" />
                     </td>
+                </tr>                
+                <tr>
+                    <th class="formTitle">公司</th>
+                    <td class="formValue">
+                        <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required"></select>
+                    </td>
+                    <th class="formTitle">仓库地址</th>
+                    <td class="formValue">
+                        <input id="F_Address" name="F_Address" type="text" class="form-control required" placeholder="请输入仓库地址" />
+                    </td>
                 </tr>
                 <tr>
                     <th class="formTitle" style="height: 35px;">选项</th>
@@ -74,12 +93,6 @@
                         <div class="ckbox">
                             <input id="F_EnabledMark" name="F_EnabledMark" type="checkbox" checked="checked"><label for="F_EnabledMark">有效</label>
                         </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">仓库地址</th>
-                    <td class="formValue" colspan="3">
-                        <input id="F_Address" name="F_Address" type="text" class="form-control required" placeholder="请输入仓库地址" />
                     </td>
                 </tr>
                 <tr>

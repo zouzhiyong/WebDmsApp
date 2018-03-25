@@ -9,7 +9,7 @@
         }
         $.submitForm({
             loading: "正在备份数据...",
-            url: rootUrl + "SystemSecurity/Log/SubmitRemoveLog",
+            url: rootUrl + "/SystemSecurity/Log/SubmitRemoveLog",
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");

@@ -102,6 +102,12 @@ namespace NFine.Application.SystemManage
             {
                 if (!string.IsNullOrEmpty(item.F_UrlAddress))
                 {
+                    string sysVirDir = "/" + Configs.GetValue("SystemVirtualDirectory").ToLower() + "/";
+                    if (action.ToLower().IndexOf(sysVirDir) >= 0)
+                    {
+                        action = action.Substring(sysVirDir.Length - 1, action.Length - sysVirDir.Length + 1);
+                    }
+
                     string[] url = item.F_UrlAddress.Split('?');
                     if (item.F_Id == moduleId && url[0] == action)
                     {

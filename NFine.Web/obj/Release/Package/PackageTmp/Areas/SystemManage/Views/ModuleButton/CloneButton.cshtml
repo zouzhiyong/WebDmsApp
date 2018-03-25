@@ -7,13 +7,13 @@
     $(function () {
         $("#itemTree").treeview({
             showcheck: true,
-            url: rootUrl + "SystemManage/ModuleButton/GetCloneButtonTreeJson"
+            url: rootUrl + "/SystemManage/ModuleButton/GetCloneButtonTreeJson"
         });
     });
     function submitForm() {
         var Ids = $("#itemTree").getCheckedNodes();
         $.submitForm({
-            url: rootUrl + "SystemManage/ModuleButton/SubmitCloneButton",
+            url: rootUrl + "/SystemManage/ModuleButton/SubmitCloneButton",
             param: { moduleId: moduleId, Ids: String(Ids) },
             success: function () {
                 top.modulebutton.$("#gridList").resetSelection();

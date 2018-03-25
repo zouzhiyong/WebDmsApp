@@ -18,24 +18,31 @@ namespace NFine.Application.SystemManage
     {
         private IOrganizeRepository service = new OrganizeRepository();
 
-        public List<OrganizeEntity> GetList(int F_Layers)
+        public List<OrganizeEntity> GetList(string F_CategoryId)
         {
+            string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
             if (OperatorProvider.Provider.GetCurrent().IsSystem)
             {
-                return service.IQueryable().OrderBy(t => t.F_CreatorTime).ToList();
+                if (F_CategoryId == null)
+                {
+                    return service.IQueryable().OrderBy(t => t.F_CreatorTime).ToList();
+                }
+                else
+                {
+                    return service.IQueryable(t => t.F_CategoryId == F_CategoryId).OrderBy(t => t.F_CreatorTime).ToList();
+                }
             }
             else
             {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                if (F_Layers == 1)
+                if (F_CategoryId == null)
                 {
-                    return service.IQueryable(t => t.F_Id== CompanyId).OrderBy(t => t.F_CreatorTime).ToList();
-                }else
-                {
-                    return service.IQueryable(t => t.F_ParentId== CompanyId).OrderBy(t => t.F_CreatorTime).ToList();
+                    return service.IQueryable(t => t.F_Id == CompanyId || t.F_ParentId == CompanyId).OrderBy(t => t.F_CreatorTime).ToList();
                 }
-                
-            }               
+                else
+                {
+                    return service.IQueryable(t => t.F_CategoryId == F_CategoryId && (t.F_Id == CompanyId || t.F_ParentId == CompanyId)).OrderBy(t => t.F_CreatorTime).ToList();
+                }                
+            }
         }
 
         public List<OrganizeEntity> GetList()
@@ -48,7 +55,7 @@ namespace NFine.Application.SystemManage
             {
                 string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
                 return service.IQueryable(t => t.F_Id == CompanyId || t.F_ParentId == CompanyId).OrderBy(t => t.F_CreatorTime).ToList();
-            } 
+            }
         }
 
         public OrganizeEntity GetForm(string keyValue)

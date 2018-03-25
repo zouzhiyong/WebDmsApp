@@ -10,7 +10,7 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: rootUrl + "BaseManage/Supplier/GetGridJson",
+            url: rootUrl + "/BaseManage/Supplier/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
                 { label: '主键', name: 'F_Id', hidden: true },
@@ -53,7 +53,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增供应商",
-            url: rootUrl + "BaseManage/Supplier/Form",
+            url: rootUrl + "/BaseManage/Supplier/Form",
             width: "700px",
             height: "510px",
             callBack: function (iframeId) {
@@ -66,7 +66,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改供应商",
-            url: rootUrl + "BaseManage/Supplier/Form?keyValue=" + keyValue,
+            url: rootUrl + "/BaseManage/Supplier/Form?keyValue=" + keyValue,
             width: "700px",
             height: "510px",
             callBack: function (iframeId) {
@@ -76,7 +76,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: rootUrl + "BaseManage/Supplier/DeleteForm",
+            url: rootUrl + "/BaseManage/Supplier/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -88,7 +88,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看供应商",
-            url: rootUrl + "BaseManage/Supplier/Details?keyValue=" + keyValue,
+            url: rootUrl + "/BaseManage/Supplier/Details?keyValue=" + keyValue,
             width: "700px",
             height: "550px",
             btn: null,

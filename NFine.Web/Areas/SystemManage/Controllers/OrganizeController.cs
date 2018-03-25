@@ -19,21 +19,28 @@ namespace NFine.Web.Areas.SystemManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetTreeSelectJson(int F_Layers)
+        public ActionResult GetTreeSelectJson(string F_CategoryId)
         {
-            var data = organizeApp.GetList(F_Layers);
-            return Content(data.ToJson());
-            //var treeList = new List<TreeSelectModel>();
-            //foreach (OrganizeEntity item in data)
-            //{
-            //    TreeSelectModel treeModel = new TreeSelectModel();
-            //    treeModel.id = item.F_Id;
-            //    treeModel.text = item.F_FullName;
-            //    treeModel.parentId = item.F_ParentId;
-            //    treeModel.data = item;
-            //    treeList.Add(treeModel);
-            //}
-            //return Content(treeList.TreeSelectJson());
+            var data = organizeApp.GetList(F_CategoryId);
+            if (F_CategoryId != null)
+            {                
+                return Content(data.ToJson());
+            }
+            else
+            {
+                var treeList = new List<TreeSelectModel>();
+                foreach (OrganizeEntity item in data)
+                {
+                    TreeSelectModel treeModel = new TreeSelectModel();
+                    treeModel.id = item.F_Id;
+                    treeModel.text = item.F_FullName;
+                    treeModel.parentId = item.F_ParentId;
+                    treeModel.data = item;
+                    treeList.Add(treeModel);
+                }
+                return Content(treeList.TreeSelectJson());
+            }
+
         }
 
         [HttpGet]

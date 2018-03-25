@@ -9,7 +9,7 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: rootUrl + "SystemSecurity/Log/GetGridJson",
+            url: rootUrl + "/SystemSecurity/Log/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
                 { label: '主键', name: 'F_Id', hidden: true },
@@ -58,7 +58,7 @@
         $.modalOpen({
             id: "removelog",
             title: "清空日志",
-            url: rootUrl + "SystemSecurity/Log/RemoveLog",
+            url: rootUrl + "/SystemSecurity/Log/RemoveLog",
             width: "400px",
             height: "180px",
             callBack: function (iframeId) {

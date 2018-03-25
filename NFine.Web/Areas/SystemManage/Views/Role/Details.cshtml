@@ -7,7 +7,7 @@
     $(function () {
         initControl();
         $.ajax({
-            url: rootUrl + "SystemManage/Role/GetFormJson",
+            url: rootUrl + "/SystemManage/Role/GetFormJson",
             data: { keyValue: keyValue },
             dataType: "json",
             async: false,
@@ -20,10 +20,10 @@
     })
     function initControl() {
         $("#F_OrganizeId").bindSelect({
-            url: rootUrl + "SystemManage/Organize/GetTreeSelectJson",
+            url: rootUrl + "/SystemManage/Organize/GetTreeSelectJson",
         });
         $("#F_Type").bindSelect({
-            url: rootUrl + "SystemManage/ItemsData/GetSelectJson",
+            url: rootUrl + "/SystemManage/ItemsData/GetSelectJson",
             param: { enCode: "RoleType" }
         });
         $('#wizard').wizard().on('change', function (e, data) {
@@ -43,7 +43,7 @@
         $("#permissionTree").treeview({
             height: 493,
             showcheck: true,
-            url: rootUrl + "SystemManage/RoleAuthorize/GetPermissionTree",
+            url: rootUrl + "/SystemManage/RoleAuthorize/GetPermissionTree",
             param: { roleId: keyValue }
         });
     }

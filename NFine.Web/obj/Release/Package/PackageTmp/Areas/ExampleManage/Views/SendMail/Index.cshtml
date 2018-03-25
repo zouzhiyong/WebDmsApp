@@ -30,7 +30,7 @@
         postData["content"] = editor.getValue();
         $.submitForm({
             loading: "正在发送邮件...",
-            url: rootUrl + "ExampleManage/SendMail/SendMail",
+            url: rootUrl + "/ExampleManage/SendMail/SendMail",
             param: $("#form1").formSerialize(),
             success: function () {
                 $.reload();

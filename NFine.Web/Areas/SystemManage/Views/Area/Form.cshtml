@@ -8,7 +8,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: rootUrl + "SystemManage/Area/GetFormJson",
+                url: rootUrl + "/SystemManage/Area/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -20,7 +20,7 @@
     });
     function initControl() {
         $("#F_ParentId").bindSelect({
-            url: rootUrl + "SystemManage/Area/GetTreeSelectJson"
+            url: rootUrl + "/SystemManage/Area/GetTreeSelectJson"
         });
     }
     function submitForm() {
@@ -28,7 +28,7 @@
             return false;
         }
         $.submitForm({
-            url: rootUrl + "SystemManage/Area/SubmitForm?keyValue=" + keyValue,
+            url: rootUrl + "/SystemManage/Area/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").resetSelection();

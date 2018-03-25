@@ -14,7 +14,7 @@ $.clientsInit = function () {
     };
     var init = function () {
         $.ajax({
-            url: rootUrl + "ClientsData/GetClientsDataJson",
+            url: rootUrl + "/ClientsData/GetClientsDataJson",
             type: "get",
             dataType: "json",
             async: false,

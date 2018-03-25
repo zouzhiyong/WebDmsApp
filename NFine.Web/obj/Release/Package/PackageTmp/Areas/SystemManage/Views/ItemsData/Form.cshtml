@@ -8,7 +8,7 @@
     $(function () {
         if (!!keyValue) {
             $.ajax({
-                url: rootUrl + "SystemManage/ItemsData/GetFormJson",
+                url: rootUrl + "/SystemManage/ItemsData/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -25,7 +25,7 @@
         var postData = $("#form1").formSerialize();
         postData["F_ItemId"] = itemId;
         $.submitForm({
-            url: rootUrl + "SystemManage/ItemsData/SubmitForm?keyValue=" + keyValue,
+            url: rootUrl + "/SystemManage/ItemsData/SubmitForm?keyValue=" + keyValue,
             param: postData,
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");

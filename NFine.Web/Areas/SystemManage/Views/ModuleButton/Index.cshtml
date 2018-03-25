@@ -12,7 +12,7 @@
             treeGrid: true,
             treeGridModel: "adjacency",
             ExpandColumn: "F_Location",
-            url: rootUrl + "SystemManage/ModuleButton/GetTreeGridJson?moduleId=" + moduleId,
+            url: rootUrl + "/SystemManage/ModuleButton/GetTreeGridJson?moduleId=" + moduleId,
             height: $(window).height() - 90,
             colModel: [
                 { label: "主键", name: "F_Id", hidden: true, key: true },
@@ -54,7 +54,7 @@
         $.modalOpen({
             id: "Form",
             title: "新增按钮",
-            url: rootUrl + "SystemManage/ModuleButton/Form?moduleId=" + moduleId,
+            url: rootUrl + "/SystemManage/ModuleButton/Form?moduleId=" + moduleId,
             width: "700px",
             height: "440px",
             callBack: function (iframeId) {
@@ -67,7 +67,7 @@
         $.modalOpen({
             id: "Form",
             title: "修改按钮",
-            url: rootUrl + "SystemManage/ModuleButton/Form?moduleId=" + moduleId + "&keyValue=" + keyValue,
+            url: rootUrl + "/SystemManage/ModuleButton/Form?moduleId=" + moduleId + "&keyValue=" + keyValue,
             width: "700px",
             height: "440px",
             callBack: function (iframeId) {
@@ -77,7 +77,7 @@
     }
     function btn_delete() {
         $.deleteForm({
-            url: rootUrl + "SystemManage/ModuleButton/DeleteForm",
+            url: rootUrl + "/SystemManage/ModuleButton/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
             success: function () {
                 $("#gridList").resetSelection();
@@ -90,7 +90,7 @@
         $.modalOpen({
             id: "Details",
             title: "查看按钮",
-            url: rootUrl + "SystemManage/ModuleButton/Details?moduleId=" + moduleId + "&keyValue=" + keyValue,
+            url: rootUrl + "/SystemManage/ModuleButton/Details?moduleId=" + moduleId + "&keyValue=" + keyValue,
             width: "700px",
             height: "490px",
             btn: null,
@@ -100,7 +100,7 @@
         $.modalOpen({
             id: "CloneButton",
             title: "克隆按钮",
-            url: rootUrl + "SystemManage/ModuleButton/CloneButton?moduleId=" + moduleId,
+            url: rootUrl + "/SystemManage/ModuleButton/CloneButton?moduleId=" + moduleId,
             width: "400px",
             height: "600px",
             callBack: function (iframeId) {

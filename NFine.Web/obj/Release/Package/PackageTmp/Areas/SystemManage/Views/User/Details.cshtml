@@ -7,7 +7,7 @@
     $(function () {
         initControl();
         $.ajax({
-            url: rootUrl + "SystemManage/User/GetFormJson",
+            url: rootUrl + "/SystemManage/User/GetFormJson",
             data: { keyValue: keyValue },
             dataType: "json",
             async: false,
@@ -24,18 +24,18 @@
         $("#F_IsAdministrator").bindSelect()
         $("#F_EnabledMark").bindSelect()
         $("#F_OrganizeId").bindSelect({
-            url: rootUrl + "SystemManage/Organize/GetTreeSelectJson"
+            url: rootUrl + "/SystemManage/Organize/GetTreeSelectJson"
         });
         $("#F_DepartmentId").bindSelect({
-            url: rootUrl + "SystemManage/Organize/GetTreeSelectJson",
+            url: rootUrl + "/SystemManage/Organize/GetTreeSelectJson",
         });
         $("#F_RoleId").bindSelect({
-            url: rootUrl + "SystemManage/Role/GetGridJson",
+            url: rootUrl + "/SystemManage/Role/GetGridJson",
             id: "F_Id",
             text: "F_FullName"
         });
         $("#F_DutyId").bindSelect({
-            url: rootUrl + "SystemManage/Duty/GetGridJson",
+            url: rootUrl + "/SystemManage/Duty/GetGridJson",
             id: "F_Id",
             text: "F_FullName"
         });
