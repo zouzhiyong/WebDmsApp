@@ -29,20 +29,22 @@
         $gridList.dataGrid({
             url: rootUrl + "/SystemManage/User/GetGridJson",
             height: $(window).height() - 128,
-            shrinkToFit: false,
             multiselect: true,
+            shrinkToFit: false,
+            autowidth: false,
+            width:680,
             colModel: [
                 { label: '主键', name: 'F_Id', hidden: true },
-                { label: '用户名称', name: 'F_RealName',  align: 'left' },             
+                { label: '用户名称', name: 'F_RealName', width: 120, align: 'left' },
                 { label: '手机', name: 'F_MobilePhone', width: 80, align: 'left' },
                 {
-                    label: '公司', name: 'F_OrganizeId',  align: 'left',
+                    label: '公司', name: 'F_OrganizeId', width: 150, align: 'left',
                     formatter: function (cellvalue, options, rowObject) {
                         return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
                     }
                 },
                 {
-                    label: '部门', name: 'F_DepartmentId', width: 80, align: 'left',
+                    label: '部门', name: 'F_DepartmentId', width: 100, align: 'left',
                     formatter: function (cellvalue, options, rowObject) {
                         return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
                     }
@@ -61,22 +63,27 @@
                 }
             ],
             sortname: 'F_DepartmentId asc,F_CreatorTime desc',
-            viewrecords: true,
             gridComplete: function () {
-                //var rows = $gridList.jqGrid('getRowData');  //输出所有匹配的
-                console.log($("#gridList").jqGrid("getRowData"))
-                //$.ajax({
-                //    url: rootUrl + "/BaseManage/WarehouseUser/GetGridJson",
-                //    data: { keyword: keyValue },
-                //    dataType: "json",
-                //    async: false,
-                //    success: function (data) {                        
-                //        for (var i = 0; i < rows.length; i++) {
-                //            //行数据
-                //            $gridList.jqGrid('setSelection', i);
-                //        }                        
-                //    }
-                //});
+                var rows = $gridList.jqGrid('getRowData');  //输出所有匹配的
+                
+                $.ajax({
+                    url: rootUrl + "/BaseManage/WarehouseUser/GetGridJson",
+                    data: { keyword: keyValue },
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        
+                        for (var i = 0; i < rows.length; i++) {
+                            //行数据
+                            data.map(function (item) {                                
+                                if (item.F_UserId == rows[i].F_Id) {
+                                    $gridList.jqGrid('setSelection', i+1);
+                                 }
+                            })
+                            
+                        }                        
+                    }
+                });
             }
         });
         $("#btn_search").click(function () {
