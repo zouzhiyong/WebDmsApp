@@ -409,8 +409,9 @@ $.fn.dataGrid = function (options) {
         datatype: "json",
         autowidth: true,
         rownumbers: true,
-        shrinkToFit: false,
-        gridview: true
+        shrinkToFit: true,
+        gridview: true,
+        styleUI :'Bootstrap'
     };
     var options = $.extend(defaults, options);
     var $element = $(this);

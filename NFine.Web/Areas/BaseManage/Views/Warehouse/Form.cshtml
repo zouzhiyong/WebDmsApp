@@ -21,16 +21,13 @@
                 }
             });
         }
-        gridList();
-
-        
+        gridList();        
     });
 
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
             url: rootUrl + "/SystemManage/User/GetGridJson",
-            postData: { warehouseId: keyValue },
             height: $(window).height() - 128,
             shrinkToFit: false,
             multiselect: true,
@@ -63,10 +60,11 @@
                     }
                 }
             ],
-            sortname: 'F_CreatorTime desc',
-            loadComplete: function () {
+            sortname: 'F_DepartmentId asc,F_CreatorTime desc',
+            viewrecords: true,
+            gridComplete: function () {
                 //var rows = $gridList.jqGrid('getRowData');  //输出所有匹配的
-                console.log($gridList.jqGrid("getRowData"))
+                console.log($("#gridList").jqGrid("getRowData"))
                 //$.ajax({
                 //    url: rootUrl + "/BaseManage/WarehouseUser/GetGridJson",
                 //    data: { keyword: keyValue },
