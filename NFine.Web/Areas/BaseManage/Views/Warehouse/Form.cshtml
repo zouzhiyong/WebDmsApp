@@ -8,6 +8,7 @@
 
 <script>
     var keyValue = $.request("keyValue");
+    var $gridList = null;
     $(function () {
         initControl();
         if (!!keyValue) {
@@ -25,7 +26,7 @@
     });
 
     function gridList() {
-        var $gridList = $("#gridList");
+        $gridList = $("#gridList");
         $gridList.dataGrid({
             url: rootUrl + "/SystemManage/User/GetGridJson",
             height: $(window).height() - 128,
@@ -63,7 +64,7 @@
                 }
             ],
             sortname: 'F_DepartmentId asc,F_CreatorTime desc',
-            gridComplete: function () {
+            loadComplete: function () {
                 var rows = $gridList.jqGrid('getRowData');  //输出所有匹配的
                 
                 $.ajax({
@@ -105,9 +106,12 @@
     function submitForm() {
         var postData = $("#form1").formSerialize();
         var arr = [];
-        $("#gridList").jqGridRowValue().map(function (item) {
-            arr.push(item.F_Id);
-        });
+
+        var rowId = $gridList.jqGrid("getGridParam", "selarrrow");
+        for (var i = 0; i < rowId.length; i++) {
+            var rowData = $gridList.jqGrid("getRowData", rowId[i]);
+            arr.push(rowData.F_Id);
+        };
         postData["userIds"] = String(arr);
         
         if (!$('#form1').formValid()) {

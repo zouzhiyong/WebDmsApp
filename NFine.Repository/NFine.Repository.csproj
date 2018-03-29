@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseManage\UnitOfMeasureRepository.cs" />
     <Compile Include="BaseManage\SupplierRepository.cs" />
     <Compile Include="BaseManage\WarehouseRepository.cs" />
     <Compile Include="BaseManage\WarehouseUserRepository.cs" />

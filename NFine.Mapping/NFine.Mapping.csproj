@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseManage\UnitOfMeasureMap.cs" />
     <Compile Include="BaseManage\SupplierMap.cs" />
     <Compile Include="BaseManage\WarehouseUserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

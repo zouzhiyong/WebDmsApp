@@ -124,6 +124,7 @@
     <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\01 Handler\ControllerBase.cs" />
     <Compile Include="Areas\BaseManage\BaseManageAreaRegistration.cs" />
+    <Compile Include="Areas\BaseManage\Controllers\UnitOfMeasureController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\SupplierController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\WarehouseController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\WarehouseUserController.cs" />
@@ -634,6 +635,8 @@
     <Content Include="Areas\BaseManage\Views\Warehouse\Form.cshtml" />
     <Content Include="Areas\BaseManage\Views\Supplier\Index.cshtml" />
     <Content Include="Areas\BaseManage\Views\Supplier\Form.cshtml" />
+    <Content Include="Areas\BaseManage\Views\UnitOfMeasure\Form.cshtml" />
+    <Content Include="Areas\BaseManage\Views\UnitOfMeasure\Index.cshtml" />
     <None Include="Properties\PublishProfiles\NFine.Framework.Release.pubxml" />
   </ItemGroup>
   <PropertyGroup>
