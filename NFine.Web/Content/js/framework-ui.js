@@ -420,7 +420,8 @@ $.fn.dataGrid = function (options) {
         shrinkToFit: true,
         gridview: true,
         pagerpos:"left",
-        styleUI: 'Bootstrap'
+        styleUI: 'Bootstrap',
+        treeIcons: { plus: 'glyphicon-triangle-right', minus: 'glyphicon-triangle-bottom', leaf: '' }
     };
     var options = $.extend(defaults, options);
     var $element = $(this);
