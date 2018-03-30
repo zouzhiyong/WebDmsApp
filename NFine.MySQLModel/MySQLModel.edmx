@@ -33,6 +33,24 @@
           <Property Name="F_SortCode" Type="int" />
           <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="bas_truck">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="F_Name" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
+          <Property Name="F_Description" Type="varchar" MaxLength="255" />
+          <Property Name="F_CreatorTime" Type="timestamp" Precision="0" StoreGeneratedPattern="Identity" />
+          <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_LastModifyTime" Type="timestamp" Precision="0" />
+          <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_DeleteTime" Type="timestamp" Precision="0" />
+          <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+          <Property Name="F_SortCode" Type="int" />
+          <Property Name="F_OrganizeId" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="bas_unitofmeasure">
           <Key>
             <PropertyRef Name="F_Id" />
@@ -448,6 +466,7 @@
         </EntityType>
         <EntityContainer Name="nfinebaseModelStoreContainer">
           <EntitySet Name="bas_supplier" EntityType="Self.bas_supplier" Schema="nfinebase" store:Type="Tables" />
+          <EntitySet Name="bas_truck" EntityType="Self.bas_truck" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="bas_unitofmeasure" EntityType="Self.bas_unitofmeasure" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="bas_warehouse" EntityType="Self.bas_warehouse" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="bas_warehouseuser" EntityType="Self.bas_warehouseuser" Schema="nfinebase" store:Type="Tables" />
@@ -491,6 +510,7 @@
           <EntitySet Name="sys_user" EntityType="nfinebaseModel.sys_user" />
           <EntitySet Name="sys_userlogon" EntityType="nfinebaseModel.sys_userlogon" />
           <EntitySet Name="bas_unitofmeasure" EntityType="nfinebaseModel.bas_unitofmeasure" />
+          <EntitySet Name="bas_truck" EntityType="nfinebaseModel.bas_truck" />
         </EntityContainer>
         <EntityType Name="bas_supplier">
           <Key>
@@ -916,6 +936,24 @@
           <Property Name="F_Theme" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="bas_unitofmeasure">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_Name" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
+          <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_CreatorTime" Type="DateTime" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_LastModifyTime" Type="DateTime" />
+          <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_DeleteTime" Type="DateTime" />
+          <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_SortCode" Type="Int32" />
+          <Property Name="F_OrganizeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="bas_truck">
           <Key>
             <PropertyRef Name="F_Id" />
           </Key>
@@ -1383,6 +1421,25 @@
           <EntitySetMapping Name="bas_unitofmeasure">
             <EntityTypeMapping TypeName="nfinebaseModel.bas_unitofmeasure">
               <MappingFragment StoreEntitySet="bas_unitofmeasure">
+                <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
+                <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+                <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
+                <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
+                <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
+                <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
+                <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+                <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+                <ScalarProperty Name="F_Description" ColumnName="F_Description" />
+                <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
+                <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+                <ScalarProperty Name="F_Name" ColumnName="F_Name" />
+                <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bas_truck">
+            <EntityTypeMapping TypeName="nfinebaseModel.bas_truck">
+              <MappingFragment StoreEntitySet="bas_truck">
                 <ScalarProperty Name="F_OrganizeId" ColumnName="F_OrganizeId" />
                 <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
                 <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
