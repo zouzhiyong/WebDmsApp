@@ -20,7 +20,8 @@
     })
     function initControl() {
         $("#F_OrganizeId").bindSelect({
-            url: rootUrl + "/SystemManage/Organize/GetTreeSelectJson",
+            url: rootUrl + "/SystemManage/Organize/GetSelectJson",
+            param: { F_CategoryId: 'Company' },
         });
         $("#F_Type").bindSelect({
             url: rootUrl + "/SystemManage/ItemsData/GetSelectJson",
@@ -60,7 +61,7 @@
             <div class="step-pane active" id="step-1" style="padding-left: 5px; padding-top: 20px; margin-right: 20px;">
                 <table class="form">
                     <tr>
-                        <th class="formTitle">归属组织</th>
+                        <th class="formTitle">归属公司</th>
                         <td class="formValue">
                             <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required">
                             </select>

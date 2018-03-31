@@ -24,24 +24,55 @@
         $("#F_IsAdministrator").bindSelect()
         $("#F_EnabledMark").bindSelect()
         $("#F_OrganizeId").bindSelect({
-            url: rootUrl + "/SystemManage/Organize/GetTreeSelectJson",
-            param: { F_CategoryId:'Company' },
+            url: rootUrl + "/SystemManage/Organize/GetSelectJson",
+            param: { F_CategoryId: 'Company', F_ParentId: "0" },
             id: "F_Id",
-            text: "F_FullName"
+            text: "F_FullName",
         });
+        $("#F_OrganizeId").on("change", function (e) {
+            var F_OrganizeId = $(this).val();
+            $("#F_DepartmentId").empty();
+            $("#F_DepartmentId").bindSelect({
+                url: rootUrl + "/SystemManage/Organize/GetSelectJson",
+                param: { F_CategoryId: 'Department', F_ParentId: F_OrganizeId },
+                id: "F_Id",
+                text: "F_FullName"
+            });
+
+            $("#F_RoleId").empty();
+            $("#F_RoleId").bindSelect({
+                url: rootUrl + "/SystemManage/Role/GetSelectJson",
+                param: { F_OrganizeId: F_OrganizeId },
+                id: "F_Id",
+                text: "F_FullName"
+            });
+
+            $("#F_DutyId").empty();
+            $("#F_DutyId").bindSelect({
+                url: rootUrl + "/SystemManage/Duty/GetSelectJson",
+                param: { F_OrganizeId: F_OrganizeId },
+                id: "F_Id",
+                text: "F_FullName"
+            });
+        });
+
         $("#F_DepartmentId").bindSelect({
-            url: rootUrl + "/SystemManage/Organize/GetTreeSelectJson",
-            param: { F_CategoryId: 'Department' },
+            url: rootUrl + "/SystemManage/Organize/GetSelectJson",
+            param: { F_CategoryId: 'Department', F_ParentId: null },
             id: "F_Id",
             text: "F_FullName"
         });
+
         $("#F_RoleId").bindSelect({
-            url: rootUrl + "/SystemManage/Role/GetGridJson",
+            url: rootUrl + "/SystemManage/Role/GetSelectJson",
+            param: { F_OrganizeId: null },
             id: "F_Id",
             text: "F_FullName"
         });
+
         $("#F_DutyId").bindSelect({
-            url: rootUrl + "/SystemManage/Duty/GetGridJson",
+            url: rootUrl + "/SystemManage/Duty/GetSelectJson",
+            param: { F_OrganizeId: null },
             id: "F_Id",
             text: "F_FullName"
         });

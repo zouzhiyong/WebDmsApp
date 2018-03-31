@@ -20,7 +20,7 @@
     });
     function initControl() {
         $("#F_OrganizeId").bindSelect({
-            url: rootUrl + "/SystemManage/Organize/GetTreeSelectJson",
+            url: rootUrl + "/SystemManage/Organize/GetSelectJson",
             param: { F_CategoryId: 'Company' },
             id: "F_Id",
             text: "F_FullName"
@@ -35,6 +35,7 @@
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
+                $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
             }
         })
     }

@@ -124,7 +124,9 @@
     <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\01 Handler\ControllerBase.cs" />
     <Compile Include="Areas\BaseManage\BaseManageAreaRegistration.cs" />
+    <Compile Include="Areas\BaseManage\Controllers\DepartmentController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\RegionController.cs" />
+    <Compile Include="Areas\BaseManage\Controllers\CompanyController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\TruckController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\UnitOfMeasureController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\SupplierController.cs" />
@@ -643,6 +645,10 @@
     <Content Include="Areas\BaseManage\Views\Truck\Index.cshtml" />
     <Content Include="Areas\BaseManage\Views\Region\Form.cshtml" />
     <Content Include="Areas\BaseManage\Views\Region\Index.cshtml" />
+    <Content Include="Areas\BaseManage\Views\Company\Form.cshtml" />
+    <Content Include="Areas\BaseManage\Views\Company\Index.cshtml" />
+    <Content Include="Areas\BaseManage\Views\Department\Form.cshtml" />
+    <Content Include="Areas\BaseManage\Views\Department\Index.cshtml" />
     <None Include="Properties\PublishProfiles\NFine.Framework.Release.pubxml" />
   </ItemGroup>
   <PropertyGroup>

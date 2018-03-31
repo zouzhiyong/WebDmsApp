@@ -30,5 +30,6 @@ namespace NFine.Domain.Entity.SystemManage
         public bool? F_CheckIPAddress { get; set; }
         public string F_Language { get; set; }
         public string F_Theme { get; set; }
+        public string F_OrganizeId { get; set; }
     }
 }

@@ -18,6 +18,38 @@ namespace NFine.Application.SystemManage
     {
         private IOrganizeRepository service = new OrganizeRepository();
 
+        public List<OrganizeEntity> GetList(Pagination pagination, string F_CategoryId, string keyword)
+        {
+            var expression = ExtLinq.True<OrganizeEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.F_FullName.Contains(keyword));
+            }
+            string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+            expression = expression.And(t => t.F_OrganizeId == CompanyId && t.F_CategoryId == F_CategoryId);
+            return service.FindList(expression, pagination);
+        }
+
+        public List<OrganizeEntity> GetSelet(string F_CategoryId, string F_ParentId)
+        {
+            if (F_CategoryId.ToLower()== "company")
+            {
+                F_ParentId = "0";
+            }
+            var expression = ExtLinq.True<OrganizeEntity>();            
+            expression = expression.And(t => t.F_CategoryId == F_CategoryId);
+            
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_OrganizeId == CompanyId);
+            }else
+            {
+                expression = expression.And(t => t.F_ParentId == F_ParentId);
+            }
+            return service.IQueryable(expression).OrderBy(t => t.F_CreatorTime).ToList();
+        }
+
         public List<OrganizeEntity> GetList(string F_CategoryId)
         {
             string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
@@ -78,11 +110,25 @@ namespace NFine.Application.SystemManage
             if (!string.IsNullOrEmpty(keyValue))
             {
                 organizeEntity.Modify(keyValue);
+                if (OperatorProvider.Provider.GetCurrent().IsSystem)
+                {
+                    if (organizeEntity.F_CategoryId.ToLower() == "company")
+                    {
+                        organizeEntity.F_OrganizeId = organizeEntity.F_Id;
+                    }
+                }
                 service.Update(organizeEntity);
             }
             else
             {
                 organizeEntity.Create();
+                if (OperatorProvider.Provider.GetCurrent().IsSystem)
+                {
+                    if (organizeEntity.F_CategoryId.ToLower() == "company")
+                    {
+                        organizeEntity.F_OrganizeId = organizeEntity.F_Id;
+                    }
+                }
                 service.Insert(organizeEntity);
             }
         }

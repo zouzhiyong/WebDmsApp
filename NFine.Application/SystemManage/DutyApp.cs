@@ -17,6 +17,21 @@ namespace NFine.Application.SystemManage
     {
         private IRoleRepository service = new RoleRepository();
 
+        public List<RoleEntity> GetSelect(string F_OrganizeId)
+        {            
+            var expression = ExtLinq.True<RoleEntity>();            
+            expression = expression.And(t => t.F_Category == 2);
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_OrganizeId == CompanyId);
+            }else
+            {
+                expression = expression.And(t => t.F_OrganizeId == F_OrganizeId);
+            }
+            return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+        }
+
         public List<RoleEntity> GetList(string keyword = "")
         {
             var expression = ExtLinq.True<RoleEntity>();

@@ -33,6 +33,7 @@
             success: function () {
                 top.ItemsType.$("#gridList").resetSelection();
                 top.ItemsType.$("#gridList").trigger("reloadGrid");
+                $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
             }
         })
     }

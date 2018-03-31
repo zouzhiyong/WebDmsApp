@@ -30,6 +30,7 @@ namespace NFine.Web.Controllers
                 user = this.GetUserList(),
                 authorizeMenu = this.GetMenuList(),
                 authorizeButton = this.GetMenuButtonList(),
+                company = this.CompanyObject(),
             };
             return Content(data.ToJson());
         }
@@ -99,7 +100,11 @@ namespace NFine.Web.Controllers
             return dictionary;
         }
 
-
+        private object CompanyObject()
+        {
+            
+            return OperatorProvider.Provider.GetCurrent();
+        }
         private object GetDutyList()
         {
             DutyApp dutyApp = new DutyApp();

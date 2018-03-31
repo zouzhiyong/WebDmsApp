@@ -19,10 +19,13 @@ namespace NFine.Domain
             if (LoginInfo != null)
             {
                 entity.F_CreatorUserId = LoginInfo.UserId;
-                if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+                if (OperatorProvider.Provider.GetCurrent().IsSystem)
+                {
+                    entity.F_OrganizeId = "00000000-0000-0000-0000-000000000000";
+                }else
                 {
                     entity.F_OrganizeId = LoginInfo.CompanyId;
-                }                
+                }              
             }
             entity.F_CreatorTime = DateTime.Now;
         }
@@ -34,7 +37,11 @@ namespace NFine.Domain
             if (LoginInfo != null)
             {
                 entity.F_LastModifyUserId = LoginInfo.UserId;
-                if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+                if (OperatorProvider.Provider.GetCurrent().IsSystem)
+                {
+                    entity.F_OrganizeId = "00000000-0000-0000-0000-000000000000";
+                }
+                else
                 {
                     entity.F_OrganizeId = LoginInfo.CompanyId;
                 }
@@ -47,11 +54,7 @@ namespace NFine.Domain
             var LoginInfo = OperatorProvider.Provider.GetCurrent();
             if (LoginInfo != null)
             {
-                entity.F_DeleteUserId = LoginInfo.UserId;
-                if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-                {
-                    entity.F_OrganizeId = LoginInfo.CompanyId;
-                }
+                entity.F_DeleteUserId = LoginInfo.UserId;                
             }
             entity.F_DeleteTime = DateTime.Now;
             entity.F_DeleteMark = true;

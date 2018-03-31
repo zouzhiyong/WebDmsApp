@@ -38,6 +38,7 @@
             success: function () {
                 top.modulebutton.$("#gridList").resetSelection();
                 top.modulebutton.$("#gridList").trigger("reloadGrid");
+                $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
             }
         })
     }

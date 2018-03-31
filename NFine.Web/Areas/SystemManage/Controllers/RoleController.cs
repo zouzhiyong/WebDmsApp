@@ -22,6 +22,14 @@ namespace NFine.Web.Areas.SystemManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
+        public ActionResult GetSelectJson(string F_OrganizeId)
+        {
+            var data = roleApp.GetSelect(F_OrganizeId);
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
         public ActionResult GetGridJson(string keyword)
         {
             var data = roleApp.GetList(keyword);

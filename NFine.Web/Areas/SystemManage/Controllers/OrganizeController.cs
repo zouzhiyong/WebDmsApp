@@ -19,11 +19,33 @@ namespace NFine.Web.Areas.SystemManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
+        public ActionResult GetGridJson(Pagination pagination, string categoryid, string keyword)
+        {
+            var data = new
+            {
+                rows = organizeApp.GetList(pagination, categoryid, keyword),
+                total = pagination.total,
+                page = pagination.page,
+                records = pagination.records
+            };
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetSelectJson(string F_CategoryId,string F_ParentId)
+        {
+            var data = organizeApp.GetSelet(F_CategoryId, F_ParentId);
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
         public ActionResult GetTreeSelectJson(string F_CategoryId)
         {
             var data = organizeApp.GetList(F_CategoryId);
             if (F_CategoryId != null)
-            {                
+            {
                 return Content(data.ToJson());
             }
             else
@@ -40,7 +62,6 @@ namespace NFine.Web.Areas.SystemManage.Controllers
                 }
                 return Content(treeList.TreeSelectJson());
             }
-
         }
 
         [HttpGet]
