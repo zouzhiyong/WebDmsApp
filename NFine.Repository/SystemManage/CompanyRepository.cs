@@ -22,7 +22,7 @@ namespace NFine.Repository.SystemManage
                 db.Commit();
             }
         }
-        public void SubmitForm(CompanyEntity companyEntity, List<CompanyAuthorizeEntity> companyAuthorizeEntitys, string keyValue)
+        public void SubmitForm(CompanyEntity companyEntity, List<CompanyAuthorizeEntity> companyAuthorizeEntitys, List<RoleAuthorizeEntity> roleAuthorizeEntitys, string keyValue)
         {
             using (var db = new RepositoryBase().BeginTrans())
             {
@@ -35,7 +35,12 @@ namespace NFine.Repository.SystemManage
                     //companyEntity.F_Category = 1;
                     db.Insert(companyEntity);
                 }
-                db.Delete<CompanyAuthorizeEntity>(t => t.F_CorpId == companyEntity.F_Id);
+                db.Delete<CompanyAuthorizeEntity>(t => t.F_CorpId == companyEntity.F_Id);    
+                foreach(var item in roleAuthorizeEntitys)
+                {
+                    db.Delete<RoleAuthorizeEntity>(t => t.F_Id == item.F_Id);
+                }            
+                
                 db.Insert(companyAuthorizeEntitys);
                 db.Commit();
             }

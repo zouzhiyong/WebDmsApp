@@ -16,8 +16,10 @@ namespace NFine.Application.SystemManage
     public class CompanyApp
     {
         private ICompanyRepository service = new CompanyRepository();
+        private IRoleAuthorizeRepository roleauthorize = new RoleAuthorizeRepository();
         private ModuleApp moduleApp = new ModuleApp();
         private ModuleButtonApp moduleButtonApp = new ModuleButtonApp();
+        string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
 
         public List<CompanyEntity> GetList()
         {
@@ -66,13 +68,16 @@ namespace NFine.Application.SystemManage
 
             var moduledata = moduleApp.GetList();
             var buttondata = moduleButtonApp.GetList();
+
             List<CompanyAuthorizeEntity> companyAuthorizeEntitys = new List<CompanyAuthorizeEntity>();
+            List<RoleAuthorizeEntity> roleauthorizeEntitys = new List<RoleAuthorizeEntity>();
             foreach (var itemId in permissionIds)
             {
                 CompanyAuthorizeEntity companyAuthorizeEntity = new CompanyAuthorizeEntity();
                 companyAuthorizeEntity.Create();
                 companyAuthorizeEntity.F_CorpId = companyEntity.F_Id;
                 companyAuthorizeEntity.F_ModuleId = itemId;
+  
                 if (moduledata.Find(t => t.F_Id == itemId) != null)
                 {
                     companyAuthorizeEntity.F_ModuleType = 1;
@@ -81,9 +86,14 @@ namespace NFine.Application.SystemManage
                 {
                     companyAuthorizeEntity.F_ModuleType = 2;
                 }
-                companyAuthorizeEntitys.Add(companyAuthorizeEntity);
+                companyAuthorizeEntitys.Add(companyAuthorizeEntity);                
             }
-            service.SubmitForm(companyEntity, companyAuthorizeEntitys, keyValue);
+
+            var expression = ExtLinq.True<RoleAuthorizeEntity>();
+            expression = expression.And(t => !permissionIds.Contains(t.F_ItemId) && t.F_CorpId== companyEntity.F_CorpId);
+            roleauthorizeEntitys = roleauthorize.IQueryable(expression).ToList();
+
+            service.SubmitForm(companyEntity, companyAuthorizeEntitys, roleauthorizeEntitys, keyValue);
         }
     }
 }

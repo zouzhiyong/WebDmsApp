@@ -21,6 +21,12 @@ namespace NFine.Application.SystemManage
         private ModuleApp moduleApp = new ModuleApp();
         private ModuleButtonApp moduleButtonApp = new ModuleButtonApp();
 
+        public List<RoleAuthorizeEntity> GetList()
+        {
+            string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+            return service.IQueryable(t => t.F_CorpId == CompanyId).ToList();
+        }
+
         public List<RoleAuthorizeEntity> GetList(string ObjectId)
         {
             return service.IQueryable(t => t.F_ObjectId == ObjectId).ToList();

@@ -75,6 +75,7 @@ namespace NFine.Application.SystemManage
                 roleAuthorizeEntity.F_ObjectType = 1;
                 roleAuthorizeEntity.F_ObjectId = roleEntity.F_Id;
                 roleAuthorizeEntity.F_ItemId = itemId;
+                roleAuthorizeEntity.F_CorpId = roleEntity.F_CorpId;
                 if (moduledata.Find(t => t.F_Id == itemId) != null)
                 {
                     roleAuthorizeEntity.F_ItemType = 1;
