@@ -25,7 +25,11 @@ namespace NFine.MySQLModel
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<bas_company> bas_company { get; set; }
+        public virtual DbSet<bas_region> bas_region { get; set; }
         public virtual DbSet<bas_supplier> bas_supplier { get; set; }
+        public virtual DbSet<bas_truck> bas_truck { get; set; }
+        public virtual DbSet<bas_unitofmeasure> bas_unitofmeasure { get; set; }
         public virtual DbSet<bas_warehouse> bas_warehouse { get; set; }
         public virtual DbSet<bas_warehouseuser> bas_warehouseuser { get; set; }
         public virtual DbSet<sys_area> sys_area { get; set; }
@@ -43,7 +47,5 @@ namespace NFine.MySQLModel
         public virtual DbSet<sys_roleauthorize> sys_roleauthorize { get; set; }
         public virtual DbSet<sys_user> sys_user { get; set; }
         public virtual DbSet<sys_userlogon> sys_userlogon { get; set; }
-        public virtual DbSet<bas_unitofmeasure> bas_unitofmeasure { get; set; }
-        public virtual DbSet<bas_truck> bas_truck { get; set; }
     }
 }

@@ -20,14 +20,14 @@ namespace NFine.MySQLModel
         public string F_NickName { get; set; }
         public string F_HeadIcon { get; set; }
         public Nullable<bool> F_Gender { get; set; }
-        public System.DateTime F_Birthday { get; set; }
+        public Nullable<System.DateTime> F_Birthday { get; set; }
         public string F_MobilePhone { get; set; }
         public string F_Email { get; set; }
         public string F_WeChat { get; set; }
         public string F_ManagerId { get; set; }
         public Nullable<int> F_SecurityLevel { get; set; }
         public string F_Signature { get; set; }
-        public string F_OrganizeId { get; set; }
+        public string F_CorpId { get; set; }
         public string F_DepartmentId { get; set; }
         public string F_RoleId { get; set; }
         public string F_DutyId { get; set; }
@@ -36,11 +36,11 @@ namespace NFine.MySQLModel
         public Nullable<bool> F_DeleteMark { get; set; }
         public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }
-        public System.DateTime F_CreatorTime { get; set; }
+        public Nullable<System.DateTime> F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }
-        public System.DateTime F_LastModifyTime { get; set; }
+        public Nullable<System.DateTime> F_LastModifyTime { get; set; }
         public string F_LastModifyUserId { get; set; }
-        public System.DateTime F_DeleteTime { get; set; }
+        public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
     }
 }

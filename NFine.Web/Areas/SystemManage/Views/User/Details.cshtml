@@ -23,7 +23,7 @@
         $("#F_Gender").bindSelect()
         $("#F_IsAdministrator").bindSelect()
         $("#F_EnabledMark").bindSelect()
-        $("#F_OrganizeId").bindSelect({
+        $("#F_CorpId").bindSelect({
             url: rootUrl + "/SystemManage/Organize/GetSelectJson",
             param: { F_CategoryId: 'Company' },
         });
@@ -66,7 +66,7 @@
                 <tr>
                     <th class="formTitle">公司</th>
                     <td class="formValue">
-                        <select id="F_OrganizeId" name="F_OrganizeId" class="form-control">
+                        <select id="F_CorpId" name="F_CorpId" class="form-control">
                         </select>
                     </td>
                     <th class="formTitle">部门</th>

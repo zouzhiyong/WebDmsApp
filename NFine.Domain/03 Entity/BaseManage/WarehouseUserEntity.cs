@@ -13,7 +13,7 @@ namespace NFine.Domain.Entity.BaseManage
         public string F_Id { get; set; }
         public string F_WarehouseId { get; set; }
         public string F_UserId { get; set; }
-        public string F_OrganizeId { get; set; }
+        public string F_CorpId { get; set; }
         public Nullable<bool> F_DeleteMark { get; set; }
         public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }

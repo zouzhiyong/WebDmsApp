@@ -27,7 +27,7 @@ namespace NFine.Application.BaseManage
             if (!OperatorProvider.Provider.GetCurrent().IsSystem)
             {
                 string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_OrganizeId == CompanyId);
+                expression = expression.And(t => t.F_CorpId == CompanyId);
             }
             return service.FindList(expression, pagination);
         }

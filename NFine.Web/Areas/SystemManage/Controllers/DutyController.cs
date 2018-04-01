@@ -19,9 +19,9 @@ namespace NFine.Web.Areas.SystemManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetSelectJson(string F_OrganizeId)
+        public ActionResult GetSelectJson(string F_CorpId)
         {
-            var data = dutyApp.GetSelect(F_OrganizeId);
+            var data = dutyApp.GetSelect(F_CorpId);
             return Content(data.ToJson());
         }
 

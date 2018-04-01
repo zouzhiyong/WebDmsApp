@@ -20,7 +20,7 @@
                     formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
                 },
                 {
-                    label: '公司', name: 'F_OrganizeId', width: 200, align: 'left',
+                    label: '公司', name: 'F_CorpId', width: 200, align: 'left',
                     formatter: function (cellvalue, options, rowObject) {
                         return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
                     }

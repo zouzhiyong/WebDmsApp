@@ -28,7 +28,7 @@ namespace NFine.Application.BaseManage
             if (!OperatorProvider.Provider.GetCurrent().IsSystem)
             {
                 string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_OrganizeId == CompanyId);
+                expression = expression.And(t => t.F_CorpId == CompanyId);
             }
             return service.FindList(expression, pagination);
         }
@@ -60,7 +60,7 @@ namespace NFine.Application.BaseManage
                 warehouseUserEntity.F_Id = Common.GuId();
                 warehouseUserEntity.F_WarehouseId = warehouseEntity.F_Id;
                 warehouseUserEntity.F_UserId = itemId;
-                warehouseUserEntity.F_OrganizeId = CompanyId;
+                warehouseUserEntity.F_CorpId = CompanyId;
                 warehouseUserEntitys.Add(warehouseUserEntity);
             }
             service.SubmitForm(warehouseEntity, warehouseUserEntitys, keyValue);

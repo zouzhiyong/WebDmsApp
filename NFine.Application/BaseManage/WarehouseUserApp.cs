@@ -31,7 +31,7 @@ namespace NFine.Application.BaseManage
             var data = new List<UserEntity>();
             string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
             var userdata = userApp.GetList();
-            var warehouseuserdata = service.IQueryable(t => t.F_WarehouseId == warehouseId && t.F_OrganizeId == CompanyId).ToList();
+            var warehouseuserdata = service.IQueryable(t => t.F_WarehouseId == warehouseId && t.F_CorpId == CompanyId).ToList();
             foreach (var item in warehouseuserdata)
             {
                 UserEntity userEntity = userdata.Find(t => t.F_Id == item.F_UserId);

@@ -23,7 +23,7 @@ namespace NFine.Domain.Entity.SystemManage
         public string F_ManagerId { get; set; }
         public int? F_SecurityLevel { get; set; }
         public string F_Signature { get; set; }
-        public string F_OrganizeId { get; set; }
+        public string F_CorpId { get; set; }
         public string F_DepartmentId { get; set; }
         public string F_RoleId { get; set; }
         public string F_DutyId { get; set; }

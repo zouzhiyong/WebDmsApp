@@ -27,6 +27,6 @@ namespace NFine.Domain
         /// <summary>
         /// 删除实体机构
         /// </summary>
-        string F_OrganizeId { get; set; }
+        string F_CorpId { get; set; }
     }
 }

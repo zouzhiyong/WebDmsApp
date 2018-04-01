@@ -23,18 +23,18 @@
         $("#F_Gender").bindSelect()
         $("#F_IsAdministrator").bindSelect()
         $("#F_EnabledMark").bindSelect()
-        $("#F_OrganizeId").bindSelect({
+        $("#F_CorpId").bindSelect({
             url: rootUrl + "/SystemManage/Organize/GetSelectJson",
             param: { F_CategoryId: 'Company', F_ParentId: "0" },
             id: "F_Id",
             text: "F_FullName",
         });
-        $("#F_OrganizeId").on("change", function (e) {
-            var F_OrganizeId = $(this).val();
+        $("#F_CorpId").on("change", function (e) {
+            var F_CorpId = $(this).val();
             $("#F_DepartmentId").empty();
             $("#F_DepartmentId").bindSelect({
                 url: rootUrl + "/SystemManage/Organize/GetSelectJson",
-                param: { F_CategoryId: 'Department', F_ParentId: F_OrganizeId },
+                param: { F_CategoryId: 'Department', F_ParentId: F_CorpId },
                 id: "F_Id",
                 text: "F_FullName"
             });
@@ -42,7 +42,7 @@
             $("#F_RoleId").empty();
             $("#F_RoleId").bindSelect({
                 url: rootUrl + "/SystemManage/Role/GetSelectJson",
-                param: { F_OrganizeId: F_OrganizeId },
+                param: { F_CorpId: F_CorpId },
                 id: "F_Id",
                 text: "F_FullName"
             });
@@ -50,7 +50,7 @@
             $("#F_DutyId").empty();
             $("#F_DutyId").bindSelect({
                 url: rootUrl + "/SystemManage/Duty/GetSelectJson",
-                param: { F_OrganizeId: F_OrganizeId },
+                param: { F_CorpId: F_CorpId },
                 id: "F_Id",
                 text: "F_FullName"
             });
@@ -65,14 +65,14 @@
 
         $("#F_RoleId").bindSelect({
             url: rootUrl + "/SystemManage/Role/GetSelectJson",
-            param: { F_OrganizeId: null },
+            param: { F_CorpId: null },
             id: "F_Id",
             text: "F_FullName"
         });
 
         $("#F_DutyId").bindSelect({
             url: rootUrl + "/SystemManage/Duty/GetSelectJson",
-            param: { F_OrganizeId: null },
+            param: { F_CorpId: null },
             id: "F_Id",
             text: "F_FullName"
         });
@@ -111,7 +111,7 @@
                 <tr>
                     <th class="formTitle">公司</th>
                     <td class="formValue">
-                        <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required">
+                        <select id="F_CorpId" name="F_CorpId" class="form-control required">
                         </select>
                     </td>
                     <th class="formTitle">部门</th>

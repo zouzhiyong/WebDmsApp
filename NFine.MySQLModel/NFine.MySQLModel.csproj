@@ -70,6 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bas_company.cs">
+      <DependentUpon>MySQLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="bas_region.cs">
+      <DependentUpon>MySQLModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="bas_supplier.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>

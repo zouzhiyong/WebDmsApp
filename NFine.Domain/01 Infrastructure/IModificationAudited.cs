@@ -13,6 +13,6 @@ namespace NFine.Domain
         string F_Id { get; set; }
         string F_LastModifyUserId { get; set; }
         DateTime? F_LastModifyTime { get; set; }
-        string F_OrganizeId { get; set; }
+        string F_CorpId { get; set; }
     }
 }

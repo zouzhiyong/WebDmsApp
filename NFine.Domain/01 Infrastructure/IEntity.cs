@@ -21,10 +21,10 @@ namespace NFine.Domain
                 entity.F_CreatorUserId = LoginInfo.UserId;
                 if (OperatorProvider.Provider.GetCurrent().IsSystem)
                 {
-                    entity.F_OrganizeId = "00000000-0000-0000-0000-000000000000";
+                    entity.F_CorpId = "00000000-0000-0000-0000-000000000000";
                 }else
                 {
-                    entity.F_OrganizeId = LoginInfo.CompanyId;
+                    entity.F_CorpId = LoginInfo.CompanyId;
                 }              
             }
             entity.F_CreatorTime = DateTime.Now;
@@ -39,11 +39,11 @@ namespace NFine.Domain
                 entity.F_LastModifyUserId = LoginInfo.UserId;
                 if (OperatorProvider.Provider.GetCurrent().IsSystem)
                 {
-                    entity.F_OrganizeId = "00000000-0000-0000-0000-000000000000";
+                    entity.F_CorpId = "00000000-0000-0000-0000-000000000000";
                 }
                 else
                 {
-                    entity.F_OrganizeId = LoginInfo.CompanyId;
+                    entity.F_CorpId = LoginInfo.CompanyId;
                 }
             }
             entity.F_LastModifyTime = DateTime.Now;

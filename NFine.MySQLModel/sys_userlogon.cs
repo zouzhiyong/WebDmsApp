@@ -18,14 +18,14 @@ namespace NFine.MySQLModel
         public string F_UserId { get; set; }
         public string F_UserPassword { get; set; }
         public string F_UserSecretkey { get; set; }
-        public System.DateTime F_AllowStartTime { get; set; }
-        public System.DateTime F_AllowEndTime { get; set; }
-        public System.DateTime F_LockStartDate { get; set; }
-        public System.DateTime F_LockEndDate { get; set; }
-        public System.DateTime F_FirstVisitTime { get; set; }
-        public System.DateTime F_PreviousVisitTime { get; set; }
-        public System.DateTime F_LastVisitTime { get; set; }
-        public System.DateTime F_ChangePasswordDate { get; set; }
+        public Nullable<System.DateTime> F_AllowStartTime { get; set; }
+        public Nullable<System.DateTime> F_AllowEndTime { get; set; }
+        public Nullable<System.DateTime> F_LockStartDate { get; set; }
+        public Nullable<System.DateTime> F_LockEndDate { get; set; }
+        public Nullable<System.DateTime> F_FirstVisitTime { get; set; }
+        public Nullable<System.DateTime> F_PreviousVisitTime { get; set; }
+        public Nullable<System.DateTime> F_LastVisitTime { get; set; }
+        public Nullable<System.DateTime> F_ChangePasswordDate { get; set; }
         public Nullable<bool> F_MultiUserLogin { get; set; }
         public Nullable<int> F_LogOnCount { get; set; }
         public Nullable<bool> F_UserOnLine { get; set; }
@@ -34,5 +34,6 @@ namespace NFine.MySQLModel
         public Nullable<bool> F_CheckIPAddress { get; set; }
         public string F_Language { get; set; }
         public string F_Theme { get; set; }
+        public string F_CorpId { get; set; }
     }
 }

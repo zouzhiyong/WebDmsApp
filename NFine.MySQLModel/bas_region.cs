@@ -12,14 +12,14 @@ namespace NFine.MySQLModel
     using System;
     using System.Collections.Generic;
     
-    public partial class sys_items
+    public partial class bas_region
     {
         public string F_Id { get; set; }
         public string F_ParentId { get; set; }
+        public Nullable<int> F_Layers { get; set; }
         public string F_EnCode { get; set; }
         public string F_FullName { get; set; }
-        public Nullable<bool> F_IsTree { get; set; }
-        public Nullable<int> F_Layers { get; set; }
+        public string F_SimpleSpelling { get; set; }
         public Nullable<int> F_SortCode { get; set; }
         public Nullable<bool> F_DeleteMark { get; set; }
         public Nullable<bool> F_EnabledMark { get; set; }

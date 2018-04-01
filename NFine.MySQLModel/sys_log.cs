@@ -15,7 +15,7 @@ namespace NFine.MySQLModel
     public partial class sys_log
     {
         public string F_Id { get; set; }
-        public System.DateTime F_Date { get; set; }
+        public Nullable<System.DateTime> F_Date { get; set; }
         public string F_Account { get; set; }
         public string F_NickName { get; set; }
         public string F_Type { get; set; }
@@ -25,8 +25,8 @@ namespace NFine.MySQLModel
         public string F_ModuleName { get; set; }
         public Nullable<bool> F_Result { get; set; }
         public string F_Description { get; set; }
-        public System.DateTime F_CreatorTime { get; set; }
+        public Nullable<System.DateTime> F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }
-        public string F_OrganizeId { get; set; }
+        public string F_CorpId { get; set; }
     }
 }

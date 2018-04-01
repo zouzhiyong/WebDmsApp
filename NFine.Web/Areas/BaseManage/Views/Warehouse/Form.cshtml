@@ -39,7 +39,7 @@
                 { label: '用户名称', name: 'F_RealName', width: 120, align: 'left' },
                 { label: '手机', name: 'F_MobilePhone', width: 80, align: 'left' },
                 {
-                    label: '公司', name: 'F_OrganizeId', width: 150, align: 'left',
+                    label: '公司', name: 'F_CorpId', width: 150, align: 'left',
                     formatter: function (cellvalue, options, rowObject) {
                         return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
                     }
@@ -95,7 +95,7 @@
     }
 
     function initControl() {
-        $("#F_OrganizeId").bindSelect({
+        $("#F_CorpId").bindSelect({
             url: rootUrl + "/SystemManage/Organize/GetSelectJson",
             param: { F_CategoryId: 'Company' },
             id: "F_Id",
@@ -158,7 +158,7 @@
                     <tr>
                         <th class="formTitle">公司</th>
                         <td class="formValue">
-                            <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required">
+                            <select id="F_CorpId" name="F_CorpId" class="form-control required">
                             </select>
                         </td>
                         <th class="formTitle">仓库地址</th>

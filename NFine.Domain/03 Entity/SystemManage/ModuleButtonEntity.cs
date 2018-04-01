@@ -34,6 +34,6 @@ namespace NFine.Domain.Entity.SystemManage
         public string F_LastModifyUserId { get; set; }
         public DateTime? F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
-        public string F_OrganizeId { get; set; }
+        public string F_CorpId { get; set; }
     }
 }

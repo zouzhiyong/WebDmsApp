@@ -20,8 +20,8 @@ namespace NFine.MySQLModel
         public Nullable<int> F_ObjectType { get; set; }
         public string F_ObjectId { get; set; }
         public Nullable<int> F_SortCode { get; set; }
-        public System.DateTime F_CreatorTime { get; set; }
+        public Nullable<System.DateTime> F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }
-        public string F_OrganizeId { get; set; }
+        public string F_CorpId { get; set; }
     }
 }

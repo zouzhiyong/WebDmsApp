@@ -26,7 +26,7 @@ namespace NFine.Application.SystemManage
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
             }
             string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-            expression = expression.And(t => t.F_OrganizeId == CompanyId && t.F_CategoryId == F_CategoryId);
+            expression = expression.And(t => t.F_CorpId == CompanyId && t.F_CategoryId == F_CategoryId);
             return service.FindList(expression, pagination);
         }
 
@@ -42,7 +42,7 @@ namespace NFine.Application.SystemManage
             if (!OperatorProvider.Provider.GetCurrent().IsSystem)
             {
                 string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_OrganizeId == CompanyId);
+                expression = expression.And(t => t.F_CorpId == CompanyId);
             }else
             {
                 expression = expression.And(t => t.F_ParentId == F_ParentId);
@@ -114,7 +114,7 @@ namespace NFine.Application.SystemManage
                 {
                     if (organizeEntity.F_CategoryId.ToLower() == "company")
                     {
-                        organizeEntity.F_OrganizeId = organizeEntity.F_Id;
+                        organizeEntity.F_CorpId = organizeEntity.F_Id;
                     }
                 }
                 service.Update(organizeEntity);
@@ -126,7 +126,7 @@ namespace NFine.Application.SystemManage
                 {
                     if (organizeEntity.F_CategoryId.ToLower() == "company")
                     {
-                        organizeEntity.F_OrganizeId = organizeEntity.F_Id;
+                        organizeEntity.F_CorpId = organizeEntity.F_Id;
                     }
                 }
                 service.Insert(organizeEntity);

@@ -50,6 +50,7 @@
     <Compile Include="03 Entity\BaseManage\SupplierEntity.cs" />
     <Compile Include="03 Entity\BaseManage\WarehouseUserEntity.cs" />
     <Compile Include="03 Entity\BaseManage\WarehouseEntity.cs" />
+    <Compile Include="03 Entity\SystemManage\CompanyEntity.cs" />
     <Compile Include="03 Entity\SystemManage\TestEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleButtonEntity.cs" />

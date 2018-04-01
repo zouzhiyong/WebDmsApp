@@ -19,7 +19,7 @@
         }
     })
     function initControl() {
-        $("#F_OrganizeId").bindSelect({
+        $("#F_CorpId").bindSelect({
             url: rootUrl + "/SystemManage/Organize/GetSelectJson",
             param: { F_CategoryId: 'Company' },
             id: "F_Id",
@@ -91,7 +91,7 @@
                             <tr>
                                 <th class="formTitle">归属组织</th>
                                 <td class="formValue">
-                                    <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required">
+                                    <select id="F_CorpId" name="F_CorpId" class="form-control required">
                                     </select>
                                 </td>
                             </tr>

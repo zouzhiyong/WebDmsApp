@@ -18,6 +18,6 @@ namespace NFine.Domain.Entity.SystemManage
         public int? F_SortCode { get; set; }
         public DateTime? F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }
-        public string F_OrganizeId { get; set; }
+        public string F_CorpId { get; set; }
     }
 }

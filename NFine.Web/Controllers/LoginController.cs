@@ -69,7 +69,7 @@ namespace NFine.Web.Controllers
                     operatorModel.UserId = userEntity.F_Id;
                     operatorModel.UserCode = userEntity.F_Account;
                     operatorModel.UserName = userEntity.F_RealName;
-                    operatorModel.CompanyId = userEntity.F_OrganizeId;
+                    operatorModel.CompanyId = userEntity.F_CorpId;
                     operatorModel.DepartmentId = userEntity.F_DepartmentId;
                     operatorModel.RoleId = userEntity.F_RoleId;
                     operatorModel.LoginIPAddress = Net.Ip;

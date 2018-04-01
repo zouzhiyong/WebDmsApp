@@ -15,7 +15,7 @@ namespace NFine.MySQLModel
     public partial class bas_warehouse
     {
         public string F_Id { get; set; }
-        public string F_OrganizeId { get; set; }
+        public string F_CorpId { get; set; }
         public string F_Name { get; set; }
         public string F_Address { get; set; }
         public string F_Contact { get; set; }

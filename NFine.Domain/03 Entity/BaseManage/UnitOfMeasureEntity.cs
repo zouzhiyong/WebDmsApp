@@ -22,6 +22,6 @@ namespace NFine.Domain.Entity.BaseManage
         public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
         public Nullable<int> F_SortCode { get; set; }
-        public string F_OrganizeId { get; set; }
+        public string F_CorpId { get; set; }
     }
 }
