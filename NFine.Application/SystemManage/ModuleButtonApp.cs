@@ -17,6 +17,8 @@ namespace NFine.Application.SystemManage
     public class ModuleButtonApp
     {
         private IModuleButtonRepository service = new ModuleButtonRepository();
+        private ICompanyAuthorizeRepository companyauthorize = new CompanyAuthorizeRepository();
+        string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
 
         public List<ModuleButtonEntity> GetList(string moduleId = "")
         {
@@ -25,7 +27,26 @@ namespace NFine.Application.SystemManage
             {
                 expression = expression.And(t => t.F_ModuleId == moduleId);
             }
-            return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+            var modulebuttonDataList =  service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+
+            if (OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                return modulebuttonDataList;
+            }
+            else
+            {
+                var data = new List<ModuleButtonEntity>();
+                var companyauthorizedata = companyauthorize.IQueryable(t => t.F_CorpId == CompanyId && t.F_ModuleType == 2);
+                foreach (var item in companyauthorizedata)
+                {
+                    ModuleButtonEntity modulebuttonEntity = modulebuttonDataList.Find(t => t.F_Id == item.F_ModuleId);
+                    if (modulebuttonEntity != null)
+                    {
+                        data.Add(modulebuttonEntity);
+                    }
+                }
+                return data.OrderBy(t => t.F_SortCode).ToList();
+            }
         }
         public ModuleButtonEntity GetForm(string keyValue)
         {

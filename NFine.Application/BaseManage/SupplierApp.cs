@@ -39,17 +39,17 @@ namespace NFine.Application.BaseManage
         {
             service.Delete(t => t.F_Id == keyValue);
         }
-        public void SubmitForm(SupplierEntity SupplierEntity, string keyValue)
+        public void SubmitForm(SupplierEntity supplierEntity, string keyValue)
         {
             if (!string.IsNullOrEmpty(keyValue))
             {
-                SupplierEntity.Modify(keyValue);
-                service.Update(SupplierEntity);
+                supplierEntity.Modify(keyValue);
+                service.Update(supplierEntity);
             }
             else
             {
-                SupplierEntity.Create();
-                service.Insert(SupplierEntity);
+                supplierEntity.Create();
+                service.Insert(supplierEntity);
             }
         }
     }

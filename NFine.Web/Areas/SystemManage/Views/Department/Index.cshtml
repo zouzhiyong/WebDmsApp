@@ -10,27 +10,32 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: rootUrl + "/SystemManage/Organize/GetGridJson?categoryid=Department",
+            url: rootUrl + "/SystemManage/Department/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
-                { label: "主键", name: "F_Id", hidden: true, key: true },
-                { label: '部门名称', name: 'F_FullName', width: 200, align: 'left' },
-                { label: '编号', name: 'F_EnCode', width: 150, align: 'left' },                
+                { label: '主键', name: 'F_Id', hidden: true },
+                { label: '部门名称', name: 'F_FullName', width: 100, align: 'left' },
                 {
                     label: '创建时间', name: 'F_CreatorTime', width: 80, align: 'left',
                     formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
                 },
                 {
-                    label: '最后修改时间', name: 'F_LastModifyTime', width: 80, align: 'left',
+                    label: '最后修改人', name: 'F_LastModifyUserId', width: 100, align: 'left',
+                    formatter: function (cellvalue) {
+                        return top.clients.user[cellvalue] == null ? "" : top.clients.user[cellvalue].fullname;
+                    }
+                },
+                {
+                    label: '修改时间', name: 'F_LastModifyTime', width: 80, align: 'left',
                     formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
                 },
                 {
-                    label: "有效", name: "F_EnabledMark", width: 60, align: "center",
+                    label: "有效", name: "F_EnabledMark", width: 60, align: "left",
                     formatter: function (cellvalue) {
                         return cellvalue == 1 ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
                     }
                 },
-                { label: '备注', name: 'F_Description', width: 300, align: 'left' }
+                { label: '备注', name: 'F_Description', width: 150, align: 'left' }
             ],
             pager: "#gridPager",
             sortname: 'F_CreatorTime desc',
@@ -42,51 +47,48 @@
             }).trigger('reloadGrid');
         });
     }
-
     function btn_add() {
         $.modalOpen({
             id: "Form",
             title: "新增部门",
-            url: rootUrl + "/BaseManage/Department/Form",
+            url: rootUrl + "/SystemManage/Department/Form",
             width: "700px",
-            height: "520px",
+            height: "450px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
         });
     }
-
     function btn_edit() {
         var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "Form",
             title: "修改部门",
-            url: rootUrl + "/BaseManage/Department/Form?keyValue=" + keyValue,
+            url: rootUrl + "/SystemManage/Department/Form?keyValue=" + keyValue,
             width: "700px",
-            height: "510px",
+            height: "450px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();
             }
         });
     }
-
     function btn_delete() {
         $.deleteForm({
-            url: rootUrl + "/SystemManage/Organize/DeleteForm",
+            url: rootUrl + "/SystemManage/Department/DeleteForm",
             param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
             success: function () {
-                $.currentWindow().$("#gridList").resetSelection();
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
         })
-    }    
+    }
+    
 </script>
 
 <div class="topPanel">
     <div class="toolbar">
         <div class="btn-group">
             <a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
-        </div>       
+        </div>
         <div class="btn-group">
             <a id="NF-add" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建部门</a>
         </div>

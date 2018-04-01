@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="nfinebaseModelStoreContainer" CdmEntityContainer="nfinebaseEntities">
-    <EntitySetMapping Name="bas_company">
-      <EntityTypeMapping TypeName="nfinebaseModel.bas_company">
-        <MappingFragment StoreEntitySet="bas_company">
+    <EntitySetMapping Name="bas_department">
+      <EntityTypeMapping TypeName="nfinebaseModel.bas_department">
+        <MappingFragment StoreEntitySet="bas_department">
+          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
           <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
           <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
           <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
@@ -14,11 +15,6 @@
           <ScalarProperty Name="F_Description" ColumnName="F_Description" />
           <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
           <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
-          <ScalarProperty Name="F_AllowDelete" ColumnName="F_AllowDelete" />
-          <ScalarProperty Name="F_AllowEdit" ColumnName="F_AllowEdit" />
-          <ScalarProperty Name="F_InvAccountPeriod" ColumnName="F_InvAccountPeriod" />
-          <ScalarProperty Name="F_TradeMark" ColumnName="F_TradeMark" />
-          <ScalarProperty Name="F_AreaId" ColumnName="F_AreaId" />
           <ScalarProperty Name="F_Email" ColumnName="F_Email" />
           <ScalarProperty Name="F_Fax" ColumnName="F_Fax" />
           <ScalarProperty Name="F_WeChat" ColumnName="F_WeChat" />
@@ -27,8 +23,7 @@
           <ScalarProperty Name="F_ManagerId" ColumnName="F_ManagerId" />
           <ScalarProperty Name="F_Address" ColumnName="F_Address" />
           <ScalarProperty Name="F_ShortName" ColumnName="F_ShortName" />
-          <ScalarProperty Name="F_FullName" ColumnName="F_FullName" />
-          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+          <ScalarProperty Name="F_Name" ColumnName="F_Name" />
           <ScalarProperty Name="F_Id" ColumnName="F_Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -188,6 +183,51 @@
           <ScalarProperty Name="F_EnCode" ColumnName="F_EnCode" />
           <ScalarProperty Name="F_Layers" ColumnName="F_Layers" />
           <ScalarProperty Name="F_ParentId" ColumnName="F_ParentId" />
+          <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sys_company">
+      <EntityTypeMapping TypeName="nfinebaseModel.sys_company">
+        <MappingFragment StoreEntitySet="sys_company">
+          <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+          <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
+          <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
+          <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
+          <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
+          <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+          <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+          <ScalarProperty Name="F_Description" ColumnName="F_Description" />
+          <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
+          <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+          <ScalarProperty Name="F_AllowDelete" ColumnName="F_AllowDelete" />
+          <ScalarProperty Name="F_AllowEdit" ColumnName="F_AllowEdit" />
+          <ScalarProperty Name="F_InvAccountPeriod" ColumnName="F_InvAccountPeriod" />
+          <ScalarProperty Name="F_TradeMark" ColumnName="F_TradeMark" />
+          <ScalarProperty Name="F_AreaId" ColumnName="F_AreaId" />
+          <ScalarProperty Name="F_Email" ColumnName="F_Email" />
+          <ScalarProperty Name="F_Fax" ColumnName="F_Fax" />
+          <ScalarProperty Name="F_WeChat" ColumnName="F_WeChat" />
+          <ScalarProperty Name="F_MobilePhone" ColumnName="F_MobilePhone" />
+          <ScalarProperty Name="F_TelePhone" ColumnName="F_TelePhone" />
+          <ScalarProperty Name="F_ManagerId" ColumnName="F_ManagerId" />
+          <ScalarProperty Name="F_Address" ColumnName="F_Address" />
+          <ScalarProperty Name="F_ShortName" ColumnName="F_ShortName" />
+          <ScalarProperty Name="F_FullName" ColumnName="F_FullName" />
+          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+          <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sys_companyauthorize">
+      <EntityTypeMapping TypeName="nfinebaseModel.sys_companyauthorize">
+        <MappingFragment StoreEntitySet="sys_companyauthorize">
+          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+          <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+          <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+          <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+          <ScalarProperty Name="F_ModuleId" ColumnName="F_ModuleId" />
+          <ScalarProperty Name="F_ModuleType" ColumnName="F_ModuleType" />
           <ScalarProperty Name="F_Id" ColumnName="F_Id" />
         </MappingFragment>
       </EntityTypeMapping>

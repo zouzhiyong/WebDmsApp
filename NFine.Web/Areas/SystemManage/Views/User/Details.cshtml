@@ -24,12 +24,10 @@
         $("#F_IsAdministrator").bindSelect()
         $("#F_EnabledMark").bindSelect()
         $("#F_CorpId").bindSelect({
-            url: rootUrl + "/SystemManage/Organize/GetSelectJson",
-            param: { F_CategoryId: 'Company' },
+            url: rootUrl + "/SystemManage/Company/GetSelectJson",
         });
         $("#F_DepartmentId").bindSelect({
-            url: rootUrl + "/SystemManage/Organize/GetSelectJson",
-            param: { F_CategoryId: 'Department' },
+            url: rootUrl + "/SystemManage/Department/GetSelectJson",
         });
         $("#F_RoleId").bindSelect({
             url: rootUrl + "/SystemManage/Role/GetGridJson",

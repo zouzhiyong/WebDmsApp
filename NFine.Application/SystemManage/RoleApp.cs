@@ -19,18 +19,14 @@ namespace NFine.Application.SystemManage
         private ModuleApp moduleApp = new ModuleApp();
         private ModuleButtonApp moduleButtonApp = new ModuleButtonApp();
 
-        public List<RoleEntity> GetSelect(string F_CorpId)
+        public List<RoleEntity> GetSelect()
         {
-
             var expression = ExtLinq.True<RoleEntity>();            
             expression = expression.And(t => t.F_Category == 1);
             if (!OperatorProvider.Provider.GetCurrent().IsSystem)
             {
                 string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
                 expression = expression.And(t => t.F_CorpId == CompanyId);
-            }else
-            {
-                expression = expression.And(t => t.F_CorpId == F_CorpId);
             }
             return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
         }
@@ -75,7 +71,7 @@ namespace NFine.Application.SystemManage
             foreach (var itemId in permissionIds)
             {
                 RoleAuthorizeEntity roleAuthorizeEntity = new RoleAuthorizeEntity();
-                roleAuthorizeEntity.F_Id = Common.GuId();
+                roleAuthorizeEntity.Create();
                 roleAuthorizeEntity.F_ObjectType = 1;
                 roleAuthorizeEntity.F_ObjectId = roleEntity.F_Id;
                 roleAuthorizeEntity.F_ItemId = itemId;

@@ -70,7 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bas_company.cs">
+    <Compile Include="bas_department.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>
     <Compile Include="bas_region.cs">
@@ -108,6 +108,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sys_area.cs">
+      <DependentUpon>MySQLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sys_company.cs">
+      <DependentUpon>MySQLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sys_companyauthorize.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sys_dbbackup.cs">

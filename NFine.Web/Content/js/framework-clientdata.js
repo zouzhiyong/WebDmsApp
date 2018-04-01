@@ -20,11 +20,14 @@ $.clientsInit = function () {
             async: false,
             success: function (data) {
                 dataJson.dataItems = data.dataItems;
-                dataJson.organize = data.organize;
+                //dataJson.organize = data.organize;
+                dataJson.company = data.company;
+                dataJson.department = data.department;
                 dataJson.role = data.role;
                 dataJson.duty = data.duty;
                 dataJson.authorizeMenu = eval(data.authorizeMenu);
                 dataJson.authorizeButton = data.authorizeButton;
+                dataJson.user = data.user;
             }
         });
     }

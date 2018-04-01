@@ -18,7 +18,7 @@
                 {
                     label: '归属机构', name: 'F_CorpId', width: 150, align: 'left',
                     formatter: function (cellvalue, options, rowObject) {
-                        return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
+                        return top.clients.company[cellvalue] == null ? "" : top.clients.company[cellvalue].fullname;
                     }
                 },
                 {

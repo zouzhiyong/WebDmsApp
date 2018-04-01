@@ -8,7 +8,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: rootUrl + "/SystemManage/Organize/GetFormJson",
+                url: rootUrl + "/BaseManage/Company/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -17,36 +17,57 @@
                 }
             });
         }
-    });
+    })
     function initControl() {
-
+        $('#wizard').wizard().on('change', function (e, data) {
+            var $finish = $("#btn_finish");
+            var $next = $("#btn_next");
+            if (data.direction == "next") {
+                switch (data.step) {
+                    case 1:
+                        if (!$('#form1').formValid()) {
+                            return false;
+                        }
+                        $finish.show();
+                        $next.hide();
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                $finish.hide();
+                $next.show();
+            }
+        });
+        $("#permissionTree").treeview({
+            height: 380,
+            showcheck: true,
+            url: rootUrl + "/SystemManage/CompanyAuthorize/GetPermissionTree",
+            param: { CorpId: keyValue }
+        });
     }
     function submitForm() {
-        if (!$('#form1').formValid()) {
-            return false;
-        }
-
         var postData = $("#form1").formSerialize();
-        postData["F_CategoryId"] = "Department";
-        postData["F_ParentId"]= '@NFine.Code.OperatorProvider.Provider.GetCurrent().CompanyId';
-
+        postData["permissionIds"] = String($("#permissionTree").getCheckedNodes());
         $.submitForm({
-            url: rootUrl + "/SystemManage/Organize/SubmitForm?keyValue=" + keyValue,
+            url: rootUrl + "/SystemManage/Company/SubmitForm?keyValue=" + keyValue,
             param: postData,
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
-                $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
             }
-        })
+        });
     }
 </script>
 <form id="form1">
-    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
-        <ul class="nav nav-tabs">
-            <li class="active"><a href="#page1" data-toggle="tab">基本信息</a></li>
-        </ul>
-        <div class="tab-content">
-            <div style="padding-top: 20px; margin-right: 30px;" class="tab-pane fade in active" id="page1">
+    <div class="widget-body">
+        <div id="wizard" class="wizard" data-target="#wizard-steps" style="border-left: none; border-top: none; border-right: none;">
+            <ul class="steps">
+                <li data-target="#step-1" class="active"><span class="step">1</span>基本信息<span class="chevron"></span></li>
+                <li data-target="#step-2"><span class="step">2</span>功能权限<span class="chevron"></span></li>
+            </ul>
+        </div>
+        <div class="step-content" id="wizard-steps" style="border-left: none; border-bottom: none; border-right: none;">
+            <div class="step-pane active" id="step-1" style="margin: 10px; margin-bottom: 0px;padding:20px">
                 <table class="form">
                     <tr>
                         <th class="formTitle">名称</th>
@@ -55,7 +76,7 @@
                         </td>
                         <th class="formTitle">编号</th>
                         <td class="formValue">
-                            <input id="F_EnCode" name="F_EnCode" type="text" class="form-control required" placeholder="请输入编号" />
+                            <input id="F_CorpId" name="F_CorpId" type="text" disabled="disabled" class="form-control required" placeholder="编号" />
                         </td>
                     </tr>
                     <tr>
@@ -109,11 +130,19 @@
                             备注
                         </th>
                         <td class="formValue" colspan="3">
-                            <textarea id="F_Description" name="F_Descriptions" class="form-control" style="height: 60px;"></textarea>
+                            <textarea id="F_Description" name="F_Descriptions" class="form-control" style="height: 90px;"></textarea>
                         </td>
                     </tr>
                 </table>
             </div>
+            <div class="step-pane" id="step-2">
+                <div id="permissionTree"></div>
+            </div>
+        </div>
+        <div class="form-button" id="wizard-actions">
+            <a id="btn_last" disabled class="btn btn-default btn-prev">上一步</a>
+            <a id="btn_next" class="btn btn-default btn-next">下一步</a>
+            <a id="btn_finish" class="btn btn-default" style="display: none;" onclick="submitForm()">完成</a>
         </div>
     </div>
 </form>

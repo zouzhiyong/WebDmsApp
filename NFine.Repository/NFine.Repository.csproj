@@ -65,8 +65,11 @@
     <Compile Include="SystemManage\ModuleRepository.cs" />
     <Compile Include="SystemManage\AreaRepository.cs" />
     <Compile Include="SystemManage\OrganizeRepository.cs" />
+    <Compile Include="SystemManage\CompanyRepository.cs" />
+    <Compile Include="SystemManage\CompanyAuthorizeRepository.cs" />
     <Compile Include="SystemManage\RoleRepository.cs" />
     <Compile Include="SystemManage\UserLogOnRepository.cs" />
+    <Compile Include="SystemManage\DepartmentRepository.cs" />
     <Compile Include="SystemManage\UserRepository.cs" />
     <Compile Include="SystemManage\RoleAuthorizeRepository.cs" />
     <Compile Include="SystemSecurity\DbBackupRepository.cs" />

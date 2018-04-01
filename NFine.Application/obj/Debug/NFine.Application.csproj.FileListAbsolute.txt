@@ -64,6 +64,7 @@ D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Application
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Application\obj\Debug\NFine.Application.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Application\obj\Debug\NFine.Application.dll
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Application\obj\Debug\NFine.Application.pdb
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\obj\Debug\NFine.Application.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\NFine.Application.dll.config
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\NFine.Application.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\NFine.Application.pdb
@@ -85,6 +86,5 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\Newtonsoft.
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\log4net.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\NPOI.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\EntityFramework.xml
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\obj\Debug\NFine.Application.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\obj\Debug\NFine.Application.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\obj\Debug\NFine.Application.pdb

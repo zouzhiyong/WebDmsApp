@@ -53,6 +53,7 @@ namespace NFine.Application.SystemManage
             else
             {
                 itemsDetailEntity.Create();
+                itemsDetailEntity.F_DeleteMark = false;
                 service.Insert(itemsDetailEntity);
             }
         }

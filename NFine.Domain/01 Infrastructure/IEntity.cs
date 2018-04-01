@@ -19,13 +19,24 @@ namespace NFine.Domain
             if (LoginInfo != null)
             {
                 entity.F_CreatorUserId = LoginInfo.UserId;
-                if (OperatorProvider.Provider.GetCurrent().IsSystem)
-                {
-                    entity.F_CorpId = "00000000-0000-0000-0000-000000000000";
-                }else
+                if (!OperatorProvider.Provider.GetCurrent().IsSystem)
                 {
                     entity.F_CorpId = LoginInfo.CompanyId;
-                }              
+                }else
+                {
+                    if (entity.F_CorpId == null)
+                    {
+                        entity.F_CorpId = LoginInfo.CompanyId;
+                    }
+                }
+                //entity.F_CorpId = LoginInfo.CompanyId;
+                //if (OperatorProvider.Provider.GetCurrent().IsSystem)
+                //{
+                //    entity.F_CorpId = "00000000-0000-0000-0000-000000000000";
+                //}else
+                //{
+                //    entity.F_CorpId = LoginInfo.CompanyId;
+                //}              
             }
             entity.F_CreatorTime = DateTime.Now;
         }
@@ -36,15 +47,26 @@ namespace NFine.Domain
             var LoginInfo = OperatorProvider.Provider.GetCurrent();
             if (LoginInfo != null)
             {
-                entity.F_LastModifyUserId = LoginInfo.UserId;
-                if (OperatorProvider.Provider.GetCurrent().IsSystem)
-                {
-                    entity.F_CorpId = "00000000-0000-0000-0000-000000000000";
-                }
-                else
+                if (!OperatorProvider.Provider.GetCurrent().IsSystem)
                 {
                     entity.F_CorpId = LoginInfo.CompanyId;
                 }
+                else
+                {
+                    if (entity.F_CorpId == null)
+                    {
+                        entity.F_CorpId = LoginInfo.CompanyId;
+                    }
+                }
+                //entity.F_CorpId = LoginInfo.CompanyId;
+                //if (OperatorProvider.Provider.GetCurrent().IsSystem)
+                //{
+                //    entity.F_CorpId = "00000000-0000-0000-0000-000000000000";
+                //}
+                //else
+                //{
+                //    entity.F_CorpId = LoginInfo.CompanyId;
+                //}
             }
             entity.F_LastModifyTime = DateTime.Now;
         }

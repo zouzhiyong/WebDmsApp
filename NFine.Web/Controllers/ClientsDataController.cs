@@ -24,13 +24,14 @@ namespace NFine.Web.Controllers
             var data = new
             {
                 dataItems = this.GetDataItemList(),
-                organize = this.GetOrganizeList(),
+                company = this.GetDataCompanyList(),
+                department=this.GetDataDepartmentList(),
+                //organize = this.GetOrganizeList(),
                 role = this.GetRoleList(),
                 duty = this.GetDutyList(),
                 user = this.GetUserList(),
                 authorizeMenu = this.GetMenuList(),
-                authorizeButton = this.GetMenuButtonList(),
-                company = this.CompanyObject(),
+                authorizeButton = this.GetMenuButtonList()                
             };
             return Content(data.ToJson());
         }
@@ -82,7 +83,38 @@ namespace NFine.Web.Controllers
             }
             return dictionary;
         }
-
+        private object GetDataCompanyList()
+        {
+            CompanyApp companyApp = new CompanyApp();
+            var data = companyApp.GetList();
+            Dictionary<string, object> dictionary = new Dictionary<string, object>();
+            foreach (CompanyEntity item in data)
+            {
+                var fieldItem = new
+                {
+                    encode = item.F_CorpId,
+                    fullname = item.F_FullName
+                };
+                dictionary.Add(item.F_Id, fieldItem);
+            }
+            return dictionary;
+        }
+        private object GetDataDepartmentList()
+        {
+            DepartmentApp departmentApp = new DepartmentApp();
+            var data = departmentApp.GetList();
+            Dictionary<string, object> dictionary = new Dictionary<string, object>();
+            foreach (DepartmentEntity item in data)
+            {
+                var fieldItem = new
+                {
+                    encode = item.F_Id,
+                    fullname = item.F_FullName
+                };
+                dictionary.Add(item.F_Id, fieldItem);
+            }
+            return dictionary;
+        }
         private object GetUserList()
         {
             UserApp userApp = new UserApp();
@@ -100,11 +132,6 @@ namespace NFine.Web.Controllers
             return dictionary;
         }
 
-        private object CompanyObject()
-        {
-            
-            return OperatorProvider.Provider.GetCurrent();
-        }
         private object GetDutyList()
         {
             DutyApp dutyApp = new DutyApp();

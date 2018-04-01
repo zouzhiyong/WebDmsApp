@@ -17,10 +17,30 @@ namespace NFine.Application.SystemManage
     public class ModuleApp
     {
         private IModuleRepository service = new ModuleRepository();
+        private ICompanyAuthorizeRepository companyauthorize = new CompanyAuthorizeRepository();
+        string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
 
         public List<ModuleEntity> GetList()
         {
-            return service.IQueryable().OrderBy(t => t.F_SortCode).ToList();
+            var modulDataList = service.IQueryable().OrderBy(t => t.F_SortCode).ToList();
+            if (OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                return modulDataList;
+            }else
+            {
+                var data = new List<ModuleEntity>();
+                var companyauthorizedata = companyauthorize.IQueryable(t => t.F_CorpId == CompanyId && t.F_ModuleType==1);
+                foreach (var item in companyauthorizedata)
+                {
+                    ModuleEntity moduleEntity = modulDataList.Find(t => t.F_Id == item.F_ModuleId);
+                    if (moduleEntity != null)
+                    {
+                        data.Add(moduleEntity);
+                    }
+                }
+                return data.OrderBy(t => t.F_SortCode).ToList();
+            }
+                
         }
         public ModuleEntity GetForm(string keyValue)
         {

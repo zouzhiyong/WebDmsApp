@@ -51,11 +51,13 @@
     <Compile Include="03 Entity\BaseManage\WarehouseUserEntity.cs" />
     <Compile Include="03 Entity\BaseManage\WarehouseEntity.cs" />
     <Compile Include="03 Entity\SystemManage\CompanyEntity.cs" />
+    <Compile Include="03 Entity\SystemManage\CompanyAuthorizeEntity.cs" />
     <Compile Include="03 Entity\SystemManage\TestEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleButtonEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleEntity.cs" />
     <Compile Include="03 Entity\SystemManage\RoleAuthorizeEntity.cs" />
+    <Compile Include="03 Entity\SystemManage\DepartmentEntity.cs" />
     <Compile Include="03 Entity\SystemManage\UserLogOnEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ItemsDetailEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\DbBackupEntity.cs" />
@@ -74,9 +76,12 @@
     <Compile Include="04 IRepository\SystemManage\IModuleButtonRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IModuleRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IOrganizeRepository.cs" />
+    <Compile Include="04 IRepository\SystemManage\ICompanyAuthorizeRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IRoleAuthorizeRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IRoleRepository.cs" />
+    <Compile Include="04 IRepository\SystemManage\ICompanyRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IUserLogOnRepository.cs" />
+    <Compile Include="04 IRepository\SystemManage\IDepartmentRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IUserRepository.cs" />
     <Compile Include="04 IRepository\SystemSecurity\IDbBackupRepository.cs" />
     <Compile Include="04 IRepository\SystemSecurity\IFilterIPRepository.cs" />

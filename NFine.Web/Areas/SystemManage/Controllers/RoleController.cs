@@ -22,9 +22,9 @@ namespace NFine.Web.Areas.SystemManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetSelectJson(string F_CorpId)
+        public ActionResult GetSelectJson()
         {
-            var data = roleApp.GetSelect(F_CorpId);
+            var data = roleApp.GetSelect();
             return Content(data.ToJson());
         }
 
