@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="nfinebaseModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="bas_department">
+  <EntityType Name="bas_corporation">
     <Key>
       <PropertyRef Name="F_Id" />
     </Key>
     <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="F_Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_FullName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_ShortName" Type="varchar" MaxLength="50" />
     <Property Name="F_Address" Type="varchar" MaxLength="255" />
     <Property Name="F_ManagerId" Type="varchar" MaxLength="50" />
@@ -14,6 +15,11 @@
     <Property Name="F_WeChat" Type="varchar" MaxLength="50" />
     <Property Name="F_Fax" Type="varchar" MaxLength="20" />
     <Property Name="F_Email" Type="varchar" MaxLength="50" />
+    <Property Name="F_AreaId" Type="varchar" MaxLength="50" />
+    <Property Name="F_TradeMark" Type="varchar" MaxLength="100" />
+    <Property Name="F_InvAccountPeriod" Type="datetime" Precision="0" />
+    <Property Name="F_AllowEdit" Type="bool" />
+    <Property Name="F_AllowDelete" Type="bool" />
     <Property Name="F_DeleteMark" Type="bool" />
     <Property Name="F_EnabledMark" Type="bool" />
     <Property Name="F_Description" Type="varchar" MaxLength="255" />
@@ -24,7 +30,6 @@
     <Property Name="F_DeleteTime" Type="datetime" Precision="0" />
     <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
     <Property Name="F_SortCode" Type="int" />
-    <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="bas_region">
     <Key>
@@ -208,6 +213,8 @@
     <Property Name="F_DeleteTime" Type="datetime" Precision="0" />
     <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
     <Property Name="F_SortCode" Type="int" />
+    <Property Name="F_UserNumber" Type="int" Nullable="false" />
+    <Property Name="F_CanUseTime" Type="date" Nullable="false" />
   </EntityType>
   <EntityType Name="sys_companyauthorize">
     <Key>
@@ -243,6 +250,32 @@
     <Property Name="F_DeleteTime" Type="datetime" Precision="0" />
     <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
     <Property Name="F_CorpId" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sys_department">
+    <Key>
+      <PropertyRef Name="F_Id" />
+    </Key>
+    <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_FullName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_ShortName" Type="varchar" MaxLength="50" />
+    <Property Name="F_Address" Type="varchar" MaxLength="255" />
+    <Property Name="F_ManagerId" Type="varchar" MaxLength="50" />
+    <Property Name="F_TelePhone" Type="varchar" MaxLength="20" />
+    <Property Name="F_MobilePhone" Type="varchar" MaxLength="20" />
+    <Property Name="F_WeChat" Type="varchar" MaxLength="50" />
+    <Property Name="F_Fax" Type="varchar" MaxLength="20" />
+    <Property Name="F_Email" Type="varchar" MaxLength="50" />
+    <Property Name="F_DeleteMark" Type="bool" />
+    <Property Name="F_EnabledMark" Type="bool" />
+    <Property Name="F_Description" Type="varchar" MaxLength="255" />
+    <Property Name="F_CreatorTime" Type="datetime" Precision="0" />
+    <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_LastModifyTime" Type="datetime" Precision="0" />
+    <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_DeleteTime" Type="datetime" Precision="0" />
+    <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+    <Property Name="F_SortCode" Type="int" />
+    <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="sys_filterip">
     <Key>
@@ -422,7 +455,7 @@
     <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
     <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <EntityType Name="sys_organize">
+  <EntityType Name="sys_organize1">
     <Key>
       <PropertyRef Name="F_Id" />
     </Key>
@@ -552,7 +585,7 @@
     <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityContainer Name="nfinebaseModelStoreContainer">
-    <EntitySet Name="bas_department" EntityType="Self.bas_department" Schema="nfinebase" store:Type="Tables" />
+    <EntitySet Name="bas_corporation" EntityType="Self.bas_corporation" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="bas_region" EntityType="Self.bas_region" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="bas_supplier" EntityType="Self.bas_supplier" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="bas_truck" EntityType="Self.bas_truck" Schema="nfinebase" store:Type="Tables" />
@@ -563,6 +596,7 @@
     <EntitySet Name="sys_company" EntityType="Self.sys_company" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_companyauthorize" EntityType="Self.sys_companyauthorize" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_dbbackup" EntityType="Self.sys_dbbackup" Schema="nfinebase" store:Type="Tables" />
+    <EntitySet Name="sys_department" EntityType="Self.sys_department" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_filterip" EntityType="Self.sys_filterip" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_items" EntityType="Self.sys_items" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_itemsdetail" EntityType="Self.sys_itemsdetail" Schema="nfinebase" store:Type="Tables" />
@@ -571,7 +605,7 @@
     <EntitySet Name="sys_modulebutton" EntityType="Self.sys_modulebutton" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_moduleform" EntityType="Self.sys_moduleform" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_moduleforminstance" EntityType="Self.sys_moduleforminstance" Schema="nfinebase" store:Type="Tables" />
-    <EntitySet Name="sys_organize" EntityType="Self.sys_organize" Schema="nfinebase" store:Type="Tables" />
+    <EntitySet Name="sys_organize1" EntityType="Self.sys_organize1" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_role" EntityType="Self.sys_role" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_roleauthorize" EntityType="Self.sys_roleauthorize" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_user" EntityType="Self.sys_user" Schema="nfinebase" store:Type="Tables" />

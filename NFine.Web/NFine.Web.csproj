@@ -124,7 +124,7 @@
     <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\01 Handler\ControllerBase.cs" />
     <Compile Include="Areas\BaseManage\BaseManageAreaRegistration.cs" />
-    <Compile Include="Areas\BaseManage\Controllers\CompanyController.cs" />
+    <Compile Include="Areas\BaseManage\Controllers\CorporationController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\RegionController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\CompanyController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\TruckController.cs" />
@@ -215,6 +215,9 @@
     <Content Include="Content\js\charts\Chart.js" />
     <Content Include="Content\js\charts\Chart.min.js" />
     <Content Include="Content\js\cookie\jquery.cookie.js" />
+    <Content Include="Content\js\datepicker\bootstrap-datepicker.min.js" />
+    <Content Include="Content\js\datepicker\bootstrap-datepicker.zh-CN.js" />
+    <Content Include="Content\js\datepicker\bootstrap-datepicker.min.css" />
     <Content Include="Content\js\datepicker\calendar.js" />
     <Content Include="Content\js\datepicker\DatePicker.js" />
     <Content Include="Content\js\datepicker\lang\en.js" />
@@ -647,8 +650,8 @@
     <Content Include="Areas\BaseManage\Views\Truck\Index.cshtml" />
     <Content Include="Areas\BaseManage\Views\Region\Form.cshtml" />
     <Content Include="Areas\BaseManage\Views\Region\Index.cshtml" />
-    <Content Include="Areas\BaseManage\Views\Company\Form.cshtml" />
-    <Content Include="Areas\BaseManage\Views\Company\Index.cshtml" />
+    <Content Include="Areas\BaseManage\Views\Corporation\Form.cshtml" />
+    <Content Include="Areas\BaseManage\Views\Corporation\Index.cshtml" />
     <Content Include="Areas\SystemManage\Views\Company\Form.cshtml" />
     <Content Include="Areas\SystemManage\Views\Company\Index.cshtml" />
     <Content Include="Areas\SystemManage\Views\Department\Form.cshtml" />

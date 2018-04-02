@@ -8,7 +8,7 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: rootUrl + "/BaseManage/Company/GetFormJson",
+                url: rootUrl + "/SystemManage/Company/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
@@ -19,6 +19,7 @@
         }
     })
     function initControl() {
+        $('#F_CanUseTime').bindDate();
         $('#wizard').wizard().on('change', function (e, data) {
             var $finish = $("#btn_finish");
             var $next = $("#btn_next");
@@ -54,6 +55,7 @@
             param: postData,
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
+                $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
             }
         });
     }
@@ -80,6 +82,15 @@
                         </td>
                     </tr>
                     <tr>
+                        <th class="formTitle">用户数</th>
+                        <td class="formValue">
+                            <input id="F_UserNumber" name="F_UserNumber" type="number" class="form-control" />
+                        </td>
+                        <th class="formTitle">生效日期</th>
+                        <td class="formValue">
+                            <input id="F_CanUseTime" name="F_CanUseTime" type="text" class="form-control"/>
+                        </td>
+                    </tr>
                     <tr>
                         <th class="formTitle">负责人</th>
                         <td class="formValue">
@@ -130,7 +141,7 @@
                             备注
                         </th>
                         <td class="formValue" colspan="3">
-                            <textarea id="F_Description" name="F_Descriptions" class="form-control" style="height: 90px;"></textarea>
+                            <textarea id="F_Description" name="F_Descriptions" class="form-control" style="height: 60px;"></textarea>
                         </td>
                     </tr>
                 </table>

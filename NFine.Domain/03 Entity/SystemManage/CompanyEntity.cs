@@ -36,5 +36,7 @@ namespace NFine.Domain.Entity.SystemManage
         public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
         public Nullable<int> F_SortCode { get; set; }
+        public int F_UserNumber { get; set; }
+        public System.DateTime F_CanUseTime { get; set; }
     }
 }

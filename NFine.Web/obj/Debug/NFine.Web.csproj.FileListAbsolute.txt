@@ -1,4 +1,4 @@
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\obj\Debug\NFine.Web.csprojResolveAssemblyReference.cache
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Mapping.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Web.dll.config
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Web.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Web.pdb
@@ -10,7 +10,6 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\MySql.Data.Entity.EF6.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Application.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Code.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Domain.dll
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Mapping.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Net.Http.Formatting.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.Helpers.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.Http.dll
@@ -55,5 +54,6 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\zh-Hans\System.Web.WebPag
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\zh-Hans\System.Net.Http.Formatting.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\zh-Hans\System.Web.Http.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\zh-Hans\System.Web.Http.WebHost.resources.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\obj\Debug\NFine.Web.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\obj\Debug\NFine.Web.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\obj\Debug\NFine.Web.pdb

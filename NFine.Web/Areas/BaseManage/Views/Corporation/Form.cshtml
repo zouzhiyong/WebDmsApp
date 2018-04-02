@@ -8,12 +8,13 @@
         initControl();
         if (!!keyValue) {
             $.ajax({
-                url: rootUrl + "/BaseManage/Company/GetFormJson",
+                url: rootUrl + "/BaseManage/Corporation/GetFormJson",
                 data: { keyValue: keyValue },
                 dataType: "json",
                 async: false,
                 success: function (data) {
                     $("#form1").formSerialize(data);
+                    $("#F_CorpId").text(data.F_CorpId);
                 }
             });
         }
@@ -26,7 +27,7 @@
             return false;
         }
         $.submitForm({
-            url: rootUrl + "/BaseManage/Company/SubmitForm?keyValue=" + keyValue,
+            url: rootUrl + "/BaseManage/Corporation/SubmitForm?keyValue=" + keyValue,
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -50,10 +51,9 @@
                         </td>
                         <th class="formTitle">编号</th>
                         <td class="formValue">
-                            <input id="F_CorpId" name="F_CorpId" type="text" class="form-control required" placeholder="请输入编号" />
+                            <label id="F_CorpId" name="F_CorpId"></label>
                         </td>
                     </tr>
-                    <tr>
                     <tr>
                         <th class="formTitle">负责人</th>
                         <td class="formValue">
@@ -63,7 +63,7 @@
                         <td class="formValue">
                             <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control" />
                         </td>
-                    </tr>
+                    </tr>                    
                     <tr>
                         <th class="formTitle">微信</th>
                         <td class="formValue">

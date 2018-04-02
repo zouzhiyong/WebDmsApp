@@ -12,15 +12,13 @@ namespace NFine.MySQLModel
     using System;
     using System.Collections.Generic;
     
-    public partial class sys_organize
+    public partial class bas_corporation
     {
         public string F_Id { get; set; }
-        public string F_ParentId { get; set; }
-        public Nullable<int> F_Layers { get; set; }
-        public string F_EnCode { get; set; }
+        public string F_CorpId { get; set; }
         public string F_FullName { get; set; }
         public string F_ShortName { get; set; }
-        public string F_CategoryId { get; set; }
+        public string F_Address { get; set; }
         public string F_ManagerId { get; set; }
         public string F_TelePhone { get; set; }
         public string F_MobilePhone { get; set; }
@@ -28,10 +26,10 @@ namespace NFine.MySQLModel
         public string F_Fax { get; set; }
         public string F_Email { get; set; }
         public string F_AreaId { get; set; }
-        public string F_Address { get; set; }
+        public string F_TradeMark { get; set; }
+        public Nullable<System.DateTime> F_InvAccountPeriod { get; set; }
         public Nullable<bool> F_AllowEdit { get; set; }
         public Nullable<bool> F_AllowDelete { get; set; }
-        public Nullable<int> F_SortCode { get; set; }
         public Nullable<bool> F_DeleteMark { get; set; }
         public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }
@@ -41,6 +39,6 @@ namespace NFine.MySQLModel
         public string F_LastModifyUserId { get; set; }
         public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
-        public string F_CorpId { get; set; }
+        public Nullable<int> F_SortCode { get; set; }
     }
 }

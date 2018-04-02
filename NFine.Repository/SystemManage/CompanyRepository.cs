@@ -6,6 +6,7 @@
 *********************************************************************************/
 using System.Collections.Generic;
 using NFine.Data;
+using NFine.Domain.Entity.BaseManage;
 using NFine.Domain.Entity.SystemManage;
 using NFine.Domain.IRepository.SystemManage;
 
@@ -18,11 +19,12 @@ namespace NFine.Repository.SystemManage
             using (var db = new RepositoryBase().BeginTrans())
             {
                 db.Delete<CompanyEntity>(t => t.F_Id == keyValue);
-                db.Delete<CompanyAuthorizeEntity>(t => t.F_CorpId == keyValue);
+                db.Delete<CompanyAuthorizeEntity>(t => t.F_CorpId == keyValue);//删除用户权限表     
+                db.Delete<CorporationEntity>(t => t.F_CorpId == keyValue);//删除用户级销商表
                 db.Commit();
             }
         }
-        public void SubmitForm(CompanyEntity companyEntity, List<CompanyAuthorizeEntity> companyAuthorizeEntitys, List<RoleAuthorizeEntity> roleAuthorizeEntitys, string keyValue)
+        public void SubmitForm(CompanyEntity companyEntity, CorporationEntity corporationEntity, List<CompanyAuthorizeEntity> companyAuthorizeEntitys, List<RoleAuthorizeEntity> roleAuthorizeEntitys, string keyValue)
         {
             using (var db = new RepositoryBase().BeginTrans())
             {
@@ -32,13 +34,14 @@ namespace NFine.Repository.SystemManage
                 }
                 else
                 {
-                    //companyEntity.F_Category = 1;
                     db.Insert(companyEntity);
+                    db.Insert(corporationEntity);
                 }
-                db.Delete<CompanyAuthorizeEntity>(t => t.F_CorpId == companyEntity.F_Id);    
-                foreach(var item in roleAuthorizeEntitys)
+                db.Delete<CompanyAuthorizeEntity>(t => t.F_CorpId == companyEntity.F_Id);//删除用户权限表                
+
+                foreach (var item in roleAuthorizeEntitys)
                 {
-                    db.Delete<RoleAuthorizeEntity>(t => t.F_Id == item.F_Id);
+                    db.Delete<RoleAuthorizeEntity>(t => t.F_Id == item.F_Id);                    
                 }            
                 
                 db.Insert(companyAuthorizeEntitys);

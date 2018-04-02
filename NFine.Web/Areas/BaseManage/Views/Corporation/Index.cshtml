@@ -10,7 +10,7 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: rootUrl + "/BaseManage/Company/GetGridJson",
+            url: rootUrl + "/BaseManage/Corporation/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
                 { label: "主键", name: "F_Id", hidden: true, key: true },
@@ -48,8 +48,8 @@
         $.modalOpen({
             id: "Form",
             title: "修改公司",
-            url: rootUrl + "/BaseManage/Company/Form?keyValue=" + keyValue,
-            width: "700px",
+            url: rootUrl + "/BaseManage/Corporation/Form?keyValue=" + keyValue,
+            width: "710px",
             height: "510px",
             callBack: function (iframeId) {
                 top.frames[iframeId].submitForm();

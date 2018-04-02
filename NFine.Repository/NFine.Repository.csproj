@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseManage\CorporationRepository.cs" />
     <Compile Include="BaseManage\RegionRepository.cs" />
     <Compile Include="BaseManage\TruckRepository.cs" />
     <Compile Include="BaseManage\UnitOfMeasureRepository.cs" />

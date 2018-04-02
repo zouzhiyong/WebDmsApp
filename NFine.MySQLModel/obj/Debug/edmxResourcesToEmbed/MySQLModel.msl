@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="nfinebaseModelStoreContainer" CdmEntityContainer="nfinebaseEntities">
-    <EntitySetMapping Name="bas_department">
-      <EntityTypeMapping TypeName="nfinebaseModel.bas_department">
-        <MappingFragment StoreEntitySet="bas_department">
-          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+    <EntitySetMapping Name="bas_corporation">
+      <EntityTypeMapping TypeName="nfinebaseModel.bas_corporation">
+        <MappingFragment StoreEntitySet="bas_corporation">
           <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
           <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
           <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
@@ -15,6 +14,11 @@
           <ScalarProperty Name="F_Description" ColumnName="F_Description" />
           <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
           <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+          <ScalarProperty Name="F_AllowDelete" ColumnName="F_AllowDelete" />
+          <ScalarProperty Name="F_AllowEdit" ColumnName="F_AllowEdit" />
+          <ScalarProperty Name="F_InvAccountPeriod" ColumnName="F_InvAccountPeriod" />
+          <ScalarProperty Name="F_TradeMark" ColumnName="F_TradeMark" />
+          <ScalarProperty Name="F_AreaId" ColumnName="F_AreaId" />
           <ScalarProperty Name="F_Email" ColumnName="F_Email" />
           <ScalarProperty Name="F_Fax" ColumnName="F_Fax" />
           <ScalarProperty Name="F_WeChat" ColumnName="F_WeChat" />
@@ -23,7 +27,8 @@
           <ScalarProperty Name="F_ManagerId" ColumnName="F_ManagerId" />
           <ScalarProperty Name="F_Address" ColumnName="F_Address" />
           <ScalarProperty Name="F_ShortName" ColumnName="F_ShortName" />
-          <ScalarProperty Name="F_Name" ColumnName="F_Name" />
+          <ScalarProperty Name="F_FullName" ColumnName="F_FullName" />
+          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
           <ScalarProperty Name="F_Id" ColumnName="F_Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -190,6 +195,8 @@
     <EntitySetMapping Name="sys_company">
       <EntityTypeMapping TypeName="nfinebaseModel.sys_company">
         <MappingFragment StoreEntitySet="sys_company">
+          <ScalarProperty Name="F_CanUseTime" ColumnName="F_CanUseTime" />
+          <ScalarProperty Name="F_UserNumber" ColumnName="F_UserNumber" />
           <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
           <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
           <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
@@ -252,6 +259,33 @@
           <ScalarProperty Name="F_FileName" ColumnName="F_FileName" />
           <ScalarProperty Name="F_DbName" ColumnName="F_DbName" />
           <ScalarProperty Name="F_BackupType" ColumnName="F_BackupType" />
+          <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sys_department">
+      <EntityTypeMapping TypeName="nfinebaseModel.sys_department">
+        <MappingFragment StoreEntitySet="sys_department">
+          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+          <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+          <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
+          <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
+          <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
+          <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
+          <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+          <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+          <ScalarProperty Name="F_Description" ColumnName="F_Description" />
+          <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
+          <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+          <ScalarProperty Name="F_Email" ColumnName="F_Email" />
+          <ScalarProperty Name="F_Fax" ColumnName="F_Fax" />
+          <ScalarProperty Name="F_WeChat" ColumnName="F_WeChat" />
+          <ScalarProperty Name="F_MobilePhone" ColumnName="F_MobilePhone" />
+          <ScalarProperty Name="F_TelePhone" ColumnName="F_TelePhone" />
+          <ScalarProperty Name="F_ManagerId" ColumnName="F_ManagerId" />
+          <ScalarProperty Name="F_Address" ColumnName="F_Address" />
+          <ScalarProperty Name="F_ShortName" ColumnName="F_ShortName" />
+          <ScalarProperty Name="F_FullName" ColumnName="F_FullName" />
           <ScalarProperty Name="F_Id" ColumnName="F_Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -442,9 +476,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="sys_organize">
-      <EntityTypeMapping TypeName="nfinebaseModel.sys_organize">
-        <MappingFragment StoreEntitySet="sys_organize">
+    <EntitySetMapping Name="sys_organize1">
+      <EntityTypeMapping TypeName="nfinebaseModel.sys_organize1">
+        <MappingFragment StoreEntitySet="sys_organize1">
           <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
           <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
           <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />

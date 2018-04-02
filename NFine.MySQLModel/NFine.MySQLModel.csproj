@@ -70,7 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bas_department.cs">
+    <Compile Include="bas_corporation.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>
     <Compile Include="bas_region.cs">
@@ -119,6 +119,9 @@
     <Compile Include="sys_dbbackup.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="sys_department.cs">
+      <DependentUpon>MySQLModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="sys_filterip.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>
@@ -143,7 +146,7 @@
     <Compile Include="sys_moduleforminstance.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="sys_organize.cs">
+    <Compile Include="sys_organize1.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sys_role.cs">

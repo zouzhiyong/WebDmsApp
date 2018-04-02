@@ -6,6 +6,7 @@
 *********************************************************************************/
 using System.Collections.Generic;
 using NFine.Data;
+using NFine.Domain.Entity.BaseManage;
 using NFine.Domain.Entity.SystemManage;
 
 namespace NFine.Domain.IRepository.SystemManage
@@ -13,6 +14,6 @@ namespace NFine.Domain.IRepository.SystemManage
     public interface ICompanyRepository : IRepositoryBase<CompanyEntity>
     {
         void DeleteForm(string keyValue);
-        void SubmitForm(CompanyEntity roleEntity, List<CompanyAuthorizeEntity> companyAuthorizeEntitys, List<RoleAuthorizeEntity> roleAuthorizeEntitys, string keyValue);
+        void SubmitForm(CompanyEntity companyEntity, CorporationEntity corporationEntity, List<CompanyAuthorizeEntity> companyAuthorizeEntitys, List<RoleAuthorizeEntity> roleAuthorizeEntitys, string keyValue);
     }
 }

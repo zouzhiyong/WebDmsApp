@@ -439,3 +439,15 @@ $.fn.dataGrid = function (options) {
     };
     $element.jqGrid(options);
 };
+$.fn.bindDate = function (options) {
+    var defaults = {
+        autoclose: true,
+        todayHighlight: true,
+        todayBtn: "linked",
+        language:"zh-CN", //语言设置
+        format:"yyyy-mm-dd"  //日期显示格式
+    };
+    var options = $.extend(defaults, options);
+    var $element = $(this);
+    $element.datepicker(options);
+}

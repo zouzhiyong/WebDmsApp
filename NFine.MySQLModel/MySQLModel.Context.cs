@@ -25,7 +25,7 @@ namespace NFine.MySQLModel
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<bas_department> bas_department { get; set; }
+        public virtual DbSet<bas_corporation> bas_corporation { get; set; }
         public virtual DbSet<bas_region> bas_region { get; set; }
         public virtual DbSet<bas_supplier> bas_supplier { get; set; }
         public virtual DbSet<bas_truck> bas_truck { get; set; }
@@ -36,6 +36,7 @@ namespace NFine.MySQLModel
         public virtual DbSet<sys_company> sys_company { get; set; }
         public virtual DbSet<sys_companyauthorize> sys_companyauthorize { get; set; }
         public virtual DbSet<sys_dbbackup> sys_dbbackup { get; set; }
+        public virtual DbSet<sys_department> sys_department { get; set; }
         public virtual DbSet<sys_filterip> sys_filterip { get; set; }
         public virtual DbSet<sys_items> sys_items { get; set; }
         public virtual DbSet<sys_itemsdetail> sys_itemsdetail { get; set; }
@@ -44,7 +45,7 @@ namespace NFine.MySQLModel
         public virtual DbSet<sys_modulebutton> sys_modulebutton { get; set; }
         public virtual DbSet<sys_moduleform> sys_moduleform { get; set; }
         public virtual DbSet<sys_moduleforminstance> sys_moduleforminstance { get; set; }
-        public virtual DbSet<sys_organize> sys_organize { get; set; }
+        public virtual DbSet<sys_organize1> sys_organize1 { get; set; }
         public virtual DbSet<sys_role> sys_role { get; set; }
         public virtual DbSet<sys_roleauthorize> sys_roleauthorize { get; set; }
         public virtual DbSet<sys_user> sys_user { get; set; }

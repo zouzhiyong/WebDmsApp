@@ -12,10 +12,10 @@ namespace NFine.MySQLModel
     using System;
     using System.Collections.Generic;
     
-    public partial class bas_department
+    public partial class sys_department
     {
         public string F_Id { get; set; }
-        public string F_Name { get; set; }
+        public string F_FullName { get; set; }
         public string F_ShortName { get; set; }
         public string F_Address { get; set; }
         public string F_ManagerId { get; set; }
