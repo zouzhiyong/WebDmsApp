@@ -447,21 +447,22 @@ $.fn.dataGrid = function (options) {
                 //    '<a name="NF-delete" authorize="yes" onclick="btn_delete(\'' + rowObject.F_Id + '\')" style="cursor: pointer;padding: 5px 5px;"><i class="fa fa-trash-o"></i></a>';
             }
         })
-    }
-               
+    } else {
+        options["onSelectRow"] = function (rowid) {
+            var length = $(this).jqGrid("getGridParam", "selrow").length;
+            var $operate = $(".operate");
+            if (length > 0) {
+                $operate.animate({ "left": 0 }, 200);
+            } else {
+                $operate.animate({ "left": '-100.1%' }, 200);
+            }
+            $operate.find('.close').click(function () {
+                $operate.animate({ "left": '-100.1%' }, 200);
+            })
+        };
+    }               
 
-    //options["onSelectRow"] = function (rowid) {
-    //    var length = $(this).jqGrid("getGridParam", "selrow").length;
-    //    var $operate = $(".operate");
-    //    if (length > 0) {
-    //        $operate.animate({ "left": 0 }, 200);
-    //    } else {
-    //        $operate.animate({ "left": '-100.1%' }, 200);
-    //    }
-    //    $operate.find('.close').click(function () {
-    //        $operate.animate({ "left": '-100.1%' }, 200);
-    //    })
-    //};
+    
     $element.jqGrid(options);
 };
 $.fn.bindDate = function (options) {

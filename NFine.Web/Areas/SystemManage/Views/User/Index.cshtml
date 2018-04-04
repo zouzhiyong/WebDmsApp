@@ -11,6 +11,7 @@
         $gridList.dataGrid({
             url: rootUrl + "/SystemManage/User/GetGridJson",
             height: $(window).height() - 128,
+            isTools:false,
             colModel: [
                 { label: '主键', name: 'F_Id', hidden: true },
                 { label: '账户', name: 'F_Account', width: 80, align: 'left' },
@@ -82,7 +83,8 @@
             }
         });
     }
-    function btn_edit(keyValue) {
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "Form",
             title: "修改用户",
@@ -94,7 +96,8 @@
             }
         });
     }
-    function btn_delete(keyValue) {
+    function btn_delete() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.deleteForm({
             url: rootUrl + "/SystemManage/User/DeleteForm",
             param: { keyValue: keyValue },
@@ -103,7 +106,8 @@
             }
         })
     }
-    function btn_details(keyValue) {
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "Details",
             title: "查看用户",
@@ -113,7 +117,8 @@
             btn: null,
         });
     }
-    function btn_revisepassword(keyValue) {
+    function btn_revisepassword() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         var Account = $("#gridList").jqGridRowValue().F_Account;
         var RealName = $("#gridList").jqGridRowValue().F_RealName;
         $.modalOpen({
@@ -127,7 +132,8 @@
             }
         });
     }
-    function btn_disabled(keyValue) {
+    function btn_disabled() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalConfirm("注：您确定要【禁用】该项账户吗？", function (r) {
             if (r) {
                 $.submitForm({
@@ -140,7 +146,8 @@
             }
         });
     }
-    function btn_enabled(keyValue) {
+    function btn_enabled() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalConfirm("注：您确定要【启用】该项账户吗？", function (r) {
             if (r) {
                 $.submitForm({

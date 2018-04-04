@@ -10,6 +10,7 @@
         var $gridList = $("#gridList");
         $gridList.dataGrid({
             treeGrid: true,
+            isTools:false,
             treeGridModel: "adjacency",
             ExpandColumn: "F_UrlAddress",
             url: rootUrl + "/SystemManage/Module/GetTreeGridJson",
@@ -77,7 +78,8 @@
             }
         });
     }
-    function btn_edit(keyValue) {
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "Form",
             title: "修改菜单",
@@ -89,7 +91,8 @@
             }
         });
     }
-    function btn_delete(keyValue) {
+    function btn_delete() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.deleteForm({
             url: rootUrl + "/SystemManage/Module/DeleteForm",
             param: { keyValue: keyValue },
@@ -99,7 +102,8 @@
             }
         })
     }
-    function btn_details(keyValue) {
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "Details",
             title: "查看菜单",
@@ -109,7 +113,8 @@
             btn: null,
         });
     }
-    function btn_modulebutton(keyValue) {
+    function btn_modulebutton() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "modulebutton",
             title: "系统按钮",
