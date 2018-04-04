@@ -69,9 +69,8 @@
             }
         });
     }
-    function btn_edit() {
+    function btn_edit(keyValue) {
         var itemName = $("#itemTree").getCurrentNode().text;
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "Form",
             title: itemName + " 》修改字典",
@@ -83,18 +82,17 @@
             }
         });
     }
-    function btn_delete() {
+    function btn_delete(keyValue) {
         $.deleteForm({
             url: rootUrl + "/SystemManage/ItemsData/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
+            param: { keyValue: keyValue },
             success: function () {
                 $("#gridList").resetSelection();
                 $("#gridList").trigger("reloadGrid");
             }
         })
     }
-    function btn_details() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    function btn_details(keyValue) {
         $.modalOpen({
             id: "Details",
             title: "查看字典",
@@ -104,7 +102,7 @@
             btn: null,
         });
     }
-    function btn_itemstype() {
+    function btn_itemstype(keyValue) {
         $.modalOpen({
             id: "ItemsType",
             title: "字典分类",

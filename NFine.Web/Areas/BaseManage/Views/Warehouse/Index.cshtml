@@ -78,8 +78,7 @@
             }
         });
     }
-    function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    function btn_edit(keyValue) {
         $.modalOpen({
             id: "Form",
             title: "修改仓库",
@@ -91,17 +90,16 @@
             }
         });
     }
-    function btn_delete() {
+    function btn_delete(keyValue) {
         $.deleteForm({
             url: rootUrl + "/BaseManage/Warehouse/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
+            param: { keyValue: keyValue },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
         })
     }
-    function btn_details() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    function btn_details(keyValue) {
         $.modalOpen({
             id: "Details",
             title: "查看仓库",

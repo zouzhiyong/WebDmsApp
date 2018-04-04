@@ -63,8 +63,7 @@
             }
         });
     }
-    function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    function btn_edit(keyValue) {
         $.modalOpen({
             id: "Form",
             title: "修改客户",
@@ -76,10 +75,10 @@
             }
         });
     }
-    function btn_delete() {
+    function btn_delete(keyValue) {
         $.deleteForm({
             url: rootUrl + "/BaseManage/Customer/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
+            param: { keyValue: keyValue },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }

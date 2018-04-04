@@ -419,24 +419,49 @@ $.fn.dataGrid = function (options) {
         rownumbers: true,
         shrinkToFit: true,
         gridview: true,
+        isTools:true,
         pagerpos:"left",
         styleUI: 'Bootstrap',
         treeIcons: { plus: 'glyphicon-triangle-right', minus: 'glyphicon-triangle-bottom', leaf: '' }
     };
     var options = $.extend(defaults, options);
     var $element = $(this);
-    options["onSelectRow"] = function (rowid) {
-        var length = $(this).jqGrid("getGridParam", "selrow").length;
-        var $operate = $(".operate");
-        if (length > 0) {
-            $operate.animate({ "left": 0 }, 200);
-        } else {
-            $operate.animate({ "left": '-100.1%' }, 200);
-        }
-        $operate.find('.close').click(function () {
-            $operate.animate({ "left": '-100.1%' }, 200);
+
+    
+
+    if (options.isTools) {
+        var $elementHtml = "";
+        $('.operate').find('a[authorize=yes]').css({ 'cursor': 'pointer', 'padding': '2px 8px', 'margin-right': '20px' }).addClass('btn btn-default ').each(function () {
+            var $elementIcon = $(this).find("i");
+            var title = $(this).text();
+            $(this).attr("title", title);
+            $elementHtml = $elementHtml + $(this).html($elementIcon).prop("outerHTML")
+        });
+
+        options.colModel.splice(0, 0, {
+            label: '', name: '', align: 'center',
+            formatter: function (cellvalue, options, rowObject) {
+                var str = $elementHtml.replace(/\(\)/gi, '(\'' + rowObject.F_Id + '\')').replace(/id/gi, 'name');
+                return str;
+                //return '<a name="NF-edit" authorize="yes" onclick="btn_edit(\'' + rowObject.F_Id + '\')" style="cursor: pointer;padding: 5px 5px;margin-right:10px"><i class="fa fa-pencil-square-o"></i></a>  ' +
+                //    '<a name="NF-delete" authorize="yes" onclick="btn_delete(\'' + rowObject.F_Id + '\')" style="cursor: pointer;padding: 5px 5px;"><i class="fa fa-trash-o"></i></a>';
+            }
         })
-    };
+    }
+               
+
+    //options["onSelectRow"] = function (rowid) {
+    //    var length = $(this).jqGrid("getGridParam", "selrow").length;
+    //    var $operate = $(".operate");
+    //    if (length > 0) {
+    //        $operate.animate({ "left": 0 }, 200);
+    //    } else {
+    //        $operate.animate({ "left": '-100.1%' }, 200);
+    //    }
+    //    $operate.find('.close').click(function () {
+    //        $operate.animate({ "left": '-100.1%' }, 200);
+    //    })
+    //};
     $element.jqGrid(options);
 };
 $.fn.bindDate = function (options) {
