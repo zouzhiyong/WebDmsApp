@@ -4,16 +4,16 @@
 }
 <script>
     $(function () {
-        $('.wrapper').height($(window).height() - 11);
+        $('.wrapper').height($(window).height() - 13);
     })
 </script>
 <div class="wrapper">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#a" data-toggle="tab">基本信息</a></li>
         <li><a href="#b" data-toggle="tab">注册信息</a></li>
-        <li><a href="#c" data-toggle="tab">安全验证</a></li>
+        @*<li><a href="#c" data-toggle="tab">安全验证</a></li>
         <li><a href="#c" data-toggle="tab">系统日志</a></li>
-        <li><a href="#c" data-toggle="tab">个性化设置</a></li>
+        <li><a href="#c" data-toggle="tab">个性化设置</a></li>*@
     </ul>
     <div class="tab-content" style="padding-top: 5px;">
         <div id="a" class="tab-pane active" style="padding: 15px;">
@@ -127,12 +127,6 @@
 
                 </li>
             </ul>
-        </div>
-        <div id="c" class="tab-pane" style="padding-right: 15px;">
-            3
-        </div>
-        <div id="d" class="tab-pane" style="padding-right: 15px;">
-            4
-        </div>
+        </div>       
     </div>
 </div>

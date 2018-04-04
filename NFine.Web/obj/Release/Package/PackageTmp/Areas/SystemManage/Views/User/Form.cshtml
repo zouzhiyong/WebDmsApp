@@ -20,30 +20,31 @@
         }
     });
     function initControl() {
+        $('#F_Birthday').bindDate();
         $("#F_Gender").bindSelect()
         $("#F_IsAdministrator").bindSelect()
         $("#F_EnabledMark").bindSelect()
-        $("#F_OrganizeId").bindSelect({
-            url: rootUrl + "/SystemManage/Organize/GetTreeSelectJson",
-            param: { F_CategoryId:'Company' },
+        $("#F_CorpId").bindSelect({
+            url: rootUrl + "/SystemManage/Company/GetSelectJson",
             id: "F_Id",
-            text: "F_FullName"
-        });
+            text: "F_FullName",
+        });        
+
         $("#F_DepartmentId").bindSelect({
-            url: rootUrl + "/SystemManage/Organize/GetTreeSelectJson",
-            param: { F_CategoryId: 'Department' },
+            url: rootUrl + "/SystemManage/Department/GetSelectJson",
             id: "F_Id",
             text: "F_FullName"
         });
+
         $("#F_RoleId").bindSelect({
-            url: rootUrl + "/SystemManage/Role/GetGridJson",
+            url: rootUrl + "/SystemManage/Role/GetSelectJson",
             id: "F_Id",
             text: "F_FullName"
         });
+
         $("#F_DutyId").bindSelect({
-            url: rootUrl + "/SystemManage/Duty/GetGridJson",
-            id: "F_Id",
-            text: "F_FullName"
+            url: rootUrl + "/SystemManage/ItemsData/GetSelectJson",
+            param: { enCode: "Position" }
         });
     }
     function submitForm() {
@@ -55,6 +56,7 @@
             param: $("#form1").formSerialize(),
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
+                $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
             }
         })
     }
@@ -80,7 +82,7 @@
                 <tr>
                     <th class="formTitle">公司</th>
                     <td class="formValue">
-                        <select id="F_OrganizeId" name="F_OrganizeId" class="form-control required">
+                        <select id="F_CorpId" name="F_CorpId" class="form-control required">
                         </select>
                     </td>
                     <th class="formTitle">部门</th>
@@ -88,7 +90,21 @@
                         <select id="F_DepartmentId" name="F_DepartmentId" class="form-control required">
                             <option value="">==请选择==</option>
                         </select>
+                    </td>               
+                </tr>
+                <tr>
+                    <th class="formTitle">手机</th>
+                    <td class="formValue">
+                        <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control" />
                     </td>
+                    <th class="formTitle">类型</th>
+                    <td class="formValue">
+                        <select id="F_IsAdministrator" name="F_IsAdministrator" class="form-control">
+                            <option value="false">普通用户</option>
+                            <option value="true">系统管理员</option>
+                        </select>
+                    </td>
+                    
                 </tr>
                 <tr>
                     <th class="formTitle">角色</th>
@@ -116,17 +132,7 @@
                             <option value="false">女</option>
                         </select>
                     </td>
-                </tr>
-                <tr>
-                    <th class="formTitle">手机</th>
-                    <td class="formValue">
-                        <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control" />
-                    </td>
-                    <th class="formTitle">生日</th>
-                    <td class="formValue">
-                        <input id="F_Birthday" name="F_Birthday" type="text" class="form-control input-wdatepicker" onfocus="WdatePicker()" />
-                    </td>
-                </tr>
+                </tr>                
                 <tr>
                     <th class="formTitle">微信</th>
                     <td class="formValue">
@@ -138,13 +144,11 @@
                     </td>
                 </tr>
                 <tr>
-                    <th class="formTitle">类型</th>
+                    
+                    <th class="formTitle">生日</th>
                     <td class="formValue">
-                        <select id="F_IsAdministrator" name="F_IsAdministrator" class="form-control">
-                            <option value="false">普通用户</option>
-                            <option value="true">系统管理员</option>
-                        </select>
-                    </td>
+                        <input id="F_Birthday" name="F_Birthday" type="text" class="form-control" />
+                    </td> 
                     <th class="formTitle">允许登录</th>
                     <td class="formValue">
                         <select id="F_EnabledMark" name="F_EnabledMark" class="form-control">

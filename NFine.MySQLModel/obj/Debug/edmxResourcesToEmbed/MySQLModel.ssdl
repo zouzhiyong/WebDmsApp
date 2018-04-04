@@ -31,6 +31,40 @@
     <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
     <Property Name="F_SortCode" Type="int" />
   </EntityType>
+  <EntityType Name="bas_customer">
+    <Key>
+      <PropertyRef Name="F_Id" />
+    </Key>
+    <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_EnCode" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="F_FullName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_ShortName" Type="varchar" MaxLength="20" />
+    <Property Name="F_HelperCode" Type="varchar" MaxLength="20" />
+    <Property Name="F_CustCategoryID" Type="varchar" MaxLength="50" />
+    <Property Name="F_PaymentID" Type="varchar" MaxLength="50" />
+    <Property Name="F_RegionID" Type="varchar" MaxLength="50" />
+    <Property Name="F_TelePhone" Type="varchar" MaxLength="20" />
+    <Property Name="F_MobilePhone" Type="varchar" MaxLength="20" />
+    <Property Name="F_Fax" Type="varchar" MaxLength="20" />
+    <Property Name="F_Email" Type="varchar" MaxLength="50" />
+    <Property Name="F_Address" Type="varchar" MaxLength="255" />
+    <Property Name="F_PostCode" Type="varchar" MaxLength="10" />
+    <Property Name="F_City" Type="varchar" MaxLength="10" />
+    <Property Name="F_Contact" Type="varchar" MaxLength="50" />
+    <Property Name="F_EmployeeID" Type="varchar" MaxLength="50" />
+    <Property Name="F_Photo" Type="varchar" MaxLength="20" />
+    <Property Name="F_DeleteMark" Type="bool" />
+    <Property Name="F_EnabledMark" Type="bool" />
+    <Property Name="F_Description" Type="varchar" MaxLength="255" />
+    <Property Name="F_CreatorTime" Type="datetime" Precision="0" />
+    <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_LastModifyTime" Type="datetime" Precision="0" />
+    <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_DeleteTime" Type="datetime" Precision="0" />
+    <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+    <Property Name="F_SortCode" Type="int" />
+  </EntityType>
   <EntityType Name="bas_region">
     <Key>
       <PropertyRef Name="F_Id" />
@@ -586,6 +620,7 @@
   </EntityType>
   <EntityContainer Name="nfinebaseModelStoreContainer">
     <EntitySet Name="bas_corporation" EntityType="Self.bas_corporation" Schema="nfinebase" store:Type="Tables" />
+    <EntitySet Name="bas_customer" EntityType="Self.bas_customer" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="bas_region" EntityType="Self.bas_region" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="bas_supplier" EntityType="Self.bas_supplier" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="bas_truck" EntityType="Self.bas_truck" Schema="nfinebase" store:Type="Tables" />

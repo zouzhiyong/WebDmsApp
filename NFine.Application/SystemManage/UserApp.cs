@@ -19,10 +19,13 @@ namespace NFine.Application.SystemManage
         private IUserRepository service = new UserRepository();
         private UserLogOnApp userLogOnApp = new UserLogOnApp();
 
-        public List<UserEntity> GetList(string keyword = "")
+        public List<UserEntity> GetList(string custType="",string keyword = "")
         {
             var expression = ExtLinq.True<UserEntity>();
-            if (!string.IsNullOrEmpty(keyword))
+            if (!string.IsNullOrEmpty(custType)) {
+                expression = expression.And(t => t.F_UserCategoryID== custType);
+            }
+                if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_Account.Contains(keyword));
                 expression = expression.Or(t => t.F_RealName.Contains(keyword));

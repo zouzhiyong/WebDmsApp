@@ -21,7 +21,8 @@
     function initControl() {
         $("#F_EmployeeID").bindSelect({
             url: rootUrl + "/SystemManage/User/GetSelectJson",
-            id: "F_Account",
+            param: { enCode: "CustType", custType: "Buyer" },
+            id: "F_Id",
             text: "F_RealName"
         });
     }

@@ -25,6 +25,7 @@ namespace NFine.Domain.Entity.SystemManage
         public string F_Signature { get; set; }
         public string F_CorpId { get; set; }
         public string F_DepartmentId { get; set; }
+        public string F_UserCategoryID { get; set; }
         public string F_RoleId { get; set; }
         public string F_DutyId { get; set; }
         public bool? F_IsAdministrator { get; set; }

@@ -23,7 +23,7 @@
         refreshTab: function () {
             var currentId = $('.page-tabs-content').find('.active').attr('data-id');
             var target = $('.NFine_iframe[data-id="' + currentId + '"]');
-            var url = rootUrl + target.attr('src');
+            var url = target.attr('src');
             $.loading(true);
             target.attr('src', url).load(function () {
                 $.loading(false);

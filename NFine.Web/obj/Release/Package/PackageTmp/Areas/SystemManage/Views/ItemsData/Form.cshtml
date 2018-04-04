@@ -29,6 +29,7 @@
             param: postData,
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
+                $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
             }
         })
     }

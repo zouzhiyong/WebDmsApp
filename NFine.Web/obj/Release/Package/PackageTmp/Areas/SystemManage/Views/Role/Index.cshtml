@@ -22,9 +22,9 @@
                     }
                 },
                 {
-                    label: '归属机构', name: 'F_OrganizeId', width: 150, align: 'left',
+                    label: '归属机构', name: 'F_CorpId', width: 150, align: 'left',
                     formatter: function (cellvalue, options, rowObject) {
-                        return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
+                        return top.clients.company[cellvalue] == null ? "" : top.clients.company[cellvalue].fullname;
                     }
                 },
                 {
@@ -52,7 +52,7 @@
             title: "新增角色",
             url: rootUrl + "/SystemManage/Role/Form",
             width: "550px",
-            height: "570px",
+            height: "580px",
             btn: null
         });
     }
@@ -63,7 +63,7 @@
             title: "修改角色",
             url: rootUrl + "/SystemManage/Role/Form?keyValue=" + keyValue,
             width: "550px",
-            height: "570px",
+            height: "580px",
             btn: null
         });
     }

@@ -21,9 +21,9 @@ namespace NFine.Web.Areas.SystemManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetSelectJson(string keyword)
+        public ActionResult GetSelectJson(string custType,string keyword)
         {
-            var data = userApp.GetList(keyword);
+            var data = userApp.GetList(custType,keyword);
             return Content(data.ToJson());
         }
 

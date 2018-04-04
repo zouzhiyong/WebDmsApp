@@ -46,6 +46,17 @@
             url: rootUrl + "/SystemManage/ItemsData/GetSelectJson",
             param: { enCode: "Position" }
         });
+
+        $("#F_ManagerId").bindSelect({
+            url: rootUrl + "/SystemManage/User/GetSelectJson",
+            id: "F_Id",
+            text: "F_RealName"
+        });
+
+        $("#F_UserCategoryID").bindSelect({
+            url: rootUrl + "/SystemManage/ItemsData/GetSelectJson",
+            param: { enCode: "UserType" }
+        });
     }
     function submitForm() {
         if (!$('#form1').formValid()) {
@@ -113,9 +124,23 @@
                             <option value="">==请选择==</option>
                         </select>
                     </td>
-                    <th class="formTitle">岗位</th>
+                    <th class="formTitle">职位</th>
                     <td class="formValue">
                         <select id="F_DutyId" name="F_DutyId" class="form-control required">
+                            <option value="">==请选择==</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">职员类型</th>
+                    <td class="formValue">
+                        <select id="F_UserCategoryID" name="F_UserCategoryID" class="form-control">
+                            <option value="">==请选择==</option>
+                        </select>
+                    </td>
+                    <th class="formTitle">对应上级</th>
+                    <td class="formValue">
+                        <select id="F_ManagerId" name="F_ManagerId" class="form-control">
                             <option value="">==请选择==</option>
                         </select>
                     </td>

@@ -27,15 +27,15 @@
                 },
                 { label: '手机', name: 'F_MobilePhone', width: 80, align: 'left' },
                 {
-                    label: '公司', name: 'F_OrganizeId', width: 150, align: 'left',
+                    label: '公司', name: 'F_CorpId', width: 150, align: 'left',
                     formatter: function (cellvalue, options, rowObject) {
-                        return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
+                        return top.clients.company[cellvalue] == null ? "" : top.clients.company[cellvalue].fullname;
                     }
                 },
                 {
                     label: '部门', name: 'F_DepartmentId', width: 80, align: 'left',
                     formatter: function (cellvalue, options, rowObject) {
-                        return top.clients.organize[cellvalue] == null ? "" : top.clients.organize[cellvalue].fullname;
+                        return top.clients.department[cellvalue] == null ? "" : top.clients.department[cellvalue].fullname;
                     }
                 },
                 {

@@ -33,6 +33,41 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="bas_customer">
+      <EntityTypeMapping TypeName="nfinebaseModel.bas_customer">
+        <MappingFragment StoreEntitySet="bas_customer">
+          <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+          <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
+          <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
+          <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
+          <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
+          <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+          <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+          <ScalarProperty Name="F_Description" ColumnName="F_Description" />
+          <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
+          <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+          <ScalarProperty Name="F_Photo" ColumnName="F_Photo" />
+          <ScalarProperty Name="F_EmployeeID" ColumnName="F_EmployeeID" />
+          <ScalarProperty Name="F_Contact" ColumnName="F_Contact" />
+          <ScalarProperty Name="F_City" ColumnName="F_City" />
+          <ScalarProperty Name="F_PostCode" ColumnName="F_PostCode" />
+          <ScalarProperty Name="F_Address" ColumnName="F_Address" />
+          <ScalarProperty Name="F_Email" ColumnName="F_Email" />
+          <ScalarProperty Name="F_Fax" ColumnName="F_Fax" />
+          <ScalarProperty Name="F_MobilePhone" ColumnName="F_MobilePhone" />
+          <ScalarProperty Name="F_TelePhone" ColumnName="F_TelePhone" />
+          <ScalarProperty Name="F_RegionID" ColumnName="F_RegionID" />
+          <ScalarProperty Name="F_PaymentID" ColumnName="F_PaymentID" />
+          <ScalarProperty Name="F_CustCategoryID" ColumnName="F_CustCategoryID" />
+          <ScalarProperty Name="F_HelperCode" ColumnName="F_HelperCode" />
+          <ScalarProperty Name="F_ShortName" ColumnName="F_ShortName" />
+          <ScalarProperty Name="F_FullName" ColumnName="F_FullName" />
+          <ScalarProperty Name="F_EnCode" ColumnName="F_EnCode" />
+          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+          <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="bas_region">
       <EntityTypeMapping TypeName="nfinebaseModel.bas_region">
         <MappingFragment StoreEntitySet="bas_region">

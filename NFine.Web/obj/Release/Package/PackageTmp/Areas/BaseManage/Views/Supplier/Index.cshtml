@@ -19,7 +19,7 @@
                 { label: '城市', name: 'F_City', width: 100, align: 'left' },                
                 { label: '手机', name: 'F_MobilePhone', width: 80, align: 'left' },                
                 {
-                    label: '地址', name: 'F_Address', width:150, align: 'left'
+                    label: '地址', name: 'F_Address', width:200, align: 'left'
                 },
                 {
                     label: '采购员', name: 'F_EmployeeID', width: 80, align: 'left',
@@ -30,6 +30,12 @@
                 {
                     label: '创建时间', name: 'F_CreatorTime', width: 80, align: 'left',
                     formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+                },
+                {
+                    label: '公司', name: 'F_CorpId', width: 150, align: 'left',
+                    formatter: function (cellvalue, options, rowObject) {
+                        return top.clients.company[cellvalue] == null ? "" : top.clients.company[cellvalue].fullname;
+                    }
                 },
                 {
                     label: "有效", name: "F_EnabledMark", width: 60, align: "center",

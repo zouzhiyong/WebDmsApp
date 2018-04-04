@@ -1,12 +1,19 @@
 ﻿$(function () {
     document.body.className = localStorage.getItem('config-skin');
     $("[data-toggle='tooltip']").tooltip();
+
+    $.ajaxSetup({ //设置全局性的Ajax选项
+        complete: function () {
+            $.loading(false);
+        }
+    })
 })
+
 $.reload = function () {
     location.reload();
     return false;
 }
-$.loading = function (bool, text) {
+$.loading = function (bool, text) {    
     var $loadingpage = top.$("#loadingPage");
     var $loadingtext = $loadingpage.find('.loading-content');
     if (bool) {
@@ -16,6 +23,7 @@ $.loading = function (bool, text) {
             $loadingpage.hide();
         }
     }
+
     if (!!text) {
         $loadingtext.html(text);
     } else {
@@ -150,7 +158,7 @@ $.modalMsg = function (content, type) {
         }
         if (type == 'warning') {
             icon = "fa-exclamation-circle";
-        }
+        }        
         top.layer.msg(content, { icon: icon, time: 4000, shift: 5 });
         top.$(".layui-layer-msg").find('i.' + icon).parents('.layui-layer-msg').addClass('layui-layer-msg-' + type);
     } else {
@@ -189,7 +197,7 @@ $.submitForm = function (options) {
             data: options.param,
             type: "post",
             dataType: "json",
-            success: function (data) {
+            success: function (data) {                
                 if (data.state == "success") {
                     options.success(data);
                     $.modalMsg(data.message, data.state);
@@ -409,8 +417,11 @@ $.fn.dataGrid = function (options) {
         datatype: "json",
         autowidth: true,
         rownumbers: true,
-        shrinkToFit: false,
-        gridview: true
+        shrinkToFit: true,
+        gridview: true,
+        pagerpos:"left",
+        styleUI: 'Bootstrap',
+        treeIcons: { plus: 'glyphicon-triangle-right', minus: 'glyphicon-triangle-bottom', leaf: '' }
     };
     var options = $.extend(defaults, options);
     var $element = $(this);
@@ -428,3 +439,15 @@ $.fn.dataGrid = function (options) {
     };
     $element.jqGrid(options);
 };
+$.fn.bindDate = function (options) {
+    var defaults = {
+        autoclose: true,
+        todayHighlight: true,
+        todayBtn: "linked",
+        language:"zh-CN", //语言设置
+        format:"yyyy-mm-dd"  //日期显示格式
+    };
+    var options = $.extend(defaults, options);
+    var $element = $(this);
+    $element.datepicker(options);
+}

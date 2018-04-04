@@ -23,11 +23,11 @@
         $("#F_Gender").bindSelect()
         $("#F_IsAdministrator").bindSelect()
         $("#F_EnabledMark").bindSelect()
-        $("#F_OrganizeId").bindSelect({
-            url: rootUrl + "/SystemManage/Organize/GetTreeSelectJson"
+        $("#F_CorpId").bindSelect({
+            url: rootUrl + "/SystemManage/Company/GetSelectJson",
         });
         $("#F_DepartmentId").bindSelect({
-            url: rootUrl + "/SystemManage/Organize/GetTreeSelectJson",
+            url: rootUrl + "/SystemManage/Department/GetSelectJson",
         });
         $("#F_RoleId").bindSelect({
             url: rootUrl + "/SystemManage/Role/GetGridJson",
@@ -64,7 +64,7 @@
                 <tr>
                     <th class="formTitle">公司</th>
                     <td class="formValue">
-                        <select id="F_OrganizeId" name="F_OrganizeId" class="form-control">
+                        <select id="F_CorpId" name="F_CorpId" class="form-control">
                         </select>
                     </td>
                     <th class="formTitle">部门</th>

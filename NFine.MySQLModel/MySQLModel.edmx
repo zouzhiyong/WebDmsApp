@@ -36,6 +36,40 @@
           <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
           <Property Name="F_SortCode" Type="int" />
         </EntityType>
+        <EntityType Name="bas_customer">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="F_EnCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="F_FullName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="F_ShortName" Type="varchar" MaxLength="20" />
+          <Property Name="F_HelperCode" Type="varchar" MaxLength="20" />
+          <Property Name="F_CustCategoryID" Type="varchar" MaxLength="50" />
+          <Property Name="F_PaymentID" Type="varchar" MaxLength="50" />
+          <Property Name="F_RegionID" Type="varchar" MaxLength="50" />
+          <Property Name="F_TelePhone" Type="varchar" MaxLength="20" />
+          <Property Name="F_MobilePhone" Type="varchar" MaxLength="20" />
+          <Property Name="F_Fax" Type="varchar" MaxLength="20" />
+          <Property Name="F_Email" Type="varchar" MaxLength="50" />
+          <Property Name="F_Address" Type="varchar" MaxLength="255" />
+          <Property Name="F_PostCode" Type="varchar" MaxLength="10" />
+          <Property Name="F_City" Type="varchar" MaxLength="10" />
+          <Property Name="F_Contact" Type="varchar" MaxLength="50" />
+          <Property Name="F_EmployeeID" Type="varchar" MaxLength="50" />
+          <Property Name="F_Photo" Type="varchar" MaxLength="20" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
+          <Property Name="F_Description" Type="varchar" MaxLength="255" />
+          <Property Name="F_CreatorTime" Type="datetime" Precision="0" />
+          <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_LastModifyTime" Type="datetime" Precision="0" />
+          <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_DeleteTime" Type="datetime" Precision="0" />
+          <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+          <Property Name="F_SortCode" Type="int" />
+        </EntityType>
         <EntityType Name="bas_region">
           <Key>
             <PropertyRef Name="F_Id" />
@@ -591,6 +625,7 @@
         </EntityType>
         <EntityContainer Name="nfinebaseModelStoreContainer">
           <EntitySet Name="bas_corporation" EntityType="Self.bas_corporation" Schema="nfinebase" store:Type="Tables" />
+          <EntitySet Name="bas_customer" EntityType="Self.bas_customer" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="bas_region" EntityType="Self.bas_region" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="bas_supplier" EntityType="Self.bas_supplier" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="bas_truck" EntityType="Self.bas_truck" Schema="nfinebase" store:Type="Tables" />
@@ -622,6 +657,7 @@
       <Schema Namespace="nfinebaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="nfinebaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="bas_corporation" EntityType="nfinebaseModel.bas_corporation" />
+          <EntitySet Name="bas_customer" EntityType="nfinebaseModel.bas_customer" />
           <EntitySet Name="bas_region" EntityType="nfinebaseModel.bas_region" />
           <EntitySet Name="bas_supplier" EntityType="nfinebaseModel.bas_supplier" />
           <EntitySet Name="bas_truck" EntityType="nfinebaseModel.bas_truck" />
@@ -667,6 +703,40 @@
           <Property Name="F_InvAccountPeriod" Type="DateTime" />
           <Property Name="F_AllowEdit" Type="Boolean" />
           <Property Name="F_AllowDelete" Type="Boolean" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
+          <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_CreatorTime" Type="DateTime" />
+          <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_LastModifyTime" Type="DateTime" />
+          <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_DeleteTime" Type="DateTime" />
+          <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_SortCode" Type="Int32" />
+        </EntityType>
+        <EntityType Name="bas_customer">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_CorpId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_EnCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_ShortName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_HelperCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_CustCategoryID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_PaymentID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_RegionID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_TelePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_MobilePhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_Fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="F_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_PostCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="F_City" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="F_Contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_EmployeeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_Photo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="F_DeleteMark" Type="Boolean" />
           <Property Name="F_EnabledMark" Type="Boolean" />
           <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -1264,6 +1334,41 @@
                 <ScalarProperty Name="F_Address" ColumnName="F_Address" />
                 <ScalarProperty Name="F_ShortName" ColumnName="F_ShortName" />
                 <ScalarProperty Name="F_FullName" ColumnName="F_FullName" />
+                <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+                <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bas_customer">
+            <EntityTypeMapping TypeName="nfinebaseModel.bas_customer">
+              <MappingFragment StoreEntitySet="bas_customer">
+                <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+                <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
+                <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
+                <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
+                <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
+                <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+                <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+                <ScalarProperty Name="F_Description" ColumnName="F_Description" />
+                <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
+                <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+                <ScalarProperty Name="F_Photo" ColumnName="F_Photo" />
+                <ScalarProperty Name="F_EmployeeID" ColumnName="F_EmployeeID" />
+                <ScalarProperty Name="F_Contact" ColumnName="F_Contact" />
+                <ScalarProperty Name="F_City" ColumnName="F_City" />
+                <ScalarProperty Name="F_PostCode" ColumnName="F_PostCode" />
+                <ScalarProperty Name="F_Address" ColumnName="F_Address" />
+                <ScalarProperty Name="F_Email" ColumnName="F_Email" />
+                <ScalarProperty Name="F_Fax" ColumnName="F_Fax" />
+                <ScalarProperty Name="F_MobilePhone" ColumnName="F_MobilePhone" />
+                <ScalarProperty Name="F_TelePhone" ColumnName="F_TelePhone" />
+                <ScalarProperty Name="F_RegionID" ColumnName="F_RegionID" />
+                <ScalarProperty Name="F_PaymentID" ColumnName="F_PaymentID" />
+                <ScalarProperty Name="F_CustCategoryID" ColumnName="F_CustCategoryID" />
+                <ScalarProperty Name="F_HelperCode" ColumnName="F_HelperCode" />
+                <ScalarProperty Name="F_ShortName" ColumnName="F_ShortName" />
+                <ScalarProperty Name="F_FullName" ColumnName="F_FullName" />
+                <ScalarProperty Name="F_EnCode" ColumnName="F_EnCode" />
                 <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
                 <ScalarProperty Name="F_Id" ColumnName="F_Id" />
               </MappingFragment>
