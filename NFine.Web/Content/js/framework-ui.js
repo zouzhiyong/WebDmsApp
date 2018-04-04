@@ -431,7 +431,7 @@ $.fn.dataGrid = function (options) {
 
     if (options.isTools) {
         var $elementHtml = "";
-        $('.operate').find('a[authorize=yes]').css({ 'cursor': 'pointer', 'padding': '2px 8px', 'margin-right': '20px' }).addClass('btn btn-default ').each(function () {
+        $('.operate').find('a[authorize=yes]').css({ 'cursor': 'pointer', 'padding': '2px 8px', 'margin-right': '20px' }).addClass('btn').each(function () {
             var $elementIcon = $(this).find("i");
             var title = $(this).text();
             $(this).attr("title", title);
