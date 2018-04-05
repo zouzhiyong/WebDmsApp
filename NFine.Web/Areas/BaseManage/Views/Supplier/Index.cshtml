@@ -24,26 +24,20 @@
                 {
                     label: '采购员', name: 'F_EmployeeID', width: 80, align: 'left',
                     formatter: function (cellvalue, options, rowObject) {
-                        return top.clients.duty[cellvalue] == null ? "" : top.clients.duty[cellvalue].fullname;
+                        return top.clients.user[cellvalue] == null ? "" : top.clients.user[cellvalue].fullname;
                     }
                 },
                 {
                     label: '创建时间', name: 'F_CreatorTime', width: 80, align: 'left',
                     formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
-                },
-                {
-                    label: '公司', name: 'F_CorpId', width: 150, align: 'left',
-                    formatter: function (cellvalue, options, rowObject) {
-                        return top.clients.company[cellvalue] == null ? "" : top.clients.company[cellvalue].fullname;
-                    }
-                },
+                },                
                 {
                     label: "有效", name: "F_EnabledMark", width: 60, align: "center",
                     formatter: function (cellvalue) {
                         return cellvalue == 1 ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
                     }
                 },
-                { label: '备注', name: 'F_Description', width: 150, align: 'left' }
+                { label: '备注', name: 'F_Description', align: 'left' }
             ],
             pager: "#gridPager",
             sortname: 'F_CreatorTime desc',

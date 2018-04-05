@@ -98,6 +98,7 @@ namespace NFine.Application.SystemManage
                         }
                         userLogOnEntity.F_LastVisitTime = lastVisitTime;
                         userLogOnEntity.F_LogOnCount = LogOnCount;
+                        userLogOnEntity.F_CorpId = userEntity.F_CorpId;
                         userLogOnApp.UpdateForm(userLogOnEntity);
                         return userEntity;
                     }

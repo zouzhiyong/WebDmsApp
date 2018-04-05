@@ -439,12 +439,10 @@ $.fn.dataGrid = function (options) {
         });
 
         options.colModel.splice(0, 0, {
-            label: '', name: '', align: 'center',
+            label: '',width:80, name: '', align: 'center',
             formatter: function (cellvalue, options, rowObject) {
-                var str = $elementHtml.replace(/\(\)/gi, '(\'' + rowObject.F_Id + '\')').replace(/id/gi, 'name');
-                return str;
-                //return '<a name="NF-edit" authorize="yes" onclick="btn_edit(\'' + rowObject.F_Id + '\')" style="cursor: pointer;padding: 5px 5px;margin-right:10px"><i class="fa fa-pencil-square-o"></i></a>  ' +
-                //    '<a name="NF-delete" authorize="yes" onclick="btn_delete(\'' + rowObject.F_Id + '\')" style="cursor: pointer;padding: 5px 5px;"><i class="fa fa-trash-o"></i></a>';
+                var $tempElementHtml = $elementHtml.replace(/\(\)/gi, '(\'' + rowObject.F_Id + '\')').replace(/id/gi, 'name');
+                return $tempElementHtml;
             }
         })
     } else {
@@ -471,7 +469,7 @@ $.fn.bindDate = function (options) {
         todayHighlight: true,
         todayBtn: "linked",
         language:"zh-CN", //语言设置
-        format:"yyyy-mm-dd"  //日期显示格式
+        format: "yyyy-mm-dd",  //日期显示格式
     };
     var options = $.extend(defaults, options);
     var $element = $(this);

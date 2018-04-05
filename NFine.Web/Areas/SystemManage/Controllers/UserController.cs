@@ -48,6 +48,16 @@ namespace NFine.Web.Areas.SystemManage.Controllers
             var data = userApp.GetForm(keyValue);
             return Content(data.ToJson());
         }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetFormUserLogOnJson(string keyValue)
+        {
+            var UserData = userApp.GetForm(keyValue);
+            var UserLogOnData = userLogOnApp.GetForm(keyValue);            
+            return Content(new { UserData = UserData, UserLogOnData = UserLogOnData }.ToJson());
+        }
+
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
@@ -79,6 +89,17 @@ namespace NFine.Web.Areas.SystemManage.Controllers
             userLogOnApp.RevisePassword(userPassword, keyValue);
             return Success("重置密码成功。");
         }
+
+        [HttpPost]
+        [HandlerAjaxOnly]
+        //[HandlerAuthorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitChangePassword(string userPasswordOld,string userPasswordNew, string keyValue)
+        {
+            userLogOnApp.ChangePassword(userPasswordOld, userPasswordNew, keyValue);
+            return Success("密码修改成功。");
+        }
+
         [HttpPost]
         [HandlerAjaxOnly]
         //[HandlerAuthorize]

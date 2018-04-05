@@ -1,132 +1,288 @@
 ﻿@{
     ViewBag.Title = "Info";
-    Layout = "~/Views/Shared/_Index.cshtml";
+    Layout = "~/Views/Shared/_Form.cshtml";
 }
 <script>
+    var keyValue = '@NFine.Code.OperatorProvider.Provider.GetCurrent().UserId';
     $(function () {
-        $('.wrapper').height($(window).height() - 13);
-    })
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: rootUrl + "/SystemManage/User/GetFormUserLogOnJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    var $data = $.extend(data.UserData, data.UserLogOnData);
+                    console.log($data);
+                    $(".wrapper").formSerialize($data);
+                }
+            });
+        }
+    });
+    function initControl() {
+        $("#F_Gender").bindSelect()
+        $("#F_IsAdministrator").bindSelect()
+        $("#F_EnabledMark").bindSelect()
+
+        $("#F_CorpId").bindSelect({
+            url: rootUrl + "/SystemManage/Company/GetSelectJson",
+            id: "F_Id",
+            text: "F_FullName",
+        });
+
+        $("#F_DepartmentId").bindSelect({
+            url: rootUrl + "/SystemManage/Department/GetSelectJson",
+            id: "F_Id",
+            text: "F_FullName"
+        });
+
+        $("#F_RoleId").bindSelect({
+            url: rootUrl + "/SystemManage/Role/GetSelectJson",
+            id: "F_Id",
+            text: "F_FullName"
+        });
+
+        $("#F_DutyId").bindSelect({
+            url: rootUrl + "/SystemManage/ItemsData/GetSelectJson",
+            param: { enCode: "Position" }
+        });
+
+        $("#F_ManagerId").bindSelect({
+            url: rootUrl + "/SystemManage/User/GetSelectJson",
+            id: "F_Id",
+            text: "F_RealName"
+        });
+
+        $("#F_UserCategoryID").bindSelect({
+            url: rootUrl + "/SystemManage/ItemsData/GetSelectJson",
+            param: { enCode: "UserType" }
+        });
+    }
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        $.submitForm({
+            url: rootUrl + "/SystemManage/User/SubmitForm?keyValue=" + keyValue,
+            param: $("#form1").formSerialize(),
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+                $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
+            }
+        })
+    }
+
+    function btn_changePwd() {
+        if (!$('.pwdChangForm').formValid()) {
+            return false;
+        }
+
+        var oldPwd = $("#F_UserPasswordOld1").val();
+        var newPwd1 = $("#F_UserPasswordNew1").val();
+        var newPwd2 = $("#F_UserPasswordNew2").val();
+
+        if (newPwd1 != newPwd2) {
+            $.modalAlert('新密码与确认密码必须一致！', 'error');
+            return;
+        }
+
+        if (oldPwd == newPwd1 || oldPwd == newPwd2) {
+            $.modalAlert('原密码与新密码不能一样！', 'error');
+            return;
+        }
+
+        $.submitForm({
+            url: rootUrl + "/SystemManage/User/SubmitChangePassword",
+            param: { keyValue: keyValue, userPasswordOld: oldPwd, userPasswordNew: newPwd1 },
+            close: false,
+            success: function () {
+                $("#F_UserPasswordOld1").val('');
+                $("#F_UserPasswordNew1").val('');
+                $("#F_UserPasswordNew2").val('');
+                $.loading(false);
+                return false;
+            }
+        })
+
+
+        
+    }
 </script>
 <div class="wrapper">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#a" data-toggle="tab">基本信息</a></li>
         <li><a href="#b" data-toggle="tab">注册信息</a></li>
+        <li><a href="#c" data-toggle="tab">密码修改</a></li>
         @*<li><a href="#c" data-toggle="tab">安全验证</a></li>
-        <li><a href="#c" data-toggle="tab">系统日志</a></li>
-        <li><a href="#c" data-toggle="tab">个性化设置</a></li>*@
+            <li><a href="#c" data-toggle="tab">系统日志</a></li>
+            <li><a href="#c" data-toggle="tab">个性化设置</a></li>*@
     </ul>
     <div class="tab-content" style="padding-top: 5px;">
-        <div id="a" class="tab-pane active" style="padding: 15px;">
-            <ul class="pop-list">
-                <li>
-                    <label>账户</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>姓名</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>性别</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>出生</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>公司</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>部门</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>角色</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>岗位</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>自我介绍</label>
-                    <textarea class="form-control" style="height: 60px;"></textarea>
-                </li>
+        <div id="a" class="tab-pane active" style="padding: 15px;height:475px">
+            <table class="form">
+                <tr>
+                    <th class="formTitle">姓名</th>
+                    <td class="formValue">
+                        <input id="F_RealName" name="F_RealName" type="text" class="form-control" placeholder="未填写" />
+                    </td>
+                    <th class="formTitle">生日</th>
+                    <td class="formValue">
+                        <input id="F_Birthday" name="F_Birthday" type="text" class="form-control" placeholder="未填写" />
+                    </td>
+
+                </tr>
+                <tr>
+                    <th class="formTitle">公司</th>
+                    <td class="formValue">
+                        <select id="F_CorpId" name="F_CorpId" class="form-control" placeholder="未填写"></select>
+                    </td>
+                    <th class="formTitle">部门</th>
+                    <td class="formValue">
+                        <select id="F_DepartmentId" name="F_DepartmentId" class="form-control" placeholder="未填写"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">角色</th>
+                    <td class="formValue">
+                        <select id="F_RoleId" name="F_RoleId" class="form-control" placeholder="未填写"></select>
+                    </td>
+                    <th class="formTitle">职位</th>
+                    <td class="formValue">
+                        <select id="F_DutyId" name="F_DutyId" class="form-control" placeholder="未填写"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">职员类型</th>
+                    <td class="formValue">
+                        <select id="F_UserCategoryID" name="F_UserCategoryID" class="form-control" placeholder="未填写"></select>
+                    </td>
+                    <th class="formTitle">对应上级</th>
+                    <td class="formValue">
+                        <select id="F_ManagerId" name="F_ManagerId" class="form-control" placeholder="未填写"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">性别</th>
+                    <td class="formValue">
+                        <select id="F_Gender" name="F_Gender" class="form-control">
+                            <option value="true">男</option>
+                            <option value="false">女</option>
+                        </select>
+                    </td>
+                    <th class="formTitle">允许登录</th>
+                    <td class="formValue">
+                        <select id="F_EnabledMark" name="F_EnabledMark" class="form-control" placeholder="未填写">
+                            <option value="true">是</option>
+                            <option value="false">否</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle" valign="top" style="padding-top: 5px;">
+                        自我介绍
+                    </th>
+                    <td class="formValue" colspan="3">
+                        <textarea id="F_Description" name="F_Description" class="form-control" style="height: 60px;" placeholder="未填写"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <ul class="pop-list form">
                 <li class="line">
                     <h5><span>联系方式</span></h5>
                 </li>
-                <li>
-                    <label>手机号码</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>电子邮箱</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>微信号</label>
-                    <input type="text" class="form-control" />
-                </li>
             </ul>
+            <table class="form">
+                <tr>
+                    <th class="formTitle">手机号码</th>
+                    <td class="formValue">
+                        <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control" placeholder="未填写" />
+                    </td>
+                    <th class="formTitle">微信号</th>
+                    <td class="formValue">
+                        <input id="F_WeChat" name="F_WeChat" type="text" class="form-control" placeholder="未填写" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">电子邮箱</th>
+                    <td class="formValue">
+                        <input id="F_Email" name="F_Email" type="text" class="form-control" placeholder="未填写" />
+                    </td>
+                </tr>
+            </table>
         </div>
-        <div id="b" class="tab-pane" style="padding: 15px;">
+        <div id="b" class="tab-pane" style="padding: 15px 65px;height:475px">
+            <table class="form">
+                <tr>
+                    <th class="formTitle">账户</th>
+                    <td class="formValue">
+                        <input id="F_Account" name="F_Account" type="text" class="form-control" placeholder="" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">第一次登录时间</th>
+                    <td class="formValue">
+                        <input id="F_FirstVisitTime" name="F_FirstVisitTime" type="text" class="form-control" placeholder="" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">上次登录时间</th>
+                    <td class="formValue">
+                        <input id="F_PreviousVisitTime" name="F_PreviousVisitTime" type="text" class="form-control" placeholder="" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">密码修改时间</th>
+                    <td class="formValue">
+                        <input id="F_ChangePasswordDate" name="F_ChangePasswordDate" type="text" class="form-control" placeholder="" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">最后登录时间</th>
+                    <td class="formValue">
+                        <input id="F_LastVisitTime" name="F_LastVisitTime" type="text" class="form-control" placeholder="" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">登录次数</th>
+                    <td class="formValue">
+                        <input id="F_LogOnCount" name="F_LogOnCount" type="text" class="form-control" placeholder="" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="c" class="tab-pane" style="padding: 15px;text-align:center;height:475px">
             <ul class="pop-list">
-                <li>
-                    <label>账户</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>密码</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>第一次访问时间</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>上一次访问时间</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>最后修改密码时间</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>登录时间</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>登录次数</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>账户类型</label>
-                    <input type="text" class="form-control" />
-                </li>
                 <li class="line">
                     <h5><span>修改密码</span></h5>
                 </li>
-                <li>
-                    <label>旧密码</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>新密码</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <label>确认新密码</label>
-                    <input type="text" class="form-control" />
-                </li>
-                <li>
-                    <div style="padding-left: 115px;">
-                        <a class="btn btn-primary" onclick="btn_add()"><i class="fa fa-save" style="margin-right:5px;"></i>确认修改</a>
-                    </div>
-
-                </li>
             </ul>
-        </div>       
+            <form class="pwdChangForm" style="width: 300px;margin: 10px 151px;">
+                <table class="form">
+                    <tr>
+                        <th class="formTitle">原密码</th>
+                        <td class="formValue">
+                            <input id="F_UserPasswordOld1" name="F_UserPasswordOld1" type="password" class="form-control required" placeholder="请输入旧密码" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">新密码</th>
+                        <td class="formValue">
+                            <input id="F_UserPasswordNew1" name="F_UserPasswordNew1" type="password" class="form-control required" placeholder="请输入新密码" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">确认新密码</th>
+                        <td class="formValue">
+                            <input id="F_UserPasswordNew2" name="F_UserPasswordNew2" type="password" class="form-control required" placeholder="请输入新密码" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <div style="margin-top:50px;">
+                <a class="btn btn-primary" onclick="btn_changePwd()"><i class="fa fa-save" style="margin-right:5px;"></i>确认修改</a>
+            </div>
+        </div>        
     </div>
 </div>

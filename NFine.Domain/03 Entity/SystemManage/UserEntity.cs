@@ -16,7 +16,7 @@ namespace NFine.Domain.Entity.SystemManage
         public string F_NickName { get; set; }
         public string F_HeadIcon { get; set; }
         public bool? F_Gender { get; set; }
-        public DateTime? F_Birthday { get; set; }
+        public string F_Birthday { get; set; }
         public string F_MobilePhone { get; set; }
         public string F_Email { get; set; }
         public string F_WeChat { get; set; }

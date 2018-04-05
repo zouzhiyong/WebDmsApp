@@ -15,12 +15,12 @@
                 success: function (data) {
                     $("#form1").formSerialize(data);
                     $("#F_UserPassword").val("******").attr('disabled', 'disabled');
+                    $('#F_Birthday').bindDate();
                 }
             });
-        }
+        }        
     });
     function initControl() {
-        $('#F_Birthday').bindDate();
         $("#F_Gender").bindSelect()
         $("#F_IsAdministrator").bindSelect()
         $("#F_EnabledMark").bindSelect()
@@ -106,7 +106,7 @@
                 <tr>
                     <th class="formTitle">手机</th>
                     <td class="formValue">
-                        <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control" />
+                        <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control"  maxlength="11"/>
                     </td>
                     <th class="formTitle">类型</th>
                     <td class="formValue">
@@ -165,7 +165,7 @@
                     </td>
                     <th class="formTitle">邮箱</th>
                     <td class="formValue">
-                        <input id="F_Email" name="F_Email" type="text" class="form-control" />
+                        <input id="F_Email" name="F_Email" type="email" class="form-control" />
                     </td>
                 </tr>
                 <tr>
