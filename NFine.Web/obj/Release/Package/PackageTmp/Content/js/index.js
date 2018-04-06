@@ -1,4 +1,4 @@
-var storage, fail, uid; try { uid = new Date; (storage = window.localStorage).setItem(uid, uid); fail = storage.getItem(uid) != uid; storage.removeItem(uid); fail && (storage = false); } catch (e) { }
+﻿var storage, fail, uid; try { uid = new Date; (storage = window.localStorage).setItem(uid, uid); fail = storage.getItem(uid) != uid; storage.removeItem(uid); fail && (storage = false); } catch (e) { }
 if (storage) {
     var usedSkin = localStorage.getItem('config-skin');
     if (usedSkin != '' && usedSkin != null) {
@@ -33,7 +33,10 @@ $.fn.removeClassPrefix = function (prefix) {
     return this;
 };
 $(function ($) {
-    $('#config-tool-cog').on('click', function () { $('#config-tool').toggleClass('closed'); }); $('#config-fixed-header').on('change', function () {
+    $('#config-tool-cog').on('click', function () {
+        $('#config-tool').toggleClass('closed');
+    });
+    $('#config-fixed-header').on('change', function () {
         var fixedHeader = '';
         if ($(this).is(':checked')) {
             $('body').addClass('fixed-header'); fixedHeader = 'fixed-header';
@@ -46,13 +49,7 @@ $(function ($) {
             }
         }
     });
-    $('#skin-colors .skin-changer').on('click', function () {
-        $('body').removeClassPrefix('theme-');
-        $('body').addClass($(this).data('skin'));
-        $('#skin-colors .skin-changer').removeClass('active');
-        $(this).addClass('active');
-        writeStorage(storage, 'config-skin', $(this).data('skin'));
-    });
+    
     function writeStorage(storage, key, value) {
         if (storage) {
             try {
@@ -61,6 +58,66 @@ $(function ($) {
             catch (e) { console.log(e); }
         }
     }
+    //个人信息
+    $(".userInfo").on('click', function () {
+        $.modalOpen({
+            id: "Form",
+            title: "个人信息",
+            url: rootUrl + "/SystemManage/User/Info",
+            width: "700px",
+            height: "570px",
+            btn: null,
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
+        });
+        return false;
+    })
+
+
+    //个人信息
+    $(".themeSetup").on('click', function () {
+        top.layer.open({
+            id: "Form",
+            type:1,
+            title: "皮肤设置",
+            area: ["700px", "570px"],
+            content:'<div id="skin-colors" class="tab-pane" style="padding: 15px;">                                                                                                                                        '+
+                '    <div class="row">                                                                                                                                                                                     '+
+                '        <div class="col-xs-4">                                                                                                                                                                            '+
+                '            <a class="btn btn-primary skin-changer" data-skin="theme-blue-gradient" style="height:80px;margin:10px;width:100%;background-color:#1ABC9C !important;border: none;" href="javascript:;"></a> ' +
+                '        </div>                                                                                                                                                                                            '+
+                '        <div class="col-xs-4">                                                                                                                                                                            '+
+                '            <a class="btn btn-primary skin-changer" data-skin="theme-white" style="height:80px;margin:10px;width:100%;background-color:#2ecc71 !important;border: none;" href="javascript:;"></a>         ' +
+                '        </div>                                                                                                                                                                                             '+
+                '        <div class="col-xs-4">                                                                                                                                                                            '+
+                '            <a class="btn btn-primary skin-changer" data-skin="theme-greenSea" style="height:80px;margin:10px;width:100%;background-color:#6ff3ad !important;border: none;" href="javascript:;"></a>      ' +
+                '        </div>                                                                                                                                                                                            '+
+                '        <div class="col-xs-4">                                                                                                                                                                            '+
+                '            <a class="btn btn-primary skin-changer" data-skin="theme-amethyst" style="height:80px;margin:10px;width:100%;background-color:#9972B5 !important;border: none;" href="javascript:;"></a>      ' +
+                '        </div>                                                                                                                                                                                            '+
+                '        <div class="col-xs-4">                                                                                                                                                                            '+
+                '            <a class="btn btn-primary skin-changer" data-skin="theme-blue" style="height:80px;margin:10px;width:100%;background-color:#7FC8BA !important;border: none;" href="javascript:;"></a>          ' +
+                '        </div>                                                                                                                                                                                            '+
+                '        <div class="col-xs-4">                                                                                                                                                                            '+
+                '            <a class="btn btn-primary skin-changer" data-skin="theme-red" style="height:80px;margin:10px;width:100%;background-color:#f4786e !important;border: none;" href="javascript:;"></a>           ' +
+                '        </div>                                                                                                                                                                                            '+
+                '    </div>                                                                                                                                                                                                '+
+                '</div>                                                                                                                                                                                                    ',
+            success: function (layero, index) {
+                $('#skin-colors .skin-changer').on('click', function () {
+                    $('body').removeClassPrefix('theme-');
+                    $("iframe").contents().find("body").removeClassPrefix('theme-');
+                    $('body').addClass($(this).data('skin'));
+                    $("iframe").contents().find("body").addClass($(this).data('skin'));
+                    $('#skin-colors .skin-changer').removeClass('active');
+                    $(this).addClass('active');
+                    writeStorage(storage, 'config-skin', $(this).data('skin'));
+                });
+            }
+        });
+        return false;
+    })
 });
 $(function ($) {
     $("#content-wrapper").find('.mainContent').height($(window).height() - 100);

@@ -11,6 +11,7 @@
         $("#gridList").dataGrid({
             treeGrid: true,
             treeGridModel: "adjacency",
+            isTools:false,
             ExpandColumn: "F_Location",
             url: rootUrl + "/SystemManage/ModuleButton/GetTreeGridJson?moduleId=" + moduleId,
             height: $(window).height() - 90,
@@ -76,9 +77,10 @@
         });
     }
     function btn_delete() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.deleteForm({
             url: rootUrl + "/SystemManage/ModuleButton/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
+            param: { keyValue: keyValue },
             success: function () {
                 $("#gridList").resetSelection();
                 $("#gridList").trigger("reloadGrid");

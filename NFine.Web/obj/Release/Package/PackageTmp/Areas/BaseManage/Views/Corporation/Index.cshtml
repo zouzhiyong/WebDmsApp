@@ -43,8 +43,7 @@
         });
     }
 
-    function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    function btn_edit(keyValue) {
         $.modalOpen({
             id: "Form",
             title: "修改公司",

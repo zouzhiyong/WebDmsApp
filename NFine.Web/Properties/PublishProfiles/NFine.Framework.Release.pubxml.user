@@ -15,37 +15,43 @@
       <publishTime>04/02/2018 22:39:59</publishTime>
     </File>
     <File Include="Areas/BaseManage/Views/Corporation/Index.cshtml">
-      <publishTime>04/02/2018 22:40:48</publishTime>
+      <publishTime>04/05/2018 02:08:21</publishTime>
+    </File>
+    <File Include="Areas/BaseManage/Views/Customer/Form.cshtml">
+      <publishTime>04/05/2018 00:02:32</publishTime>
+    </File>
+    <File Include="Areas/BaseManage/Views/Customer/Index.cshtml">
+      <publishTime>04/05/2018 02:24:41</publishTime>
     </File>
     <File Include="Areas/BaseManage/Views/Region/Form.cshtml">
       <publishTime>04/01/2018 00:29:26</publishTime>
     </File>
     <File Include="Areas/BaseManage/Views/Region/Index.cshtml">
-      <publishTime>03/30/2018 21:30:36</publishTime>
+      <publishTime>04/05/2018 02:08:42</publishTime>
     </File>
     <File Include="Areas/BaseManage/Views/Supplier/Form.cshtml">
-      <publishTime>04/01/2018 00:29:22</publishTime>
+      <publishTime>04/04/2018 23:48:26</publishTime>
     </File>
     <File Include="Areas/BaseManage/Views/Supplier/Index.cshtml">
-      <publishTime>04/01/2018 14:39:49</publishTime>
+      <publishTime>04/05/2018 10:55:56</publishTime>
     </File>
     <File Include="Areas/BaseManage/Views/Truck/Form.cshtml">
       <publishTime>04/01/2018 00:29:34</publishTime>
     </File>
     <File Include="Areas/BaseManage/Views/Truck/Index.cshtml">
-      <publishTime>04/01/2018 14:39:43</publishTime>
+      <publishTime>04/05/2018 02:09:54</publishTime>
     </File>
     <File Include="Areas/BaseManage/Views/UnitOfMeasure/Form.cshtml">
       <publishTime>04/01/2018 00:29:38</publishTime>
     </File>
     <File Include="Areas/BaseManage/Views/UnitOfMeasure/Index.cshtml">
-      <publishTime>04/01/2018 14:39:36</publishTime>
+      <publishTime>04/05/2018 02:25:01</publishTime>
     </File>
     <File Include="Areas/BaseManage/Views/Warehouse/Form.cshtml">
-      <publishTime>04/01/2018 14:47:26</publishTime>
+      <publishTime>04/05/2018 02:29:50</publishTime>
     </File>
     <File Include="Areas/BaseManage/Views/Warehouse/Index.cshtml">
-      <publishTime>04/01/2018 14:39:02</publishTime>
+      <publishTime>04/05/2018 02:25:12</publishTime>
     </File>
     <File Include="Areas/BaseManage/Views/Web.config">
       <publishTime>03/23/2018 00:07:40</publishTime>
@@ -123,19 +129,19 @@
       <publishTime>04/01/2018 00:26:24</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/Area/Index.cshtml">
-      <publishTime>03/30/2018 21:31:18</publishTime>
+      <publishTime>04/05/2018 02:11:04</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/Company/Form.cshtml">
       <publishTime>04/02/2018 23:55:53</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/Company/Index.cshtml">
-      <publishTime>04/02/2018 22:40:37</publishTime>
+      <publishTime>04/05/2018 02:11:17</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/Department/Form.cshtml">
       <publishTime>04/01/2018 14:51:41</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/Department/Index.cshtml">
-      <publishTime>04/01/2018 14:51:35</publishTime>
+      <publishTime>04/05/2018 02:11:31</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/Duty/Details.cshtml">
       <publishTime>04/01/2018 14:48:53</publishTime>
@@ -144,7 +150,7 @@
       <publishTime>04/01/2018 14:49:05</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/Duty/Index.cshtml">
-      <publishTime>04/01/2018 14:38:43</publishTime>
+      <publishTime>04/05/2018 02:26:12</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/ItemsData/Details.cshtml">
       <publishTime>03/25/2018 12:58:28</publishTime>
@@ -153,7 +159,7 @@
       <publishTime>04/01/2018 00:26:37</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/ItemsData/Index.cshtml">
-      <publishTime>03/25/2018 12:59:25</publishTime>
+      <publishTime>04/05/2018 02:13:08</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/ItemsType/Details.cshtml">
       <publishTime>03/25/2018 12:59:32</publishTime>
@@ -162,7 +168,7 @@
       <publishTime>04/01/2018 00:26:44</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/ItemsType/Index.cshtml">
-      <publishTime>03/25/2018 13:02:12</publishTime>
+      <publishTime>04/05/2018 02:13:40</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/Module/Details.cshtml">
       <publishTime>03/25/2018 13:02:25</publishTime>
@@ -171,7 +177,7 @@
       <publishTime>04/01/2018 00:26:50</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/Module/Index.cshtml">
-      <publishTime>03/25/2018 13:05:01</publishTime>
+      <publishTime>04/05/2018 02:51:22</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/ModuleButton/CloneButton.cshtml">
       <publishTime>03/25/2018 13:05:07</publishTime>
@@ -183,7 +189,7 @@
       <publishTime>04/01/2018 00:26:58</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/ModuleButton/Index.cshtml">
-      <publishTime>03/25/2018 13:06:24</publishTime>
+      <publishTime>04/05/2018 02:52:33</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/Organize/Details.cshtml">
       <publishTime>03/25/2018 13:06:32</publishTime>
@@ -192,7 +198,7 @@
       <publishTime>03/25/2018 13:06:41</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/Organize/Index.cshtml">
-      <publishTime>03/25/2018 13:07:23</publishTime>
+      <publishTime>04/05/2018 02:25:19</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/Role/Details.cshtml">
       <publishTime>04/01/2018 14:49:20</publishTime>
@@ -201,19 +207,19 @@
       <publishTime>04/01/2018 16:20:24</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/Role/Index.cshtml">
-      <publishTime>04/01/2018 18:55:45</publishTime>
+      <publishTime>04/05/2018 10:49:53</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/User/Details.cshtml">
       <publishTime>04/01/2018 14:49:54</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/User/Form.cshtml">
-      <publishTime>04/02/2018 23:55:50</publishTime>
+      <publishTime>04/05/2018 17:31:08</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/User/Index.cshtml">
-      <publishTime>04/01/2018 14:38:04</publishTime>
+      <publishTime>04/05/2018 02:54:40</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/User/Info.cshtml">
-      <publishTime>04/03/2018 21:05:39</publishTime>
+      <publishTime>04/05/2018 22:43:08</publishTime>
     </File>
     <File Include="Areas/SystemManage/Views/User/RevisePassword.cshtml">
       <publishTime>03/25/2018 15:09:06</publishTime>
@@ -225,7 +231,7 @@
       <publishTime>04/01/2018 00:28:43</publishTime>
     </File>
     <File Include="Areas/SystemSecurity/Views/DbBackup/Index.cshtml">
-      <publishTime>03/25/2018 13:11:56</publishTime>
+      <publishTime>04/05/2018 02:23:42</publishTime>
     </File>
     <File Include="Areas/SystemSecurity/Views/FilterIP/Details.cshtml">
       <publishTime>03/25/2018 13:12:00</publishTime>
@@ -234,7 +240,7 @@
       <publishTime>04/01/2018 00:28:51</publishTime>
     </File>
     <File Include="Areas/SystemSecurity/Views/FilterIP/Index.cshtml">
-      <publishTime>03/25/2018 13:12:21</publishTime>
+      <publishTime>04/05/2018 02:23:25</publishTime>
     </File>
     <File Include="Areas/SystemSecurity/Views/Log/Index.cshtml">
       <publishTime>03/25/2018 13:12:28</publishTime>
@@ -273,25 +279,25 @@
       <publishTime>08/01/2016 14:46:10</publishTime>
     </File>
     <File Include="bin/NFine.Application.dll">
-      <publishTime>04/04/2018 17:16:06</publishTime>
+      <publishTime>04/05/2018 22:54:56</publishTime>
     </File>
     <File Include="bin/NFine.Code.dll">
-      <publishTime>04/04/2018 17:16:04</publishTime>
+      <publishTime>04/05/2018 22:54:55</publishTime>
     </File>
     <File Include="bin/NFine.Data.dll">
-      <publishTime>04/04/2018 17:16:04</publishTime>
+      <publishTime>04/05/2018 22:54:55</publishTime>
     </File>
     <File Include="bin/NFine.Domain.dll">
-      <publishTime>04/04/2018 17:16:04</publishTime>
+      <publishTime>04/05/2018 22:54:55</publishTime>
     </File>
     <File Include="bin/NFine.Mapping.dll">
-      <publishTime>04/04/2018 17:16:06</publishTime>
+      <publishTime>04/05/2018 22:54:56</publishTime>
     </File>
     <File Include="bin/NFine.Repository.dll">
-      <publishTime>04/04/2018 17:16:05</publishTime>
+      <publishTime>04/05/2018 22:54:55</publishTime>
     </File>
     <File Include="bin/NFine.Web.dll">
-      <publishTime>04/04/2018 17:16:07</publishTime>
+      <publishTime>04/05/2018 22:54:57</publishTime>
     </File>
     <File Include="bin/NPOI.dll">
       <publishTime>05/30/2016 15:02:00</publishTime>
@@ -369,7 +375,7 @@
       <publishTime>08/03/2016 17:50:28</publishTime>
     </File>
     <File Include="Content/css/framework-theme.css">
-      <publishTime>08/12/2016 13:38:25</publishTime>
+      <publishTime>04/04/2018 21:32:07</publishTime>
     </File>
     <File Include="Content/css/framework-ui.css">
       <publishTime>03/25/2018 20:13:53</publishTime>
@@ -669,7 +675,7 @@
       <publishTime>04/01/2018 14:36:05</publishTime>
     </File>
     <File Include="Content/js/framework-ui.js">
-      <publishTime>04/02/2018 23:55:24</publishTime>
+      <publishTime>04/05/2018 15:09:49</publishTime>
     </File>
     <File Include="Content/js/highcharts/adapters/mootools-adapter.js">
       <publishTime>07/20/2016 17:02:23</publishTime>
@@ -756,10 +762,10 @@
       <publishTime>07/20/2016 17:02:25</publishTime>
     </File>
     <File Include="Content/js/index.js">
-      <publishTime>03/25/2018 13:12:40</publishTime>
+      <publishTime>04/05/2018 22:42:52</publishTime>
     </File>
     <File Include="Content/js/indextab.js">
-      <publishTime>04/03/2018 21:24:39</publishTime>
+      <publishTime>04/05/2018 22:48:28</publishTime>
     </File>
     <File Include="Content/js/jqgrid/grid.locale-cn.js">
       <publishTime>03/27/2018 00:07:05</publishTime>
@@ -1122,7 +1128,7 @@
       <publishTime>08/09/2016 10:42:19</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>03/25/2018 14:48:32</publishTime>
+      <publishTime>04/05/2018 22:23:30</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
       <publishTime>04/03/2018 20:26:16</publishTime>

@@ -265,10 +265,10 @@
             $('.fullscreen').on('click', function () {
                 if (!$(this).attr('fullscreen')) {
                     $(this).attr('fullscreen', 'true');
-                    requestFullScreen();
+                    $.nfinetab.requestFullScreen();
                 } else {
                     $(this).removeAttr('fullscreen')
-                    exitFullscreen();
+                    $.nfinetab.exitFullscreen();
                 }
             });
         }

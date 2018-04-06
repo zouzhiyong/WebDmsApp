@@ -10,33 +10,36 @@
     function gridList() {
         var $gridList = $("#gridList");
         $gridList.dataGrid({
-            url: rootUrl + "/SystemManage/Company/GetGridJson",
+            url: rootUrl + "/BaseManage/Customer/GetGridJson",
             height: $(window).height() - 128,
             colModel: [
-                { label: "主键", name: "F_Id", hidden: true, key: true },
-                { label: '公司名称', name: 'F_FullName', width: 200, align: 'left' },
-                { label: '编号', name: 'F_CorpId', width: 200, align: 'left' },
+                { label: '主键', name: 'F_Id', hidden: true },
+                { label: '客户编码', name: 'F_EnCode', width: 100, align: 'left' },
+                { label: '客户名称', name: 'F_FullName', width: 100, align: 'left' },
+                { label: '联系人', name: 'F_Contact', width: 100, align: 'left' },
                 {
-                    label: '创建时间', name: 'F_CreatorTime', width: 80, align: 'left',
-                    formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
-                },
-                {
-                    label: '最后修改时间', name: 'F_LastModifyTime', width: 80, align: 'left',
-                    formatter: "date", formatoptions: { srcformat: 'Y-m-d H:i', newformat: 'Y-m-d H:i' }
-                },
-                {
-                    label: '最后修改人', name: 'F_LastModifyUserId', width: 100, align: 'left',
+                    label: '业务员', name: 'F_EmployeeID', width: 100, align: 'left',
                     formatter: function (cellvalue) {
                         return top.clients.user[cellvalue] == null ? "" : top.clients.user[cellvalue].fullname;
                     }
+                },               
+                { label: '联系电话', name: 'F_MobilePhone', width: 100, align: 'left' },
+                //{ label: '销售区域', name: 'F_RegionID', width: 100, align: 'left' },
+                { label: '客户类型', name: 'F_CustCategoryID', width: 100, align: 'left' },
+                {
+                    label: '创建时间', name: 'F_CreatorTime', width: 80, align: 'left',
+                    formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
+                },
+                {
+                    label: '修改时间', name: 'F_LastModifyTime', width: 80, align: 'left',
+                    formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' }
                 },
                 {
                     label: "有效", name: "F_EnabledMark", width: 60, align: "center",
                     formatter: function (cellvalue) {
                         return cellvalue == 1 ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
                     }
-                },
-                { label: '备注', name: 'F_Description', width: 300, align: 'left' }
+                }
             ],
             pager: "#gridPager",
             sortname: 'F_CreatorTime desc',
@@ -51,28 +54,30 @@
     function btn_add() {
         $.modalOpen({
             id: "Form",
-            title: "新增公司",
-            url: rootUrl + "/SystemManage/Company/Form",
+            title: "新增客户",
+            url: rootUrl + "/BaseManage/Customer/Form",
             width: "710px",
             height: "510px",
-            btn: null
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
         });
     }
-
     function btn_edit(keyValue) {
         $.modalOpen({
             id: "Form",
-            title: "修改公司",
-            url: rootUrl + "/SystemManage/Company/Form?keyValue=" + keyValue,
+            title: "修改客户",
+            url: rootUrl + "/BaseManage/Customer/Form?keyValue=" + keyValue,
             width: "710px",
             height: "510px",
-            btn: null
+            callBack: function (iframeId) {
+                top.frames[iframeId].submitForm();
+            }
         });
     }
-
     function btn_delete(keyValue) {
         $.deleteForm({
-            url: rootUrl + "/SystemManage/Company/DeleteForm",
+            url: rootUrl + "/BaseManage/Customer/DeleteForm",
             param: { keyValue: keyValue },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
@@ -88,13 +93,13 @@
             <a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
         </div>
         <div class="btn-group">
-            <a id="NF-add" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建公司</a>
+            <a id="NF-add" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建客户</a>
         </div>
         <div class="operate">
             <ul class="nav nav-pills">
                 <li class="first">已选中<span>1</span>项</li>
-                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改公司</a></li>
-                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>删除公司</a></li>
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改客户</a></li>
+                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>删除客户</a></li>
             </ul>
             <a href="javascript:;" class="close"></a>
         </div>
@@ -105,7 +110,7 @@
             <tr>
                 <td>
                     <div class="input-group">
-                        <input id="txt_keyword" type="text" class="form-control" placeholder="公司名称" style="width: 200px;">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="客户编码或名称" style="width: 200px;">
                         <span class="input-group-btn">
                             <button id="btn_search" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
                         </span>

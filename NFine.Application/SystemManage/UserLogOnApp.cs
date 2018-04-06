@@ -30,6 +30,7 @@ namespace NFine.Application.SystemManage
             userLogOnEntity.F_Id = keyValue;
             userLogOnEntity.F_UserSecretkey = Md5.md5(Common.CreateNo(), 16).ToLower();
             userLogOnEntity.F_UserPassword = Md5.md5(DESEncrypt.Encrypt(Md5.md5(userPassword, 32).ToLower(), userLogOnEntity.F_UserSecretkey).ToLower(), 32).ToLower();
+            userLogOnEntity.F_ChangePasswordDate = DateTime.Now;
             service.Update(userLogOnEntity);
         }
 
@@ -42,6 +43,7 @@ namespace NFine.Application.SystemManage
                 userLogOnEntity.F_Id = keyValue;
                 userLogOnEntity.F_UserSecretkey = Md5.md5(Common.CreateNo(), 16).ToLower();
                 userLogOnEntity.F_UserPassword = Md5.md5(DESEncrypt.Encrypt(Md5.md5(userPasswordNew, 32).ToLower(), userLogOnEntity.F_UserSecretkey).ToLower(), 32).ToLower();
+                userLogOnEntity.F_ChangePasswordDate = DateTime.Now;
                 service.Update(userLogOnEntity);
             }
             else

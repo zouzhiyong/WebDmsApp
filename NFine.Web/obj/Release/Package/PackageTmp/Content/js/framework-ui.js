@@ -419,24 +419,48 @@ $.fn.dataGrid = function (options) {
         rownumbers: true,
         shrinkToFit: true,
         gridview: true,
+        isTools:true,
         pagerpos:"left",
         styleUI: 'Bootstrap',
         treeIcons: { plus: 'glyphicon-triangle-right', minus: 'glyphicon-triangle-bottom', leaf: '' }
     };
     var options = $.extend(defaults, options);
     var $element = $(this);
-    options["onSelectRow"] = function (rowid) {
-        var length = $(this).jqGrid("getGridParam", "selrow").length;
-        var $operate = $(".operate");
-        if (length > 0) {
-            $operate.animate({ "left": 0 }, 200);
-        } else {
-            $operate.animate({ "left": '-100.1%' }, 200);
-        }
-        $operate.find('.close').click(function () {
-            $operate.animate({ "left": '-100.1%' }, 200);
+
+    
+
+    if (options.isTools) {
+        var $elementHtml = "";
+        $('.operate').find('a[authorize=yes]').css({ 'cursor': 'pointer', 'padding': '2px 8px', 'margin-right': '20px' }).addClass('btn').each(function () {
+            var $elementIcon = $(this).find("i");
+            var title = $(this).text();
+            $(this).attr("title", title);
+            $elementHtml = $elementHtml + $(this).html($elementIcon).prop("outerHTML")
+        });
+
+        options.colModel.splice(0, 0, {
+            label: '',width:80, name: '', align: 'center',
+            formatter: function (cellvalue, options, rowObject) {
+                var $tempElementHtml = $elementHtml.replace(/\(\)/gi, '(\'' + rowObject.F_Id + '\')').replace(/id/gi, 'name');
+                return $tempElementHtml;
+            }
         })
-    };
+    } else {
+        options["onSelectRow"] = function (rowid) {
+            var length = $(this).jqGrid("getGridParam", "selrow").length;
+            var $operate = $(".operate");
+            if (length > 0) {
+                $operate.animate({ "left": 0 }, 200);
+            } else {
+                $operate.animate({ "left": '-100.1%' }, 200);
+            }
+            $operate.find('.close').click(function () {
+                $operate.animate({ "left": '-100.1%' }, 200);
+            })
+        };
+    }               
+
+    
     $element.jqGrid(options);
 };
 $.fn.bindDate = function (options) {
@@ -445,7 +469,7 @@ $.fn.bindDate = function (options) {
         todayHighlight: true,
         todayBtn: "linked",
         language:"zh-CN", //语言设置
-        format:"yyyy-mm-dd"  //日期显示格式
+        format: "yyyy-mm-dd",  //日期显示格式
     };
     var options = $.extend(defaults, options);
     var $element = $(this);

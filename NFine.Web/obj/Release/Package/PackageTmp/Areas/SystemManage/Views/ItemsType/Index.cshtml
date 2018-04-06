@@ -40,8 +40,7 @@
             }
         });
     }
-    function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    function btn_edit(keyValue) {
         $.modalOpen({
             id: "Form",
             title: "修改分类",
@@ -53,18 +52,17 @@
             }
         });
     }
-    function btn_delete() {
+    function btn_delete(keyValue) {
         $.deleteForm({
             url: rootUrl + "/SystemManage/ItemsType/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
+            param: { keyValue: keyValue },
             success: function () {
                 $("#gridList").resetSelection();
                 $("#gridList").trigger("reloadGrid");
             }
         })
     }
-    function btn_details() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    function btn_details(keyValue) {
         $.modalOpen({
             id: "Details",
             title: "查看分类",

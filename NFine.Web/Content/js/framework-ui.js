@@ -13,7 +13,7 @@ $.reload = function () {
     location.reload();
     return false;
 }
-$.loading = function (bool, text) {    
+$.loading = function (bool, text) {
     var $loadingpage = top.$("#loadingPage");
     var $loadingtext = $loadingpage.find('.loading-content');
     if (bool) {
@@ -158,7 +158,7 @@ $.modalMsg = function (content, type) {
         }
         if (type == 'warning') {
             icon = "fa-exclamation-circle";
-        }        
+        }
         top.layer.msg(content, { icon: icon, time: 4000, shift: 5 });
         top.$(".layui-layer-msg").find('i.' + icon).parents('.layui-layer-msg').addClass('layui-layer-msg-' + type);
     } else {
@@ -197,7 +197,7 @@ $.submitForm = function (options) {
             data: options.param,
             type: "post",
             dataType: "json",
-            success: function (data) {                
+            success: function (data) {
                 if (data.state == "success") {
                     options.success(data);
                     $.modalMsg(data.message, data.state);
@@ -419,15 +419,26 @@ $.fn.dataGrid = function (options) {
         rownumbers: true,
         shrinkToFit: true,
         gridview: true,
-        isTools:true,
-        pagerpos:"left",
+        isTools: true,
+        pagerpos: "left",
         styleUI: 'Bootstrap',
         treeIcons: { plus: 'glyphicon-triangle-right', minus: 'glyphicon-triangle-bottom', leaf: '' }
     };
     var options = $.extend(defaults, options);
     var $element = $(this);
 
-    
+    //自适应高
+    var topHeight = $(window).height() - options.height;
+    $(window).resize(function () {
+        $(window).unbind("onresize");
+        $element.setGridWidth($(window).width());
+        $element.parent().parent('.ui-jqgrid-bdiv').css('height', $(window).height() - topHeight);
+        $(window).bind("onresize", this);
+    });
+
+    //设置每页行数
+    var rowNum = Math.round(options.height / 30);
+    options.rowNum = rowNum > 200 ? 200 : rowNum;
 
     if (options.isTools) {
         var $elementHtml = "";
@@ -439,7 +450,7 @@ $.fn.dataGrid = function (options) {
         });
 
         options.colModel.splice(0, 0, {
-            label: '',width:80, name: '', align: 'center',
+            label: '', width: 80, name: '', align: 'center',
             formatter: function (cellvalue, options, rowObject) {
                 var $tempElementHtml = $elementHtml.replace(/\(\)/gi, '(\'' + rowObject.F_Id + '\')').replace(/id/gi, 'name');
                 return $tempElementHtml;
@@ -458,9 +469,9 @@ $.fn.dataGrid = function (options) {
                 $operate.animate({ "left": '-100.1%' }, 200);
             })
         };
-    }               
+    }
 
-    
+
     $element.jqGrid(options);
 };
 $.fn.bindDate = function (options) {
@@ -468,7 +479,7 @@ $.fn.bindDate = function (options) {
         autoclose: true,
         todayHighlight: true,
         todayBtn: "linked",
-        language:"zh-CN", //语言设置
+        language: "zh-CN", //语言设置
         format: "yyyy-mm-dd",  //日期显示格式
     };
     var options = $.extend(defaults, options);

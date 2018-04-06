@@ -37,7 +37,7 @@
                         return cellvalue == 1 ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
                     }
                 },
-                { label: '备注', name: 'F_Description', width: 300, align: 'left' }
+                { label: '备注', name: 'F_Description',  align: 'left' }
             ]
         });
         $("#btn_search").click(function () {
@@ -56,8 +56,7 @@
             btn: null
         });
     }
-    function btn_edit() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    function btn_edit(keyValue) {
         $.modalOpen({
             id: "Form",
             title: "修改角色",
@@ -67,17 +66,16 @@
             btn: null
         });
     }
-    function btn_delete() {
+    function btn_delete(keyValue) {
         $.deleteForm({
             url: rootUrl + "/SystemManage/Role/DeleteForm",
-            param: { keyValue: $("#gridList").jqGridRowValue().F_Id },
+            param: { keyValue: keyValue },
             success: function () {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
         })
     }
-    function btn_details() {
-        var keyValue = $("#gridList").jqGridRowValue().F_Id;
+    function btn_details(keyValue) {
         $.modalOpen({
             id: "Details",
             title: "查看角色",
@@ -102,7 +100,7 @@
                 <li class="first">已选中<span>1</span>项</li>
                 <li><a id="NF-edit" authorize="yes" onclick="btn_edit()"><i class="fa fa-pencil-square-o"></i>修改角色</a></li>
                 <li><a id="NF-delete" authorize="yes" onclick="btn_delete()"><i class="fa fa-trash-o"></i>删除角色</a></li>
-                <li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看角色</a></li>
+                @*<li><a id="NF-Details" authorize="yes" onclick="btn_details()"><i class="fa fa-search-plus"></i>查看角色</a></li>*@
             </ul>
             <a href="javascript:;" class="close"></a>
         </div>

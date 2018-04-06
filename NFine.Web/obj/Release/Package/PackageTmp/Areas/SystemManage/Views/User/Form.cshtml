@@ -15,12 +15,12 @@
                 success: function (data) {
                     $("#form1").formSerialize(data);
                     $("#F_UserPassword").val("******").attr('disabled', 'disabled');
+                    $('#F_Birthday').bindDate();
                 }
             });
-        }
+        }        
     });
     function initControl() {
-        $('#F_Birthday').bindDate();
         $("#F_Gender").bindSelect()
         $("#F_IsAdministrator").bindSelect()
         $("#F_EnabledMark").bindSelect()
@@ -45,6 +45,17 @@
         $("#F_DutyId").bindSelect({
             url: rootUrl + "/SystemManage/ItemsData/GetSelectJson",
             param: { enCode: "Position" }
+        });
+
+        $("#F_ManagerId").bindSelect({
+            url: rootUrl + "/SystemManage/User/GetSelectJson",
+            id: "F_Id",
+            text: "F_RealName"
+        });
+
+        $("#F_UserCategoryID").bindSelect({
+            url: rootUrl + "/SystemManage/ItemsData/GetSelectJson",
+            param: { enCode: "UserType" }
         });
     }
     function submitForm() {
@@ -95,7 +106,7 @@
                 <tr>
                     <th class="formTitle">手机</th>
                     <td class="formValue">
-                        <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control" />
+                        <input id="F_MobilePhone" name="F_MobilePhone" type="text" class="form-control"  maxlength="11"/>
                     </td>
                     <th class="formTitle">类型</th>
                     <td class="formValue">
@@ -113,9 +124,23 @@
                             <option value="">==请选择==</option>
                         </select>
                     </td>
-                    <th class="formTitle">岗位</th>
+                    <th class="formTitle">职位</th>
                     <td class="formValue">
                         <select id="F_DutyId" name="F_DutyId" class="form-control required">
+                            <option value="">==请选择==</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="formTitle">职员类型</th>
+                    <td class="formValue">
+                        <select id="F_UserCategoryID" name="F_UserCategoryID" class="form-control">
+                            <option value="">==请选择==</option>
+                        </select>
+                    </td>
+                    <th class="formTitle">对应上级</th>
+                    <td class="formValue">
+                        <select id="F_ManagerId" name="F_ManagerId" class="form-control">
                             <option value="">==请选择==</option>
                         </select>
                     </td>
@@ -140,7 +165,7 @@
                     </td>
                     <th class="formTitle">邮箱</th>
                     <td class="formValue">
-                        <input id="F_Email" name="F_Email" type="text" class="form-control" />
+                        <input id="F_Email" name="F_Email" type="email" class="form-control" />
                     </td>
                 </tr>
                 <tr>
