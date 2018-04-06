@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="01 Infrastructure\DbLogType.cs" />
     <Compile Include="BaseManage\CorporationApp.cs" />
+    <Compile Include="BaseManage\MaterialGroupApp.cs" />
+    <Compile Include="BaseManage\MaterialApp.cs" />
     <Compile Include="BaseManage\RegionApp.cs" />
     <Compile Include="BaseManage\CustomerApp.cs" />
     <Compile Include="BaseManage\TruckApp.cs" />

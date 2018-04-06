@@ -27,6 +27,8 @@ namespace NFine.MySQLModel
     
         public virtual DbSet<bas_corporation> bas_corporation { get; set; }
         public virtual DbSet<bas_customer> bas_customer { get; set; }
+        public virtual DbSet<bas_material> bas_material { get; set; }
+        public virtual DbSet<bas_materialgroup> bas_materialgroup { get; set; }
         public virtual DbSet<bas_region> bas_region { get; set; }
         public virtual DbSet<bas_supplier> bas_supplier { get; set; }
         public virtual DbSet<bas_truck> bas_truck { get; set; }

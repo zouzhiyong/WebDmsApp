@@ -44,6 +44,8 @@
     <Compile Include="01 Infrastructure\IDeleteAudited.cs" />
     <Compile Include="01 Infrastructure\IEntity.cs" />
     <Compile Include="01 Infrastructure\IModificationAudited.cs" />
+    <Compile Include="03 Entity\BaseManage\MaterialGroupEntity.cs" />
+    <Compile Include="03 Entity\BaseManage\MaterialEntity.cs" />
     <Compile Include="03 Entity\BaseManage\CorporationEntity.cs" />
     <Compile Include="03 Entity\BaseManage\CustomerEntity.cs" />
     <Compile Include="03 Entity\BaseManage\RegionEntity.cs" />
@@ -66,6 +68,8 @@
     <Compile Include="03 Entity\SystemSecurity\FilterIPEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\LogEntity.cs" />
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
+    <Compile Include="04 IRepository\BaseManage\IMaterialGroupRepository.cs" />
+    <Compile Include="04 IRepository\BaseManage\IMaterialRepository.cs" />
     <Compile Include="04 IRepository\BaseManage\ICorporationRepository.cs" />
     <Compile Include="04 IRepository\BaseManage\ICustomerRepository.cs" />
     <Compile Include="04 IRepository\BaseManage\IRegionRepository.cs" />

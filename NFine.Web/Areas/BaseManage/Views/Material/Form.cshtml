@@ -1,0 +1,204 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+<script>
+    var keyValue = $.request("keyValue");
+    var itemId = $.request("itemId");
+    var parentId = $.request("parentId");
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: rootUrl + "/BaseManage/Material/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#form1").formSerialize(data);
+                }
+            });
+        } else {
+            var data = { F_ItemGroupID: "", F_ItemCategoryID: "" };
+            if (parentId == "0") {
+                data.F_ItemGroupID = itemId;
+                data.F_ItemCategoryID = '';
+            } else {
+                data.F_ItemGroupID = parentId;
+                data.F_ItemCategoryID = itemId;
+            }
+            $("#form1").formSerialize(data);
+        }
+    });
+
+    function initControl() {
+        $("#F_ItemGroupID").bindSelect({
+            url: rootUrl + "/BaseManage/MaterialGroup/GetSelectJson",
+            param: { keyValue: "0" },
+            id: "F_Id",
+            text: "F_FullName"
+        });
+
+        $("#F_ItemCategoryID").bindSelect({
+            url: rootUrl + "/BaseManage/MaterialGroup/GetSelectJson",
+            param: { keyValue: $("#F_ItemGroupID").val() },
+            id: "F_Id",
+            text: "F_FullName"
+        });
+        
+        $("#F_WarehouseID").bindSelect({
+            url: rootUrl + "/BaseManage/Warehouse/GetSelectJson",
+            id: "F_Id",
+            text: "F_Name"
+        });
+
+        
+    }
+
+    function submitForm() {
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        var postData = $("#form1").formSerialize();
+        $.submitForm({
+            url: rootUrl + "/BaseManage/Material/SubmitForm?keyValue=" + keyValue,
+            param: postData,
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+                $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
+            }
+        })
+    }
+</script>
+
+<form id="form1">
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#page1" data-toggle="tab">基本信息</a></li>
+            <li class=""><a href="#page2" data-toggle="tab">其它信息</a></li>
+            <li class=""><a href="#page3" data-toggle="tab">单位</a></li>
+            <li class=""><a href="#page4" data-toggle="tab">商品封面</a></li>
+            <li class=""><a href="#page5" data-toggle="tab">商品照片</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="page1" style="padding-top: 10px;margin-right:10px">
+                <table class="form">
+                    <tr>
+                        <th class="formTitle">商品编码</th>
+                        <td class="formValue">
+                            <input id="F_EnCode" name="F_EnCode" type="text" class="form-control required" placeholder="请输入商品编码" />
+                        </td>
+                        <th class="formTitle">商品名称</th>
+                        <td class="formValue">
+                            <input id="F_FullName" name="F_FullName" type="text" class="form-control required" placeholder="请输入商品名称" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">商品简称</th>
+                        <td class="formValue">
+                            <input id="F_ShortName" name="F_ShortName" type="text" class="form-control" placeholder="请输入商品简称" />
+                        </td>
+                        <th class="formTitle">商品大类</th>
+                        <td class="formValue">
+                            <select id="F_ItemGroupID" name="F_ItemGroupID" class="form-control required">
+                                <option value="">==请选择==</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">商品小类</th>
+                        <td class="formValue">
+                            <select id="F_ItemCategoryID" name="F_ItemCategoryID" class="form-control required">
+                                <option value="">==请选择==</option>
+                            </select>
+                        </td>
+                        <th class="formTitle">商品条码</th>
+                        <td class="formValue">
+                            <input id="F_Barcode" name="F_Barcode" type="text" class="form-control" placeholder="请输入商品条码" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">有效期（月）</th>
+                        <td class="formValue">
+                            <input id="F_Period" name="F_Period" type="number" class="form-control" placeholder="请输入有效期" />
+                        </td>
+                        <th class="formTitle">对应仓库</th>
+                        <td class="formValue">
+                            <select id="F_WarehouseID" name="F_WarehouseID" class="form-control">
+                                <option value="">==请选择==</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">安全库存</th>
+                        <td class="formValue">
+                            <input id="F_SaveInventory" name="F_SaveInventory" type="number" class="form-control" placeholder="请输入安全库存" />
+                        </td>
+                        <th class="formTitle" style="height: 35px;">选项</th>
+                        <td class="formValue" style="padding-top: 1px;">
+                            <div class="ckbox">
+                                <input id="F_EnabledMark" name="F_EnabledMark" type="checkbox" checked="checked"><label for="F_EnabledMark">有效</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px;">
+                            备注
+                        </th>
+                        <td class="formValue" colspan="3">
+                            <textarea id="F_Description" name="F_Description" class="form-control" style="height: 60px;"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade in" id="page2" style="padding-top: 10px;margin-right:10px">
+                <table class="form">
+                    <tr>
+                        <th class="formTitle">长度</th>
+                        <td class="formValue">
+                            <input id="F_Length" name="F_Length" type="number" class="form-control" placeholder="请输入长度" />
+                        </td>
+                        <th class="formTitle">宽度</th>
+                        <td class="formValue">
+                            <input id="F_Width" name="F_Width" type="number" class="form-control" placeholder="请输入宽度" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">高度</th>
+                        <td class="formValue">
+                            <input id="F_Height" name="F_Height" type="number" class="form-control" placeholder="请输入高度" />
+                        </td>
+                        <th class="formTitle">毛重</th>
+                        <td class="formValue">
+                            <input id="F_CrossWeigth" name="F_CrossWeigth" type="number" class="form-control" placeholder="请输入毛重" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">体积</th>
+                        <td class="formValue">
+                            <input id="F_Size" name="F_Size" type="number" class="form-control" placeholder="请输入体积" />
+                        </td>                        
+                        <th class="formTitle">最后成本</th>
+                        <td class="formValue">
+                            <input id="F_LastCost" name="F_LastCost" type="number" class="form-control" placeholder="请输入最后成本" />
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <th class="formTitle" style="height: 35px;">选项</th>
+                        <td class="formValue" style="padding-top: 1px;" colspan="3">
+                            <div class="ckbox">
+                                <input id="F_IsBatch" name="F_IsBatch" type="checkbox" checked="checked"><label for="F_IsBatch">批次管理</label>
+                            </div>
+                            <div class="ckbox">
+                                <input id="F_IsForSale" name="F_IsForSale" type="checkbox" checked="checked"><label for="F_IsForSale">可销售否</label>
+                            </div>
+                            <div class="ckbox">
+                                <input id="F_IsZeroValue" name="F_IsZeroValue" type="checkbox" checked="checked"><label for="F_IsZeroValue">库存零价值</label>
+                            </div>
+                        </td>
+                    </tr>                    
+                </table>
+            </div>
+        </div>
+    </div>
+</form>

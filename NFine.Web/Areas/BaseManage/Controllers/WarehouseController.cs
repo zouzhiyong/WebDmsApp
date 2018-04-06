@@ -15,6 +15,14 @@ namespace NFine.Web.Areas.BaseManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
+        public ActionResult GetSelectJson(string keyValue)
+        {
+            var data = warehouseApp.GetList(keyValue);
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
         public ActionResult GetGridJson(Pagination pagination, string keyword)
         {
             var data = new

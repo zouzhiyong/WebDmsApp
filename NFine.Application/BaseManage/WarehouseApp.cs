@@ -18,6 +18,22 @@ namespace NFine.Application.BaseManage
     {
         private IWarehouseRepository service = new WarehouseRepository();
         private UserApp userApp = new UserApp();
+
+        public List<WarehouseEntity> GetList(string keyword="")
+        {
+            var expression = ExtLinq.True<WarehouseEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.F_Name.Contains(keyword));
+            }
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_CorpId == CompanyId);
+            }
+            return service.IQueryable(expression).ToList();
+        }
+
         public List<WarehouseEntity> GetList(Pagination pagination, string keyword)
         {
             var expression = ExtLinq.True<WarehouseEntity>();

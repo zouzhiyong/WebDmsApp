@@ -429,9 +429,11 @@ $.fn.dataGrid = function (options) {
 
     //自适应高
     var topHeight = $(window).height() - options.height;
+    //var tableWidth = $(window).width() - (isNaN(options.width) ? 0 : options.width);
+    //console.log(tableWidth)
     $(window).resize(function () {
         $(window).unbind("onresize");
-        $element.setGridWidth($(window).width());
+        //$element.setGridWidth($(window).width() - tableWidth);
         $element.parent().parent('.ui-jqgrid-bdiv').css('height', $(window).height() - topHeight);
         $(window).bind("onresize", this);
     });

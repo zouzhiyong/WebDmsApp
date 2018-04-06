@@ -9,6 +9,7 @@
     function gridList() {
         $("#gridList").dataGrid({
             treeGrid: true,
+            isTools:false,
             treeGridModel: "adjacency",
             ExpandColumn: "F_EnCode",
             url: rootUrl + "/SystemManage/ItemsType/GetTreeGridJson",
@@ -40,7 +41,8 @@
             }
         });
     }
-    function btn_edit(keyValue) {
+    function btn_edit() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "Form",
             title: "修改分类",
@@ -52,7 +54,8 @@
             }
         });
     }
-    function btn_delete(keyValue) {
+    function btn_delete() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.deleteForm({
             url: rootUrl + "/SystemManage/ItemsType/DeleteForm",
             param: { keyValue: keyValue },
@@ -62,7 +65,8 @@
             }
         })
     }
-    function btn_details(keyValue) {
+    function btn_details() {
+        var keyValue = $("#gridList").jqGridRowValue().F_Id;
         $.modalOpen({
             id: "Details",
             title: "查看分类",
