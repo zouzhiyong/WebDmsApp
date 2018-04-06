@@ -460,6 +460,7 @@ $.fn.dataGrid = function (options) {
         })
     } else {
         options["onSelectRow"] = function (rowid) {
+            options.onSelectRow(rowid);
             var length = $(this).jqGrid("getGridParam", "selrow").length;
             var $operate = $(".operate");
             if (length > 0) {

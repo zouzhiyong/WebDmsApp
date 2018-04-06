@@ -129,6 +129,7 @@
     <Compile Include="Areas\BaseManage\Controllers\MaterialGroupController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\RegionController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\BaseManage\Controllers\MaterialUomController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\CompanyController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\TruckController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\UnitOfMeasureController.cs" />

@@ -29,6 +29,12 @@ namespace NFine.Application.BaseManage
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
                 expression = expression.Or(t => t.F_EnCode.Contains(keyword));
             }
+
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_CorpId == CompanyId);
+            }
             return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
         }
         public List<MaterialEntity> GetItemList(string enCode)

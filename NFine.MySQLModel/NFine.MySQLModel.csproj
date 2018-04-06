@@ -82,6 +82,9 @@
     <Compile Include="bas_materialgroup.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="bas_materialuom.cs">
+      <DependentUpon>MySQLModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="bas_region.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>

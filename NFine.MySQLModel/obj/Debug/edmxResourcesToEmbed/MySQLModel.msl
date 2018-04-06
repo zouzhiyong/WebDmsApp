@@ -105,7 +105,7 @@
           <ScalarProperty Name="F_ShortName" ColumnName="F_ShortName" />
           <ScalarProperty Name="F_FullName" ColumnName="F_FullName" />
           <ScalarProperty Name="F_EnCode" ColumnName="F_EnCode" />
-          <ScalarProperty Name="F_CorpID" ColumnName="F_CorpID" />
+          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
           <ScalarProperty Name="F_Id" ColumnName="F_Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -128,6 +128,32 @@
           <ScalarProperty Name="F_ParentId" ColumnName="F_ParentId" />
           <ScalarProperty Name="F_FullName" ColumnName="F_FullName" />
           <ScalarProperty Name="F_EnCode" ColumnName="F_EnCode" />
+          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+          <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bas_materialuom">
+      <EntityTypeMapping TypeName="nfinebaseModel.bas_materialuom">
+        <MappingFragment StoreEntitySet="bas_materialuom">
+          <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+          <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
+          <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
+          <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
+          <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
+          <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+          <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+          <ScalarProperty Name="F_Description" ColumnName="F_Description" />
+          <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
+          <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+          <ScalarProperty Name="F_IsSalesUOM" ColumnName="F_IsSalesUOM" />
+          <ScalarProperty Name="F_IsPurchaseUOM" ColumnName="F_IsPurchaseUOM" />
+          <ScalarProperty Name="F_SalesPrice" ColumnName="F_SalesPrice" />
+          <ScalarProperty Name="F_PurchasePrice" ColumnName="F_PurchasePrice" />
+          <ScalarProperty Name="F_UomType" ColumnName="F_UomType" />
+          <ScalarProperty Name="F_RateQty" ColumnName="F_RateQty" />
+          <ScalarProperty Name="F_UomId" ColumnName="F_UomId" />
+          <ScalarProperty Name="F_MaterialId" ColumnName="F_MaterialId" />
           <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
           <ScalarProperty Name="F_Id" ColumnName="F_Id" />
         </MappingFragment>

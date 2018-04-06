@@ -53,6 +53,7 @@
     <Compile Include="BaseManage\UnitOfMeasureApp.cs" />
     <Compile Include="BaseManage\SupplierApp.cs" />
     <Compile Include="BaseManage\WarehouseApp.cs" />
+    <Compile Include="BaseManage\MaterialUomApp.cs" />
     <Compile Include="BaseManage\WarehouseUserApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemManage\DepartmentApp.cs" />

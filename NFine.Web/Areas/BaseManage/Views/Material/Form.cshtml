@@ -2,6 +2,9 @@
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Form.cshtml";
 }
+
+<script src="~/Content/js/jqgrid/jqgrid.min.js"></script>
+<script src="~/Content/js/jqgrid/grid.locale-cn.js"></script>
 <script>
     var keyValue = $.request("keyValue");
     var itemId = $.request("itemId");
@@ -29,7 +32,58 @@
             }
             $("#form1").formSerialize(data);
         }
+        //单位信息
+        gridList();
     });
+
+    function gridList() {
+        $gridList = $("#gridList");
+        var lastSel;
+        $gridList.jqGrid({
+            url: rootUrl + "/BaseManage/MaterialUom/GetGridJson",
+            postData: { keyword: keyValue },
+            datatype: "json",
+            height: $(window).height() - 128,
+            shrinkToFit: false,
+            //isTools: false,
+            autowidth: false,
+            styleUI: 'Bootstrap',
+            width: 725,
+            colModel: [
+                { label: '主键', name: 'F_Id', hidden: true },
+                { label: '单位类型', name: 'F_UomType', width: 80, align: 'left', editable: true, edittype: "select", editoptions: { value: "1:基本单位;0:扩展单位" } },
+                { label: '单位', name: 'F_UomId', width: 80, align: 'left', editable: true, edittype: "select", editoptions: { value: ":请选择" } },
+                { label: '换算率', name: 'F_RateQty', width: 80, align: 'left', editable: true },
+                { label: '采购单价', name: 'F_PurchasePrice', width: 80, align: 'left', editable: true },
+                { label: '销售单价', name: 'F_SalesPrice', width: 80, align: 'left', editable: true },
+                { label: '采购单位', name: 'F_IsPurchaseUOM', width: 80, align: 'left', editable: true },
+                { label: '销售单位', name: 'F_IsSalesUOM', width: 80, align: 'left', editable: true },
+                { label: '有效否', name: 'F_EnabledMark', width: 80, align: 'center', editable: true, edittype: "checkbox", editoptions: { value: "0:1" } },
+                { label: '操作', name: '', width: 80, align: 'left' },
+            ],
+            sortname: 'F_CreatorTime asc',
+            onSelectRow: function (id) {
+                if (id && id !== lastSel) {
+                    $gridList.jqGrid('restoreRow', lastSel);
+                    $gridList.jqGrid('editRow', id, true, function (id) {
+                        $("#" + id + "_F_UomType", "#gridList").bindSelect();
+                        $("#" + id + "_F_UomId", "#gridList").bindSelect({
+                            url: rootUrl + "/BaseManage/UnitOfMeasure/GetSelectJson",
+                            id: "F_Id",
+                            text: "F_Name"
+                        });
+                        $("input", "#gridList").css({ 'border-radius': '0', 'box-shadow': 'none','height':'29px' });
+                    });
+                    lastSel = id;
+                }                
+                return;
+            },
+            loadComplete: function () {
+                $(".ui-jqgrid .ui-jqgrid-htable .ui-th-div").css("text-align", "center");
+                
+            }
+        });        
+    }
 
     function initControl() {
         $("#F_ItemGroupID").bindSelect({
@@ -51,8 +105,6 @@
             id: "F_Id",
             text: "F_Name"
         });
-
-        
     }
 
     function submitForm() {
@@ -76,7 +128,7 @@
         <ul class="nav nav-tabs">
             <li class="active"><a href="#page1" data-toggle="tab">基本信息</a></li>
             <li class=""><a href="#page2" data-toggle="tab">其它信息</a></li>
-            <li class=""><a href="#page3" data-toggle="tab">单位</a></li>
+            <li class=""><a href="#page3" data-toggle="tab">单位信息</a></li>
             <li class=""><a href="#page4" data-toggle="tab">商品封面</a></li>
             <li class=""><a href="#page5" data-toggle="tab">商品照片</a></li>
         </ul>
@@ -198,6 +250,9 @@
                         </td>
                     </tr>                    
                 </table>
+            </div>
+            <div class="tab-pane fade in gridPanel" id="page3" style="padding-top: 10px;margin-right:10px">
+                <table id="gridList"></table>
             </div>
         </div>
     </div>

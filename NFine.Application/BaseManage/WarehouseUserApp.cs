@@ -21,15 +21,16 @@ namespace NFine.Application.BaseManage
     {
         private IWarehouseUserRepository service = new WarehouseUserRepository();
         private UserApp userApp = new UserApp();
+        string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
 
         public List<WarehouseUserEntity> GetList(string keyword = "")
         {
-            return service.IQueryable(t => t.F_WarehouseId == keyword).ToList();
+            return service.IQueryable(t => t.F_WarehouseId == keyword && t.F_CorpId== CompanyId).ToList();
         }
         public List<UserEntity> GetUserList(string warehouseId)
         {
             var data = new List<UserEntity>();
-            string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+            
             var userdata = userApp.GetList();
             var warehouseuserdata = service.IQueryable(t => t.F_WarehouseId == warehouseId && t.F_CorpId == CompanyId).ToList();
             foreach (var item in warehouseuserdata)

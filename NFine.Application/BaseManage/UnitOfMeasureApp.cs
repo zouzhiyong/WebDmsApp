@@ -17,6 +17,21 @@ namespace NFine.Application.BaseManage
     {
         private IUnitOfMeasureRepository service = new UnitOfMeasureRepository();
 
+        public List<UnitOfMeasureEntity> GetList(string keyword="")
+        {
+            var expression = ExtLinq.True<UnitOfMeasureEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.F_Id== keyword);
+            }
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_CorpId == CompanyId);
+            }
+            return service.IQueryable(expression).ToList();
+        }
+
         public List<UnitOfMeasureEntity> GetList(Pagination pagination, string keyword)
         {
             var expression = ExtLinq.True<UnitOfMeasureEntity>();
