@@ -19,6 +19,10 @@
                 dataType: "json",
                 async: false,
                 success: function (data) {
+                    data['1_F_UomType'] = '1';
+                    data['2_F_UomType'] = '0';
+                    data['3_F_UomType'] = '0';
+                    data['4_F_UomType'] = '0';
                     $("#form1").formSerialize(data);
                 }
             });
@@ -31,99 +35,14 @@
                 data.F_ItemGroupID = parentId;
                 data.F_ItemCategoryID = itemId;
             }
+            data['1_F_UomType'] = '1';
+            data['2_F_UomType'] = '0';
+            data['3_F_UomType'] = '0';
+            data['4_F_UomType'] = '0';
             $("#form1").formSerialize(data);
         }
-
-        //gridList();
     });
 
-    //function gridList() {
-    //    $gridList = $("#gridList");
-    //    $gridList.jqGrid({
-    //        url: rootUrl + "/BaseManage/MaterialUom/GetGridJson",
-    //        datatype: "json",
-    //        height: $(window).height() - 128,
-    //        shrinkToFit: false,
-    //        autowidth: false,
-    //        styleUI: 'Bootstrap',
-    //        editurl: 'clientArray',
-    //        width: 725,
-    //        colModel: [
-    //            { label: '主键', name: 'F_Id', hidden: true },
-    //            {
-    //                label: '单位类型', name: 'F_UomType', width: 80, align: 'left', editable: true, edittype: "select", editoptions: { value: { 1: '基本单位', 0: '扩展单位' } },
-    //                //formatter: function (cellvalue, options, rowObject) {
-    //                //    console.log(cellvalue);
-    //                //    return cellvalue == 1 ? "基本单位" : "扩展单位";
-    //                //}
-    //                unformat: function (cellvalue, options, cellobject) {
-    //                    var unformatValue = '';
-    //                    $.each(options.colModel.editoptions.value, function (k, value) {
-    //                        if (cellvalue == value) {
-    //                            unformatValue = k;
-    //                        }
-    //                    });
-
-    //                    return unformatValue;
-    //                }
-    //            },
-    //            {
-    //                label: '单位', name: 'F_UomId', width: 80, align: 'left', editable: true, edittype: "select", editoptions: { value: getVal() },
-    //                //formatter: function (cellvalue, options, rowObject) {
-    //                //    return top.clients.unit[cellvalue] == null ? "" : top.clients.unit[cellvalue].fullname;
-    //                //}
-    //                unformat: function (cellvalue, options, cellobject) {
-    //                    var unformatValue = '';
-    //                    $.each(options.colModel.editoptions.value, function (k, value) {
-    //                        if (cellvalue == value) {
-    //                            unformatValue = k;
-    //                        }
-    //                    });
-
-    //                    return unformatValue;
-    //                }
-    //            },
-    //            { label: '换算率', name: 'F_RateQty', width: 80, align: 'left', editable: true },
-    //            { label: '采购单价', name: 'F_PurchasePrice', width: 80, align: 'left', editable: true },
-    //            { label: '销售单价', name: 'F_SalesPrice', width: 80, align: 'left', editable: true },
-    //            { label: '采购单位', name: 'F_IsPurchaseUOM', width: 80, align: 'left', editable: true },
-    //            { label: '销售单位', name: 'F_IsSalesUOM', width: 80, align: 'left', editable: true },
-    //            { label: '有效否', name: 'F_EnabledMark', width: 80, align: 'center', editable: true, edittype: "checkbox", editoptions: { value: "true:false" } },
-    //            { label: '操作', name: '', width: 80, align: 'left' },
-    //        ],
-    //        sortname: 'F_CreatorTime asc',
-    //        onSelectRow: function (id) {
-    //            if (id && id !== lastSel) {
-    //                //原选中行ID
-    //                var oldSelectRowId = $("#selectRowId").val();
-    //                if (oldSelectRowId != null && oldSelectRowId != "" && oldSelectRowId.length > 0) {
-    //                    $gridList.jqGrid('saveRow', oldSelectRowId);//保存上一行
-    //                }
-
-    //                //当前选中行
-    //                $("#selectRowId").val(id);//临时存储当前选中行
-
-    //                $gridList.jqGrid('restoreRow', lastSel);
-    //                $gridList.jqGrid('editRow', id, true, function (id) {
-    //                    $("#" + id + "_F_UomType", "#gridList").bindSelect();
-    //                    //$("#" + id + "_F_UomId", "#gridList").bindSelect();
-    //                    //$("#" + id + "_F_UomId", "#gridList").bindSelect({
-    //                    //    url: rootUrl + "/BaseManage/UnitOfMeasure/GetSelectJson",
-    //                    //    id: "F_Id",
-    //                    //    text: "F_Name"
-    //                    //});
-    //                    $("input", "#gridList").css({ 'border-radius': '0', 'box-shadow': 'none', 'height': '29px' });
-    //                });
-    //                lastSel = id;
-    //            }
-    //            return;
-    //        },
-    //        loadComplete: function () {
-    //            $(".ui-jqgrid .ui-jqgrid-htable .ui-th-div").css("text-align", "center");
-
-    //        }
-    //    });
-    //}
 
     function initControl() {
         $("#F_ItemGroupID").bindSelect({
@@ -145,22 +64,80 @@
             id: "F_Id",
             text: "F_Name"
         });
+
+        var tableData = [
+            { id: 'index', type: 'index', label: '#', width: '40px', align: 'center', placeholder: '', required: '' },
+            { id: 'F_UomType', type: 'select', label: '单位类型', width: '80px', align: 'center', placeholder: '', required: '', options: [{ value: 1, label: '基本单位' }, { value: 0, label: '扩展单位' }], disabled: true },
+            { id: 'F_UomId', type: 'select', label: '单位', width: '80px', align: 'center', placeholder: '', required: '', options: { url: rootUrl + "/BaseManage/UnitOfMeasure/GetSelectJson", value: 'F_Id', label: 'F_Name', default: { value: '', label: '=选择=' } }, default: '' },
+            { id: 'F_RateQty', type: 'number', label: '换算率', width: '80px', align: 'center', placeholder: '', required: '' },
+            { id: 'F_PurchasePrice', type: 'number', label: '采购单价', width: '80px', align: 'center', placeholder: '', required: '' },
+            { id: 'F_SalesPrice', type: 'number', label: '销售单价', width: '80px', align: 'center', placeholder: '', required: '' },
+            { id: 'F_IsPurchaseUOM', type: 'check', label: '是否采购单位', width: '80px', align: 'center', placeholder: '', required: '', default: false },
+            { id: 'F_IsSalesUOM', type: 'check', label: '是否销售单位', width: '80px', align: 'center', placeholder: '', required: '', default:false },
+            { id: 'F_EnabledMark', type: 'check', label: '有效否', width: '80px', align: 'center', placeholder: '', required: '', default: true },
+            //{ id: 'opration', type: 'opration', label: '操作', width: '80px', align: 'center', placeholder: '', required: '' },
+        ];
+
+        //表头
+        var $trThead = $('<tr class="ui-jqgrid-labels" role="row"></tr>');
+        tableData.map(function (item) {
+            var $th = $('<th id="gridList_' + item.id + '" role="columnheader" style="width: ' + (item.width ? item.width : 'auto') + ';"><div class="ui-th-div" id="jqgh_gridList_' + item.id + '" style="text-align: ' + item.align + ';">' + item.label + '</div></th>');
+            $trThead.append($th);
+        })
+        $("#gbox_gridList").find("thead").append($trThead);
+
+        //表格内容
+        var rowNums = 4;
+        for (var i = 1; i <= rowNums; i++) {
+            var $trBody = $('<tr role="row" id="tr' + i + '" tabindex="' + i + '" class="jqgrow ui-row-ltr"></tr>');
+            tableData.map(function (item) {
+                var $td = "";
+                if (item.type.toLowerCase() == 'index') {
+                    $td = $('<td class="formValue" style="padding:2px;"><div style="text-align:center">' + i + '</div></td>');
+                }
+                if (item.type.toLowerCase() == 'text' || item.type.toLowerCase() == 'number') {
+                    $td = $('<td class="formValue" style="padding:2px;"><input id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" type="' + item.type + '" class="form-control ' + (item.type == 'number' ? 'text-right' : 'text-left') + ' ' + item.required + '" placeholder="' + item.placeholder + '" ' + (item.disabled && item.disabled == true ? 'disabled="disabled"' : '') + '/></td>');
+                    if (item.default) {
+                        $td.find('input').val(item.default);
+                    }
+                }
+                if (item.type.toLowerCase() == 'check') {
+                    $td = $('<td class="formValue" style="padding:2px;"><div class="ckbox" style="left:30px;"><input id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" type="checkbox" ' + (item.default == true ? 'checked="checked"' : '') + '><label for="' + i + '_' + item.id + '"></label></div></td>');
+                }
+                if (item.type.toLowerCase() == 'select') {
+                    $td = $('<td class="formValue"><select id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" class="form-control  ' + item.required + '" ' + (item.disabled && item.disabled == true ? 'disabled="disabled"' : '') + '></select></td>');
+                    if (item.options.default) {
+                        var $options = $('<option value="' + item.options.default.value + '">' + item.options.default.label + '</option>');
+                        $td.find('select').append($options);
+                    }
+                    if (!item.options.url) {
+                        item.options.map(function (_item) {
+                            var $options = $('<option value="' + _item.value + '">' + _item.label + '</option>');
+                            $td.find('select').append($options);
+                        })
+                    } else {
+                        $td.find('select').bindSelect({
+                            url: item.options.url,
+                            id: item.options.value,
+                            text: item.options.label
+                        });
+                    }
+                    $td.find('select').bindSelect();
+                }
+                //if (item.type.toLowerCase() == 'opration') {
+                //    $td = $('<td class="formValue" style="padding:2px;"><div style="text-align:center"><a id="NF-delete" href="javasript:;" onclick="btn_delete(' + i + ')"><i class="fa fa-trash-o"></i></a></div></td>');
+                //}
+                $trBody.append($td);
+            })
+            $("#gbox_gridList").find("tbody").append($trBody);
+        }
     }
 
     function submitForm() {
-        //原选中行ID
-        //var oldSelectRowId = $("#selectRowId").val();
-        //if (oldSelectRowId != null && oldSelectRowId != "" && oldSelectRowId.length > 0) {
-        //    $("#gridList").jqGrid('saveRow', oldSelectRowId);//保存上一行
-        //    $("#gridList").jqGrid('restoreRow', lastSel);
-        //}
-
         if (!$('#form1').formValid()) {
             return false;
         }
         var postData = $("#form1").formSerialize();
-        //postData.materialIds = $("#gridList").jqGrid("getRowData");
-        //console.log(postData);
         $.submitForm({
             url: rootUrl + "/BaseManage/Material/SubmitForm?keyValue=" + keyValue,
             param: postData,
@@ -304,96 +281,44 @@
                 <div class="ui-jqgrid " id="gbox_gridList" dir="ltr" style="width: 725px;height:330px">
                     <table class="ui-jqgrid-htable ui-common-table table table-bordered form" style="width: 725px;" role="presentation" aria-labelledby="gbox_gridList">
                         <thead>
-                            <tr class="ui-jqgrid-labels" role="row">
-                                <th id="gridList_F_UomType" role="columnheader" style="width: 40px;">
-                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_Index" style="text-align: center;">
-                                        #
-                                    </div>
-                                </th>
-                                <th id="gridList_F_UomType" role="columnheader" style="width: 80px;">
-                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_UomType" style="text-align: center;">
-                                        单位类型
-                                    </div>
-                                </th>
-                                <th id="gridList_F_UomId" role="columnheader" style="width: 76px;">
-                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_UomId" style="text-align: center;">
-                                        单位
-                                    </div>
-                                </th>
-                                <th id="gridList_F_RateQty" role="columnheader" style="width: 80px;">
-                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_RateQty" style="text-align: center;">
-                                        换算率
-                                    </div>
-                                </th>
-                                <th id="gridList_F_PurchasePrice" role="columnheader" style="width: 80px;">
-                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_PurchasePrice" style="text-align: center;">
-                                        采购单价
-                                    </div>
-                                </th>
-                                <th id="gridList_F_SalesPrice" role="columnheader" style="width: 80px;">
-                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_SalesPrice" style="text-align: center;">
-                                        销售单价
-                                    </div>
-                                </th>
-                                <th id="gridList_F_IsPurchaseUOM" role="columnheader" style="width: 80px;">
-                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_IsPurchaseUOM" style="text-align: center;">
-                                        采购单位
-                                    </div>
-                                </th>
-                                <th id="gridList_F_IsSalesUOM" role="columnheader" style="width: 80px;">
-                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_IsSalesUOM" style="text-align: center;">
-                                        销售单位
-                                    </div>
-                                </th>
-                                <th id="gridList_F_EnabledMark" role="columnheader" style="width: 80px;">
-                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_EnabledMark" style="text-align: center;">
-                                        有效否
-                                    </div>
-                                </th>
-                                <th id="gridList_" role="columnheader" style="width: 80px;">
-                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_" style="text-align: center;">
-                                        操作
-                                    </div>
-                                </th>
-                            </tr>
                         </thead>
                         <tbody>
-                            <tr role="row" id="1" tabindex="-1" class="jqgrow ui-row-ltr" aria-selected="false" editable="0">
-                                <td class="formValue" style="padding:2px;">
-                                    <div style="text-align:center">1</div>
-                                </td>
-                                <td class="formValue" style="padding:2px;">
-                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
-                                </td>
-                                <td class="formValue" style="padding:2px;">
-                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
-                                </td>
-                                <td class="formValue" style="padding:2px;">
-                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
-                                </td>
-                                <td class="formValue" style="padding:2px;">
-                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
-                                </td>
-                                <td class="formValue" style="padding:2px;">
-                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
-                                </td>
-                                <td class="formValue" style="padding:2px;">
-                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
-                                </td>
-                                <td class="formValue" style="padding:2px;">
-                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
-                                </td>
-                                <td class="formValue" style="padding:2px;">
-                                    <div class="ckbox" style="left:30px;">
-                                        <input id="F_EnabledMark1" name="F_EnabledMark1" type="checkbox" checked="checked"><label for="F_EnabledMark1"></label>
-                                    </div>
-                                </td>
-                                <td class="formValue" style="padding:2px;">
-                                    <div style="text-align:center"><a id="NF-delete" href="javasript:;" onclick=""><i class="fa fa-trash-o"></i></a></div>
-                                </td>
-                            </tr>
+                            @*<tr role="row" id="1" tabindex="-1" class="jqgrow ui-row-ltr" aria-selected="false" editable="0">
+                                    <td class="formValue" style="padding:2px;">
+                                        <div style="text-align:center">1</div>
+                                    </td>
+                                    <td class="formValue" style="padding:2px;">
+                                        <input id="1_F_UomType" name="1_F_UomType" type="text" class="form-control" placeholder="" />
+                                    </td>
+                                    <td class="formValue" style="padding:2px;">
+                                        <input id="1_F_UomId" name="1_F_UomId" type="text" class="form-control" placeholder="" />
+                                    </td>
+                                    <td class="formValue" style="padding:2px;">
+                                        <input id="1_F_RateQty" name="1_F_RateQty" type="text" class="form-control" placeholder="" />
+                                    </td>
+                                    <td class="formValue" style="padding:2px;">
+                                        <input id="1_F_PurchasePrice" name="1_F_PurchasePrice" type="text" class="form-control" placeholder="" />
+                                    </td>
+                                    <td class="formValue" style="padding:2px;">
+                                        <input id="1_F_SalesPrice" name="1_F_SalesPrice" type="text" class="form-control" placeholder="" />
+                                    </td>
+                                    <td class="formValue" style="padding:2px;">
+                                        <input id="1_F_IsPurchaseUOM" name="1_F_IsPurchaseUOM" type="text" class="form-control" placeholder="" />
+                                    </td>
+                                    <td class="formValue" style="padding:2px;">
+                                        <input id="1_F_IsSalesUOM" name="1_F_IsSalesUOM" type="text" class="form-control" placeholder="" />
+                                    </td>
+                                    <td class="formValue" style="padding:2px;">
+                                        <div class="ckbox" style="left:30px;">
+                                            <input id="1_F_EnabledMark" name="1_F_EnabledMark" type="checkbox" checked="checked"><label for="1_F_EnabledMark"></label>
+                                        </div>
+                                    </td>
+                                    <td class="formValue" style="padding:2px;">
+                                        <div style="text-align:center"><a id="NF-delete" href="javasript:;" onclick=""><i class="fa fa-trash-o"></i></a></div>
+                                    </td>
+                                </tr>*@
                         </tbody>
-                    </table>    
+                    </table>
                 </div>
 
             </div>
