@@ -13,5 +13,7 @@ namespace NFine.Domain.IRepository.BaseManage
     public interface IMaterialRepository : IRepositoryBase<MaterialEntity>
     {
         List<MaterialEntity> GetItemList(string enCode);
+
+        void SubmitForm(MaterialEntity materialEntity, List<MaterialUomEntity> materialuomEntitys, string keyValue);
     }
 }

@@ -15,8 +15,7 @@ namespace NFine.Domain.Entity.BaseManage
         public string F_EnCode { get; set; }
         public string F_FullName { get; set; }
         public string F_ShortName { get; set; }
-        public string F_HelperCode { get; set; }
-        public string F_Barcode { get; set; }
+        public string F_HelperCode { get; set; }        
         public string F_ItemGroupID { get; set; }
         public string F_ItemCategoryID { get; set; }
         public string F_WarehouseID { get; set; }

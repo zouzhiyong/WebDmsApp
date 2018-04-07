@@ -341,6 +341,10 @@ $.fn.formSerialize = function (formdate) {
     element.find('input,select,textarea').each(function (r) {
         var $this = $(this);
         var id = $this.attr('id');
+        var attr = $(this).attr('data-field');
+        if (typeof attr !== typeof undefined && attr !== false) {
+            id = $this.attr('data-field');
+        }
         var type = $this.attr('type');
         switch (type) {
             case "checkbox":

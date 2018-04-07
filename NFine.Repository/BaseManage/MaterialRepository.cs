@@ -49,5 +49,23 @@ namespace NFine.Repository.BaseManage
             return this.FindList(strSql.ToString(), parameter);
         }
 
+        public void SubmitForm(MaterialEntity materialEntity, List<MaterialUomEntity> materialuomEntitys, string keyValue)
+        {
+            using (var db = new RepositoryBase().BeginTrans())
+            {
+                if (!string.IsNullOrEmpty(keyValue))
+                {
+                    db.Update(materialEntity);
+                }
+                else
+                {
+                    db.Insert(materialEntity);
+                }
+                db.Delete<MaterialUomEntity>(t => t.F_MaterialId == materialEntity.F_Id);
+                db.Insert(materialuomEntitys);
+                db.Commit();
+            }
+        }
+
     }
 }

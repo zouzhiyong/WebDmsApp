@@ -16,6 +16,7 @@ namespace NFine.Domain.Entity.BaseManage
         public string F_UomId { get; set; }
         public float F_RateQty { get; set; }
         public int F_UomType { get; set; }
+        public string F_Barcode { get; set; }
         public Nullable<decimal> F_PurchasePrice { get; set; }
         public Nullable<decimal> F_SalesPrice { get; set; }
         public Nullable<bool> F_IsPurchaseUOM { get; set; }

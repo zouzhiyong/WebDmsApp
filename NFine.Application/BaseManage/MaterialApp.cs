@@ -49,19 +49,65 @@ namespace NFine.Application.BaseManage
         {
             service.Delete(t => t.F_Id == keyValue);
         }
-        public void SubmitForm(MaterialEntity itemsDetailEntity, string keyValue)
+        public void SubmitForm(MaterialEntity materialEntity, List<MaterialUomEntity> materialuomEntitys, string keyValue)
         {
+            string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
             if (!string.IsNullOrEmpty(keyValue))
             {
-                itemsDetailEntity.Modify(keyValue);
-                service.Update(itemsDetailEntity);
+                materialEntity.F_Id = keyValue;
             }
             else
             {
-                itemsDetailEntity.Create();
-                itemsDetailEntity.F_DeleteMark = false;
-                service.Insert(itemsDetailEntity);
+                materialEntity.F_Id = Common.GuId();
             }
+
+            //if (!string.IsNullOrEmpty(keyValue))
+            //{
+            //    materialEntity.Modify(keyValue);
+            //    service.Update(materialEntity);
+            //}
+            //else
+            //{
+            //    materialEntity.Create();
+            //    materialEntity.F_DeleteMark = false;
+            //    service.Insert(materialEntity);
+            //}
+            List<MaterialUomEntity> materialuomEntitysTemp = new List<MaterialUomEntity>();
+            foreach (var items in materialuomEntitys)
+            {
+                items.F_Id = Common.GuId();
+                items.F_MaterialId = materialEntity.F_Id;
+                items.F_CorpId = CompanyId;
+                items.F_RateQty = (items.F_RateQty <= 0 ? 1 : items.F_RateQty);
+                if(items.F_UomId!=null && items.F_UomId != "")
+                {
+                    materialuomEntitysTemp.Add(items);
+                }                
+            }
+
+            service.SubmitForm(materialEntity, materialuomEntitysTemp, keyValue);
+
+            //string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+            //if (!string.IsNullOrEmpty(keyValue))
+            //{
+            //    warehouseEntity.F_Id = keyValue;
+            //}
+            //else
+            //{
+            //    warehouseEntity.F_Id = Common.GuId();
+            //}
+            //var userdata = userApp.GetList();
+            //List<WarehouseUserEntity> warehouseUserEntitys = new List<WarehouseUserEntity>();
+            //foreach (var itemId in userIds)
+            //{
+            //    WarehouseUserEntity warehouseUserEntity = new WarehouseUserEntity();
+            //    warehouseUserEntity.F_Id = Common.GuId();
+            //    warehouseUserEntity.F_WarehouseId = warehouseEntity.F_Id;
+            //    warehouseUserEntity.F_UserId = itemId;
+            //    warehouseUserEntity.F_CorpId = CompanyId;
+            //    warehouseUserEntitys.Add(warehouseUserEntity);
+            //}
+            //service.SubmitForm(warehouseEntity, warehouseUserEntitys, keyValue);
         }
     }
 }

@@ -69,19 +69,20 @@
             { id: 'index', type: 'index', label: '#', width: '40px', align: 'center', placeholder: '', required: '' },
             { id: 'F_UomType', type: 'select', label: '单位类型', width: '80px', align: 'center', placeholder: '', required: '', options: [{ value: 1, label: '基本单位' }, { value: 0, label: '扩展单位' }], disabled: true },
             { id: 'F_UomId', type: 'select', label: '单位', width: '80px', align: 'center', placeholder: '', required: '', options: { url: rootUrl + "/BaseManage/UnitOfMeasure/GetSelectJson", value: 'F_Id', label: 'F_Name', default: { value: '', label: '=选择=' } }, default: '' },
-            { id: 'F_RateQty', type: 'number', label: '换算率', width: '80px', align: 'center', placeholder: '', required: '' },
-            { id: 'F_PurchasePrice', type: 'number', label: '采购单价', width: '80px', align: 'center', placeholder: '', required: '' },
-            { id: 'F_SalesPrice', type: 'number', label: '销售单价', width: '80px', align: 'center', placeholder: '', required: '' },
-            { id: 'F_IsPurchaseUOM', type: 'check', label: '是否采购单位', width: '80px', align: 'center', placeholder: '', required: '', default: false },
-            { id: 'F_IsSalesUOM', type: 'check', label: '是否销售单位', width: '80px', align: 'center', placeholder: '', required: '', default:false },
-            { id: 'F_EnabledMark', type: 'check', label: '有效否', width: '80px', align: 'center', placeholder: '', required: '', default: true },
+            { id: 'F_RateQty', type: 'number', label: '换算率', width: '60px', align: 'center', placeholder: '', required: '' },
+            { id: 'F_Barcode', type: 'text', label: '条形码', width: '120px', align: 'left', placeholder: '', required: '' },
+            { id: 'F_PurchasePrice', type: 'number', label: '采购单价', width: '70px', align: 'center', placeholder: '', required: '' },
+            { id: 'F_SalesPrice', type: 'number', label: '销售单价', width: '60px', align: 'center', placeholder: '', required: '' },
+            { id: 'F_IsPurchaseUOM', type: 'check', label: '采购单位', width: '60px', align: 'center', placeholder: '', required: '', default: false },
+            { id: 'F_IsSalesUOM', type: 'check', label: '销售单位', width: '60px', align: 'center', placeholder: '', required: '', default:false },
+            { id: 'F_EnabledMark', type: 'check', label: '有效否', width: '60px', align: 'center', placeholder: '', required: '', default: true },
             //{ id: 'opration', type: 'opration', label: '操作', width: '80px', align: 'center', placeholder: '', required: '' },
         ];
 
         //表头
         var $trThead = $('<tr class="ui-jqgrid-labels" role="row"></tr>');
         tableData.map(function (item) {
-            var $th = $('<th id="gridList_' + item.id + '" role="columnheader" style="width: ' + (item.width ? item.width : 'auto') + ';"><div class="ui-th-div" id="jqgh_gridList_' + item.id + '" style="text-align: ' + item.align + ';">' + item.label + '</div></th>');
+            var $th = $('<th id="gridList_' + item.id + '" role="columnheader" style="width: ' + (item.width ? item.width : 'auto') + ';"><div class="ui-th-div" id="jqgh_gridList_' + item.id + '" style="text-align: center;">' + item.label + '</div></th>');
             $trThead.append($th);
         })
         $("#gbox_gridList").find("thead").append($trThead);
@@ -96,16 +97,16 @@
                     $td = $('<td class="formValue" style="padding:2px;"><div style="text-align:center">' + i + '</div></td>');
                 }
                 if (item.type.toLowerCase() == 'text' || item.type.toLowerCase() == 'number') {
-                    $td = $('<td class="formValue" style="padding:2px;"><input id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" type="' + item.type + '" class="form-control ' + (item.type == 'number' ? 'text-right' : 'text-left') + ' ' + item.required + '" placeholder="' + item.placeholder + '" ' + (item.disabled && item.disabled == true ? 'disabled="disabled"' : '') + '/></td>');
+                    $td = $('<td class="formValue" style="padding:2px;"><input data-field="' + item.id + '" id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" type="' + item.type + '" class="form-control ' + (item.type == 'number' ? 'text-right' : 'text-left') + ' ' + item.required + '" placeholder="' + item.placeholder + '" ' + (item.disabled && item.disabled == true ? 'disabled="disabled"' : '') + '/></td>');
                     if (item.default) {
                         $td.find('input').val(item.default);
                     }
                 }
                 if (item.type.toLowerCase() == 'check') {
-                    $td = $('<td class="formValue" style="padding:2px;"><div class="ckbox" style="left:30px;"><input id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" type="checkbox" ' + (item.default == true ? 'checked="checked"' : '') + '><label for="' + i + '_' + item.id + '"></label></div></td>');
+                    $td = $('<td class="formValue" style="padding:2px;"><div class="ckbox" style="left:20px;"><input data-field="' + item.id + '" id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" type="checkbox" ' + (item.default == true ? 'checked="checked"' : '') + '><label for="' + i + '_' + item.id + '"></label></div></td>');
                 }
                 if (item.type.toLowerCase() == 'select') {
-                    $td = $('<td class="formValue"><select id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" class="form-control  ' + item.required + '" ' + (item.disabled && item.disabled == true ? 'disabled="disabled"' : '') + '></select></td>');
+                    $td = $('<td class="formValue"><select data-field="' + item.id + '" id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" class="form-control  ' + item.required + '" ' + (item.disabled && item.disabled == true ? 'disabled="disabled"' : '') + '></select></td>');
                     if (item.options.default) {
                         var $options = $('<option value="' + item.options.default.value + '">' + item.options.default.label + '</option>');
                         $td.find('select').append($options);
@@ -138,6 +139,13 @@
             return false;
         }
         var postData = $("#form1").formSerialize();
+        var tableData = [];
+        $("#gbox_gridList").find("tbody tr").each(function () {
+            tableData.push($(this).formSerialize());            
+        });
+
+        postData.materialuomEntitys=tableData;
+        console.log(postData);
         $.submitForm({
             url: rootUrl + "/BaseManage/Material/SubmitForm?keyValue=" + keyValue,
             param: postData,
@@ -190,28 +198,24 @@
                                 <option value="">==请选择==</option>
                             </select>
                         </td>
-                        <th class="formTitle">商品条码</th>
-                        <td class="formValue">
-                            <input id="F_Barcode" name="F_Barcode" type="text" class="form-control" placeholder="请输入商品条码" />
-                        </td>
-                    </tr>
-                    <tr>
                         <th class="formTitle">有效期（月）</th>
                         <td class="formValue">
                             <input id="F_Period" name="F_Period" type="number" class="form-control" placeholder="请输入有效期" />
                         </td>
+                    </tr>
+                    <tr>                        
                         <th class="formTitle">对应仓库</th>
                         <td class="formValue">
                             <select id="F_WarehouseID" name="F_WarehouseID" class="form-control">
                                 <option value="">==请选择==</option>
                             </select>
                         </td>
-                    </tr>
-                    <tr>
                         <th class="formTitle">安全库存</th>
                         <td class="formValue">
                             <input id="F_SaveInventory" name="F_SaveInventory" type="number" class="form-control" placeholder="请输入安全库存" />
                         </td>
+                    </tr>
+                    <tr>                        
                         <th class="formTitle" style="height: 35px;">选项</th>
                         <td class="formValue" style="padding-top: 1px;">
                             <div class="ckbox">

@@ -46,9 +46,9 @@ namespace NFine.Web.Areas.BaseManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(MaterialEntity materialEntity, string keyValue)
+        public ActionResult SubmitForm(MaterialEntity materialEntity, List<MaterialUomEntity>  materialuomEntitys, string keyValue)
         {
-            materialApp.SubmitForm(materialEntity, keyValue);
+            materialApp.SubmitForm(materialEntity, materialuomEntitys, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]
