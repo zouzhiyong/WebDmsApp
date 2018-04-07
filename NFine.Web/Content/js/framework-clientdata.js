@@ -5,10 +5,11 @@ $(function () {
 $.clientsInit = function () {
     var dataJson = {
         dataItems: [],
-        organize: [],
         role: [],
         duty: [],
         user: [],
+        unit: [],
+        company:[],
         authorizeMenu: [],
         authorizeButton: []
     };
@@ -20,7 +21,6 @@ $.clientsInit = function () {
             async: false,
             success: function (data) {
                 dataJson.dataItems = data.dataItems;
-                //dataJson.organize = data.organize;
                 dataJson.company = data.company;
                 dataJson.department = data.department;
                 dataJson.role = data.role;
@@ -28,6 +28,7 @@ $.clientsInit = function () {
                 dataJson.authorizeMenu = eval(data.authorizeMenu);
                 dataJson.authorizeButton = data.authorizeButton;
                 dataJson.user = data.user;
+                dataJson.unit = data.unit;
             }
         });
     }

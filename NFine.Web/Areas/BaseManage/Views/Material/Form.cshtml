@@ -9,6 +9,7 @@
     var keyValue = $.request("keyValue");
     var itemId = $.request("itemId");
     var parentId = $.request("parentId");
+    var lastSel;
     $(function () {
         initControl();
         if (!!keyValue) {
@@ -32,58 +33,97 @@
             }
             $("#form1").formSerialize(data);
         }
-        //单位信息
-        gridList();
+
+        //gridList();
     });
 
-    function gridList() {
-        $gridList = $("#gridList");
-        var lastSel;
-        $gridList.jqGrid({
-            url: rootUrl + "/BaseManage/MaterialUom/GetGridJson",
-            postData: { keyword: keyValue },
-            datatype: "json",
-            height: $(window).height() - 128,
-            shrinkToFit: false,
-            //isTools: false,
-            autowidth: false,
-            styleUI: 'Bootstrap',
-            width: 725,
-            colModel: [
-                { label: '主键', name: 'F_Id', hidden: true },
-                { label: '单位类型', name: 'F_UomType', width: 80, align: 'left', editable: true, edittype: "select", editoptions: { value: "1:基本单位;0:扩展单位" } },
-                { label: '单位', name: 'F_UomId', width: 80, align: 'left', editable: true, edittype: "select", editoptions: { value: ":请选择" } },
-                { label: '换算率', name: 'F_RateQty', width: 80, align: 'left', editable: true },
-                { label: '采购单价', name: 'F_PurchasePrice', width: 80, align: 'left', editable: true },
-                { label: '销售单价', name: 'F_SalesPrice', width: 80, align: 'left', editable: true },
-                { label: '采购单位', name: 'F_IsPurchaseUOM', width: 80, align: 'left', editable: true },
-                { label: '销售单位', name: 'F_IsSalesUOM', width: 80, align: 'left', editable: true },
-                { label: '有效否', name: 'F_EnabledMark', width: 80, align: 'center', editable: true, edittype: "checkbox", editoptions: { value: "0:1" } },
-                { label: '操作', name: '', width: 80, align: 'left' },
-            ],
-            sortname: 'F_CreatorTime asc',
-            onSelectRow: function (id) {
-                if (id && id !== lastSel) {
-                    $gridList.jqGrid('restoreRow', lastSel);
-                    $gridList.jqGrid('editRow', id, true, function (id) {
-                        $("#" + id + "_F_UomType", "#gridList").bindSelect();
-                        $("#" + id + "_F_UomId", "#gridList").bindSelect({
-                            url: rootUrl + "/BaseManage/UnitOfMeasure/GetSelectJson",
-                            id: "F_Id",
-                            text: "F_Name"
-                        });
-                        $("input", "#gridList").css({ 'border-radius': '0', 'box-shadow': 'none','height':'29px' });
-                    });
-                    lastSel = id;
-                }                
-                return;
-            },
-            loadComplete: function () {
-                $(".ui-jqgrid .ui-jqgrid-htable .ui-th-div").css("text-align", "center");
-                
-            }
-        });        
-    }
+    //function gridList() {
+    //    $gridList = $("#gridList");
+    //    $gridList.jqGrid({
+    //        url: rootUrl + "/BaseManage/MaterialUom/GetGridJson",
+    //        datatype: "json",
+    //        height: $(window).height() - 128,
+    //        shrinkToFit: false,
+    //        autowidth: false,
+    //        styleUI: 'Bootstrap',
+    //        editurl: 'clientArray',
+    //        width: 725,
+    //        colModel: [
+    //            { label: '主键', name: 'F_Id', hidden: true },
+    //            {
+    //                label: '单位类型', name: 'F_UomType', width: 80, align: 'left', editable: true, edittype: "select", editoptions: { value: { 1: '基本单位', 0: '扩展单位' } },
+    //                //formatter: function (cellvalue, options, rowObject) {
+    //                //    console.log(cellvalue);
+    //                //    return cellvalue == 1 ? "基本单位" : "扩展单位";
+    //                //}
+    //                unformat: function (cellvalue, options, cellobject) {
+    //                    var unformatValue = '';
+    //                    $.each(options.colModel.editoptions.value, function (k, value) {
+    //                        if (cellvalue == value) {
+    //                            unformatValue = k;
+    //                        }
+    //                    });
+
+    //                    return unformatValue;
+    //                }
+    //            },
+    //            {
+    //                label: '单位', name: 'F_UomId', width: 80, align: 'left', editable: true, edittype: "select", editoptions: { value: getVal() },
+    //                //formatter: function (cellvalue, options, rowObject) {
+    //                //    return top.clients.unit[cellvalue] == null ? "" : top.clients.unit[cellvalue].fullname;
+    //                //}
+    //                unformat: function (cellvalue, options, cellobject) {
+    //                    var unformatValue = '';
+    //                    $.each(options.colModel.editoptions.value, function (k, value) {
+    //                        if (cellvalue == value) {
+    //                            unformatValue = k;
+    //                        }
+    //                    });
+
+    //                    return unformatValue;
+    //                }
+    //            },
+    //            { label: '换算率', name: 'F_RateQty', width: 80, align: 'left', editable: true },
+    //            { label: '采购单价', name: 'F_PurchasePrice', width: 80, align: 'left', editable: true },
+    //            { label: '销售单价', name: 'F_SalesPrice', width: 80, align: 'left', editable: true },
+    //            { label: '采购单位', name: 'F_IsPurchaseUOM', width: 80, align: 'left', editable: true },
+    //            { label: '销售单位', name: 'F_IsSalesUOM', width: 80, align: 'left', editable: true },
+    //            { label: '有效否', name: 'F_EnabledMark', width: 80, align: 'center', editable: true, edittype: "checkbox", editoptions: { value: "true:false" } },
+    //            { label: '操作', name: '', width: 80, align: 'left' },
+    //        ],
+    //        sortname: 'F_CreatorTime asc',
+    //        onSelectRow: function (id) {
+    //            if (id && id !== lastSel) {
+    //                //原选中行ID
+    //                var oldSelectRowId = $("#selectRowId").val();
+    //                if (oldSelectRowId != null && oldSelectRowId != "" && oldSelectRowId.length > 0) {
+    //                    $gridList.jqGrid('saveRow', oldSelectRowId);//保存上一行
+    //                }
+
+    //                //当前选中行
+    //                $("#selectRowId").val(id);//临时存储当前选中行
+
+    //                $gridList.jqGrid('restoreRow', lastSel);
+    //                $gridList.jqGrid('editRow', id, true, function (id) {
+    //                    $("#" + id + "_F_UomType", "#gridList").bindSelect();
+    //                    //$("#" + id + "_F_UomId", "#gridList").bindSelect();
+    //                    //$("#" + id + "_F_UomId", "#gridList").bindSelect({
+    //                    //    url: rootUrl + "/BaseManage/UnitOfMeasure/GetSelectJson",
+    //                    //    id: "F_Id",
+    //                    //    text: "F_Name"
+    //                    //});
+    //                    $("input", "#gridList").css({ 'border-radius': '0', 'box-shadow': 'none', 'height': '29px' });
+    //                });
+    //                lastSel = id;
+    //            }
+    //            return;
+    //        },
+    //        loadComplete: function () {
+    //            $(".ui-jqgrid .ui-jqgrid-htable .ui-th-div").css("text-align", "center");
+
+    //        }
+    //    });
+    //}
 
     function initControl() {
         $("#F_ItemGroupID").bindSelect({
@@ -99,7 +139,7 @@
             id: "F_Id",
             text: "F_FullName"
         });
-        
+
         $("#F_WarehouseID").bindSelect({
             url: rootUrl + "/BaseManage/Warehouse/GetSelectJson",
             id: "F_Id",
@@ -108,10 +148,19 @@
     }
 
     function submitForm() {
+        //原选中行ID
+        //var oldSelectRowId = $("#selectRowId").val();
+        //if (oldSelectRowId != null && oldSelectRowId != "" && oldSelectRowId.length > 0) {
+        //    $("#gridList").jqGrid('saveRow', oldSelectRowId);//保存上一行
+        //    $("#gridList").jqGrid('restoreRow', lastSel);
+        //}
+
         if (!$('#form1').formValid()) {
             return false;
         }
         var postData = $("#form1").formSerialize();
+        //postData.materialIds = $("#gridList").jqGrid("getRowData");
+        //console.log(postData);
         $.submitForm({
             url: rootUrl + "/BaseManage/Material/SubmitForm?keyValue=" + keyValue,
             param: postData,
@@ -229,11 +278,11 @@
                         <th class="formTitle">体积</th>
                         <td class="formValue">
                             <input id="F_Size" name="F_Size" type="number" class="form-control" placeholder="请输入体积" />
-                        </td>                        
+                        </td>
                         <th class="formTitle">最后成本</th>
                         <td class="formValue">
                             <input id="F_LastCost" name="F_LastCost" type="number" class="form-control" placeholder="请输入最后成本" />
-                        </td>                        
+                        </td>
                     </tr>
                     <tr>
                         <th class="formTitle" style="height: 35px;">选项</th>
@@ -248,11 +297,105 @@
                                 <input id="F_IsZeroValue" name="F_IsZeroValue" type="checkbox" checked="checked"><label for="F_IsZeroValue">库存零价值</label>
                             </div>
                         </td>
-                    </tr>                    
+                    </tr>
                 </table>
             </div>
             <div class="tab-pane fade in gridPanel" id="page3" style="padding-top: 10px;margin-right:10px">
-                <table id="gridList"></table>
+                <div class="ui-jqgrid " id="gbox_gridList" dir="ltr" style="width: 725px;height:330px">
+                    <table class="ui-jqgrid-htable ui-common-table table table-bordered form" style="width: 725px;" role="presentation" aria-labelledby="gbox_gridList">
+                        <thead>
+                            <tr class="ui-jqgrid-labels" role="row">
+                                <th id="gridList_F_UomType" role="columnheader" style="width: 40px;">
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_Index" style="text-align: center;">
+                                        #
+                                    </div>
+                                </th>
+                                <th id="gridList_F_UomType" role="columnheader" style="width: 80px;">
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_UomType" style="text-align: center;">
+                                        单位类型
+                                    </div>
+                                </th>
+                                <th id="gridList_F_UomId" role="columnheader" style="width: 76px;">
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_UomId" style="text-align: center;">
+                                        单位
+                                    </div>
+                                </th>
+                                <th id="gridList_F_RateQty" role="columnheader" style="width: 80px;">
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_RateQty" style="text-align: center;">
+                                        换算率
+                                    </div>
+                                </th>
+                                <th id="gridList_F_PurchasePrice" role="columnheader" style="width: 80px;">
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_PurchasePrice" style="text-align: center;">
+                                        采购单价
+                                    </div>
+                                </th>
+                                <th id="gridList_F_SalesPrice" role="columnheader" style="width: 80px;">
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_SalesPrice" style="text-align: center;">
+                                        销售单价
+                                    </div>
+                                </th>
+                                <th id="gridList_F_IsPurchaseUOM" role="columnheader" style="width: 80px;">
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_IsPurchaseUOM" style="text-align: center;">
+                                        采购单位
+                                    </div>
+                                </th>
+                                <th id="gridList_F_IsSalesUOM" role="columnheader" style="width: 80px;">
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_IsSalesUOM" style="text-align: center;">
+                                        销售单位
+                                    </div>
+                                </th>
+                                <th id="gridList_F_EnabledMark" role="columnheader" style="width: 80px;">
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_F_EnabledMark" style="text-align: center;">
+                                        有效否
+                                    </div>
+                                </th>
+                                <th id="gridList_" role="columnheader" style="width: 80px;">
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_gridList_" style="text-align: center;">
+                                        操作
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr role="row" id="1" tabindex="-1" class="jqgrow ui-row-ltr" aria-selected="false" editable="0">
+                                <td class="formValue" style="padding:2px;">
+                                    <div style="text-align:center">1</div>
+                                </td>
+                                <td class="formValue" style="padding:2px;">
+                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
+                                </td>
+                                <td class="formValue" style="padding:2px;">
+                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
+                                </td>
+                                <td class="formValue" style="padding:2px;">
+                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
+                                </td>
+                                <td class="formValue" style="padding:2px;">
+                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
+                                </td>
+                                <td class="formValue" style="padding:2px;">
+                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
+                                </td>
+                                <td class="formValue" style="padding:2px;">
+                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
+                                </td>
+                                <td class="formValue" style="padding:2px;">
+                                    <input id="F_LastCost" name="F_LastCost" type="text" class="form-control" placeholder="请输入最后成本" />
+                                </td>
+                                <td class="formValue" style="padding:2px;">
+                                    <div class="ckbox" style="left:30px;">
+                                        <input id="F_EnabledMark1" name="F_EnabledMark1" type="checkbox" checked="checked"><label for="F_EnabledMark1"></label>
+                                    </div>
+                                </td>
+                                <td class="formValue" style="padding:2px;">
+                                    <div style="text-align:center"><a id="NF-delete" href="javasript:;" onclick=""><i class="fa fa-trash-o"></i></a></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>    
+                </div>
+
             </div>
         </div>
     </div>

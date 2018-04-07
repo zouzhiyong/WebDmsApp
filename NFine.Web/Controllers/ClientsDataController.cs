@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using NFine.Application.BaseManage;
+using NFine.Domain.Entity.BaseManage;
 
 namespace NFine.Web.Controllers
 {
@@ -26,6 +28,7 @@ namespace NFine.Web.Controllers
                 dataItems = this.GetDataItemList(),
                 company = this.GetDataCompanyList(),
                 department=this.GetDataDepartmentList(),
+                unit=this.GetDataUnitList(),
                 //organize = this.GetOrganizeList(),
                 role = this.GetRoleList(),
                 duty = this.GetDutyList(),
@@ -131,7 +134,22 @@ namespace NFine.Web.Controllers
             }
             return dictionary;
         }
-
+        private object GetDataUnitList()
+        {
+            UnitOfMeasureApp unitofmeasureApp = new UnitOfMeasureApp();
+            var data = unitofmeasureApp.GetList().Where(t=>t.F_EnabledMark==true);
+            Dictionary<string, object> dictionary = new Dictionary<string, object>();
+            foreach (UnitOfMeasureEntity item in data)
+            {
+                var fieldItem = new
+                {
+                    encode = item.F_Id,
+                    fullname = item.F_Name
+                };
+                dictionary.Add(item.F_Id, fieldItem);
+            }
+            return dictionary;
+        }
         private object GetDutyList()
         {
             DutyApp dutyApp = new DutyApp();
