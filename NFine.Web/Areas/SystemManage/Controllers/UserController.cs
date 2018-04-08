@@ -10,7 +10,7 @@ using NFine.Domain.Entity.SystemManage;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-
+using NFine.Web.App_Start._01_Handler;
 
 namespace NFine.Web.Areas.SystemManage.Controllers
 {
@@ -60,7 +60,7 @@ namespace NFine.Web.Areas.SystemManage.Controllers
 
         [HttpPost]
         [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult SubmitForm(UserEntity userEntity, UserLogOnEntity userLogOnEntity, string keyValue)
         {
             userApp.SubmitForm(userEntity, userLogOnEntity, keyValue);
@@ -69,7 +69,7 @@ namespace NFine.Web.Areas.SystemManage.Controllers
         [HttpPost]
         [HandlerAuthorize]
         [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult DeleteForm(string keyValue)
         {
             userApp.DeleteForm(keyValue);
@@ -83,7 +83,7 @@ namespace NFine.Web.Areas.SystemManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         //[HandlerAuthorize]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult SubmitRevisePassword(string userPassword, string keyValue)
         {
             userLogOnApp.RevisePassword(userPassword, keyValue);
@@ -93,7 +93,7 @@ namespace NFine.Web.Areas.SystemManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         //[HandlerAuthorize]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult SubmitChangePassword(string userPasswordOld,string userPasswordNew, string keyValue)
         {
             userLogOnApp.ChangePassword(userPasswordOld, userPasswordNew, keyValue);
@@ -103,7 +103,7 @@ namespace NFine.Web.Areas.SystemManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         //[HandlerAuthorize]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult DisabledAccount(string keyValue)
         {
             UserEntity userEntity = new UserEntity();
@@ -115,7 +115,7 @@ namespace NFine.Web.Areas.SystemManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult EnabledAccount(string keyValue)
         {
             UserEntity userEntity = new UserEntity();

@@ -10,6 +10,9 @@ using System.Linq;
 using System.Web.Mvc;
 using NFine.Domain.Entity.BaseManage;
 using NFine.Application.BaseManage;
+using System.Web.Script.Serialization;
+using System.Runtime.Serialization;
+using NFine.Web.App_Start._01_Handler;
 
 namespace NFine.Web.Areas.BaseManage.Controllers
 {
@@ -45,20 +48,25 @@ namespace NFine.Web.Areas.BaseManage.Controllers
         }
         [HttpPost]
         [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
-        public ActionResult SubmitForm(MaterialEntity materialEntity, List<MaterialUomEntity>  materialuomEntitys, string keyValue)
+        [MyValidateAntiForgeryToken]
+        public ActionResult SubmitForm(MaterialEntitys materialEntitys,string keyValue)
         {
-            materialApp.SubmitForm(materialEntity, materialuomEntitys, keyValue);
+            materialApp.SubmitForm(materialEntitys, materialEntitys.F_MaterialUomEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult DeleteForm(string keyValue)
         {
             materialApp.DeleteForm(keyValue);
             return Success("删除成功。");
         }
+    }
+
+    public class MaterialEntitys: MaterialEntity
+    {
+        public MaterialUomEntity[] F_MaterialUomEntity { get; set; }
     }
 }

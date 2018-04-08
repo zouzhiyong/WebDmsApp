@@ -138,14 +138,17 @@
         if (!$('#form1').formValid()) {
             return false;
         }
-        var postData = $("#form1").formSerialize();
+        var postData = {};
+       
+        postData = $("#form1").formSerialize();
         var tableData = [];
         $("#gbox_gridList").find("tbody tr").each(function () {
             tableData.push($(this).formSerialize());            
         });
-
-        postData.materialuomEntitys=tableData;
+       
+        postData.F_MaterialUomEntity = tableData;
         console.log(postData);
+        
         $.submitForm({
             url: rootUrl + "/BaseManage/Material/SubmitForm?keyValue=" + keyValue,
             param: postData,

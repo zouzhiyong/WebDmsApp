@@ -61,9 +61,14 @@
       <HintPath>..\packages\MySql.Data.Entity.6.9.11\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -123,6 +128,7 @@
     <Compile Include="App_Start\01 Handler\HandlerErrorAttribute.cs" />
     <Compile Include="App_Start\01 Handler\HandlerLoginAttribute.cs" />
     <Compile Include="App_Start\01 Handler\ControllerBase.cs" />
+    <Compile Include="App_Start\01 Handler\MyValidateAntiForgeryToken.cs" />
     <Compile Include="Areas\BaseManage\BaseManageAreaRegistration.cs" />
     <Compile Include="Areas\BaseManage\Controllers\CorporationController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\MaterialController.cs" />

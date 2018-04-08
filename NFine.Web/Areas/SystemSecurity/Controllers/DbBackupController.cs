@@ -8,6 +8,7 @@ using NFine.Application.SystemSecurity;
 using NFine.Code;
 using NFine.Domain.Entity.SystemSecurity;
 using System.Web.Mvc;
+using NFine.Web.App_Start._01_Handler;
 
 namespace NFine.Web.Areas.SystemSecurity.Controllers
 {
@@ -24,7 +25,7 @@ namespace NFine.Web.Areas.SystemSecurity.Controllers
         }
         [HttpPost]
         [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult SubmitForm(DbBackupEntity dbBackupEntity)
         {
             dbBackupEntity.F_FilePath = Server.MapPath("~/Resource/DbBackup/" + dbBackupEntity.F_FileName + ".bak");
@@ -35,7 +36,7 @@ namespace NFine.Web.Areas.SystemSecurity.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult DeleteForm(string keyValue)
         {
             dbBackupApp.DeleteForm(keyValue);

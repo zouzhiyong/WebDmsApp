@@ -8,6 +8,7 @@ using NFine.Application.SystemSecurity;
 using NFine.Code;
 using NFine.Domain.Entity.SystemSecurity;
 using System.Web.Mvc;
+using NFine.Web.App_Start._01_Handler;
 
 namespace NFine.Web.Areas.SystemSecurity.Controllers
 {
@@ -31,7 +32,7 @@ namespace NFine.Web.Areas.SystemSecurity.Controllers
         }
         [HttpPost]
         [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult SubmitForm(FilterIPEntity filterIPEntity, string keyValue)
         {
             filterIPApp.SubmitForm(filterIPEntity, keyValue);
@@ -40,7 +41,7 @@ namespace NFine.Web.Areas.SystemSecurity.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult DeleteForm(string keyValue)
         {
             filterIPApp.DeleteForm(keyValue);

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NFine.Web.App_Start._01_Handler;
 
 namespace NFine.Web.Areas.ExampleManage.Controllers
 {
@@ -17,7 +18,7 @@ namespace NFine.Web.Areas.ExampleManage.Controllers
     {
         [HttpPost]
         [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         [ValidateInput(false)]
         public ActionResult SendMail(string account, string title, string content)
         {

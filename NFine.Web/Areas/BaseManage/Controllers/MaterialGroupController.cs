@@ -10,6 +10,7 @@ using System.Linq;
 using System.Web.Mvc;
 using NFine.Domain.Entity.BaseManage;
 using NFine.Application.BaseManage;
+using NFine.Web.App_Start._01_Handler;
 
 namespace NFine.Web.Areas.BaseManage.Controllers
 {
@@ -90,7 +91,7 @@ namespace NFine.Web.Areas.BaseManage.Controllers
         }
         [HttpPost]
         [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult SubmitForm(MaterialGroupEntity materialGroupEntity, string keyValue)
         {
             materialGroupApp.SubmitForm(materialGroupEntity, keyValue);
@@ -98,7 +99,7 @@ namespace NFine.Web.Areas.BaseManage.Controllers
         }
         [HttpPost]
         [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult DeleteForm(string keyValue)
         {
             materialGroupApp.DeleteForm(keyValue);

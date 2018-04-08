@@ -19,7 +19,6 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.Razor.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.WebPages.Deployment.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.WebPages.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.WebPages.Razor.dll
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\Newtonsoft.Json.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Data.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Repository.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\log4net.dll
@@ -40,7 +39,6 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.WebPages.Razor
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Net.Http.Formatting.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.Http.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.Http.WebHost.xml
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\Newtonsoft.Json.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Data.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Repository.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\log4net.xml

@@ -10,6 +10,7 @@ using NFine.Domain.Entity.SystemManage;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using NFine.Web.App_Start._01_Handler;
 
 namespace NFine.Web.Areas.SystemManage.Controllers
 {
@@ -45,7 +46,7 @@ namespace NFine.Web.Areas.SystemManage.Controllers
         }
         [HttpPost]
         [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult SubmitForm(ItemsDetailEntity itemsDetailEntity, string keyValue)
         {
             itemsDetailApp.SubmitForm(itemsDetailEntity, keyValue);
@@ -54,7 +55,7 @@ namespace NFine.Web.Areas.SystemManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult DeleteForm(string keyValue)
         {
             itemsDetailApp.DeleteForm(keyValue);

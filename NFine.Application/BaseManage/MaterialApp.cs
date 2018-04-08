@@ -49,7 +49,7 @@ namespace NFine.Application.BaseManage
         {
             service.Delete(t => t.F_Id == keyValue);
         }
-        public void SubmitForm(MaterialEntity materialEntity, List<MaterialUomEntity> materialuomEntitys, string keyValue)
+        public void SubmitForm(MaterialEntity materialEntity, MaterialUomEntity[] materialuomEntitys, string keyValue)
         {
             string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
             if (!string.IsNullOrEmpty(keyValue))

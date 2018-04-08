@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using NFine.Application.BaseManage;
 using NFine.Code;
 using NFine.Domain.Entity.BaseManage;
+using NFine.Web.App_Start._01_Handler;
 
 namespace NFine.Web.Areas.BaseManage.Controllers
 {
@@ -35,7 +36,7 @@ namespace NFine.Web.Areas.BaseManage.Controllers
         }
         [HttpPost]
         [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult SubmitForm(CorporationEntity corporationEntity, string permissionIds, string keyValue)
         {
             corporationApp.SubmitForm(corporationEntity, keyValue);

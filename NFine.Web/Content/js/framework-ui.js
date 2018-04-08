@@ -182,6 +182,7 @@ $.submitForm = function (options) {
     var defaults = {
         url: "",
         param: [],
+        headers: {},
         loading: "正在提交数据...",
         success: null,
         close: true
@@ -190,12 +191,14 @@ $.submitForm = function (options) {
     $.loading(true, options.loading);
     window.setTimeout(function () {
         if ($('[name=__RequestVerificationToken]').length > 0) {
-            options.param["__RequestVerificationToken"] = $('[name=__RequestVerificationToken]').val();
+            options.headers["__RequestVerificationToken"] = $('[name=__RequestVerificationToken]').val();
         }
         $.ajax({
             url: options.url,
-            data: options.param,
+            data: JSON.stringify(options.param),
             type: "post",
+            headers: options.headers,
+            contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (data) {
                 if (data.state == "success") {

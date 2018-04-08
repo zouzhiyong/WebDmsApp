@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NFine.Web.App_Start._01_Handler;
 
 namespace NFine.Web.Areas.SystemSecurity.Controllers
 {
@@ -39,7 +40,7 @@ namespace NFine.Web.Areas.SystemSecurity.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult SubmitRemoveLog(string keepTime)
         {
             logApp.RemoveLog(keepTime);

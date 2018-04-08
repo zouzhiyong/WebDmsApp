@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using NFine.Application.BaseManage;
 using NFine.Code;
 using NFine.Domain.Entity.BaseManage;
+using NFine.Web.App_Start._01_Handler;
 
 namespace NFine.Web.Areas.BaseManage.Controllers
 {
@@ -35,7 +36,7 @@ namespace NFine.Web.Areas.BaseManage.Controllers
         }
         [HttpPost]
         [HandlerAjaxOnly]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult SubmitForm(TruckEntity truckEntity, string permissionIds, string keyValue)
         {
             truckApp.SubmitForm(truckEntity, keyValue);
@@ -44,7 +45,7 @@ namespace NFine.Web.Areas.BaseManage.Controllers
         [HttpPost]
         [HandlerAjaxOnly]
         [HandlerAuthorize]
-        [ValidateAntiForgeryToken]
+        [MyValidateAntiForgeryToken]
         public ActionResult DeleteForm(string keyValue)
         {
             truckApp.DeleteForm(keyValue);
