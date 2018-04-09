@@ -47,12 +47,13 @@ namespace NFine.Web.Areas.BaseManage.Controllers
             return Content(data.ToJson());
         }
         [HttpPost]
-        [HandlerAjaxOnly]
-        [MyValidateAntiForgeryToken]
-        public ActionResult SubmitForm(MaterialEntitys materialEntitys,string keyValue)
+        //[HandlerAjaxOnly]
+        //[MyValidateAntiForgeryToken]
+        public ActionResult SubmitForm(sys_tests model)
         {
-            materialApp.SubmitForm(materialEntitys, materialEntitys.F_MaterialUomEntity, keyValue);
-            return Success("操作成功。");
+            return null;
+            //materialApp.SubmitForm(materialEntitys, materialEntitys.F_MaterialUomEntity, keyValue);
+            //return Success("操作成功。");
         }
         [HttpPost]
         [HandlerAjaxOnly]
@@ -63,10 +64,29 @@ namespace NFine.Web.Areas.BaseManage.Controllers
             materialApp.DeleteForm(keyValue);
             return Success("删除成功。");
         }
+
+        [HttpPost]
+        public ActionResult test(sys_tests model)
+        {
+
+            return null;
+        }
     }
 
-    public class MaterialEntitys: MaterialEntity
+    //public class sys_tests : MaterialEntity
+    //{
+    //    public MaterialUomEntity[] sys_data { get; set; }
+    //}
+
+
+    public class sys_tests
     {
-        public MaterialUomEntity[] F_MaterialUomEntity { get; set; }
+        public string F_FullName { get; set; }
+        public Sys_ItemsDetails[] sys_detail { get; set; }
+    }
+
+    public class Sys_ItemsDetails
+    {
+        public string F_ItemName { get; set; }
     }
 }

@@ -1,15 +1,17 @@
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Mapping.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Web.dll.config
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Web.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Web.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\EntityFramework.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\EntityFramework.SqlServer.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\Microsoft.QualityTools.Testing.Fakes.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\Microsoft.Web.Infrastructure.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\MySql.Data.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\MySql.Data.Entity.EF6.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\Newtonsoft.Json.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Application.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Code.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Domain.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Mapping.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Net.Http.Formatting.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.Helpers.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.Http.dll
@@ -30,6 +32,7 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Domain.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Mapping.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\EntityFramework.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\EntityFramework.SqlServer.xml
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\Newtonsoft.Json.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.Helpers.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.Mvc.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.Razor.xml
@@ -43,6 +46,7 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Data.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Repository.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\log4net.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NPOI.xml
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\zh-Hans\Microsoft.QualityTools.Testing.Fakes.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\zh-Hans\System.Web.Helpers.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\zh-Hans\System.Web.Mvc.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\zh-Hans\System.Web.Razor.resources.dll

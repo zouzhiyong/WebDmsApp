@@ -140,23 +140,46 @@
         }
         var postData = {};
        
-        postData = $("#form1").formSerialize();
+        //postData = $("#form1").formSerialize();
         var tableData = [];
         $("#gbox_gridList").find("tbody tr").each(function () {
-            tableData.push($(this).formSerialize());            
+            //tableData.push($(this).formSerialize());            
         });
-       
-        postData.F_MaterialUomEntity = tableData;
+        postData.F_id = "111111";
+        postData.sys_data = [{ F_UomType: 1 }, { F_UomType: 0 }];
         console.log(postData);
         
-        $.submitForm({
-            url: rootUrl + "/BaseManage/Material/SubmitForm?keyValue=" + keyValue,
-            param: postData,
-            success: function () {
-                $.currentWindow().$("#gridList").trigger("reloadGrid");
-                $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
+        var data = {
+            F_FullName: "aaaa",
+            sys_detail: [{ F_ItemName: 'zzzzzz1111' }, { F_ItemName: 'zzzzzz222' }]
+        };
+
+        $.ajax({
+            url: rootUrl + "/BaseManage/Material/test",
+            data: data,
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            },
+            beforeSend: function () {
+
+            },
+            complete: function () {
+
             }
-        })
+        });
+        //$.submitForm({
+        //    url: rootUrl + "/BaseManage/Material/SubmitForm?keyValue=" + keyValue,
+        //    param: data,
+        //    success: function () {
+        //        $.currentWindow().$("#gridList").trigger("reloadGrid");
+        //        $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
+        //    }
+        //})
     }
 </script>
 

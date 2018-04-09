@@ -1,0 +1,200 @@
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 Justifications 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.PartialParseResult 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.RazorDirectiveAttribute 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Resources.RazorResources 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Utils.CharUtils 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Utils.DisposableAction 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Utils.EnumUtil 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Utils.EnumeratorExtensions 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.VBKeywordDetector 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.VBHelpers 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.CSharpHelpers 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.CSharpKeywordDetector 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.XmlHelpers 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.KnownSymbolType 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.SymbolExtensions 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.VBKeyword 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.VBSymbolType 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.CSharpKeyword 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.CSharpSymbolType 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.HtmlSymbolType 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.LineTrackingStringBuffer 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.TextExtensions 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.SourceLocation 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.TextChange 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.TextChangeType 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CodeWriterExtensions 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.ExpressionRenderingMode 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CodeGeneratorPaddingHelper 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CodeGeneratorContext 生成存根: 类型没有系列可见的构造函数。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CodeWriter 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.BaseCodeWriter 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CSharpCodeWriter 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.GeneratedClassContext 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.VBCodeWriter 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.GeneratedCodeMapping 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Editor.BackgroundParser 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Editor.RazorEditorTrace 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Editor.EditorHints 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.BalancingModes 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.ConditionalAttributeCollapser 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.CSharpLanguageCharacteristics 生成存根: 类型没有系列可见的构造函数。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.HtmlLanguageCharacteristics 生成存根: 类型没有系列可见的构造函数。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.ISyntaxTreeRewriter 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.MarkupCollapser 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.MarkupRewriter 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.ParserHelpers 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.ParserVisitorExtensions 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.SyntaxConstants 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TextReaderExtensions 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.VBLanguageCharacteristics 生成存根: 类型没有系列可见的构造函数。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.WhiteSpaceRewriter 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.SyntaxTree.AcceptedCharacters 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.SyntaxTree.EquivalenceComparer 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.SyntaxTree.BlockType 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.SyntaxTree.SpanKind 生成存根: 类型是一个值类型。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 Microsoft.Internal.Web.Utils.CommonResources 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 Microsoft.Internal.Web.Utils.HashCodeCombiner 生成存根: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 <PrivateImplementationDetails> 生成存根: 类型已密封。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 Justifications 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.PartialParseResult 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.RazorEngineHost+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.StateMachine`1+State 生成填充码: 类型是一个委托。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.StateMachine`1+StateResult 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Resources.RazorResources 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Utils.CharUtils 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Utils.DisposableAction 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Utils.EnumUtil 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Utils.EnumeratorExtensions 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.ITokenizer 生成填充码: 类型是一个接口。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.VBKeywordDetector 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.CSharpKeywordDetector 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.CSharpTokenizer+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.CSharpTokenizer+<>c__DisplayClass17_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.CSharpTokenizer+<>c__DisplayClass18_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.CSharpTokenizer+<>c__DisplayClass20_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.HtmlTokenizer+<Tokenize>d__10 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Tokenizer`2+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Tokenizer`2+<>c__DisplayClass41_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Tokenizer`2+<>c__DisplayClass48_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.VBTokenizer+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.VBTokenizer+<Tokenize>d__10 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.XmlHelpers 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.ISymbol 生成填充码: 类型是一个接口。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.KnownSymbolType 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.SymbolExtensions+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.VBKeyword 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.VBSymbolType 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.CSharpKeyword 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.CSharpSymbolType 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Tokenizer.Symbols.HtmlSymbolType 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.BufferingTextReader+<>c__DisplayClass24_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.BufferingTextReader+BacktrackContext 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.LineTrackingStringBuffer 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.TextExtensions 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.TextBufferReader+<>c__DisplayClass12_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.TextBufferReader+BacktrackContext 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.ITextBuffer 生成填充码: 类型是一个接口。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.ITextDocument 生成填充码: 类型是一个接口。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Text.TextChangeType 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.AttributeBlockCodeGenerator+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.AttributeBlockCodeGenerator+<>c__DisplayClass13_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CodeWriterExtensions 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.DynamicAttributeBlockCodeGenerator+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.DynamicAttributeBlockCodeGenerator+<>c__DisplayClass14_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.ExpressionRenderingMode 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.LiteralAttributeCodeGenerator+<>c__DisplayClass14_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.RazorCommentCodeGenerator+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.AddImportCodeGenerator+<>c__DisplayClass9_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.BlockCodeGenerator+NullBlockCodeGenerator 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CodeGeneratorPaddingHelper 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CodeGeneratorContext+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CodeGeneratorContext+<>c__DisplayClass69_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CodeGeneratorContext+<>c__DisplayClass70_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CodeGeneratorContext+StatementBuffer 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CodeWriter 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.BaseCodeWriter 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CSharpCodeWriter 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.ExpressionCodeGenerator+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.ExpressionCodeGenerator+<>c__DisplayClass0_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.ExpressionCodeGenerator+<>c__DisplayClass1_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.IBlockCodeGenerator 生成填充码: 类型是一个接口。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.ISpanCodeGenerator 生成填充码: 类型是一个接口。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.MarkupCodeGenerator+<>c__DisplayClass0_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.ResolveUrlCodeGenerator+<>c__DisplayClass0_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.SetBaseTypeCodeGenerator+<>c__DisplayClass5_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.SetBaseTypeCodeGenerator+<>c__DisplayClass5_1 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.HelperCodeGenerator+<>c__DisplayClass17_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.SectionCodeGenerator+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.SectionCodeGenerator+<>c__DisplayClass5_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.SpanCodeGenerator+NullSpanCodeGenerator 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.StatementCodeGenerator+<>c__DisplayClass0_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.TemplateBlockCodeGenerator+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.TemplateBlockCodeGenerator+<>c__DisplayClass3_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.TypeMemberCodeGenerator+<>c__DisplayClass0_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.VBCodeWriter 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.RazorCodeGenerator+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.CSharpRazorCodeGenerator+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Generator.VBRazorCodeGenerator+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Editor.BackgroundParser 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Editor.RazorEditorTrace 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Editor.SpanEditHandler+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Editor.EditorHints 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.BalancingModes 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.CallbackVisitor+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.CallbackVisitor+<>c__DisplayClass18_0`1 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.ConditionalAttributeCollapser 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.CSharpCodeParser+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.CSharpCodeParser+<>c__DisplayClass69_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.CSharpCodeParser+<>c__DisplayClass85_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.CSharpCodeParser+Block 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.HtmlMarkupParser+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.HtmlMarkupParser+<>c__DisplayClass17_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.HtmlMarkupParser+<>c__DisplayClass18_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.HtmlMarkupParser+<>c__DisplayClass42_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.HtmlMarkupParser+<>c__DisplayClass44_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.HtmlMarkupParser+<>c__DisplayClass53_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.ISyntaxTreeRewriter 生成填充码: 类型是一个接口。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.LanguageCharacteristics`3+<TokenizeString>d__5 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.MarkupCollapser 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.MarkupRewriter 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.ParserHelpers+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TextReaderExtensions 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass36_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass37_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass37_1 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass53_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass54_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass56_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass63_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass64_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass65_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass66_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass66_1 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass67_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass68_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass69_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass70_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<>c__DisplayClass70_1 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.TokenizerBackedParser`3+<ReadWhileLazy>d__75 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.VBCodeParser+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.VBCodeParser+<>c__DisplayClass25_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.VBCodeParser+<>c__DisplayClass29_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.VBCodeParser+<>c__DisplayClass51_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.VBCodeParser+<>c__DisplayClass61_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.VBCodeParser+<>c__DisplayClass62_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.VBCodeParser+<ReadVBSpacesLazy>d__45 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.WhiteSpaceRewriter 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.ParserContext+<>c__DisplayClass50_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.RazorParser+<>c__DisplayClass26_0 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.SyntaxTree.AcceptedCharacters 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.SyntaxTree.EquivalenceComparer 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.SyntaxTree.SpanBuilder+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.SyntaxTree.BlockType 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.SyntaxTree.Block+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.SyntaxTree.Block+<Flatten>d__30 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.SyntaxTree.SpanKind 生成填充码: 类型是一个枚举。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 System.Web.Razor.Parser.SyntaxTree.Span+<>c 生成填充码: 类型不受支持，因为存在内部限制。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 Microsoft.Internal.Web.Utils.CommonResources 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 Microsoft.Internal.Web.Utils.HashCodeCombiner 生成填充码: 类型对 exported or assembly(System.Web.Razor.3.0.0.0.Fakes) 不可见。
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\Fakes\System.Web.Razor.fakes : warning : 无法为 <PrivateImplementationDetails> 生成填充码: 类型不受支持，因为存在内部限制。

@@ -195,10 +195,10 @@ $.submitForm = function (options) {
         }
         $.ajax({
             url: options.url,
-            data: JSON.stringify(options.param),
+            data: options.param,//JSON.stringify(options.param),
             type: "post",
             headers: options.headers,
-            contentType: "application/json;charset=UTF-8",
+            //contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (data) {
                 if (data.state == "success") {
