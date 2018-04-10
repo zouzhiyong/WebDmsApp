@@ -19,11 +19,25 @@
                 dataType: "json",
                 async: false,
                 success: function (data) {
-                    data['1_F_UomType'] = '1';
-                    data['2_F_UomType'] = '0';
-                    data['3_F_UomType'] = '0';
-                    data['4_F_UomType'] = '0';
-                    $("#form1").formSerialize(data);
+                    var obj = data.data1;
+                    data.data2['1_F_UomType'] = '1';
+                    data.data2['2_F_UomType'] = '0';
+                    data.data2['3_F_UomType'] = '0';
+                    data.data2['4_F_UomType'] = '0';
+                    data.data2['1_F_SortCode'] = 1;
+                    data.data2['2_F_SortCode'] = 2;
+                    data.data2['3_F_SortCode'] = 3;
+                    data.data2['4_F_SortCode'] = 4;
+                    obj = $.extend(obj, data.data2)
+                    data.data2.map(function (item) {
+                        var $index = item.F_SortCode;
+                        for (var key in item) {
+                            item[$index + "_" + key] = item[key];
+                            delete item[key];
+                        }
+                        obj = $.extend(obj, item)
+                    })
+                    $("#form1").formSerialize(obj);
                 }
             });
         } else {
@@ -39,6 +53,10 @@
             data['2_F_UomType'] = '0';
             data['3_F_UomType'] = '0';
             data['4_F_UomType'] = '0';
+            data['1_F_SortCode'] = 1;
+            data['2_F_SortCode'] = 2;
+            data['3_F_SortCode'] = 3;
+            data['4_F_SortCode'] = 4;
             $("#form1").formSerialize(data);
         }
     });
@@ -76,6 +94,7 @@
             { id: 'F_IsPurchaseUOM', type: 'check', label: '采购单位', width: '60px', align: 'center', placeholder: '', required: '', default: false },
             { id: 'F_IsSalesUOM', type: 'check', label: '销售单位', width: '60px', align: 'center', placeholder: '', required: '', default:false },
             { id: 'F_EnabledMark', type: 'check', label: '有效否', width: '60px', align: 'center', placeholder: '', required: '', default: true },
+            { id: 'F_SortCode', type: 'hidden', label: '排序', width: 'auto', align: 'center', placeholder: '', required: '', default: true },
             //{ id: 'opration', type: 'opration', label: '操作', width: '80px', align: 'center', placeholder: '', required: '' },
         ];
 
@@ -96,12 +115,13 @@
                 if (item.type.toLowerCase() == 'index') {
                     $td = $('<td class="formValue" style="padding:2px;"><div style="text-align:center">' + i + '</div></td>');
                 }
-                if (item.type.toLowerCase() == 'text' || item.type.toLowerCase() == 'number') {
+                if (item.type.toLowerCase() == 'text' || item.type.toLowerCase() == 'number' || item.type.toLowerCase() == 'hidden') {
                     $td = $('<td class="formValue" style="padding:2px;"><input data-field="' + item.id + '" id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" type="' + item.type + '" class="form-control ' + (item.type == 'number' ? 'text-right' : 'text-left') + ' ' + item.required + '" placeholder="' + item.placeholder + '" ' + (item.disabled && item.disabled == true ? 'disabled="disabled"' : '') + '/></td>');
                     if (item.default) {
                         $td.find('input').val(item.default);
                     }
                 }
+
                 if (item.type.toLowerCase() == 'check') {
                     $td = $('<td class="formValue" style="padding:2px;"><div class="ckbox" style="left:20px;"><input data-field="' + item.id + '" id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" type="checkbox" ' + (item.default == true ? 'checked="checked"' : '') + '><label for="' + i + '_' + item.id + '"></label></div></td>');
                 }
@@ -140,46 +160,24 @@
         }
         var postData = {};
        
-        //postData = $("#form1").formSerialize();
+        postData.F_MaterialEntity = $("#form1").formSerialize();
         var tableData = [];
         $("#gbox_gridList").find("tbody tr").each(function () {
-            //tableData.push($(this).formSerialize());            
+            tableData.push($(this).formSerialize());            
         });
-        postData.F_id = "111111";
-        postData.sys_data = [{ F_UomType: 1 }, { F_UomType: 0 }];
-        console.log(postData);
-        
-        var data = {
-            F_FullName: "aaaa",
-            sys_detail: [{ F_ItemName: 'zzzzzz1111' }, { F_ItemName: 'zzzzzz222' }]
-        };
 
-        $.ajax({
-            url: rootUrl + "/BaseManage/Material/test",
-            data: data,
-            type: "post",
-            dataType: "json",
-            success: function (data) {
+        tableData = JSON.parse(JSON.stringify(tableData).replace(/&nbsp;/g, ''));
 
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
+        postData.F_MaterialUomEntity = tableData;
 
-            },
-            beforeSend: function () {
-
-            },
-            complete: function () {
-
+        $.submitForm({
+            url: rootUrl + "/BaseManage/Material/SubmitForm?keyValue=" + keyValue,
+            param: postData,
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+                $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
             }
-        });
-        //$.submitForm({
-        //    url: rootUrl + "/BaseManage/Material/SubmitForm?keyValue=" + keyValue,
-        //    param: data,
-        //    success: function () {
-        //        $.currentWindow().$("#gridList").trigger("reloadGrid");
-        //        $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
-        //    }
-        //})
+        })
     }
 </script>
 

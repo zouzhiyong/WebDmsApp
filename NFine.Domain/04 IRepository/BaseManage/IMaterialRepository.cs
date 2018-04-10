@@ -15,5 +15,6 @@ namespace NFine.Domain.IRepository.BaseManage
         List<MaterialEntity> GetItemList(string enCode);
 
         void SubmitForm(MaterialEntity materialEntity, List<MaterialUomEntity> materialuomEntitys, string keyValue);
+
     }
 }

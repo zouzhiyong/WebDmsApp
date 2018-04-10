@@ -62,36 +62,25 @@ namespace NFine.Application.BaseManage
             string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
             if (!string.IsNullOrEmpty(keyValue))
             {
-                warehouseEntity.F_Id = keyValue;
+                warehouseEntity.Modify(keyValue);
             }
             else
             {
-                warehouseEntity.F_Id = Common.GuId();
+                warehouseEntity.Create();
+                warehouseEntity.F_DeleteMark = false;
             }
             var userdata = userApp.GetList();
             List<WarehouseUserEntity> warehouseUserEntitys = new List<WarehouseUserEntity>();
             foreach (var itemId in userIds)
             {
                 WarehouseUserEntity warehouseUserEntity = new WarehouseUserEntity();
-                warehouseUserEntity.F_Id = Common.GuId();
+                warehouseUserEntity.Create();
                 warehouseUserEntity.F_WarehouseId = warehouseEntity.F_Id;
                 warehouseUserEntity.F_UserId = itemId;
                 warehouseUserEntity.F_CorpId = CompanyId;
                 warehouseUserEntitys.Add(warehouseUserEntity);
             }
             service.SubmitForm(warehouseEntity, warehouseUserEntitys, keyValue);
-        }
-        //public void SubmitForm(WarehouseEntity WarehouseEntity, string keyValue)
-        //{
-        //    if (!string.IsNullOrEmpty(keyValue))
-        //    {
-        //        WarehouseEntity.Modify(keyValue);
-        //        service.Update(WarehouseEntity);
-        //    }
-        //    else
-        //    {
-        //        WarehouseEntity.Create();
-        //        service.Insert(WarehouseEntity);
-        //    }
+        }       
     }
 }

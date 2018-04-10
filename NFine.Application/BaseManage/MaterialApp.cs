@@ -10,6 +10,7 @@ using NFine.Domain.IRepository.BaseManage;
 using System.Collections.Generic;
 using System.Linq;
 using NFine.Repository.BaseManage;
+using NFine.Data;
 
 namespace NFine.Application.BaseManage
 {
@@ -47,67 +48,56 @@ namespace NFine.Application.BaseManage
         }
         public void DeleteForm(string keyValue)
         {
-            service.Delete(t => t.F_Id == keyValue);
+            using (var db = new RepositoryBase().BeginTrans())
+            {
+                if (!string.IsNullOrEmpty(keyValue))
+                {
+                    db.Delete<MaterialEntity>(t => t.F_Id == keyValue);
+                    db.Delete<MaterialUomEntity>(t => t.F_MaterialId == keyValue);
+                }
+                db.Commit();
+            }
         }
         public void SubmitForm(MaterialEntity materialEntity, MaterialUomEntity[] materialuomEntitys, string keyValue)
         {
             string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
             if (!string.IsNullOrEmpty(keyValue))
             {
-                materialEntity.F_Id = keyValue;
+                materialEntity.Modify(keyValue);
+                materialEntity.F_BaseUOM = "";
+                materialEntity.F_SalesUOM = "";
+                materialEntity.F_PurchaseUOM = "";
+                materialEntity.F_SalesPrice = 0;
+                materialEntity.F_PurchasePrice = 0;
             }
             else
             {
-                materialEntity.F_Id = Common.GuId();
+                materialEntity.Create();
+                materialEntity.F_DeleteMark = false;                
             }
-
-            //if (!string.IsNullOrEmpty(keyValue))
-            //{
-            //    materialEntity.Modify(keyValue);
-            //    service.Update(materialEntity);
-            //}
-            //else
-            //{
-            //    materialEntity.Create();
-            //    materialEntity.F_DeleteMark = false;
-            //    service.Insert(materialEntity);
-            //}
             List<MaterialUomEntity> materialuomEntitysTemp = new List<MaterialUomEntity>();
             foreach (var items in materialuomEntitys)
             {
-                items.F_Id = Common.GuId();
+                items.Create();
                 items.F_MaterialId = materialEntity.F_Id;
                 items.F_CorpId = CompanyId;
                 items.F_RateQty = (items.F_RateQty <= 0 ? 1 : items.F_RateQty);
                 if(items.F_UomId!=null && items.F_UomId != "")
-                {
+                {                  
+                    if(items.F_UomType==1)
+                    {
+                        materialEntity.F_BaseUOM = items.F_UomId;
+                        materialEntity.F_SalesUOM = (items.F_IsSalesUOM == true ? items.F_UomId : "");
+                        materialEntity.F_PurchaseUOM = (items.F_IsPurchaseUOM == true ? items.F_UomId : "");
+                        materialEntity.F_SalesPrice = (items.F_IsSalesUOM == true ? items.F_SalesPrice : 0);
+                        materialEntity.F_PurchasePrice = (items.F_IsPurchaseUOM == true ? items.F_PurchasePrice : 0);
+                    }
+                    items.F_DeleteMark = false;
                     materialuomEntitysTemp.Add(items);
                 }                
             }
 
             service.SubmitForm(materialEntity, materialuomEntitysTemp, keyValue);
-
-            //string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-            //if (!string.IsNullOrEmpty(keyValue))
-            //{
-            //    warehouseEntity.F_Id = keyValue;
-            //}
-            //else
-            //{
-            //    warehouseEntity.F_Id = Common.GuId();
-            //}
-            //var userdata = userApp.GetList();
-            //List<WarehouseUserEntity> warehouseUserEntitys = new List<WarehouseUserEntity>();
-            //foreach (var itemId in userIds)
-            //{
-            //    WarehouseUserEntity warehouseUserEntity = new WarehouseUserEntity();
-            //    warehouseUserEntity.F_Id = Common.GuId();
-            //    warehouseUserEntity.F_WarehouseId = warehouseEntity.F_Id;
-            //    warehouseUserEntity.F_UserId = itemId;
-            //    warehouseUserEntity.F_CorpId = CompanyId;
-            //    warehouseUserEntitys.Add(warehouseUserEntity);
-            //}
-            //service.SubmitForm(warehouseEntity, warehouseUserEntitys, keyValue);
         }
     }
 }

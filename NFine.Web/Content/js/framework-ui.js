@@ -195,10 +195,9 @@ $.submitForm = function (options) {
         }
         $.ajax({
             url: options.url,
-            data: options.param,//JSON.stringify(options.param),
+            data: options.param,
             type: "post",
             headers: options.headers,
-            //contentType: "application/json;charset=UTF-8",
             dataType: "json",
             success: function (data) {
                 if (data.state == "success") {
@@ -229,13 +228,14 @@ $.deleteForm = function (options) {
         prompt: "注：您确定要删除该项数据吗？",
         url: "",
         param: [],
+        headers: [],
         loading: "正在删除数据...",
         success: null,
         close: true
     };
     var options = $.extend(defaults, options);
     if ($('[name=__RequestVerificationToken]').length > 0) {
-        options.param["__RequestVerificationToken"] = $('[name=__RequestVerificationToken]').val();
+        options.headers["__RequestVerificationToken"] = $('[name=__RequestVerificationToken]').val();
     }
     $.modalConfirm(options.prompt, function (r) {
         if (r) {
@@ -243,6 +243,7 @@ $.deleteForm = function (options) {
             window.setTimeout(function () {
                 $.ajax({
                     url: options.url,
+                    headers: options.headers,
                     data: options.param,
                     type: "post",
                     dataType: "json",
@@ -357,6 +358,7 @@ $.fn.formSerialize = function (formdate) {
                 var value = $this.val() == "" ? "&nbsp;" : $this.val();
                 if (!$.request("keyValue")) {
                     value = value.replace(/&nbsp;/g, '');
+                    console.log(value);
                 }
                 postdata[id] = value;
                 break;
@@ -449,7 +451,7 @@ $.fn.dataGrid = function (options) {
     var rowNum = Math.round(options.height / 30);
     options.rowNum = rowNum > 200 ? 200 : rowNum;
 
-    if (options.isTools) {
+    if (options.isTools === true) {
         var $elementHtml = "";
         $('.operate').find('a[authorize=yes]').css({ 'cursor': 'pointer', 'padding': '2px 8px', 'margin-right': '20px' }).addClass('btn').each(function () {
             var $elementIcon = $(this).find("i");
@@ -467,7 +469,6 @@ $.fn.dataGrid = function (options) {
         })
     } else {
         options["onSelectRow"] = function (rowid) {
-            options.onSelectRow(rowid);
             var length = $(this).jqGrid("getGridParam", "selrow").length;
             var $operate = $(".operate");
             if (length > 0) {
@@ -480,7 +481,6 @@ $.fn.dataGrid = function (options) {
             })
         };
     }
-
 
     $element.jqGrid(options);
 };

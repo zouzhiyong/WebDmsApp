@@ -19,6 +19,7 @@ namespace NFine.Web.Areas.BaseManage.Controllers
     public class MaterialController : ControllerBase
     {
         private MaterialApp materialApp = new MaterialApp();
+        private MaterialUomApp materialUomApp = new MaterialUomApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -43,17 +44,17 @@ namespace NFine.Web.Areas.BaseManage.Controllers
         [HandlerAjaxOnly]
         public ActionResult GetFormJson(string keyValue)
         {
-            var data = materialApp.GetForm(keyValue);
-            return Content(data.ToJson());
+            var materia_data = materialApp.GetForm(keyValue);
+            var materiaUom_data = materialUomApp.GetList(keyValue);
+            return Content(new { data1= materia_data ,data2= materiaUom_data }.ToJson());
         }
         [HttpPost]
-        //[HandlerAjaxOnly]
-        //[MyValidateAntiForgeryToken]
-        public ActionResult SubmitForm(sys_tests model)
+        [HandlerAjaxOnly]
+        [MyValidateAntiForgeryToken]
+        public ActionResult SubmitForm(MaterialEntitys model, string keyValue)
         {
-            return null;
-            //materialApp.SubmitForm(materialEntitys, materialEntitys.F_MaterialUomEntity, keyValue);
-            //return Success("操作成功。");
+            materialApp.SubmitForm(model.F_MaterialEntity, model.F_MaterialUomEntity, keyValue);
+            return Success("操作成功。");
         }
         [HttpPost]
         [HandlerAjaxOnly]
@@ -64,29 +65,11 @@ namespace NFine.Web.Areas.BaseManage.Controllers
             materialApp.DeleteForm(keyValue);
             return Success("删除成功。");
         }
-
-        [HttpPost]
-        public ActionResult test(sys_tests model)
-        {
-
-            return null;
-        }
     }
 
-    //public class sys_tests : MaterialEntity
-    //{
-    //    public MaterialUomEntity[] sys_data { get; set; }
-    //}
-
-
-    public class sys_tests
+    public class MaterialEntitys
     {
-        public string F_FullName { get; set; }
-        public Sys_ItemsDetails[] sys_detail { get; set; }
-    }
-
-    public class Sys_ItemsDetails
-    {
-        public string F_ItemName { get; set; }
+        public MaterialEntity F_MaterialEntity { get; set; }
+        public MaterialUomEntity[] F_MaterialUomEntity { get; set; }
     }
 }

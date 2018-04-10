@@ -66,6 +66,5 @@ namespace NFine.Repository.BaseManage
                 db.Commit();
             }
         }
-
     }
 }

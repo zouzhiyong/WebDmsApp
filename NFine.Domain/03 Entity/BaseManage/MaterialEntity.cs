@@ -23,7 +23,7 @@ namespace NFine.Domain.Entity.BaseManage
         public string F_BaseUOM { get; set; }
         public string F_SalesUOM { get; set; }
         public Nullable<decimal> F_SalesPrice { get; set; }
-        public Nullable<int> F_PurchaseUOM { get; set; }
+        public string F_PurchaseUOM { get; set; }
         public Nullable<decimal> F_PurchasePrice { get; set; }
         public Nullable<float> F_Length { get; set; }
         public Nullable<float> F_Width { get; set; }
