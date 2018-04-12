@@ -228,6 +228,8 @@
     <Content Include="Content\js\charts\Chart.js" />
     <Content Include="Content\js\charts\Chart.min.js" />
     <Content Include="Content\js\cookie\jquery.cookie.js" />
+    <Content Include="Content\js\cropper\cropper.css" />
+    <Content Include="Content\js\cropper\cropper.js" />
     <Content Include="Content\js\datepicker\bootstrap-datepicker.min.js" />
     <Content Include="Content\js\datepicker\bootstrap-datepicker.zh-CN.js" />
     <Content Include="Content\js\datepicker\bootstrap-datepicker.min.css" />
@@ -305,8 +307,9 @@
     <Content Include="Content\js\jqgrid\grid.locale-cn.js" />
     <Content Include="Content\js\jqgrid\jqgrid.css" />
     <Content Include="Content\js\jqgrid\jqgrid.min.js" />
-    <Content Include="Content\js\jqprint\jquery.jqprint-0.3.js" />
-    <Content Include="Content\js\jqprint\jquery.jqprint.css" />
+    <Content Include="Content\js\jquery\jquery.min.js" />
+    <Content Include="Content\js\loading\jqprint\jquery.jqprint-0.3.js" />
+    <Content Include="Content\js\loading\jqprint\jquery.jqprint.css" />
     <Content Include="Content\js\jquery-ui\images\calendar.gif" />
     <Content Include="Content\js\jquery-ui\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\js\jquery-ui\images\ui-bg_flat_75_ffffff_40x100.png" />
