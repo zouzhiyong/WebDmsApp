@@ -196,6 +196,8 @@ $.submitForm = function (options) {
         $.ajax({
             url: options.url,
             data: options.param,
+            processData: options.processData,
+            contentType:options.contentType,
             type: "post",
             headers: options.headers,
             dataType: "json",

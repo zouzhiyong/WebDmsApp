@@ -100,7 +100,6 @@
           <ScalarProperty Name="F_WarehouseID" ColumnName="F_WarehouseID" />
           <ScalarProperty Name="F_ItemCategoryID" ColumnName="F_ItemCategoryID" />
           <ScalarProperty Name="F_ItemGroupID" ColumnName="F_ItemGroupID" />
-          <ScalarProperty Name="F_Barcode" ColumnName="F_Barcode" />
           <ScalarProperty Name="F_HelperCode" ColumnName="F_HelperCode" />
           <ScalarProperty Name="F_ShortName" ColumnName="F_ShortName" />
           <ScalarProperty Name="F_FullName" ColumnName="F_FullName" />
@@ -133,6 +132,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="bas_materialpicture">
+      <EntityTypeMapping TypeName="nfinebaseModel.bas_materialpicture">
+        <MappingFragment StoreEntitySet="bas_materialpicture">
+          <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+          <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
+          <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
+          <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
+          <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
+          <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+          <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+          <ScalarProperty Name="F_Description" ColumnName="F_Description" />
+          <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
+          <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+          <ScalarProperty Name="F_IsTitle" ColumnName="F_IsTitle" />
+          <ScalarProperty Name="F_PictureType" ColumnName="F_PictureType" />
+          <ScalarProperty Name="F_Picture" ColumnName="F_Picture" />
+          <ScalarProperty Name="F_MaterialId" ColumnName="F_MaterialId" />
+          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+          <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="bas_materialuom">
       <EntityTypeMapping TypeName="nfinebaseModel.bas_materialuom">
         <MappingFragment StoreEntitySet="bas_materialuom">
@@ -150,6 +171,7 @@
           <ScalarProperty Name="F_IsPurchaseUOM" ColumnName="F_IsPurchaseUOM" />
           <ScalarProperty Name="F_SalesPrice" ColumnName="F_SalesPrice" />
           <ScalarProperty Name="F_PurchasePrice" ColumnName="F_PurchasePrice" />
+          <ScalarProperty Name="F_Barcode" ColumnName="F_Barcode" />
           <ScalarProperty Name="F_UomType" ColumnName="F_UomType" />
           <ScalarProperty Name="F_RateQty" ColumnName="F_RateQty" />
           <ScalarProperty Name="F_UomId" ColumnName="F_UomId" />

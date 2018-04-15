@@ -40,6 +40,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -76,6 +78,7 @@
     <Compile Include="BaseManage\CorporationApp.cs" />
     <Compile Include="BaseManage\MaterialGroupApp.cs" />
     <Compile Include="BaseManage\MaterialApp.cs" />
+    <Compile Include="BaseManage\MaterialPictureApp.cs" />
     <Compile Include="BaseManage\RegionApp.cs" />
     <Compile Include="BaseManage\CustomerApp.cs" />
     <Compile Include="BaseManage\TruckApp.cs" />

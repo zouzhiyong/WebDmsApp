@@ -77,7 +77,6 @@
     <Property Name="F_FullName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_ShortName" Type="varchar" MaxLength="20" />
     <Property Name="F_HelperCode" Type="varchar" MaxLength="20" />
-    <Property Name="F_Barcode" Type="varchar" MaxLength="30" />
     <Property Name="F_ItemGroupID" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_ItemCategoryID" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_WarehouseID" Type="varchar" MaxLength="50" />
@@ -85,7 +84,7 @@
     <Property Name="F_BaseUOM" Type="varchar" MaxLength="50" />
     <Property Name="F_SalesUOM" Type="varchar" MaxLength="50" />
     <Property Name="F_SalesPrice" Type="decimal" Precision="10" Scale="2" />
-    <Property Name="F_PurchaseUOM" Type="int" />
+    <Property Name="F_PurchaseUOM" Type="varchar" MaxLength="50" />
     <Property Name="F_PurchasePrice" Type="decimal" Precision="10" Scale="2" />
     <Property Name="F_Length" Type="float" />
     <Property Name="F_Width" Type="float" />
@@ -130,6 +129,28 @@
     <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
     <Property Name="F_SortCode" Type="int" />
   </EntityType>
+  <EntityType Name="bas_materialpicture">
+    <Key>
+      <PropertyRef Name="F_Id" />
+      <PropertyRef Name="F_CorpId" />
+    </Key>
+    <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_MaterialId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_Picture" Type="varchar" MaxLength="100" />
+    <Property Name="F_PictureType" Type="int" />
+    <Property Name="F_IsTitle" Type="bool" />
+    <Property Name="F_DeleteMark" Type="bool" />
+    <Property Name="F_EnabledMark" Type="bool" />
+    <Property Name="F_Description" Type="varchar" MaxLength="255" />
+    <Property Name="F_CreatorTime" Type="datetime" Precision="0" />
+    <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_LastModifyTime" Type="datetime" Precision="0" />
+    <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_DeleteTime" Type="datetime" Precision="0" />
+    <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+    <Property Name="F_SortCode" Type="int" />
+  </EntityType>
   <EntityType Name="bas_materialuom">
     <Key>
       <PropertyRef Name="F_Id" />
@@ -140,6 +161,7 @@
     <Property Name="F_UomId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_RateQty" Type="float" Nullable="false" />
     <Property Name="F_UomType" Type="int" Nullable="false" />
+    <Property Name="F_Barcode" Type="varchar" MaxLength="30" />
     <Property Name="F_PurchasePrice" Type="decimal" Precision="10" Scale="2" />
     <Property Name="F_SalesPrice" Type="decimal" Precision="10" Scale="2" />
     <Property Name="F_IsPurchaseUOM" Type="bool" />
@@ -714,6 +736,7 @@
     <EntitySet Name="bas_customer" EntityType="Self.bas_customer" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="bas_material" EntityType="Self.bas_material" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="bas_materialgroup" EntityType="Self.bas_materialgroup" Schema="nfinebase" store:Type="Tables" />
+    <EntitySet Name="bas_materialpicture" EntityType="Self.bas_materialpicture" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="bas_materialuom" EntityType="Self.bas_materialuom" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="bas_region" EntityType="Self.bas_region" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="bas_supplier" EntityType="Self.bas_supplier" Schema="nfinebase" store:Type="Tables" />

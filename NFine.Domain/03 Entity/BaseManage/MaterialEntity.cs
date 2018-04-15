@@ -46,4 +46,11 @@ namespace NFine.Domain.Entity.BaseManage
         public string F_DeleteUserId { get; set; }
         public Nullable<int> F_SortCode { get; set; }
     }
+
+    public class MaterialEntitys
+    {
+        public MaterialPictureEntity F_MaterialPictureEntity { get; set; }
+        public MaterialEntity F_MaterialEntity { get; set; }
+        public MaterialUomEntity[] F_MaterialUomEntity { get; set; }
+    }
 }

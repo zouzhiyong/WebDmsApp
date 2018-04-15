@@ -20,7 +20,6 @@ namespace NFine.MySQLModel
         public string F_FullName { get; set; }
         public string F_ShortName { get; set; }
         public string F_HelperCode { get; set; }
-        public string F_Barcode { get; set; }
         public string F_ItemGroupID { get; set; }
         public string F_ItemCategoryID { get; set; }
         public string F_WarehouseID { get; set; }
@@ -28,7 +27,7 @@ namespace NFine.MySQLModel
         public string F_BaseUOM { get; set; }
         public string F_SalesUOM { get; set; }
         public Nullable<decimal> F_SalesPrice { get; set; }
-        public Nullable<int> F_PurchaseUOM { get; set; }
+        public string F_PurchaseUOM { get; set; }
         public Nullable<decimal> F_PurchasePrice { get; set; }
         public Nullable<float> F_Length { get; set; }
         public Nullable<float> F_Width { get; set; }

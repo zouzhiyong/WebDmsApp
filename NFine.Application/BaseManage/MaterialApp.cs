@@ -11,6 +11,10 @@ using System.Collections.Generic;
 using System.Linq;
 using NFine.Repository.BaseManage;
 using NFine.Data;
+using System.IO;
+using System;
+using System.Drawing;
+using System.Web;
 
 namespace NFine.Application.BaseManage
 {
@@ -58,8 +62,8 @@ namespace NFine.Application.BaseManage
                 db.Commit();
             }
         }
-        public void SubmitForm(MaterialEntity materialEntity, MaterialUomEntity[] materialuomEntitys, string keyValue)
-        {
+        public void SubmitForm(MaterialEntity materialEntity, MaterialUomEntity[] materialuomEntitys,MaterialPictureEntity materialpictureEntity, string keyValue)
+        { 
             string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
             if (!string.IsNullOrEmpty(keyValue))
             {
@@ -75,6 +79,30 @@ namespace NFine.Application.BaseManage
                 materialEntity.Create();
                 materialEntity.F_DeleteMark = false;                
             }
+
+            //封面图片
+            materialpictureEntity.Create();
+            materialpictureEntity.F_MaterialId = materialEntity.F_Id;
+            materialpictureEntity.F_CorpId = materialEntity.F_CorpId;
+            materialpictureEntity.F_DeleteMark = false;
+            materialpictureEntity.F_PictureType = 0;
+
+            string base64Data = materialpictureEntity.F_Picture;
+            //获取文件储存路径            
+            string suffix = base64Data.Split(new char[] { ';' })[0].Substring(base64Data.IndexOf('/') + 1);//获取后缀名
+            string newFileName = "Material_" + materialEntity.F_Id + ".png";// + suffix;
+            string strPath = HttpContext.Current.Server.MapPath("~/UploadImgPath/" + materialEntity.F_CorpId + "/"); //获取当前项目所在目录 
+            //获取图片并保存
+            MemoryStream stream = new MemoryStream(Convert.FromBase64String(base64Data.Split(',')[1]));
+            if (!Directory.Exists(strPath))
+            {
+                Directory.CreateDirectory(strPath);
+            }
+            new Bitmap(stream).Save(strPath+ newFileName);
+            materialpictureEntity.F_Picture = newFileName;
+
+
+            //对应单位
             List<MaterialUomEntity> materialuomEntitysTemp = new List<MaterialUomEntity>();
             foreach (var items in materialuomEntitys)
             {
@@ -97,7 +125,7 @@ namespace NFine.Application.BaseManage
                 }                
             }
 
-            service.SubmitForm(materialEntity, materialuomEntitysTemp, keyValue);
+            service.SubmitForm(materialEntity, materialuomEntitysTemp, materialpictureEntity, keyValue);
         }
     }
 }

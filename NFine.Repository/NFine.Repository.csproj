@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseManage\CorporationRepository.cs" />
+    <Compile Include="BaseManage\MaterialPictureRepository.cs" />
     <Compile Include="BaseManage\MaterialUomRepository.cs" />
     <Compile Include="BaseManage\MaterialGroupRepository.cs" />
     <Compile Include="BaseManage\MaterialRepository.cs" />

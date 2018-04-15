@@ -49,7 +49,7 @@ namespace NFine.Repository.BaseManage
             return this.FindList(strSql.ToString(), parameter);
         }
 
-        public void SubmitForm(MaterialEntity materialEntity, List<MaterialUomEntity> materialuomEntitys, string keyValue)
+        public void SubmitForm(MaterialEntity materialEntity, List<MaterialUomEntity> materialuomEntitys, MaterialPictureEntity materialpictureEntity, string keyValue)
         {
             using (var db = new RepositoryBase().BeginTrans())
             {
@@ -61,7 +61,10 @@ namespace NFine.Repository.BaseManage
                 {
                     db.Insert(materialEntity);
                 }
-                db.Delete<MaterialUomEntity>(t => t.F_MaterialId == materialEntity.F_Id);
+                db.Delete<MaterialPictureEntity>(t => t.F_MaterialId == materialEntity.F_Id && t.F_PictureType==0 && t.F_CorpId==materialEntity.F_CorpId);
+                db.Insert(materialpictureEntity);
+
+                db.Delete<MaterialUomEntity>(t => t.F_MaterialId == materialEntity.F_Id && t.F_CorpId == materialEntity.F_CorpId);
                 db.Insert(materialuomEntitys);
                 db.Commit();
             }

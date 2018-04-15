@@ -77,6 +77,7 @@
     <Compile Include="01 Infrastructure\IDeleteAudited.cs" />
     <Compile Include="01 Infrastructure\IEntity.cs" />
     <Compile Include="01 Infrastructure\IModificationAudited.cs" />
+    <Compile Include="03 Entity\BaseManage\MaterialPictureEntity.cs" />
     <Compile Include="03 Entity\BaseManage\MaterialUomEntity.cs" />
     <Compile Include="03 Entity\BaseManage\MaterialGroupEntity.cs" />
     <Compile Include="03 Entity\BaseManage\MaterialEntity.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="03 Entity\SystemSecurity\FilterIPEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\LogEntity.cs" />
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
+    <Compile Include="04 IRepository\BaseManage\IMaterialPictureRepository.cs" />
     <Compile Include="04 IRepository\BaseManage\IMaterialUomRepository.cs" />
     <Compile Include="04 IRepository\BaseManage\IMaterialGroupRepository.cs" />
     <Compile Include="04 IRepository\BaseManage\IMaterialRepository.cs" />

@@ -8,42 +8,42 @@
 <link href="~/Content/js/cropper/cropper.css" rel="stylesheet" />
 <script src="~/Content/js/cropper/cropper.js"></script>
 <style>
-    img { max-width: 460px; max-height: 280px; }    
-  .docs-preview {
-  margin-right: -1rem;padding-left:10px;
-}
+        img { max-width: 460px; max-height: 280px; }
+      .docs-preview {
+      margin-right: -1rem;padding-left:10px;
+    }
 
-.img-preview {
-  float: left;
-  margin-bottom: .5rem;
-  margin-right: .5rem;
-  overflow: hidden;
-}
+    .img-preview {
+      float: left;
+      margin-bottom: .5rem;
+      margin-right: .5rem;
+      overflow: hidden;
+    }
 
-.img-preview > img {
-  max-width: 100%;
-}
+    .img-preview > img {
+      max-width: 100%;
+    }
 
-.preview-lg {
-  height: 100px;
-  width: 200px;
-}
+    .preview-lg {
+      height: 9rem;
+      width: 16rem;
+    }
 
-.preview-md {
-  height: 50px;
-  width: 100px;
-}
+    .preview-md {
+      height: 4.5rem;
+      width: 8rem;
+    }
 
-.preview-sm {
-  height: 20px;
-  width: 40px;
-}
+    .preview-sm {
+      height: 2.25rem;
+      width: 4rem;
+    }
 
-.preview-xs {
-  height: 10px;
-  margin-right: 0;
-  width: 20px;
-}
+    .preview-xs {
+      height: 1.125rem;
+      margin-right: 0;
+      width: 2rem;
+    }
 
 
 
@@ -62,7 +62,7 @@
                 dataType: "json",
                 async: false,
                 success: function (data) {
-                    var obj = data.data1;
+                    var obj = {};
                     data.data2['1_F_UomType'] = '1';
                     data.data2['2_F_UomType'] = '0';
                     data.data2['3_F_UomType'] = '0';
@@ -71,7 +71,6 @@
                     data.data2['2_F_SortCode'] = 2;
                     data.data2['3_F_SortCode'] = 3;
                     data.data2['4_F_SortCode'] = 4;
-                    obj = $.extend(obj, data.data2)
                     data.data2.map(function (item) {
                         var $index = item.F_SortCode;
                         for (var key in item) {
@@ -80,7 +79,12 @@
                         }
                         obj = $.extend(obj, item)
                     })
-                    $("#form1").formSerialize(obj);
+                    
+                    $("#page1").formSerialize(data.data1);
+                    $("#page2").formSerialize(data.data1);
+                    $("#page3").formSerialize(obj);
+                    $("#page4").formSerialize(data.data3);
+                    $('#image').attr("src", rootUrl + "/UploadImgPath/" + data.data3.F_CorpId + "/" + data.data3.F_Picture);
                 }
             });
         } else {
@@ -103,7 +107,6 @@
             $("#form1").formSerialize(data);
         }
     });
-
 
     function initControl() {
         $("#F_ItemGroupID").bindSelect({
@@ -195,12 +198,19 @@
             })
             $("#gbox_gridList").find("tbody").append($trBody);
         }
-
         //图片
-
     }
 
     function submitForm() {
+        var dataURL = $("#image").cropper("getCroppedCanvas");//找死了
+        var base64url = dataURL.toDataURL("image/png", 1.0);//这里转成base64
+
+        /*在全局new 一个 FormData()的对象*/
+        var formData = new FormData();
+        /*裁剪后处理里面*/
+        var blob = dataURLtoBlob(base64url);
+        formData.append('file', blob);
+
         if (!$('#form1').formValid()) {
             return false;
         }
@@ -216,6 +226,12 @@
 
         postData.F_MaterialUomEntity = tableData;
 
+        postData.F_MaterialPictureEntity = {
+            F_Picture: base64url,
+            F_PictureType: 0,
+            F_IsTitle: $("#page4").formSerialize().F_IsTitle
+        };
+
         $.submitForm({
             url: rootUrl + "/BaseManage/Material/SubmitForm?keyValue=" + keyValue,
             param: postData,
@@ -223,7 +239,7 @@
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
                 $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
             }
-        })
+        });
     }
 </script>
 
@@ -366,7 +382,7 @@
                         <div class="col-xs-8">
                             <!-- <h3>Demo:</h3> -->
                             <div class="img-container">
-                                <img id="image" src="~/Content/img/wechat.jpg" alt="Picture">
+                                <img id="image" src="@Url.Content("~/Content/img/default.jpg")" alt="Picture">
                             </div>
                         </div>
                         <div class="col-xs-4">
@@ -377,6 +393,11 @@
                                 <div class="img-preview preview-sm"></div>
                                 <div class="img-preview preview-xs"></div>
                             </div>
+                            <div class="formValue" style="padding-top: 1px;">
+                                <div class="ckbox">
+                                    <input id="F_IsTitle" name="F_IsTitle" type="checkbox" checked="checked"><label for="F_IsTitle">是否封面</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -384,12 +405,12 @@
                             <!-- <h3>Toolbar:</h3> -->
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary" data-method="zoom" data-option="0.1" title="Zoom In">
-                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;zoom&quot;, 0.1)">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="放大">
                                         <span class="fa fa-search-plus"></span>
                                     </span>
                                 </button>
                                 <button type="button" class="btn btn-primary" data-method="zoom" data-option="-0.1" title="Zoom Out">
-                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;zoom&quot;, -0.1)">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="缩小">
                                         <span class="fa fa-search-minus"></span>
                                     </span>
                                 </button>
@@ -397,22 +418,22 @@
 
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary" data-method="move" data-option="-10" data-second-option="0" title="Move Left">
-                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;move&quot;, -10, 0)">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="左移">
                                         <span class="fa fa-arrow-left"></span>
                                     </span>
                                 </button>
                                 <button type="button" class="btn btn-primary" data-method="move" data-option="10" data-second-option="0" title="Move Right">
-                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;move&quot;, 10, 0)">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="右移">
                                         <span class="fa fa-arrow-right"></span>
                                     </span>
                                 </button>
                                 <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="-10" title="Move Up">
-                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;move&quot;, 0, -10)">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="上移">
                                         <span class="fa fa-arrow-up"></span>
                                     </span>
                                 </button>
                                 <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="10" title="Move Down">
-                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;move&quot;, 0, 10)">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="下移">
                                         <span class="fa fa-arrow-down"></span>
                                     </span>
                                 </button>
@@ -420,12 +441,12 @@
 
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary" data-method="rotate" data-option="-45" title="Rotate Left">
-                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;rotate&quot;, -45)">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="向左旋转">
                                         <span class="fa fa-rotate-left"></span>
                                     </span>
                                 </button>
                                 <button type="button" class="btn btn-primary" data-method="rotate" data-option="45" title="Rotate Right">
-                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;rotate&quot;, 45)">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="向右旋转">
                                         <span class="fa fa-rotate-right"></span>
                                     </span>
                                 </button>
@@ -433,12 +454,12 @@
 
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary" data-method="scaleX" data-option="-1" title="Flip Horizontal">
-                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;scaleX&quot;, -1)">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="左右翻转">
                                         <span class="fa fa-arrows-h"></span>
                                     </span>
                                 </button>
                                 <button type="button" class="btn btn-primary" data-method="scaleY" data-option="-1" title="Flip Vertical">
-                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;scaleY&quot;, -1)">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="上下翻转">
                                         <span class="fa fa-arrows-v"></span>
                                     </span>
                                 </button>
@@ -446,13 +467,13 @@
 
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary" data-method="reset" title="Reset">
-                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="$().cropper(&quot;reset&quot;)">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="重置">
                                         <span class="fa fa-refresh"></span>
                                     </span>
                                 </button>
                                 <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
                                     <input type="file" class="sr-only" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
-                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="Import image with Blob URLs">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="上传">
                                         <span class="fa fa-upload"></span>
                                     </span>
                                 </label>
@@ -478,8 +499,6 @@
                             </div><!-- /.modal -->
 
                         </div><!-- /.docs-buttons -->
-
-
                     </div>
 
                 </div>
@@ -491,6 +510,21 @@
     </div>
 </form>
 <script>
+    /*需要将dataURL转成Blob对象. 这儿在全局写个方法*/
+    function dataURLtoBlob(dataURI) {
+        var arr = dataURI.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = (arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], {
+            type: mime
+        });
+    }
+
     $(function () {
 
         'use strict';
@@ -503,13 +537,14 @@
             preview: '.img-preview',
             minContainerHeight: 280,
             minContainerWidth: 460,
-            aspectRatio: 16 / 9,//裁剪框比例 1：1
+            aspectRatio: 1,//裁剪框比例 1：1
             viewMode: 1,//显示
+            autoCropArea: 1,
             //guides: false,//裁剪框虚线 默认true有
             dragMode: "move",
             build: function (e) { //加载开始
                 //可以放你的过渡 效果
-            },           
+            },
             background: true,// 容器是否显示网格背景
             movable: true,//是否能移动图片
             cropBoxMovable: true,//是否允许拖动裁剪框

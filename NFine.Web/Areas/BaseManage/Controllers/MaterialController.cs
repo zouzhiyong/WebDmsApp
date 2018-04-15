@@ -13,6 +13,7 @@ using NFine.Application.BaseManage;
 using System.Web.Script.Serialization;
 using System.Runtime.Serialization;
 using NFine.Web.App_Start._01_Handler;
+using System.Web;
 
 namespace NFine.Web.Areas.BaseManage.Controllers
 {
@@ -20,6 +21,7 @@ namespace NFine.Web.Areas.BaseManage.Controllers
     {
         private MaterialApp materialApp = new MaterialApp();
         private MaterialUomApp materialUomApp = new MaterialUomApp();
+        private MaterialPictureApp materialPictureApp = new MaterialPictureApp();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -46,14 +48,16 @@ namespace NFine.Web.Areas.BaseManage.Controllers
         {
             var materia_data = materialApp.GetForm(keyValue);
             var materiaUom_data = materialUomApp.GetList(keyValue);
-            return Content(new { data1= materia_data ,data2= materiaUom_data }.ToJson());
+            var materialPicture_data0 = materialPictureApp.GetList(keyValue).Where(t=>t.F_PictureType==0).FirstOrDefault();
+            var materialPicture_data1 = materialPictureApp.GetList(keyValue).Where(t => t.F_PictureType == 1);
+            return Content(new { data1= materia_data ,data2= materiaUom_data,data3= materialPicture_data0, data4 = materialPicture_data1 }.ToJson());
         }
         [HttpPost]
         [HandlerAjaxOnly]
         [MyValidateAntiForgeryToken]
         public ActionResult SubmitForm(MaterialEntitys model, string keyValue)
         {
-            materialApp.SubmitForm(model.F_MaterialEntity, model.F_MaterialUomEntity, keyValue);
+            materialApp.SubmitForm(model.F_MaterialEntity, model.F_MaterialUomEntity, model.F_MaterialPictureEntity, keyValue);
             return Success("操作成功。");
         }
         [HttpPost]
@@ -66,10 +70,5 @@ namespace NFine.Web.Areas.BaseManage.Controllers
             return Success("删除成功。");
         }
     }
-
-    public class MaterialEntitys
-    {
-        public MaterialEntity F_MaterialEntity { get; set; }
-        public MaterialUomEntity[] F_MaterialUomEntity { get; set; }
-    }
+    
 }
