@@ -11,16 +11,21 @@
     $(function () {
         initControl();
         var mydata = [
-                 { id: "1", invdate: "2007-10-01", name: "test", note: "note", amount: "200.00", tax: "10.00", total: "210.00" },
-                 { id: "2", invdate: "2007-10-02", name: "test2", note: "note2", amount: "300.00", tax: "20.00", total: "320.00" },
-                 { id: "3", invdate: "2007-09-01", name: "test3", note: "note3", amount: "400.00", tax: "30.00", total: "430.00" },
+                 { invdate: "2007-10-01", name: "test", note: "", amount: "200.00", tax: "10.00", total: "210.00" },
+                 { invdate: "2007-10-02", name: "test2", note: "", amount: "300.00", tax: "20.00", total: "320.00" },
+                 { invdate: "2007-09-01", name: "test3", note: "", amount: "400.00", tax: "30.00", total: "430.00" },
         ];
 
         gridList();
 
-        for (var i = 0; i <= mydata.length; i++) {
-            $gridList.jqGrid('addRowData', i + 1, mydata[i]);
-        }
+        $gridList.jqGrid().clearGridData();
+        $gridList.jqGrid('setGridParam', { 
+            data: mydata,
+        }).trigger("reloadGrid");
+        
+        //for (var i = 0; i <= mydata.length; i++) {
+        //    $gridList.jqGrid('addRowData', i + 1, mydata[i]);
+        //}
     })
     function initControl() {
         $("#F_SupplierID").bindSelect();
@@ -40,25 +45,31 @@
         $gridList = $("#gridList");
         $gridList.dataGrid({
             datatype: "local",
-            height: $(window).height() - 128,
+            height: $(window).height() - 128,            
             cellEdit: true,
+            isTools: false,
             cellsubmit: 'clientArray',
-            colModel: [
-                { label: '主键', name: 'F_Id', hidden: true },
-                { name: 'id', index: 'id', width: 60, sorttype: "int", editable: true },
+            colModel: [               
                 {
-                    name: 'invdate', index: 'invdate', width: 90, sorttype: "date", editable: true, edittype: 'select', editoptions: {
+                    name: 'invdate', classes: 'formValue', index: 'invdate', width: 90, sorttype: "date", editable: true, edittype: 'select', editoptions: {
                         value: "一:一年级;二:二年级;三:三年级;四:四年级;五:五年级;六:六年级", dataInit: function (element) {
                             $(element).bindSelect();
                         }
                     }
                 },
-                { name: 'name', index: 'name', width: 100, editable: true },
-                { name: 'amount', index: 'amount', width: 80, align: "right", sorttype: "float" },
-                { name: 'tax', index: 'tax', width: 80, align: "right", sorttype: "float" },
-                { name: 'total', index: 'total', width: 80, align: "right", sorttype: "float" },
-                { name: 'note', index: 'note', width: 150, sortable: false }
+                { name: 'name', classes: 'formValue', index: 'name', width: 100, editable: true },
+                { name: 'note', classes: 'formValue', index: 'note', sortable: false },
+                { name: 'amount', classes: 'formValue', index: 'amount', width: 80, align: "right", sorttype: "float" },
+                { name: 'tax', classes: 'formValue', index: 'tax', width: 80, align: "right", sorttype: "float" },
+                { name: 'total', classes: 'formValue', index: 'total', width: 80, align: "right", sorttype: "float" },
+                
             ],
+            afterSaveCell: function (rowid, cellname, value, iRow, iCol) {
+                console.log(rowid, cellname, value, iRow, iCol);
+                //if (cellname == 'cityname') { //为联动的select列编辑，更新cityid，传入的value桉树为option的value，不是text
+                $gridList.jqGrid('setRowData', rowid, { note: value });
+                //}
+            },
         });
 
     }

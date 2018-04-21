@@ -462,7 +462,7 @@ $.fn.dataGrid = function (options) {
             $elementHtml = $elementHtml + $(this).html($elementIcon).prop("outerHTML")
         });
 
-        options.colModel.splice(0, 0, {
+        options.colModel.push({
             label: '', width: 80, name: '', align: 'center',
             formatter: function (cellvalue, options, rowObject) {
                 var $tempElementHtml = $elementHtml.replace(/\(\)/gi, '(\'' + rowObject.F_Id + '\')').replace(/id/gi, 'name');
