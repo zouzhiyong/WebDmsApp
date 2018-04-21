@@ -28,6 +28,13 @@ namespace NFine.Web
         {
             return View();
         }
+
+        [HttpGet]
+        [HandlerAuthorize]
+        public virtual ActionResult Edit()
+        {
+            return View();
+        }
         protected virtual ActionResult Success(string message)
         {
             return Content(new AjaxResult { state = ResultType.success.ToString(), message = message }.ToJson());

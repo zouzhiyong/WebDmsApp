@@ -139,6 +139,8 @@
     <Compile Include="Areas\BaseManage\Controllers\RegionController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\CustomerController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\MaterialUomController.cs" />
+    <Compile Include="Areas\PurManage\PurManageAreaRegistration.cs" />
+    <Compile Include="Areas\PurManage\Controllers\PurchaseController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\CompanyController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\TruckController.cs" />
     <Compile Include="Areas\BaseManage\Controllers\UnitOfMeasureController.cs" />
@@ -681,7 +683,12 @@
     <Content Include="Areas\BaseManage\Views\MaterialGroup\Details.cshtml" />
     <Content Include="Areas\BaseManage\Views\MaterialGroup\Form.cshtml" />
     <Content Include="Areas\BaseManage\Views\MaterialGroup\Index.cshtml" />
+    <Content Include="Areas\PurManage\Views\Purchase\Edit.cshtml" />
+    <Content Include="Areas\PurManage\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\NFine.Framework.Release.pubxml" />
+    <Content Include="Views\Shared\_Order.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
