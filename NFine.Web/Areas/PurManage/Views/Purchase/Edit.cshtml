@@ -3,31 +3,53 @@
     Layout = "~/Views/Shared/_Order.cshtml";
 }
 <style>
-    .ui-jqgrid .table-bordered td { height: 34px; }
+    /**明细部分*/
+    table.table .editable-inline .select2-selection--single { border: none; }
+    .bootstrap-table .table-no-bordered { border-color: #ddd; border-radius: 0; }
+    .bootstrap-table .table.table-no-bordered > thead > tr > th { border: none; background-color: #eeeeee; }
+    .bootstrap-table .table.table-no-bordered > tbody > tr > td { border-right: 1px solid #dddddd; }
+    table.table .editable-inline { width: 100%; }
+        table.table .editable-inline .form-inline.editableform .form-group { width: 100% !important; }
+    table.table .editable-input { width: 100%; position: relative; }
+    table.table tbody tr td { padding: 0 !important; }
+    table.table input.edit-input { padding: 3px; width: 100% !important; border-radius: 0; box-shadow: none; height: 32px; }
+    table.table tbody tr td a.editable.editable-click { padding: 6px; color: #000000; min-height: 32px; word-break: break-all; display: block; }
+    table.table a.form-control.edit-input:focus { border: none !important; }
+    table.table tbody tr td > span.editable-inline { padding: 0; }
+    table.table .form-group select.form-control { width: 98%; }
+    table.table tbody tr td > div:not(.fht-cell) { padding: 6px; min-height: 32px; }
+    table.table .editable-click, .dms .table a.editable-click, .dms .table a.editable-click:hover { text-decoration: none; border-bottom: none; }
+    table.table .editable-unsaved { font-weight: normal; }
+    table.table input.edit-input::-webkit-outer-spin-button,
+    table.table input.edit-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+    table.table input.edit-input[type="number"] { -moz-appearance: textfield; }
+    .bootstrap-table .table.table-no-bordered > thead > tr > th, .dms .bootstrap-table .table.table-no-bordered > tbody > tr > td { border-right: 0 solid transparent; }
 </style>
 <script>
-    var $gridList = null;
+    var $table = null;
+    //明细初始化数据
+    var mydata = [{ F_id: '12345', Code: "SP000001", Name: "百威330ML", IsGift: 1, UomID: "1", MaterUnitType: [], UnitAmount: 10, BillQty: 11, OperQty: 12, BalanceQty: 12, WarehouseID: 2, Amount: 20, Remark: '' }];
 
     $(function () {
         initControl();
-        var mydata = [
-                 { invdate: "2007-10-01", name: "test", note: "", amount: "200.00", tax: "10.00", total: "210.00" },
-                 { invdate: "2007-10-02", name: "test2", note: "", amount: "300.00", tax: "20.00", total: "320.00" },
-                 { invdate: "2007-09-01", name: "test3", note: "", amount: "400.00", tax: "30.00", total: "430.00" },
-        ];
 
         gridList();
-
-        $gridList.jqGrid().clearGridData();
-        $gridList.jqGrid('setGridParam', { 
-            data: mydata,
-        }).trigger("reloadGrid");
-        
-        //for (var i = 0; i <= mydata.length; i++) {
-        //    $gridList.jqGrid('addRowData', i + 1, mydata[i]);
-        //}
     })
     function initControl() {
+        //表格全局
+        //editable全局配置
+        $.fn.editable.defaults.mode = 'inline';
+        $.fn.editable.defaults.showbuttons = false;
+        $.fn.editable.defaults.onblur = "submit";
+        $.fn.editable.defaults.inputclass = 'edit-input';
+        $.fn.editable.defaults.emptytext = '';
+        $.fn.editable.defaults.clear = false;
+        $.fn.editable.defaults.highlight = false;
+        $.fn.editableform.loading = "";
+        //select2全局配置
+        $.fn.select2.defaults.set("language", "zh-CN");
+        $.fn.select2.defaults.set("minimumResultsForSearch", -1);
+
         $("#F_SupplierID").bindSelect();
         $("#F_PurchaserID").bindSelect();
         $("#F_BillType").bindSelect();
@@ -41,36 +63,254 @@
         $('#F_BillDate').bindDate();
         $('#F_PostDate').bindDate();
     }
+
+    //自适应高
+    function tableHeight() {
+        $(".fixed-table-container").height($(window).height() - $(".fixed-table-container").offset().top - 190);
+    }
     function gridList() {
-        $gridList = $("#gridList");
-        $gridList.dataGrid({
-            datatype: "local",
-            height: $(window).height() - 128,            
-            cellEdit: true,
-            isTools: false,
-            cellsubmit: 'clientArray',
-            colModel: [               
+        $table = $("#gridList");
+        $table.bootstrapTable({
+            idField: "OrderLineID",
+            data: JSON.parse(JSON.stringify(mydata)),
+            pagination: false,
+            height: 500,
+            editable: true,//开启编辑模式
+            classes: "table table-no-bordered",
+            sidePagination: 'client',//必须指定客户端模式，否则load无法加载数据
+            showFooter: true,
+            columns: [
                 {
-                    name: 'invdate', classes: 'formValue', index: 'invdate', width: 90, sorttype: "date", editable: true, edittype: 'select', editoptions: {
-                        value: "一:一年级;二:二年级;三:三年级;四:四年级;五:五年级;六:六年级", dataInit: function (element) {
-                            $(element).bindSelect();
-                        }
+                    //根据页数和行号算出序号
+                    field: 'OrderLineID',
+                    title: '序号',
+                    width: 30,
+                    halign: 'center',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (value, row, index) {
+                        row.OrderLineID = index + 1;
+                        return index + 1;
                     }
                 },
-                { name: 'name', classes: 'formValue', index: 'name', width: 100, editable: true },
-                { name: 'note', classes: 'formValue', index: 'note', sortable: false },
-                { name: 'amount', classes: 'formValue', index: 'amount', width: 80, align: "right", sorttype: "float" },
-                { name: 'tax', classes: 'formValue', index: 'tax', width: 80, align: "right", sorttype: "float" },
-                { name: 'total', classes: 'formValue', index: 'total', width: 80, align: "right", sorttype: "float" },
-                
-            ],
-            afterSaveCell: function (rowid, cellname, value, iRow, iCol) {
-                console.log(rowid, cellname, value, iRow, iCol);
-                //if (cellname == 'cityname') { //为联动的select列编辑，更新cityid，传入的value桉树为option的value，不是text
-                $gridList.jqGrid('setRowData', rowid, { note: value });
+            {
+                field: 'Code',
+                title: '商品编号',
+                width: 300,
+                halign: 'center',
+                align: 'left',
+                valign: 'middle',
+                editable: {
+                    type: 'text',
+                },
+                footerFormatter: function (data) {
+                    var arr = data.filter(function (row) {
+                        return row["MaterID"] && row["MaterID"] != null && row["MaterID"] != ""
+                    })
+
+                    return "合计 " + arr.length + " 种商品";
+                }
+            }, {
+                field: 'Name',
+                title: '商品名称',
+                width: 300,
+                halign: 'center',
+                align: 'left',
+                valign: 'middle',
+                formatter: function (value, row, index) {
+                    return '<div>' + value + '</div>';
+                },
+            }, {
+                field: 'UomID',
+                title: '单位',
+                width: 60,
+                halign: 'center',
+                align: 'center',
+                valign: 'middle',
+                editable: {
+                    type: 'select2',
+                    select2: { width: 58, minimumResultsForSearch: -1 },
+                    source: function () {
+                        var list = $table.bootstrapTable('getData')[$(this).data('index')];
+                        if (!!list && !!list.MaterUnitType) {
+                            return list.MaterUnitType;
+                        }
+
+                    }
+                }
+            }, {
+                field: 'IsGift',
+                title: '是否赠品',
+                width: 60,
+                halign: 'center',
+                align: 'center',
+                valign: 'middle',
+                editable: {
+                    type: 'select2',
+                    select2: { width: 98, minimumResultsForSearch: -1 },
+                    source: function () {
+                        return [{ id: 1, text: "是" }, { id: 0, text: "否" }]
+                    },
+                }
+            }, {
+                field: 'UnitAmount',
+                title: '单价(¥)',
+                width: 80,
+                halign: 'center',
+                valign: 'middle',
+                align: 'right',
+                editable: {
+                    type: 'text',
+                    //display: function (value) {
+                    //    var list = $table.bootstrapTable('getData')[$(this).data('index')];
+                    //    if (list.MaterID && list.MaterID != null) {
+                    //        var v = (value == "" || value == null) ? 0 : value;
+                    //        $(this).text(toMicrometer(parseFloat(v).toFixed(2)));
+                    //    }
+                    //}
+                }
+            }, {
+                field: 'BillQty',
+                title: '订单数量',
+                width: 80,
+                halign: 'center',
+                align: 'right',
+                valign: 'middle',
+                editable: {
+                    type: 'text',
+                    //display: function (value) {
+                    //    var list = $table.bootstrapTable('getData')[$(this).data('index')];
+                    //    if (list.MaterID && list.MaterID != null) {
+                    //        var v = (value == "" || value == null) ? 0 : value;
+                    //        $(this).text(toMicrometer(parseFloat(v).toFixed(2)));
+                    //    }
+                    //},
+                },
+                //footerFormatter: $this.sumFormatter
+            }, {
+                field: 'OperQty',
+                title: '实际数量',
+                width: 80,
+                halign: 'center',
+                align: 'right',
+                valign: 'middle',
+                editable: {
+                    type: 'text',
+                    //display: function (value) {
+                    //    var list = $table.bootstrapTable('getData')[$(this).data('index')];
+                    //    if (list.MaterID && list.MaterID != null) {
+                    //        var v = (value == "" || value == null) ? 0 : value;
+                    //        $(this).text(toMicrometer(parseFloat(v).toFixed(2)));
+                    //    }
+                    //},
+                },
+                //footerFormatter: $this.sumFormatter
+            }, {
+                field: 'BalanceQty',
+                title: '剩余数量',
+                width: 80,
+                halign: 'center',
+                align: 'right',
+                valign: 'middle',
+                //formatter: function (value, row, index) {
+                //    if (row.MaterID && row.MaterID != null) {
+                //        var v = (value == "" || value == null) ? 0 : value;
+                //        return '<div>' + toMicrometer(parseFloat(v).toFixed(2)) + '</div>';
+                //    } else {
+                //        return ''
+                //    }
                 //}
             },
+            {
+                field: 'Discount',
+                title: '优惠金额(¥)',
+                width: 60,
+                halign: 'center',
+                align: 'right',
+                valign: 'middle',
+                editable: {
+                    type: 'text',
+                    display: function (value) {
+                        var list = $table.bootstrapTable('getData')[$(this).data('index')];
+                        if (list.MaterID && list.MaterID != null) {
+                            var v = (value == "" || value == null) ? 0 : value;
+                            $(this).text(toMicrometer(parseFloat(v).toFixed(2)));
+                        }
+                    }
+                }
+            }, {
+                field: 'Amount',
+                title: '金额(¥)',
+                width: 60,
+                halign: 'center',
+                align: 'right',
+                valign: 'middle',
+                //formatter: function (value, row, index) {
+                //    if (row.MaterID && row.MaterID != null) {
+                //        var v = (value == "" || value == null) ? 0 : value;
+                //        return '<div>' + toMicrometer(parseFloat(v).toFixed(2)) + '</div>';
+                //    } else {
+                //        return ''
+                //    }
+                //},
+                //footerFormatter: $this.sumFormatter
+            }, {
+                field: 'WarehouseID',
+                title: '仓库',
+                width: 100,
+                halign: 'center',
+                align: 'center',
+                valign: 'middle',
+                editable: {
+                    type: 'select2',
+                    select2: { width: 98 },
+                    source: function () {
+                        return [{ id: 11, text: "仓库1" }, { id: 12, text: "仓库2" }]
+                    },
+                }
+            }, {
+                field: 'Remark',
+                title: '备注',
+                halign: 'center',
+                align: 'left',
+                valign: 'middle',
+                editable: {
+                    type: 'text',
+                }
+            }, {
+                field: 'operate',
+                title: '操作',
+                width: 60,
+                switchable: true,
+                align: 'center',
+                halign: 'center',
+                valign: 'middle',
+                //formatter: function (value, row, index) {
+                //    if (row.MaterID && row.MaterID != null && row.MaterID != "" && ($("#Status").val() == 0 || $("#Status").val() == 1)) {
+                //        return '<div style="width:80px;height:20px;margin:0 auto;text-align:center;"><a data-style="slide-left" class="btn widget-btn-icon btn-xs ladda-button delete" style="float:none"><i class="iconfont icon-delete"></i></a></div>';
+                //    }
+                //},
+                events: {
+                    'click .delete': function (e, value, row, index) {
+                        $table.bootstrapTable('remove', {
+                            field: 'OrderLineID',
+                            values: [row.OrderLineID]
+                        });
+                        $this.tableHeight();//重新调整高度，防止变形
+                    }
+                }
+            }
+            ],
+            onEditableSave: function (field, row, oldValue, $el) {
+
+            },
+            onEditableShown: function (field, row, $el, editable) {
+
+            },
+            onEditableHidden: function (field, row, $el, editable) {
+            }
         });
+
 
     }
 
@@ -79,23 +319,23 @@
 <form id="form1" class="form">
     <div class="row">
         <div class="col-xs-12">
-            <div class="formValue pull-left" style="width:230px;">
+            <div class="formValue pull-left" style="width:231px;">
                 <div class="row">
-                    <label class="col-xs-4" for="F_SupplierID" style="line-height:30px;text-align:right">供 应 商</label>
+                    <label class="col-xs-4" for="F_SupplierID" style="line-height:30px;text-align:right">供应商</label>
                     <div class="col-xs-8">
                         <select id="F_SupplierID" name="F_SupplierID" class="form-control required"></select>
                     </div>
                 </div>
             </div>
-            <div class="formValue pull-left" style="width:230px;">
+            <div class="formValue pull-left" style="width:231px;">
                 <div class="row">
-                    <label class="col-xs-4" for="F_PurchaserID"  style="line-height:30px;text-align:right">采 购 员</label>
+                    <label class="col-xs-4" for="F_PurchaserID" style="line-height:30px;text-align:right">采购员</label>
                     <div class="col-xs-8">
                         <select id="F_PurchaserID" name="F_PurchaserID" class="form-control required"></select>
                     </div>
                 </div>
             </div>
-            <div class="formValue pull-left" style="width:230px;">
+            <div class="formValue pull-left" style="width:231px;">
                 <div class="row">
                     <label class="col-xs-4" for="F_BillType" style="line-height:30px;text-align:right">订单类型</label>
                     <div class="col-xs-8">
@@ -103,7 +343,7 @@
                     </div>
                 </div>
             </div>
-            <div class="formValue pull-left" style="width:230px;">
+            <div class="formValue pull-left" style="width:231px;">
                 <div class="row">
                     <label class="col-xs-4" for="F_BillDate" style="line-height:30px;text-align:right">订单日期</label>
                     <div class="col-xs-8">
@@ -111,7 +351,7 @@
                     </div>
                 </div>
             </div>
-            <div class="formValue pull-left" style="width:230px;">
+            <div class="formValue pull-left" style="width:231px;">
                 <div class="row">
                     <label class="col-xs-4" for="F_PostDate" style="line-height:30px;text-align:right">过账日期</label>
                     <div class="col-xs-8">
@@ -119,23 +359,23 @@
                     </div>
                 </div>
             </div>
-            <div class="formValue pull-left" style="width:230px;">
+            <div class="formValue pull-left" style="width:231px;">
                 <div class="row">
-                    <label class="col-xs-4" for="F_TruckID" style="line-height:30px;text-align:right">车　　辆</label>
+                    <label class="col-xs-4" for="F_TruckID" style="line-height:30px;text-align:right">车辆</label>
                     <div class="col-xs-8">
                         <select id="F_TruckID" name="F_TruckID" class="form-control required"></select>
                     </div>
                 </div>
             </div>
-            <div class="formValue pull-left" style="width:230px;">
+            <div class="formValue pull-left" style="width:231px;">
                 <div class="row">
-                    <label class="col-xs-4" for="F_DriverID" style="line-height:30px;text-align:right">司　　机</label>
+                    <label class="col-xs-4" for="F_DriverID" style="line-height:30px;text-align:right">司机</label>
                     <div class="col-xs-8">
                         <select id="F_DriverID" name="F_DriverID" class="form-control required"></select>
                     </div>
                 </div>
             </div>
-            <div class="formValue pull-left" style="width:230px;">
+            <div class="formValue pull-left" style="width:231px;">
                 <div class="row">
                     <label class="col-xs-4" for="F_IsStockFinished" style="line-height:30px;text-align:right">是否发货</label>
                     <div class="col-xs-8">
@@ -143,96 +383,64 @@
                     </div>
                 </div>
             </div>
-            <div class="formValue pull-left" style="width:230px;">
+            <div class="formValue pull-left" style="width:231px;">
                 <div class="row">
-                    <label class="col-xs-4" for="F_Status" style="line-height:30px;text-align:right">状　　态</label>
+                    <label class="col-xs-4" for="F_Status" style="line-height:30px;text-align:right">状态</label>
                     <div class="col-xs-8">
                         <select id="F_Status" name="F_Status" class="form-control required"></select>
                     </div>
                 </div>
             </div>
-            <div class="formValue pull-left" style="width:230px;">
+            <div class="formValue pull-left" style="width:231px;">
                 <div class="row">
-                    <label class="col-xs-4" for="F_CreateUserID" style="line-height:30px;text-align:right">制 单 人</label>
+                    <label class="col-xs-4" for="F_CreateUserID" style="line-height:30px;text-align:right">制单人</label>
                     <div class="col-xs-8">
                         <select id="F_CreateUserID" name="F_CreateUserID" class="form-control required"></select>
                     </div>
                 </div>
             </div>
-            <div class="formValue pull-left" style="width:230px;">
+            <div class="formValue pull-left" style="width:231px;">
                 <div class="row">
-                    <label class="col-xs-4" for="F_UpdateUserID" style="line-height:30px;text-align:right">修 改 人</label>
+                    <label class="col-xs-4" for="F_UpdateUserID" style="line-height:30px;text-align:right">修改人</label>
                     <div class="col-xs-8">
                         <select id="F_UpdateUserID" name="F_UpdateUserID" class="form-control required"></select>
                     </div>
                 </div>
             </div>
-            <div class="formValue pull-left" style="width:230px;">
+            <div class="formValue pull-left" style="width:231px;">
                 <div class="row">
-                    <label class="col-xs-4" for="F_ConfirmUserID" style="line-height:30px;text-align:right">审 批 人</label>
+                    <label class="col-xs-4" for="F_ConfirmUserID" style="line-height:30px;text-align:right">审批人</label>
                     <div class="col-xs-8">
                         <select id="F_ConfirmUserID" name="F_ConfirmUserID" class="form-control required"></select>
                     </div>
                 </div>
             </div>
+            <div class="formValue pull-left" style="width:462px;">
+                <div class="row">
+                    <label class="col-xs-2" for="F_Remark" style="line-height:30px;text-align:right">备注</label>
+                    <div class="col-xs-10">
+                        <input id="F_Remark" name="F_Remark" type="text" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="formValue pull-left" style="width:231px;">
+                <div class="row">
+                    <label class="col-xs-4" for="F_Code" style="line-height:30px;text-align:right">单据号</label>
+                    <div class="col-xs-8">
+                        <input id="F_Code" name="F_Code" type="text" class="form-control" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    @*<table class="form">
-            <tr>
-                <th class="formTitle">供 应 商</th>
-                <td class="formValue">
-                    <select id="F_SupplierID" name="F_SupplierID" class="form-control required"></select>
-                </td>
-                <th class="formTitle">采 购 员</th>
-                <td class="formValue">
-                    <select id="F_PurchaserID" name="F_PurchaserID" class="form-control required"></select>
-                </td>
-                <th class="formTitle">订单类型</th>
-                <td class="formValue">
-                    <select id="F_BillType" name="F_BillType" class="form-control required"></select>
-                </td>
-                <th class="formTitle">订单日期</th>
-                <td class="formValue">
-                    <input id="F_BillDate" name="F_BillDate" type="text" class="form-control" />
-                </td>
-                <th class="formTitle">过账日期</th>
-                <td class="formValue">
-                    <input id="F_PostDate" name="F_PostDate" type="text" class="form-control" />
-                </td>
-                <th class="formTitle">车　　辆</th>
-                <td class="formValue">
-                    <select id="F_TruckID" name="F_TruckID" class="form-control required"></select>
-                </td>
-                <th class="formTitle">司　　机</th>
-                <td class="formValue">
-                    <select id="F_DriverID" name="F_DriverID" class="form-control required"></select>
-                </td>
-            </tr>
-            <tr>
-                <th class="formTitle">是否发货</th>
-                <td class="formValue">
-                    <select id="F_IsStockFinished" name="F_IsStockFinished" class="form-control required"></select>
-                </td>
-                <th class="formTitle">状　　态</th>
-                <td class="formValue">
-                    <select id="F_Status" name="F_Status" class="form-control required"></select>
-                </td>
-                <th class="formTitle">制 单 人</th>
-                <td class="formValue">
-                    <input id="F_CreateUserID" name="F_CreateUserID" type="text" class="form-control" />
-                </td>
-                <th class="formTitle">修 改 人</th>
-                <td class="formValue">
-                    <input id="F_UpdateUserID" name="F_UpdateUserID" type="text" class="form-control" />
-                </td>
-                <th class="formTitle">审 批 人</th>
-                <td class="formValue">
-                    <input id="F_ConfirmUserID" name="F_ConfirmUserID" type="text" class="form-control" />
-                </td>
-            </tr>
-        </table>*@
     <div class="gridPanel">
         <table id="gridList"></table>
+    </div>
+    <div class="text-center" style="padding:10px;">
+        <a id="NF-save" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_save()"><i class="fa fa-save"></i> 保存</a>
+        <a id="NF-audit" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_audit()"><i class="fa fa-save"></i> 审核</a>
+        <a id="NF-print" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_print()"><i class="fa fa-print"></i> 打印</a>
+        <a id="NF-printview" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_printview()"><i class="fa fa-eye"></i> 打印预览</a>
     </div>
 </form>
 
