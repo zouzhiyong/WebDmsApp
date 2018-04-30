@@ -84,7 +84,7 @@
                     $("#page2").formSerialize(data.data1);
                     $("#page3").formSerialize(obj);
                     $("#page4").formSerialize(data.data3);
-                    $('#image').attr("src", rootUrl + "/UploadImgPath/" + data.data3.F_CorpId + "/" + data.data3.F_Picture);
+                    $('#image').attr("src", rootUrl + "/UploadImgPath/" + data.data3.F_CorpId + "/" + data.data3.F_Picture + "?" + new Date());
                 }
             });
         } else {
@@ -474,7 +474,7 @@
                                 <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
                                     <input type="file" class="sr-only" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
                                     <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="上传">
-                                        <span class="fa fa-upload"></span>
+                                        <span class="fa fa-upload"> 上传</span>
                                     </span>
                                 </label>
                             </div>

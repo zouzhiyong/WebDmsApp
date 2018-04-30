@@ -4,7 +4,20 @@
 }
 <style>
     /**明细部分*/
-    table.table .editable-inline .select2-selection--single { border: none; }
+    [v-cloak] { display: none; }
+    .gridPanel { border: 1px solid #edebeb; }
+        .gridPanel .fixed-table-header table > thead > tr > th { border: none; background-color: #eeeeee; height: 40px; padding: 6px; text-align: center; }
+        .gridPanel .fixed-table-body { overflow-y: auto; }
+            .gridPanel .fixed-table-body table > tbody > tr > td { border-right: 1px solid #edebeb; border-bottom: 1px solid #edebeb; padding: 0; background-color: #fff; }
+                .gridPanel .fixed-table-body table > tbody > tr > td .select2-container--default .select2-selection--single { border-width: 0; }
+                .gridPanel .fixed-table-body table > tbody > tr > td:last-child { border-right-width: 0; }
+                .gridPanel .fixed-table-body table > tbody > tr > td > div { min-height: 32px; padding: 6px; }
+                .gridPanel .fixed-table-body table > tbody > tr > td input { padding: 3px; width: 100% !important; border-radius: 0; box-shadow: none; height: 32px; border-width: 0; }
+                    .gridPanel .fixed-table-body table > tbody > tr > td input:focus { border-width: 1px; }
+                    .gridPanel .fixed-table-body table > tbody > tr > td input::-webkit-outer-spin-button,
+                    .gridPanel .fixed-table-body table > tbody > tr > td input::-webkit-inner-spin-button { -webkit-appearance: none; }
+                    .gridPanel .fixed-table-body table > tbody > tr > td input[type="number"] { -moz-appearance: textfield; }
+    /*table.table .editable-inline .select2-selection--single { border: none; }
     .bootstrap-table .table-no-bordered { border-color: #ddd; border-radius: 0; }
     .bootstrap-table .table.table-no-bordered > thead > tr > th { border: none; background-color: #eeeeee; }
     .bootstrap-table .table.table-no-bordered > tbody > tr > td { border-right: 1px solid #dddddd; }
@@ -23,307 +36,447 @@
     table.table input.edit-input::-webkit-outer-spin-button,
     table.table input.edit-input::-webkit-inner-spin-button { -webkit-appearance: none; }
     table.table input.edit-input[type="number"] { -moz-appearance: textfield; }
-    .bootstrap-table .table.table-no-bordered > thead > tr > th, .dms .bootstrap-table .table.table-no-bordered > tbody > tr > td { border-right: 0 solid transparent; }
+    .bootstrap-table .table.table-no-bordered > thead > tr > th, .dms .bootstrap-table .table.table-no-bordered > tbody > tr > td { border-right: 0 solid transparent; }*/
 </style>
 <script>
     var $table = null;
     //明细初始化数据
-    var mydata = [{ F_id: '12345', Code: "SP000001", Name: "百威330ML", IsGift: 1, UomID: "1", MaterUnitType: [], UnitAmount: 10, BillQty: 11, OperQty: 12, BalanceQty: 12, WarehouseID: 2, Amount: 20, Remark: '' }];
+    var iniData = {
+        OrderLineID: null,
+        Code: null,
+        Name: null,
+        IsGift: null,
+        UomID: null,
+        MaterUnitType: [],
+        UnitAmount: null,
+        BillQty: null,
+        OperQty: null,
+        BalanceQty: null,
+        WarehouseID: null,
+        Amount: null,
+        Remark: null
+    };
 
     $(function () {
         initControl();
 
-        gridList();
+        //gridList();
     })
     function initControl() {
-        //表格全局
-        //editable全局配置
-        $.fn.editable.defaults.mode = 'inline';
-        $.fn.editable.defaults.showbuttons = false;
-        $.fn.editable.defaults.onblur = "submit";
-        $.fn.editable.defaults.inputclass = 'edit-input';
-        $.fn.editable.defaults.emptytext = '';
-        $.fn.editable.defaults.clear = false;
-        $.fn.editable.defaults.highlight = false;
-        $.fn.editableform.loading = "";
-        //select2全局配置
-        $.fn.select2.defaults.set("language", "zh-CN");
-        $.fn.select2.defaults.set("minimumResultsForSearch", -1);
+        ////表格全局
+        ////editable全局配置
+        //$.fn.editable.defaults.mode = 'inline';
+        //$.fn.editable.defaults.showbuttons = false;
+        //$.fn.editable.defaults.onblur = "submit";
+        //$.fn.editable.defaults.inputclass = 'edit-input';
+        //$.fn.editable.defaults.emptytext = '';
+        //$.fn.editable.defaults.clear = false;
+        //$.fn.editable.defaults.highlight = false;
+        //$.fn.editableform.loading = "";
+        ////select2全局配置
+        //$.fn.select2.defaults.set("language", "zh-CN");
+        //$.fn.select2.defaults.set("minimumResultsForSearch", -1);
 
-        $("#F_SupplierID").bindSelect();
-        $("#F_PurchaserID").bindSelect();
-        $("#F_BillType").bindSelect();
-        $("#F_TruckID").bindSelect();
-        $("#F_DriverID").bindSelect();
-        $("#F_IsStockFinished").bindSelect();
-        $("#F_Status").bindSelect();
-        $("#F_CreateUserID").bindSelect();
-        $("#F_UpdateUserID").bindSelect();
-        $("#F_ConfirmUserID").bindSelect();
-        $('#F_BillDate').bindDate();
-        $('#F_PostDate').bindDate();
-    }
-
-    //自适应高
-    function tableHeight() {
-        $(".fixed-table-container").height($(window).height() - $(".fixed-table-container").offset().top - 190);
-    }
-    function gridList() {
-        $table = $("#gridList");
-        $table.bootstrapTable({
-            idField: "OrderLineID",
-            data: JSON.parse(JSON.stringify(mydata)),
-            pagination: false,
-            height: 500,
-            editable: true,//开启编辑模式
-            classes: "table table-no-bordered",
-            sidePagination: 'client',//必须指定客户端模式，否则load无法加载数据
-            showFooter: true,
-            columns: [
-                {
-                    //根据页数和行号算出序号
-                    field: 'OrderLineID',
-                    title: '序号',
-                    width: 30,
-                    halign: 'center',
-                    align: 'center',
-                    valign: 'middle',
-                    formatter: function (value, row, index) {
-                        row.OrderLineID = index + 1;
-                        return index + 1;
-                    }
-                },
+        var columns = [
             {
+                field: 'OrderLineID',
+                title: '序号',
+                width: 40,
+                align: 'center',
+                type: 'index'
+            }, {
                 field: 'Code',
                 title: '商品编号',
-                width: 300,
-                halign: 'center',
+                width: 120,
                 align: 'left',
-                valign: 'middle',
-                editable: {
-                    type: 'text',
-                },
-                footerFormatter: function (data) {
-                    var arr = data.filter(function (row) {
-                        return row["MaterID"] && row["MaterID"] != null && row["MaterID"] != ""
-                    })
+                type: 'autocomplete',
+                options: {
+                    source: [
+      {
+          value: "jquery",
+          label: "jQuery",
 
-                    return "合计 " + arr.length + " 种商品";
+      },
+      {
+          value: "jquery-ui",
+          label: "jQuery UI",
+      },
+      {
+          value: "sizzlejs",
+          label: "Sizzle JS",
+      }
+                    ]
                 }
             }, {
                 field: 'Name',
                 title: '商品名称',
-                width: 300,
-                halign: 'center',
+                width: 260,
                 align: 'left',
-                valign: 'middle',
-                formatter: function (value, row, index) {
-                    return '<div>' + value + '</div>';
-                },
             }, {
                 field: 'UomID',
                 title: '单位',
                 width: 60,
-                halign: 'center',
                 align: 'center',
-                valign: 'middle',
-                editable: {
-                    type: 'select2',
-                    select2: { width: 58, minimumResultsForSearch: -1 },
-                    source: function () {
-                        var list = $table.bootstrapTable('getData')[$(this).data('index')];
-                        if (!!list && !!list.MaterUnitType) {
-                            return list.MaterUnitType;
-                        }
-
-                    }
-                }
+                type: 'select'
             }, {
                 field: 'IsGift',
                 title: '是否赠品',
-                width: 60,
-                halign: 'center',
+                width: 80,
                 align: 'center',
-                valign: 'middle',
-                editable: {
-                    type: 'select2',
-                    select2: { width: 98, minimumResultsForSearch: -1 },
-                    source: function () {
-                        return [{ id: 1, text: "是" }, { id: 0, text: "否" }]
-                    },
-                }
+                type: 'select'
             }, {
                 field: 'UnitAmount',
                 title: '单价(¥)',
                 width: 80,
-                halign: 'center',
-                valign: 'middle',
-                align: 'right',
-                editable: {
-                    type: 'text',
-                    //display: function (value) {
-                    //    var list = $table.bootstrapTable('getData')[$(this).data('index')];
-                    //    if (list.MaterID && list.MaterID != null) {
-                    //        var v = (value == "" || value == null) ? 0 : value;
-                    //        $(this).text(toMicrometer(parseFloat(v).toFixed(2)));
-                    //    }
-                    //}
-                }
+                type: 'input'
             }, {
                 field: 'BillQty',
                 title: '订单数量',
                 width: 80,
-                halign: 'center',
                 align: 'right',
-                valign: 'middle',
-                editable: {
-                    type: 'text',
-                    //display: function (value) {
-                    //    var list = $table.bootstrapTable('getData')[$(this).data('index')];
-                    //    if (list.MaterID && list.MaterID != null) {
-                    //        var v = (value == "" || value == null) ? 0 : value;
-                    //        $(this).text(toMicrometer(parseFloat(v).toFixed(2)));
-                    //    }
-                    //},
-                },
-                //footerFormatter: $this.sumFormatter
+                type: 'number'
             }, {
                 field: 'OperQty',
                 title: '实际数量',
                 width: 80,
-                halign: 'center',
                 align: 'right',
-                valign: 'middle',
-                editable: {
-                    type: 'text',
-                    //display: function (value) {
-                    //    var list = $table.bootstrapTable('getData')[$(this).data('index')];
-                    //    if (list.MaterID && list.MaterID != null) {
-                    //        var v = (value == "" || value == null) ? 0 : value;
-                    //        $(this).text(toMicrometer(parseFloat(v).toFixed(2)));
-                    //    }
-                    //},
-                },
-                //footerFormatter: $this.sumFormatter
+                type: 'number'
             }, {
                 field: 'BalanceQty',
                 title: '剩余数量',
                 width: 80,
-                halign: 'center',
                 align: 'right',
-                valign: 'middle',
-                //formatter: function (value, row, index) {
-                //    if (row.MaterID && row.MaterID != null) {
-                //        var v = (value == "" || value == null) ? 0 : value;
-                //        return '<div>' + toMicrometer(parseFloat(v).toFixed(2)) + '</div>';
-                //    } else {
-                //        return ''
-                //    }
-                //}
-            },
-            {
+                type: 'number'
+            }, {
                 field: 'Discount',
                 title: '优惠金额(¥)',
-                width: 60,
-                halign: 'center',
+                width: 80,
                 align: 'right',
-                valign: 'middle',
-                editable: {
-                    type: 'text',
-                    display: function (value) {
-                        var list = $table.bootstrapTable('getData')[$(this).data('index')];
-                        if (list.MaterID && list.MaterID != null) {
-                            var v = (value == "" || value == null) ? 0 : value;
-                            $(this).text(toMicrometer(parseFloat(v).toFixed(2)));
-                        }
-                    }
-                }
+                type: 'number'
             }, {
                 field: 'Amount',
                 title: '金额(¥)',
                 width: 60,
-                halign: 'center',
                 align: 'right',
-                valign: 'middle',
-                //formatter: function (value, row, index) {
-                //    if (row.MaterID && row.MaterID != null) {
-                //        var v = (value == "" || value == null) ? 0 : value;
-                //        return '<div>' + toMicrometer(parseFloat(v).toFixed(2)) + '</div>';
-                //    } else {
-                //        return ''
-                //    }
-                //},
-                //footerFormatter: $this.sumFormatter
+                type: 'number'
             }, {
                 field: 'WarehouseID',
                 title: '仓库',
                 width: 100,
-                halign: 'center',
                 align: 'center',
-                valign: 'middle',
-                editable: {
-                    type: 'select2',
-                    select2: { width: 98 },
-                    source: function () {
-                        return [{ id: 11, text: "仓库1" }, { id: 12, text: "仓库2" }]
-                    },
-                }
+                type: 'select'
             }, {
                 field: 'Remark',
                 title: '备注',
-                halign: 'center',
                 align: 'left',
-                valign: 'middle',
-                editable: {
-                    type: 'text',
-                }
+                type: 'text'
             }, {
                 field: 'operate',
                 title: '操作',
                 width: 60,
-                switchable: true,
                 align: 'center',
-                halign: 'center',
-                valign: 'middle',
-                //formatter: function (value, row, index) {
-                //    if (row.MaterID && row.MaterID != null && row.MaterID != "" && ($("#Status").val() == 0 || $("#Status").val() == 1)) {
-                //        return '<div style="width:80px;height:20px;margin:0 auto;text-align:center;"><a data-style="slide-left" class="btn widget-btn-icon btn-xs ladda-button delete" style="float:none"><i class="iconfont icon-delete"></i></a></div>';
-                //    }
-                //},
-                events: {
-                    'click .delete': function (e, value, row, index) {
-                        $table.bootstrapTable('remove', {
-                            field: 'OrderLineID',
-                            values: [row.OrderLineID]
-                        });
-                        $this.tableHeight();//重新调整高度，防止变形
-                    }
+                type: 'opration'
+            }
+        ];
+
+        var vueData = { columns: columns, rows: [], key: 'Code' };
+        vueData.rows.push(JSON.parse(JSON.stringify(iniData)));
+
+
+
+        var modelVue = new Vue({
+            el: '#form1',
+            data: vueData,
+            computed: {
+
+            },
+            mounted: function () {
+                var _self = this;
+                tableHeight();
+                var rowCount = Math.round($(".fixed-table-body").height() / 32);
+                for (var i = 0; i < rowCount; i++) {
+                    _self.rows.push(JSON.parse(JSON.stringify(iniData)));
                 }
             }
-            ],
-            onEditableSave: function (field, row, oldValue, $el) {
+        })
 
-            },
-            onEditableShown: function (field, row, $el, editable) {
-
-            },
-            onEditableHidden: function (field, row, $el, editable) {
-            }
-        });
-
-
+        //$("#F_SupplierID").bindSelect();
+        //$("#F_PurchaserID").bindSelect();
+        //$("#F_BillType").bindSelect();
+        //$("#F_TruckID").bindSelect();
+        //$("#F_DriverID").bindSelect();
+        //$("#F_IsStockFinished").bindSelect();
+        //$("#F_Status").bindSelect();
+        //$("#F_CreateUserID").bindSelect();
+        //$("#F_UpdateUserID").bindSelect();
+        //$("#F_ConfirmUserID").bindSelect();
+        //$('#F_BillDate').bindDate();
+        //$('#F_PostDate').bindDate();
     }
+
+    //自适应高
+    function tableHeight() {
+        $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 90);
+        $(window).resize(function () {
+            $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 90);
+        });
+    }
+    //function gridList() {
+    //    $table = $("#gridList");
+    //    $table.bootstrapTable({
+    //        idField: "OrderLineID",
+    //        data: JSON.parse(JSON.stringify(mydata)),
+    //        pagination: false,
+    //        height: 500,
+    //        editable: true,//开启编辑模式
+    //        classes: "table table-no-bordered",
+    //        sidePagination: 'client',//必须指定客户端模式，否则load无法加载数据
+    //        showFooter: true,
+    //        columns: [
+    //            {
+    //                //根据页数和行号算出序号
+    //                field: 'OrderLineID',
+    //                title: '序号',
+    //                width: 30,
+    //                halign: 'center',
+    //                align: 'center',
+    //                valign: 'middle',
+    //                formatter: function (value, row, index) {
+    //                    row.OrderLineID = index + 1;
+    //                    return index + 1;
+    //                }
+    //            },
+    //        {
+    //            field: 'Code',
+    //            title: '商品编号',
+    //            width: 300,
+    //            halign: 'center',
+    //            align: 'left',
+    //            valign: 'middle',
+    //            editable: {
+    //                type: 'text',
+    //            },
+    //            footerFormatter: function (data) {
+    //                var arr = data.filter(function (row) {
+    //                    return row["MaterID"] && row["MaterID"] != null && row["MaterID"] != ""
+    //                })
+
+    //                return "合计 " + arr.length + " 种商品";
+    //            }
+    //        }, {
+    //            field: 'Name',
+    //            title: '商品名称',
+    //            width: 300,
+    //            halign: 'center',
+    //            align: 'left',
+    //            valign: 'middle',
+    //            formatter: function (value, row, index) {
+    //                return '<div>' + value + '</div>';
+    //            },
+    //        }, {
+    //            field: 'UomID',
+    //            title: '单位',
+    //            width: 60,
+    //            halign: 'center',
+    //            align: 'center',
+    //            valign: 'middle',
+    //            editable: {
+    //                type: 'select2',
+    //                select2: { width: 58, minimumResultsForSearch: -1 },
+    //                source: function () {
+    //                    var list = $table.bootstrapTable('getData')[$(this).data('index')];
+    //                    if (!!list && !!list.MaterUnitType) {
+    //                        return list.MaterUnitType;
+    //                    }
+
+    //                }
+    //            }
+    //        }, {
+    //            field: 'IsGift',
+    //            title: '是否赠品',
+    //            width: 60,
+    //            halign: 'center',
+    //            align: 'center',
+    //            valign: 'middle',
+    //            editable: {
+    //                type: 'select2',
+    //                select2: { width: 98, minimumResultsForSearch: -1 },
+    //                source: function () {
+    //                    return [{ id: 1, text: "是" }, { id: 0, text: "否" }]
+    //                },
+    //            }
+    //        }, {
+    //            field: 'UnitAmount',
+    //            title: '单价(¥)',
+    //            width: 80,
+    //            halign: 'center',
+    //            valign: 'middle',
+    //            align: 'right',
+    //            editable: {
+    //                type: 'text',
+    //                //display: function (value) {
+    //                //    var list = $table.bootstrapTable('getData')[$(this).data('index')];
+    //                //    if (list.MaterID && list.MaterID != null) {
+    //                //        var v = (value == "" || value == null) ? 0 : value;
+    //                //        $(this).text(toMicrometer(parseFloat(v).toFixed(2)));
+    //                //    }
+    //                //}
+    //            }
+    //        }, {
+    //            field: 'BillQty',
+    //            title: '订单数量',
+    //            width: 80,
+    //            halign: 'center',
+    //            align: 'right',
+    //            valign: 'middle',
+    //            editable: {
+    //                type: 'text',
+    //                //display: function (value) {
+    //                //    var list = $table.bootstrapTable('getData')[$(this).data('index')];
+    //                //    if (list.MaterID && list.MaterID != null) {
+    //                //        var v = (value == "" || value == null) ? 0 : value;
+    //                //        $(this).text(toMicrometer(parseFloat(v).toFixed(2)));
+    //                //    }
+    //                //},
+    //            },
+    //            //footerFormatter: $this.sumFormatter
+    //        }, {
+    //            field: 'OperQty',
+    //            title: '实际数量',
+    //            width: 80,
+    //            halign: 'center',
+    //            align: 'right',
+    //            valign: 'middle',
+    //            editable: {
+    //                type: 'text',
+    //                //display: function (value) {
+    //                //    var list = $table.bootstrapTable('getData')[$(this).data('index')];
+    //                //    if (list.MaterID && list.MaterID != null) {
+    //                //        var v = (value == "" || value == null) ? 0 : value;
+    //                //        $(this).text(toMicrometer(parseFloat(v).toFixed(2)));
+    //                //    }
+    //                //},
+    //            },
+    //            //footerFormatter: $this.sumFormatter
+    //        }, {
+    //            field: 'BalanceQty',
+    //            title: '剩余数量',
+    //            width: 80,
+    //            halign: 'center',
+    //            align: 'right',
+    //            valign: 'middle',
+    //            //formatter: function (value, row, index) {
+    //            //    if (row.MaterID && row.MaterID != null) {
+    //            //        var v = (value == "" || value == null) ? 0 : value;
+    //            //        return '<div>' + toMicrometer(parseFloat(v).toFixed(2)) + '</div>';
+    //            //    } else {
+    //            //        return ''
+    //            //    }
+    //            //}
+    //        },
+    //        {
+    //            field: 'Discount',
+    //            title: '优惠金额(¥)',
+    //            width: 60,
+    //            halign: 'center',
+    //            align: 'right',
+    //            valign: 'middle',
+    //            editable: {
+    //                type: 'text',
+    //                display: function (value) {
+    //                    var list = $table.bootstrapTable('getData')[$(this).data('index')];
+    //                    if (list.MaterID && list.MaterID != null) {
+    //                        var v = (value == "" || value == null) ? 0 : value;
+    //                        $(this).text(toMicrometer(parseFloat(v).toFixed(2)));
+    //                    }
+    //                }
+    //            }
+    //        }, {
+    //            field: 'Amount',
+    //            title: '金额(¥)',
+    //            width: 60,
+    //            halign: 'center',
+    //            align: 'right',
+    //            valign: 'middle',
+    //            //formatter: function (value, row, index) {
+    //            //    if (row.MaterID && row.MaterID != null) {
+    //            //        var v = (value == "" || value == null) ? 0 : value;
+    //            //        return '<div>' + toMicrometer(parseFloat(v).toFixed(2)) + '</div>';
+    //            //    } else {
+    //            //        return ''
+    //            //    }
+    //            //},
+    //            //footerFormatter: $this.sumFormatter
+    //        }, {
+    //            field: 'WarehouseID',
+    //            title: '仓库',
+    //            width: 100,
+    //            halign: 'center',
+    //            align: 'center',
+    //            valign: 'middle',
+    //            editable: {
+    //                type: 'select2',
+    //                select2: { width: 98 },
+    //                source: function () {
+    //                    return [{ id: 11, text: "仓库1" }, { id: 12, text: "仓库2" }]
+    //                },
+    //            }
+    //        }, {
+    //            field: 'Remark',
+    //            title: '备注',
+    //            halign: 'center',
+    //            align: 'left',
+    //            valign: 'middle',
+    //            editable: {
+    //                type: 'text',
+    //            }
+    //        }, {
+    //            field: 'operate',
+    //            title: '操作',
+    //            width: 60,
+    //            switchable: true,
+    //            align: 'center',
+    //            halign: 'center',
+    //            valign: 'middle',
+    //            //formatter: function (value, row, index) {
+    //            //    if (row.MaterID && row.MaterID != null && row.MaterID != "" && ($("#Status").val() == 0 || $("#Status").val() == 1)) {
+    //            //        return '<div style="width:80px;height:20px;margin:0 auto;text-align:center;"><a data-style="slide-left" class="btn widget-btn-icon btn-xs ladda-button delete" style="float:none"><i class="iconfont icon-delete"></i></a></div>';
+    //            //    }
+    //            //},
+    //            events: {
+    //                'click .delete': function (e, value, row, index) {
+    //                    $table.bootstrapTable('remove', {
+    //                        field: 'OrderLineID',
+    //                        values: [row.OrderLineID]
+    //                    });
+    //                    $this.tableHeight();//重新调整高度，防止变形
+    //                }
+    //            }
+    //        }
+    //        ],
+    //        onEditableSave: function (field, row, oldValue, $el) {
+
+    //        },
+    //        onEditableShown: function (field, row, $el, editable) {
+
+    //        },
+    //        onEditableHidden: function (field, row, $el, editable) {
+    //        }
+    //    });
+
+
+    //}
 
 </script>
 
-<form id="form1" class="form">
+<form id="form1" class="form" v-cloak>
     <div class="row">
         <div class="col-xs-12">
             <div class="formValue pull-left" style="width:231px;">
                 <div class="row">
                     <label class="col-xs-4" for="F_SupplierID" style="line-height:30px;text-align:right">供应商</label>
                     <div class="col-xs-8">
-                        <select id="F_SupplierID" name="F_SupplierID" class="form-control required"></select>
+                        <select id="F_SupplierID" name="F_SupplierID" class="form-control required" v-select2></select>
                     </div>
                 </div>
             </div>
@@ -331,7 +484,7 @@
                 <div class="row">
                     <label class="col-xs-4" for="F_PurchaserID" style="line-height:30px;text-align:right">采购员</label>
                     <div class="col-xs-8">
-                        <select id="F_PurchaserID" name="F_PurchaserID" class="form-control required"></select>
+                        <select id="F_PurchaserID" name="F_PurchaserID" class="form-control required" v-select2></select>
                     </div>
                 </div>
             </div>
@@ -339,7 +492,7 @@
                 <div class="row">
                     <label class="col-xs-4" for="F_BillType" style="line-height:30px;text-align:right">订单类型</label>
                     <div class="col-xs-8">
-                        <select id="F_BillType" name="F_BillType" class="form-control required"></select>
+                        <select id="F_BillType" name="F_BillType" class="form-control required" v-select2></select>
                     </div>
                 </div>
             </div>
@@ -363,7 +516,7 @@
                 <div class="row">
                     <label class="col-xs-4" for="F_TruckID" style="line-height:30px;text-align:right">车辆</label>
                     <div class="col-xs-8">
-                        <select id="F_TruckID" name="F_TruckID" class="form-control required"></select>
+                        <select id="F_TruckID" name="F_TruckID" class="form-control required" v-select2></select>
                     </div>
                 </div>
             </div>
@@ -371,7 +524,7 @@
                 <div class="row">
                     <label class="col-xs-4" for="F_DriverID" style="line-height:30px;text-align:right">司机</label>
                     <div class="col-xs-8">
-                        <select id="F_DriverID" name="F_DriverID" class="form-control required"></select>
+                        <select id="F_DriverID" name="F_DriverID" class="form-control required" v-select2></select>
                     </div>
                 </div>
             </div>
@@ -379,7 +532,7 @@
                 <div class="row">
                     <label class="col-xs-4" for="F_IsStockFinished" style="line-height:30px;text-align:right">是否发货</label>
                     <div class="col-xs-8">
-                        <select id="F_IsStockFinished" name="F_IsStockFinished" class="form-control required"></select>
+                        <select id="F_IsStockFinished" name="F_IsStockFinished" class="form-control required" v-select2></select>
                     </div>
                 </div>
             </div>
@@ -387,7 +540,7 @@
                 <div class="row">
                     <label class="col-xs-4" for="F_Status" style="line-height:30px;text-align:right">状态</label>
                     <div class="col-xs-8">
-                        <select id="F_Status" name="F_Status" class="form-control required"></select>
+                        <select id="F_Status" name="F_Status" class="form-control required" v-select2></select>
                     </div>
                 </div>
             </div>
@@ -395,7 +548,7 @@
                 <div class="row">
                     <label class="col-xs-4" for="F_CreateUserID" style="line-height:30px;text-align:right">制单人</label>
                     <div class="col-xs-8">
-                        <select id="F_CreateUserID" name="F_CreateUserID" class="form-control required"></select>
+                        <select id="F_CreateUserID" name="F_CreateUserID" class="form-control required" v-select2></select>
                     </div>
                 </div>
             </div>
@@ -403,7 +556,7 @@
                 <div class="row">
                     <label class="col-xs-4" for="F_UpdateUserID" style="line-height:30px;text-align:right">修改人</label>
                     <div class="col-xs-8">
-                        <select id="F_UpdateUserID" name="F_UpdateUserID" class="form-control required"></select>
+                        <select id="F_UpdateUserID" name="F_UpdateUserID" class="form-control required" v-select2></select>
                     </div>
                 </div>
             </div>
@@ -411,7 +564,7 @@
                 <div class="row">
                     <label class="col-xs-4" for="F_ConfirmUserID" style="line-height:30px;text-align:right">审批人</label>
                     <div class="col-xs-8">
-                        <select id="F_ConfirmUserID" name="F_ConfirmUserID" class="form-control required"></select>
+                        <select id="F_ConfirmUserID" name="F_ConfirmUserID" class="form-control required" v-select2></select>
                     </div>
                 </div>
             </div>
@@ -434,7 +587,38 @@
         </div>
     </div>
     <div class="gridPanel">
-        <table id="gridList"></table>
+        <div class="fixed-table-header" style="margin-right: 0px;">
+            <table style="width: 100%">
+                <thead>
+                    <tr>
+                        <th v-for="item in columns" :style="{width:item.width+'px'}" :data-field="item.field">{{item.title}}</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="fixed-table-body">
+            <table style="margin-top: 0;width: 100%">
+                <tbody>
+                    <tr data-index="0" v-for="(trItem, trIndex) in rows">
+                        <td v-for="(colItem, colIndex) in columns" :style="{'text-align':colItem.align,width:colItem.width+'px'}">
+                            <input autocomplete="off" v-if="colItem.type=='autocomplete'" v-model="trItem[colItem.field]" :id="colItem.field+trIndex" :name="colItem.field" type="text" class="form-control" v-autocomplete="colItem.options" />
+                            <input autocomplete="off" v-else-if="colItem.type=='text'" v-model="trItem[colItem.field]" :id="colItem.field+trIndex" :name="colItem.field" type="text" class="form-control" />
+                            <input autocomplete="off" v-else-if="colItem.type=='number'" v-model="trItem[colItem.field]" :id="colItem.field+trIndex" :name="colItem.field" type="number" class="form-control" />
+                            <select v-else-if="colItem.type=='select' && trItem[key]!=null" :id="colItem.field+trIndex" :name="colItem.field" class="form-control" v-select2="colItem.options" v-model="trItem[colItem.field]"></select>
+                            <div v-else-if="colItem.type=='index'">{{trIndex+1}}</div>
+                            <div v-else>{{trItem[colItem.field]}}</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="fixed-table-footer" style="margin-right: 0px;">
+            <table class="table table-no-bordered" style="width: 1448px;">
+                <tbody>
+                    <tr></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="text-center" style="padding:10px;">
         <a id="NF-save" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_save()"><i class="fa fa-save"></i> 保存</a>

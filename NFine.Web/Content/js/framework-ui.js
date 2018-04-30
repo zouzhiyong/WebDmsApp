@@ -498,3 +498,4 @@ $.fn.bindDate = function (options) {
     var $element = $(this);
     $element.datepicker(options);
 }
+
