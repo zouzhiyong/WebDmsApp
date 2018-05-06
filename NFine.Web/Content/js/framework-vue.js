@@ -45,11 +45,11 @@ Vue.directive('autocomplete', {
         options = $.extend(defaultOpt, options);
         $(el).autocomplete(options).focus(function () {
             $(el).autocomplete("search");
+            return false;
         }).autocomplete("instance")._renderItem = function (ul, item) {
-            var item = "<div>" + item.value+"- "+item.label + "</div>";
             return $("<li>")
-              .append(item)
-              .appendTo(ul);
+        .append("<div>" + item.value + "- " + item.label + "</div>")
+        .appendTo(ul);
         };
     },
     update: function (el, binding, vnode) {

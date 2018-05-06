@@ -20,7 +20,6 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\NFine.Data.dll.con
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\NFine.Data.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\NFine.Data.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\EntityFramework.dll
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\EntityFramework.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\EntityFramework.SqlServer.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\Microsoft.Web.Infrastructure.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Data\bin\Debug\MySql.Data.dll
