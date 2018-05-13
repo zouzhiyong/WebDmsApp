@@ -33,26 +33,3 @@ Vue.directive('select2', {
         $(el).trigger("change");
     }
 });
-
-Vue.directive('autocomplete', {
-    inserted: function (el, binding, vnode) {
-        var options = binding.value || {};
-        var defaultOpt = {
-            minChars: 1,
-            selectFirst: false,
-            minLength: 1,
-        };
-        options = $.extend(defaultOpt, options);
-        $(el).autocomplete(options).focus(function () {
-            $(el).autocomplete("search");
-            return false;
-        }).autocomplete("instance")._renderItem = function (ul, item) {
-            return $("<li>")
-        .append("<div>" + item.value + "- " + item.label + "</div>")
-        .appendTo(ul);
-        };
-    },
-    update: function (el, binding, vnode) {
-        
-    }
-});

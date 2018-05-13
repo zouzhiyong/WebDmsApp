@@ -5,9 +5,9 @@
 <style>
     /**明细部分*/
     [v-cloak] { display: none; }
-    .form { margin:5px; background: #fff; border: solid 0px #eee; -moz-box-shadow: 0px 0px 5px #ddd; -webkit-box-shadow: 0px 0px 5px #ddd; box-shadow: 0px 0px 5px #ddd; border-radius: 3px; }
+    .form { margin: 5px; background: #fff; border: solid 0px #eee; -moz-box-shadow: 0px 0px 5px #ddd; -webkit-box-shadow: 0px 0px 5px #ddd; box-shadow: 0px 0px 5px #ddd; border-radius: 3px; }
     .gridPanel { border: 1px solid #edebeb; }
-        .gridPanel table { margin-bottom: 0; width:100%}
+        .gridPanel table { margin-bottom: 0; width: 100%; }
         .gridPanel .fixed-table-header table > thead > tr > th { border: none; background-color: #eeeeee; height: 40px; padding: 6px; text-align: center; }
         .gridPanel .fixed-table-body { overflow-y: auto; }
             .gridPanel .fixed-table-body table > tbody > tr > td { border-right: 1px solid #edebeb; border-bottom: 1px solid #edebeb; padding: 0; background-color: #fff; }
@@ -19,7 +19,7 @@
                     .gridPanel .fixed-table-body table > tbody > tr > td input::-webkit-outer-spin-button,
                     .gridPanel .fixed-table-body table > tbody > tr > td input::-webkit-inner-spin-button { -webkit-appearance: none; }
                     .gridPanel .fixed-table-body table > tbody > tr > td input[type="number"] { -moz-appearance: textfield; }
-        .gridPanel .fixed-table-footer table > tbody > tr > td{background-color: #eeeeee;border:none }
+        .gridPanel .fixed-table-footer table > tbody > tr > td { background-color: #eeeeee; border: none; }
 </style>
 <script>
     var $table = null;
@@ -59,21 +59,22 @@
                 width: 120,
                 align: 'left',
                 type: 'autocomplete',
-                options: {
-                    width:300,
+                options: {                    
                     source: [
       {
-          value: "jquery",
-          label: "jQuery",
-
+          value: "SP0001",
+          text: "百威330ML1",
+          label: "SP0001 百威330ML1百威330ML1"
       },
       {
-          value: "jquery-ui",
-          label: "jQuery UI",
+          value: "SP0002",
+          text: "百威330ML2",
+          label: "SP0002 百威330ML2百威330ML2"
       },
       {
-          value: "sizzlejs",
-          label: "Sizzle JS",
+          value: "SP0003",
+          text: "百威330ML3",
+          label: "SP0003 百威330ML3百威330ML3"
       }
                     ]
                 }
@@ -149,8 +150,9 @@
             }
         ];
 
-        var vueData = { columns: columns, rows: [], key: 'Code' };
+        var vueData = { columns: JSON.parse(JSON.stringify(columns)), rows: [], key: 'Code' };
         vueData.rows.push(JSON.parse(JSON.stringify(iniData)));
+
 
         var modelVue = new Vue({
             el: '#form1',
@@ -164,6 +166,39 @@
                 var rowCount = Math.round($(".fixed-table-body").height() / 32);
                 for (var i = 0; i < rowCount; i++) {
                     _self.rows.push(JSON.parse(JSON.stringify(iniData)));
+                }
+            },
+            methods: {
+                handleFocusTo: function (event, trIndex, colIndex, trItem, colItem) {
+                    var el = event.target;
+                    var options = {
+                        minLength: 0,
+                        minChars: 0,
+                        autoFocus: false,
+                        delay: 0,
+                        source: JSON.parse(JSON.stringify(colItem.options.source)),
+                        classes: {
+                            "ui-autocomplete": "highlight"
+                        },
+                        focus: function (event, ui) {
+                            return false;
+                        },
+                        select: function (event, ui) {
+                            trItem.Code = ui.item.value;
+                            trItem.Name = ui.item.text;
+                            $(el).blur();
+                            return false;
+                        }
+                    };
+                    var auto = $(el).autocomplete(options);
+
+                    auto.autocomplete("instance")._renderItem = function (ul, item) {
+                        return $("<li>")
+                    .append("<div>" + item.label + "</div>")
+                    .appendTo(ul);
+                    };
+
+                    $(el).autocomplete("search", $(el).val());
                 }
             }
         })
@@ -180,7 +215,7 @@
 </script>
 
 <form id="form1" v-cloak>
-    <div class="form" >
+    <div class="form">
         <div class="row">
             <div class="col-xs-12">
                 <div class="formValue pull-left" style="width:231px;">
@@ -312,7 +347,7 @@
                     <tbody>
                         <tr data-index="0" v-for="(trItem, trIndex) in rows">
                             <td v-for="(colItem, colIndex) in columns" :style="{'text-align':colItem.align,width:colItem.width+'px'}">
-                                <input autocomplete="off" v-if="colItem.type=='autocomplete'" v-model="trItem[colItem.field]" :id="colItem.field+trIndex" :name="colItem.field" type="text" class="form-control" v-autocomplete="colItem.options" />
+                                <input autocomplete="off" v-if="colItem.type=='autocomplete'" v-model="trItem[colItem.field]" :id="colItem.field+trIndex" :name="colItem.field" type="text" class="form-control" v-on:focus="handleFocusTo($event,trIndex, colIndex, trItem, colItem)" />
                                 <input autocomplete="off" v-else-if="colItem.type=='text'" v-model="trItem[colItem.field]" :id="colItem.field+trIndex" :name="colItem.field" type="text" class="form-control" />
                                 <input autocomplete="off" v-else-if="colItem.type=='number'" v-model="trItem[colItem.field]" :id="colItem.field+trIndex" :name="colItem.field" type="number" class="form-control" />
                                 <select v-else-if="colItem.type=='select' && trItem[key]!=null" :id="colItem.field+trIndex" :name="colItem.field" class="form-control" v-select2="colItem.options" v-model="trItem[colItem.field]"></select>
