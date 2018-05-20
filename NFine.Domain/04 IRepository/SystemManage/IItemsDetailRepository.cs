@@ -13,5 +13,6 @@ namespace NFine.Domain.IRepository.SystemManage
     public interface IItemsDetailRepository : IRepositoryBase<ItemsDetailEntity>
     {
         List<ItemsDetailEntity> GetItemList(string enCode);
+        
     }
 }

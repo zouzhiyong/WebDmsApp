@@ -91,6 +91,7 @@
     <Compile Include="03 Entity\BaseManage\WarehouseEntity.cs" />
     <Compile Include="03 Entity\SystemManage\CompanyEntity.cs" />
     <Compile Include="03 Entity\SystemManage\CompanyAuthorizeEntity.cs" />
+    <Compile Include="03 Entity\SystemManage\ItemsCustDetailEntity.cs" />
     <Compile Include="03 Entity\SystemManage\TestEntity.cs" />
     <Compile Include="03 Entity\SystemManage\AreaEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ModuleButtonEntity.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="04 IRepository\BaseManage\IWarehouseRepository.cs" />
     <Compile Include="04 IRepository\BaseManage\IWarehouseUserRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IAreaRepository.cs" />
+    <Compile Include="04 IRepository\SystemManage\IItemsCustDetailRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsDetailRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IModuleButtonRepository.cs" />

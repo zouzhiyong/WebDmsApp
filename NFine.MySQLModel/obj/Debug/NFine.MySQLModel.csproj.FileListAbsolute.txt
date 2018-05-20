@@ -16,6 +16,9 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\System.Web.W
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\System.Web.WebPages.Razor.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\EntityFramework.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\EntityFramework.SqlServer.xml
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\MySql.Data.xml
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\MySql.Data.Entity.EF6.xml
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\MySql.Web.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\Newtonsoft.Json.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\System.Web.Helpers.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\System.Web.Mvc.xml
@@ -33,7 +36,3 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\zh-Hans\Syst
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\zh-Hans\System.Web.WebPages.Razor.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\obj\Debug\NFine.MySQLModel.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\obj\Debug\NFine.MySQLModel.pdb
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\obj\Debug\NFine.MySQLModel.csprojResolveAssemblyReference.cache
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\MySql.Data.xml
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\MySql.Data.Entity.EF6.xml
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\MySql.Web.xml

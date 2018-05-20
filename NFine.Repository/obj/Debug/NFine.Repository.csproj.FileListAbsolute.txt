@@ -43,6 +43,7 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Data.p
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Domain.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\EntityFramework.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\EntityFramework.SqlServer.xml
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\MySql.Data.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\Newtonsoft.Json.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\System.Web.Helpers.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\System.Web.Mvc.xml
@@ -61,4 +62,3 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\zh-Hans\Syst
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\obj\Debug\NFine.Repository.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\obj\Debug\NFine.Repository.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\obj\Debug\NFine.Repository.pdb
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\MySql.Data.xml

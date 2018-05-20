@@ -144,7 +144,7 @@
           <Property Name="F_MaterialId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="F_Picture" Type="varchar" MaxLength="100" />
           <Property Name="F_PictureType" Type="int" />
-          <Property Name="F_IsTitle" Type="bool" />
+          <Property Name="F_IsTitle" Type="bool" Nullable="false" />
           <Property Name="F_DeleteMark" Type="bool" />
           <Property Name="F_EnabledMark" Type="bool" />
           <Property Name="F_Description" Type="varchar" MaxLength="255" />
@@ -470,6 +470,30 @@
           <Property Name="F_DeleteUserId" Type="varchar" MaxLength="50" />
           <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="sys_itemscustdetail">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="F_ItemId" Type="varchar" MaxLength="50" />
+          <Property Name="F_ParentId" Type="varchar" MaxLength="50" />
+          <Property Name="F_ItemCode" Type="varchar" MaxLength="50" />
+          <Property Name="F_ItemName" Type="varchar" MaxLength="50" />
+          <Property Name="F_SimpleSpelling" Type="varchar" MaxLength="255" />
+          <Property Name="F_IsDefault" Type="bool" />
+          <Property Name="F_Layers" Type="int" />
+          <Property Name="F_SortCode" Type="int" />
+          <Property Name="F_DeleteMark" Type="bool" />
+          <Property Name="F_EnabledMark" Type="bool" />
+          <Property Name="F_Description" Type="varchar" MaxLength="255" />
+          <Property Name="F_CreatorTime" Type="datetime" Precision="0" />
+          <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_LastModifyTime" Type="datetime" Precision="0" />
+          <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_DeleteTime" Type="datetime" Precision="0" />
+          <Property Name="F_DeleteUserId" Type="varchar" MaxLength="50" />
+          <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="sys_itemsdetail">
           <Key>
             <PropertyRef Name="F_Id" />
@@ -756,6 +780,7 @@
           <EntitySet Name="sys_department" EntityType="Self.sys_department" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="sys_filterip" EntityType="Self.sys_filterip" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="sys_items" EntityType="Self.sys_items" Schema="nfinebase" store:Type="Tables" />
+          <EntitySet Name="sys_itemscustdetail" EntityType="Self.sys_itemscustdetail" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="sys_itemsdetail" EntityType="Self.sys_itemsdetail" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="sys_log" EntityType="Self.sys_log" Schema="nfinebase" store:Type="Tables" />
           <EntitySet Name="sys_module" EntityType="Self.sys_module" Schema="nfinebase" store:Type="Tables" />
@@ -803,6 +828,7 @@
           <EntitySet Name="sys_roleauthorize" EntityType="nfinebaseModel.sys_roleauthorize" />
           <EntitySet Name="sys_user" EntityType="nfinebaseModel.sys_user" />
           <EntitySet Name="sys_userlogon" EntityType="nfinebaseModel.sys_userlogon" />
+          <EntitySet Name="sys_itemscustdetail" EntityType="nfinebaseModel.sys_itemscustdetail" />
         </EntityContainer>
         <EntityType Name="bas_corporation">
           <Key>
@@ -1533,6 +1559,30 @@
           <Property Name="F_CheckIPAddress" Type="Boolean" />
           <Property Name="F_Language" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_Theme" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_CorpId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sys_itemscustdetail">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_ItemId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_ParentId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_SimpleSpelling" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_IsDefault" Type="Boolean" />
+          <Property Name="F_Layers" Type="Int32" />
+          <Property Name="F_SortCode" Type="Int32" />
+          <Property Name="F_DeleteMark" Type="Boolean" />
+          <Property Name="F_EnabledMark" Type="Boolean" />
+          <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="F_CreatorTime" Type="DateTime" />
+          <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_LastModifyTime" Type="DateTime" />
+          <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="F_DeleteTime" Type="DateTime" />
+          <Property Name="F_DeleteUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="F_CorpId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
@@ -2295,6 +2345,31 @@
                 <ScalarProperty Name="F_UserSecretkey" ColumnName="F_UserSecretkey" />
                 <ScalarProperty Name="F_UserPassword" ColumnName="F_UserPassword" />
                 <ScalarProperty Name="F_UserId" ColumnName="F_UserId" />
+                <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_itemscustdetail">
+            <EntityTypeMapping TypeName="nfinebaseModel.sys_itemscustdetail">
+              <MappingFragment StoreEntitySet="sys_itemscustdetail">
+                <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+                <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
+                <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
+                <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
+                <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
+                <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+                <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+                <ScalarProperty Name="F_Description" ColumnName="F_Description" />
+                <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
+                <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+                <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+                <ScalarProperty Name="F_Layers" ColumnName="F_Layers" />
+                <ScalarProperty Name="F_IsDefault" ColumnName="F_IsDefault" />
+                <ScalarProperty Name="F_SimpleSpelling" ColumnName="F_SimpleSpelling" />
+                <ScalarProperty Name="F_ItemName" ColumnName="F_ItemName" />
+                <ScalarProperty Name="F_ItemCode" ColumnName="F_ItemCode" />
+                <ScalarProperty Name="F_ParentId" ColumnName="F_ParentId" />
+                <ScalarProperty Name="F_ItemId" ColumnName="F_ItemId" />
                 <ScalarProperty Name="F_Id" ColumnName="F_Id" />
               </MappingFragment>
             </EntityTypeMapping>

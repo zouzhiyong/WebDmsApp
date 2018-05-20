@@ -49,6 +49,6 @@ namespace NFine.Repository.SystemManage
                  new MySqlParameter("@enCode",enCode)
             };
             return this.FindList(strSql.ToString(), parameter);
-        }
+        }        
     }
 }

@@ -10,6 +10,7 @@ using NFine.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NFine.Code;
 
 namespace NFine.Application.SystemManage
 {
@@ -19,7 +20,15 @@ namespace NFine.Application.SystemManage
 
         public List<ItemsEntity> GetList()
         {
-            return service.IQueryable().ToList();
+            //如果是经销商，只能看到父级为自定义类型的数据            
+            var expression = ExtLinq.True<ItemsEntity>();
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string F_Id = service.IQueryable(t => t.F_ParentId == "0" && t.F_EnCode == "CustType").Select(s => s.F_Id).First();
+                expression = expression.And(t => t.F_ParentId == F_Id);
+                expression = expression.Or(t => t.F_ParentId == "0" && t.F_EnCode == "CustType");
+            }
+            return service.IQueryable(expression).ToList();
         }
         public ItemsEntity GetForm(string keyValue)
         {

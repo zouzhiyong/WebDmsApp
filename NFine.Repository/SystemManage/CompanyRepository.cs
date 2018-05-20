@@ -24,7 +24,7 @@ namespace NFine.Repository.SystemManage
                 db.Commit();
             }
         }
-        public void SubmitForm(CompanyEntity companyEntity, CorporationEntity corporationEntity, List<CompanyAuthorizeEntity> companyAuthorizeEntitys, List<RoleAuthorizeEntity> roleAuthorizeEntitys, string keyValue)
+        public void SubmitForm(CompanyEntity companyEntity, CorporationEntity corporationEntity, List<CompanyAuthorizeEntity> companyAuthorizeEntitys, List<RoleAuthorizeEntity> roleAuthorizeEntitys, List<ItemsCustDetailEntity> itemsCustDetailEntitys, string keyValue)
         {
             using (var db = new RepositoryBase().BeginTrans())
             {
@@ -45,6 +45,9 @@ namespace NFine.Repository.SystemManage
                 }            
                 
                 db.Insert(companyAuthorizeEntitys);
+
+                db.Insert(itemsCustDetailEntitys);
+
                 db.Commit();
             }
         }

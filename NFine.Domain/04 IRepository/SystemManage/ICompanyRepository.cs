@@ -14,6 +14,6 @@ namespace NFine.Domain.IRepository.SystemManage
     public interface ICompanyRepository : IRepositoryBase<CompanyEntity>
     {
         void DeleteForm(string keyValue);
-        void SubmitForm(CompanyEntity companyEntity, CorporationEntity corporationEntity, List<CompanyAuthorizeEntity> companyAuthorizeEntitys, List<RoleAuthorizeEntity> roleAuthorizeEntitys, string keyValue);
+        void SubmitForm(CompanyEntity companyEntity, CorporationEntity corporationEntity, List<CompanyAuthorizeEntity> companyAuthorizeEntitys, List<RoleAuthorizeEntity> roleAuthorizeEntitys, List<ItemsCustDetailEntity> itemsCustDetailEntitys, string keyValue);
     }
 }

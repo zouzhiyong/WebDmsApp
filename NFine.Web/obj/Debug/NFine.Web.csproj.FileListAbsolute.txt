@@ -1,3 +1,4 @@
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Mapping.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Web.dll.config
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Web.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Web.pdb
@@ -11,7 +12,6 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\Newtonsoft.Json.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Application.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Code.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Domain.dll
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\NFine.Mapping.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Net.Http.Formatting.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.Helpers.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Web\bin\System.Web.Http.dll

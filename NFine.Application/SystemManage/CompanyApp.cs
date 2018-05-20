@@ -17,7 +17,8 @@ namespace NFine.Application.SystemManage
     public class CompanyApp
     {
         private ICompanyRepository service = new CompanyRepository();
-        private IRoleAuthorizeRepository roleauthorize = new RoleAuthorizeRepository();
+        private IRoleAuthorizeRepository roleauthorize = new RoleAuthorizeRepository();        
+        private IItemsCustDetailRepository itemsCustDetail = new ItemsCustDetailRepository();
         private ModuleApp moduleApp = new ModuleApp();
         private ModuleButtonApp moduleButtonApp = new ModuleButtonApp();
         string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
@@ -109,9 +110,35 @@ namespace NFine.Application.SystemManage
 
             var expression = ExtLinq.True<RoleAuthorizeEntity>();
             expression = expression.And(t => !permissionIds.Contains(t.F_ItemId) && t.F_CorpId== companyEntity.F_CorpId);
-            roleauthorizeEntitys = roleauthorize.IQueryable(expression).ToList();            
+            roleauthorizeEntitys = roleauthorize.IQueryable(expression).ToList();
 
-            service.SubmitForm(companyEntity, corporationEntity, companyAuthorizeEntitys, roleauthorizeEntitys, keyValue);
+            List<ItemsCustDetailEntity> itemsCustDetailEntitys = itemsCustDetail.GetItemNotCustList(companyEntity.F_Id);
+            List<ItemsCustDetailEntity> list = new List<ItemsCustDetailEntity>();
+            foreach (var item in itemsCustDetailEntitys)
+            {
+                ItemsCustDetailEntity itemsCustDetailEntity = new ItemsCustDetailEntity();
+                itemsCustDetailEntity.Create();
+                itemsCustDetailEntity.F_Id = item.F_Id;
+                itemsCustDetailEntity.F_ItemId = item.F_ItemId;
+                itemsCustDetailEntity.F_ParentId = item.F_ParentId;
+                itemsCustDetailEntity.F_ItemCode = item.F_ItemCode;
+                itemsCustDetailEntity.F_ItemName = item.F_ItemName;
+                itemsCustDetailEntity.F_SimpleSpelling = item.F_SimpleSpelling;
+                itemsCustDetailEntity.F_IsDefault = item.F_IsDefault;
+                itemsCustDetailEntity.F_Layers = item.F_Layers;
+                itemsCustDetailEntity.F_SortCode = item.F_SortCode;
+                itemsCustDetailEntity.F_DeleteMark = item.F_DeleteMark;
+                itemsCustDetailEntity.F_EnabledMark = item.F_EnabledMark;
+                itemsCustDetailEntity.F_Description = item.F_Description;
+                itemsCustDetailEntity.F_LastModifyTime = item.F_LastModifyTime;
+                itemsCustDetailEntity.F_LastModifyUserId = item.F_LastModifyUserId;
+                itemsCustDetailEntity.F_DeleteTime = item.F_DeleteTime;
+                itemsCustDetailEntity.F_DeleteUserId = item.F_DeleteUserId;
+                itemsCustDetailEntity.F_CorpId = companyEntity.F_Id;
+                list.Add(itemsCustDetailEntity);
+            }
+
+            service.SubmitForm(companyEntity, corporationEntity, companyAuthorizeEntitys, roleauthorizeEntitys, itemsCustDetailEntitys, keyValue);
         }
     }
 }

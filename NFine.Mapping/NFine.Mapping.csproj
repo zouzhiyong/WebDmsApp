@@ -103,6 +103,7 @@
     <Compile Include="BaseManage\WarehouseMap.cs" />
     <Compile Include="SystemManage\CompanyMap.cs" />
     <Compile Include="SystemManage\AreaMap.cs" />
+    <Compile Include="SystemManage\ItemsCustDetailMap.cs" />
     <Compile Include="SystemManage\ItemsDetailMap.cs" />
     <Compile Include="SystemManage\ItemsMap.cs" />
     <Compile Include="SystemManage\ModuleButtonMap.cs" />

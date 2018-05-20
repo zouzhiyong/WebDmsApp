@@ -158,6 +158,7 @@
     <Compile Include="Areas\ReportManage\ReportManageAreaRegistration.cs" />
     <Compile Include="Areas\SystemManage\Controllers\AreaController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\DutyController.cs" />
+    <Compile Include="Areas\SystemManage\Controllers\ItemsCustController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\ItemsDataController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\ModuleButtonController.cs" />
     <Compile Include="Areas\SystemManage\Controllers\ModuleController.cs" />
@@ -698,6 +699,9 @@
     <Content Include="Areas\PurManage\Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\SystemManage\Views\ItemsCust\Details.cshtml" />
+    <Content Include="Areas\SystemManage\Views\ItemsCust\Form.cshtml" />
+    <Content Include="Areas\SystemManage\Views\ItemsCust\Index.cshtml" />
     <None Include="Properties\PublishProfiles\NFine.Framework.Release.pubxml" />
     <Content Include="Views\Shared\_Order.cshtml" />
   </ItemGroup>

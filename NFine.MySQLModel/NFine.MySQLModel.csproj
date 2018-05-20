@@ -175,6 +175,9 @@
     <Compile Include="sys_items.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="sys_itemscustdetail.cs">
+      <DependentUpon>MySQLModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="sys_itemsdetail.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>

@@ -431,6 +431,7 @@ $.fn.dataGrid = function (options) {
         shrinkToFit: true,
         gridview: true,
         isTools: true,
+        isEditField: 'isEditField',
         pagerpos: "left",
         styleUI: 'Bootstrap',
         treeIcons: { plus: 'glyphicon-triangle-right', minus: 'glyphicon-triangle-bottom', leaf: '' }
@@ -464,9 +465,13 @@ $.fn.dataGrid = function (options) {
 
         options.colModel.push({
             label: '', width: 80, name: '', align: 'center',
-            formatter: function (cellvalue, options, rowObject) {
-                var $tempElementHtml = $elementHtml.replace(/\(\)/gi, '(\'' + rowObject.F_Id + '\')').replace(/id/gi, 'name');
-                return $tempElementHtml;
+            formatter: function (cellvalue, _options, rowObject) {
+                if (!!rowObject[options.isEditField]) {
+                    return "";
+                } else {
+                    var $tempElementHtml = $elementHtml.replace(/\(\)/gi, '(\'' + rowObject.F_Id + '\')').replace(/id/gi, 'name');
+                    return $tempElementHtml;
+                }
             }
         })
     } else {

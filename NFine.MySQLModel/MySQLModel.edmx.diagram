@@ -35,6 +35,7 @@
         <EntityTypeShape EntityType="nfinebaseModel.sys_roleauthorize" Width="1.5" PointX="18.75" PointY="0.75" />
         <EntityTypeShape EntityType="nfinebaseModel.sys_user" Width="1.5" PointX="18.75" PointY="4.75" />
         <EntityTypeShape EntityType="nfinebaseModel.sys_userlogon" Width="1.5" PointX="18.75" PointY="12.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.sys_itemscustdetail" Width="1.5" PointX="11.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
