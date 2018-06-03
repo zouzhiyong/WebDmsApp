@@ -4,6 +4,10 @@
  * Description: NFine快速开发平台
  * Website：http://www.nfine.cn
 *********************************************************************************/
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using NFine.Code;
 using NFine.Data;
 using NFine.Domain.Entity.SystemManage;
 
@@ -13,5 +17,8 @@ namespace NFine.Domain.IRepository.SystemManage
     {
         void DeleteForm(string keyValue);
         void SubmitForm(UserEntity userEntity, UserLogOnEntity userLogOnEntity, string keyValue);
+
+        List<UserEntity> FindList(Expression<Func<UserEntity, bool>> predicate);
+        List<UserEntity> FindList(Expression<Func<UserEntity, bool>> predicate, Pagination pagination, string keyword);
     }
 }

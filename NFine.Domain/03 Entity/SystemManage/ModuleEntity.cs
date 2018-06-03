@@ -19,6 +19,7 @@ namespace NFine.Domain.Entity.SystemManage
         public string F_UrlAddress { get; set; }
         public string F_Target { get; set; }
         public bool? F_IsMenu { get; set; }
+        public bool? F_IsAdmin { get; set; }
         public bool? F_IsExpand { get; set; }
         public bool? F_IsPublic { get; set; }
         public bool? F_AllowEdit { get; set; }

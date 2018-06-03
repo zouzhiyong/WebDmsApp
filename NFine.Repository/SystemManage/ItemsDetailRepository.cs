@@ -13,6 +13,10 @@ using System.Data.Common;
 //using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using System.Text;
+using System.Linq.Expressions;
+using NFine.Code;
+using System;
+using System.Linq;
 
 namespace NFine.Repository.SystemManage
 {
@@ -49,6 +53,39 @@ namespace NFine.Repository.SystemManage
                  new MySqlParameter("@enCode",enCode)
             };
             return this.FindList(strSql.ToString(), parameter);
-        }        
+        }
+
+        public List<ItemsDetailEntity> FindList(Expression<Func<ItemsDetailEntity, bool>> predicate)
+        {
+            var expression = ExtLinq.True<ItemsDetailEntity>();
+            expression.And(predicate);
+
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_CorpId == CompanyId);
+            }
+
+            return IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+        }
+
+        public List<ItemsDetailEntity> FindList(Expression<Func<ItemsDetailEntity, bool>> predicate, Pagination pagination, string keyword)
+        {
+            var expression = ExtLinq.True<ItemsDetailEntity>();
+            expression.And(predicate);
+
+            //if (!string.IsNullOrEmpty(keyword))
+            //{
+            //    expression = expression.And(t => t.F_FullName.Contains(keyword));
+            //}
+
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_CorpId == CompanyId);
+            }
+
+            return FindList(expression, pagination);
+        }
     }
 }

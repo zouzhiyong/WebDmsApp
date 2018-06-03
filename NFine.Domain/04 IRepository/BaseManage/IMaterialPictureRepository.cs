@@ -4,13 +4,18 @@
  * Description: NFine快速开发平台
  * Website：http://www.nfine.cn
 *********************************************************************************/
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using NFine.Code;
 using NFine.Data;
 using NFine.Domain.Entity.BaseManage;
 
 namespace NFine.Domain.IRepository.BaseManage
 {
     public interface IMaterialPictureRepository : IRepositoryBase<MaterialPictureEntity>
-    {    
+    {
+        List<MaterialPictureEntity> FindList(Expression<Func<MaterialPictureEntity, bool>> predicate);
+        List<MaterialPictureEntity> FindList(Expression<Func<MaterialPictureEntity, bool>> predicate, Pagination pagination, string keyword);
     }
 }

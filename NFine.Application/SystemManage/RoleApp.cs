@@ -23,12 +23,14 @@ namespace NFine.Application.SystemManage
         {
             var expression = ExtLinq.True<RoleEntity>();            
             expression = expression.And(t => t.F_Category == 1);
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
-            return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+            //if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            //{
+            //    string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+            //    expression = expression.And(t => t.F_CorpId == CompanyId);
+            //}
+            //return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+
+            return service.FindList(expression);
         }
 
         public List<RoleEntity> GetList(string keyword = "")
@@ -40,12 +42,13 @@ namespace NFine.Application.SystemManage
                 expression = expression.Or(t => t.F_EnCode.Contains(keyword));
             }
             expression = expression.And(t => t.F_Category == 1);
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
-            return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+            //if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            //{
+            //    string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+            //    expression = expression.And(t => t.F_CorpId == CompanyId);
+            //}
+            return service.FindList(expression);
+            //return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
         }
         public RoleEntity GetForm(string keyValue)
         {

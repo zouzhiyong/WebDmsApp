@@ -19,6 +19,8 @@ namespace NFine.Web.Controllers
     [HandlerLogin]
     public class ClientsDataController : Controller
     {
+        private string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetClientsDataJson()
@@ -27,51 +29,70 @@ namespace NFine.Web.Controllers
             {
                 dataItems = this.GetDataItemList(),
                 company = this.GetDataCompanyList(),
-                department=this.GetDataDepartmentList(),
-                unit=this.GetDataUnitList(),
+                department = this.GetDataDepartmentList(),
+                unit = this.GetDataUnitList(),
                 //organize = this.GetOrganizeList(),
                 role = this.GetRoleList(),
                 duty = this.GetDutyList(),
                 user = this.GetUserList(),
                 authorizeMenu = this.GetMenuList(),
-                authorizeButton = this.GetMenuButtonList()                
+                authorizeButton = this.GetMenuButtonList()
             };
             return Content(data.ToJson());
         }
         private object GetDataItemList()
         {
-            var itemdata = new ItemsDetailApp().GetList();
             Dictionary<string, object> dictionaryItem = new Dictionary<string, object>();
+            
             foreach (var item in new ItemsApp().GetList())
             {
-                var dataItemList = itemdata.FindAll(t => t.F_ItemId.Equals(item.F_Id));
-                Dictionary<string, string> dictionaryItemList = new Dictionary<string, string>();
-                foreach (var itemList in dataItemList)
+                if (OperatorProvider.Provider.GetCurrent().IsSystem)
                 {
-                    dictionaryItemList.Add(itemList.F_ItemCode, itemList.F_ItemName);
+                    List<ItemsDetailEntity> itemdata = new ItemsDetailApp().GetList();
+                    var dataItemList = itemdata.FindAll(t => t.F_ItemId.Equals(item.F_Id));
+                    Dictionary<string, string> dictionaryItemList = new Dictionary<string, string>();
+                    foreach (var itemList in dataItemList)
+                    {
+                        dictionaryItemList.Add(itemList.F_ItemCode, itemList.F_ItemName);
+                    }
+                    dictionaryItem.Add(item.F_EnCode, dictionaryItemList);
                 }
-                dictionaryItem.Add(item.F_EnCode, dictionaryItemList);
+                else
+                {
+                    List<ItemsCustDetailEntity> itemdata = new ItemsCustDetailApp().GetList();
+                    var dataItemList = itemdata.FindAll(t => t.F_ItemId.Equals(item.F_Id));
+                    Dictionary<string, string> dictionaryItemList = new Dictionary<string, string>();
+                    foreach (var itemList in dataItemList)
+                    {
+                        dictionaryItemList.Add(itemList.F_ItemCode, itemList.F_ItemName);
+                    }
+                    dictionaryItem.Add(item.F_EnCode, dictionaryItemList);
+                }                
             }
             return dictionaryItem;
         }
-        private object GetOrganizeList()
-        {
-            OrganizeApp organizeApp = new OrganizeApp();
-            var data = organizeApp.GetList();
-            Dictionary<string, object> dictionary = new Dictionary<string, object>();
-            foreach (OrganizeEntity item in data)
-            {
-                var fieldItem = new
-                {
-                    encode = item.F_EnCode,
-                    fullname = item.F_FullName
-                };
-                dictionary.Add(item.F_Id, fieldItem);
-            }
-            return dictionary;
-        }
+        //private object GetOrganizeList()
+        //{
+        //    OrganizeApp organizeApp = new OrganizeApp();
+        //    var data = organizeApp.GetList();
+        //    Dictionary<string, object> dictionary = new Dictionary<string, object>();
+        //    foreach (OrganizeEntity item in data)
+        //    {
+        //        var fieldItem = new
+        //        {
+        //            encode = item.F_EnCode,
+        //            fullname = item.F_FullName
+        //        };
+        //        dictionary.Add(item.F_Id, fieldItem);
+        //    }
+        //    return dictionary;
+        //}
         private object GetRoleList()
         {
+            if (OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                return null;
+            }
             RoleApp roleApp = new RoleApp();
             var data = roleApp.GetList();
             Dictionary<string, object> dictionary = new Dictionary<string, object>();
@@ -137,7 +158,7 @@ namespace NFine.Web.Controllers
         private object GetDataUnitList()
         {
             UnitOfMeasureApp unitofmeasureApp = new UnitOfMeasureApp();
-            var data = unitofmeasureApp.GetList().Where(t=>t.F_EnabledMark==true);
+            var data = unitofmeasureApp.GetList().Where(t => t.F_EnabledMark == true);
             Dictionary<string, object> dictionary = new Dictionary<string, object>();
             foreach (UnitOfMeasureEntity item in data)
             {
@@ -169,7 +190,18 @@ namespace NFine.Web.Controllers
         private object GetMenuList()
         {
             var roleId = OperatorProvider.Provider.GetCurrent().RoleId;
-            return ToMenuJson(new RoleAuthorizeApp().GetMenuList(roleId), "0");
+
+            List<ModuleEntity> entitys = null;
+            if (OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                entitys = new RoleAuthorizeApp().GetMenuList(roleId).FindAll(t => t.F_IsAdmin == true);
+            }
+            else
+            {
+                entitys = new RoleAuthorizeApp().GetMenuList(roleId);
+            }
+
+            return ToMenuJson(entitys, "0");
         }
         private string ToMenuJson(List<ModuleEntity> data, string parentId)
         {
@@ -180,9 +212,12 @@ namespace NFine.Web.Controllers
             {
                 foreach (var item in entitys)
                 {
-                    string strJson = item.ToJson();
-                    strJson = strJson.Insert(strJson.Length - 1, ",\"ChildNodes\":" + ToMenuJson(data, item.F_Id) + "");
-                    sbJson.Append(strJson + ",");
+                    if (item.F_IsMenu == true)
+                    {
+                        string strJson = item.ToJson();
+                        strJson = strJson.Insert(strJson.Length - 1, ",\"ChildNodes\":" + ToMenuJson(data, item.F_Id) + "");
+                        sbJson.Append(strJson + ",");
+                    }
                 }
                 sbJson = sbJson.Remove(sbJson.Length - 1, 1);
             }
@@ -197,7 +232,7 @@ namespace NFine.Web.Controllers
             Dictionary<string, object> dictionary = new Dictionary<string, object>();
             foreach (ModuleButtonEntity item in dataModuleId)
             {
-                var buttonList = data.Where(t => t.F_ModuleId.Equals(item.F_ModuleId));
+                var buttonList = data.Where(t => t.F_ModuleId.Equals(item.F_ModuleId) && t.F_EnabledMark==true);
                 dictionary.Add(item.F_ModuleId, buttonList);
             }
             return dictionary;

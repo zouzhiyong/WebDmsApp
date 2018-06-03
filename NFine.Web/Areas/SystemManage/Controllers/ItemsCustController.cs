@@ -29,7 +29,8 @@ namespace NFine.Web.Areas.SystemManage.Controllers
         [HandlerAjaxOnly]
         public ActionResult GetSelectJson(string enCode)
         {
-            var data = itemsCustDetailApp.GetItemList(enCode);
+            string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;            
+            var data = itemsCustDetailApp.GetItemList(enCode, CompanyId);
             List<object> list = new List<object>();
             foreach (ItemsCustDetailEntity item in data)
             {

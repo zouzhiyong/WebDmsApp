@@ -7,12 +7,18 @@
 using NFine.Data;
 using NFine.Domain.Entity.SystemManage;
 using System.Collections.Generic;
+using NFine.Code;
+using System.Linq.Expressions;
+using System;
 
 namespace NFine.Domain.IRepository.SystemManage
 {
     public interface IItemsDetailRepository : IRepositoryBase<ItemsDetailEntity>
     {
         List<ItemsDetailEntity> GetItemList(string enCode);
-        
+
+        List<ItemsDetailEntity> FindList(Expression<Func<ItemsDetailEntity, bool>> predicate);
+        List<ItemsDetailEntity> FindList(Expression<Func<ItemsDetailEntity, bool>> predicate, Pagination pagination, string keyword);
+
     }
 }

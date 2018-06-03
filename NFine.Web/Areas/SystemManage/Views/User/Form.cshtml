@@ -43,7 +43,7 @@
         });
 
         $("#F_DutyId").bindSelect({
-            url: rootUrl + "/SystemManage/ItemsData/GetSelectJson",
+            url: rootUrl + "/SystemManage/ItemsCust/GetSelectJson",
             param: { enCode: "Position" }
         });
 
@@ -54,7 +54,7 @@
         });
 
         $("#F_UserCategoryID").bindSelect({
-            url: rootUrl + "/SystemManage/ItemsData/GetSelectJson",
+            url: rootUrl + "/SystemManage/ItemsCust/GetSelectJson",
             param: { enCode: "UserType" }
         });
     }
@@ -126,7 +126,7 @@
                     </td>
                     <th class="formTitle">职位</th>
                     <td class="formValue">
-                        <select id="F_DutyId" name="F_DutyId" class="form-control required">
+                        <select id="F_DutyId" name="F_DutyId" class="form-control">
                             <option value="">==请选择==</option>
                         </select>
                     </td>

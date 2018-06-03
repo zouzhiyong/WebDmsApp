@@ -16,6 +16,7 @@ namespace NFine.Application.SystemManage
     public class ItemsCustDetailApp
     {
         private IItemsCustDetailRepository service = new ItemsCustDetailRepository();
+        private string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
 
         public List<ItemsCustDetailEntity> GetList(string itemId = "", string keyword = "")
         {
@@ -26,14 +27,17 @@ namespace NFine.Application.SystemManage
             }
             if (!string.IsNullOrEmpty(keyword))
             {
-                expression = expression.And(t => t.F_ItemName.Contains(keyword));
-                expression = expression.Or(t => t.F_ItemCode.Contains(keyword));
+                expression = expression.And(t => t.F_ItemName.Contains(keyword) && t.F_CorpId== CompanyId);
+                expression = expression.Or(t => t.F_ItemCode.Contains(keyword) && t.F_CorpId == CompanyId);
             }
+
+            expression = expression.And(t => t.F_CorpId == CompanyId);
+
             return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
         }
-        public List<ItemsCustDetailEntity> GetItemList(string enCode)
+        public List<ItemsCustDetailEntity> GetItemList(string enCode, string F_CorpId)
         {
-            return service.GetItemList(enCode);
+            return service.GetItemList(enCode, F_CorpId);
         }
         public ItemsCustDetailEntity GetForm(string keyValue)
         {

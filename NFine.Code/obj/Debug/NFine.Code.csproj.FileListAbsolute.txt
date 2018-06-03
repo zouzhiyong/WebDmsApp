@@ -47,5 +47,6 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Code\bin\Debug\zh-Hans\System.Web
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Code\bin\Debug\zh-Hans\System.Web.WebPages.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Code\bin\Debug\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Code\bin\Debug\zh-Hans\System.Web.WebPages.Razor.resources.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Code\obj\Debug\NFine.Code.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Code\obj\Debug\NFine.Code.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Code\obj\Debug\NFine.Code.pdb

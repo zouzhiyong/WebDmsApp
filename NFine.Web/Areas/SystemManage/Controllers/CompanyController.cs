@@ -59,5 +59,30 @@ namespace NFine.Web.Areas.SystemManage.Controllers
             companyApp.DeleteForm(keyValue);
             return Success("删除成功。");
         }
+
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [HandlerAuthorize]
+        [MyValidateAntiForgeryToken]
+        public ActionResult DisabledAccount(string keyValue)
+        {
+            CompanyEntity companyEntity = new CompanyEntity();
+            companyEntity.F_Id = keyValue;
+            companyEntity.F_EnabledMark = false;
+            companyApp.UpdateForm(companyEntity);
+            return Success("公司禁用成功。");
+        }
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [HandlerAuthorize]
+        [MyValidateAntiForgeryToken]
+        public ActionResult EnabledAccount(string keyValue)
+        {
+            CompanyEntity companyEntity = new CompanyEntity();
+            companyEntity.F_Id = keyValue;
+            companyEntity.F_EnabledMark = true;
+            companyApp.UpdateForm(companyEntity);
+            return Success("公司启用成功。");
+        }
     }
 }

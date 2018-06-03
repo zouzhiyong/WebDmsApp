@@ -25,28 +25,12 @@ namespace NFine.Application.SystemManage
 
         public List<CompanyEntity> GetList()
         {
-            var expression = ExtLinq.True<CompanyEntity>();
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
-            return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+            return service.FindList(t=>true);
         }
 
         public List<CompanyEntity> GetList(Pagination pagination, string keyword)
         {
-            var expression = ExtLinq.True<CompanyEntity>();
-            if (!string.IsNullOrEmpty(keyword))
-            {
-                expression = expression.And(t => t.F_FullName.Contains(keyword));
-            }
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
-            return service.FindList(expression, pagination);
+            return service.FindList(t => true, pagination, keyword);
         }
         public CompanyEntity GetForm(string keyValue)
         {
@@ -55,6 +39,11 @@ namespace NFine.Application.SystemManage
         public void DeleteForm(string keyValue)
         {
             service.DeleteForm(keyValue);            
+        }
+
+        public void UpdateForm(CompanyEntity companyEntity)
+        {
+            service.Update(companyEntity);
         }
         public void SubmitForm(CompanyEntity companyEntity, string[] permissionIds, string keyValue)
         {
@@ -113,7 +102,7 @@ namespace NFine.Application.SystemManage
             roleauthorizeEntitys = roleauthorize.IQueryable(expression).ToList();
 
             List<ItemsCustDetailEntity> itemsCustDetailEntitys = itemsCustDetail.GetItemNotCustList(companyEntity.F_Id);
-            List<ItemsCustDetailEntity> list = new List<ItemsCustDetailEntity>();
+            List<ItemsCustDetailEntity> itemsCustDetailEntityList = new List<ItemsCustDetailEntity>();
             foreach (var item in itemsCustDetailEntitys)
             {
                 ItemsCustDetailEntity itemsCustDetailEntity = new ItemsCustDetailEntity();
@@ -135,10 +124,11 @@ namespace NFine.Application.SystemManage
                 itemsCustDetailEntity.F_DeleteTime = item.F_DeleteTime;
                 itemsCustDetailEntity.F_DeleteUserId = item.F_DeleteUserId;
                 itemsCustDetailEntity.F_CorpId = companyEntity.F_Id;
-                list.Add(itemsCustDetailEntity);
+                itemsCustDetailEntityList.Add(itemsCustDetailEntity);
             }
 
-            service.SubmitForm(companyEntity, corporationEntity, companyAuthorizeEntitys, roleauthorizeEntitys, itemsCustDetailEntitys, keyValue);
+            //
+            service.SubmitForm(companyEntity, corporationEntity, companyAuthorizeEntitys, roleauthorizeEntitys, itemsCustDetailEntityList, keyValue);
         }
     }
 }

@@ -4,7 +4,11 @@
  * Description: NFine快速开发平台
  * Website：http://www.nfine.cn
 *********************************************************************************/
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using NFine.Code;
 using NFine.Data;
 using NFine.Domain.Entity.BaseManage;
 using NFine.Domain.Entity.SystemManage;
@@ -14,6 +18,39 @@ namespace NFine.Repository.SystemManage
 {
     public class CompanyRepository : RepositoryBase<CompanyEntity>, ICompanyRepository
     {
+        public List<CompanyEntity> FindList(Expression<Func<CompanyEntity, bool>> predicate)
+        {
+            var expression = ExtLinq.True<CompanyEntity>();
+            expression.And(predicate);
+
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_CorpId == CompanyId);
+            }
+
+            return IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+        }
+
+        public List<CompanyEntity> FindList(Expression<Func<CompanyEntity, bool>> predicate, Pagination pagination,string keyword)
+        {
+            var expression = ExtLinq.True<CompanyEntity>();
+            expression.And(predicate);
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.F_FullName.Contains(keyword));
+            }
+
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_CorpId == CompanyId);
+            }
+
+            return FindList(expression, pagination);
+        }
+
         public void DeleteForm(string keyValue)
         {
             using (var db = new RepositoryBase().BeginTrans())

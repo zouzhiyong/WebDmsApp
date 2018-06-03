@@ -4,6 +4,10 @@
  * Description: NFine快速开发平台
  * Website：http://www.nfine.cn
 *********************************************************************************/
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using NFine.Code;
 using NFine.Data;
 using NFine.Domain.Entity.SystemManage;
 
@@ -11,5 +15,7 @@ namespace NFine.Domain.IRepository.SystemManage
 {
     public interface IOrganizeRepository : IRepositoryBase<OrganizeEntity>
     {
+        List<OrganizeEntity> FindList(Expression<Func<OrganizeEntity, bool>> predicate);
+        List<OrganizeEntity> FindList(Expression<Func<OrganizeEntity, bool>> predicate, Pagination pagination, string keyword);
     }
 }

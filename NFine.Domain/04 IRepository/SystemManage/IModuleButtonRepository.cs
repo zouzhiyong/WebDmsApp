@@ -7,11 +7,17 @@
 using NFine.Data;
 using NFine.Domain.Entity.SystemManage;
 using System.Collections.Generic;
+using NFine.Code;
+using System.Linq.Expressions;
+using System;
 
 namespace NFine.Domain.IRepository.SystemManage
 {
     public interface IModuleButtonRepository : IRepositoryBase<ModuleButtonEntity>
     {
         void SubmitCloneButton(List<ModuleButtonEntity> entitys);
+
+        List<ModuleButtonEntity> FindList(Expression<Func<ModuleButtonEntity, bool>> predicate);
+        List<ModuleButtonEntity> FindList(Expression<Func<ModuleButtonEntity, bool>> predicate, Pagination pagination, string keyword);
     }
 }

@@ -13,17 +13,21 @@ using System.Data.Common;
 //using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using System.Text;
+using System.Linq.Expressions;
+using NFine.Code;
+using System;
+using System.Linq;
 
 namespace NFine.Repository.SystemManage
 {
     public class ItemsCustDetailRepository : RepositoryBase<ItemsCustDetailEntity>, IItemsCustDetailRepository
     {
-        public List<ItemsCustDetailEntity> GetItemList(string enCode)
+        public List<ItemsCustDetailEntity> GetItemList(string enCode, string F_CorpId)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append(@"SELECT  d.*
                             FROM    Sys_ItemsCustDetail d
-                                    INNER  JOIN Sys_Items i ON i.F_Id = d.F_ItemId
+                                    INNER  JOIN Sys_Items i ON i.F_Id = d.F_ItemId AND d.F_CorpId=@F_CorpId
                             WHERE   1 = 1
                                     AND i.F_EnCode = @enCode
                                     AND d.F_EnabledMark = 1
@@ -31,7 +35,8 @@ namespace NFine.Repository.SystemManage
                             ORDER BY d.F_SortCode ASC");
             DbParameter[] parameter =
             {
-                 new MySqlParameter("@enCode",enCode)
+                 new MySqlParameter("@enCode",enCode),
+                 new MySqlParameter("@F_CorpId", F_CorpId)
             };
             return this.FindList(strSql.ToString(), parameter);
         }
@@ -52,5 +57,38 @@ namespace NFine.Repository.SystemManage
             };
             return this.FindList(strSql.ToString(), parameter);
         }
-    }
+
+        public List<ItemsCustDetailEntity> FindList(Expression<Func<ItemsCustDetailEntity, bool>> predicate)
+        {
+            var expression = ExtLinq.True<ItemsCustDetailEntity>();
+            expression.And(predicate);
+
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_CorpId == CompanyId);
+            }
+
+            return IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+        }
+
+        public List<ItemsCustDetailEntity> FindList(Expression<Func<ItemsCustDetailEntity, bool>> predicate, Pagination pagination, string keyword)
+        {
+            var expression = ExtLinq.True<ItemsCustDetailEntity>();
+            expression.And(predicate);
+
+            //if (!string.IsNullOrEmpty(keyword))
+            //{
+            //    expression = expression.And(t => t.F_FullName.Contains(keyword));
+            //}
+
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_CorpId == CompanyId);
+            }
+
+            return FindList(expression, pagination);
+        }
+    }    
 }

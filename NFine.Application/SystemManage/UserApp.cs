@@ -17,6 +17,7 @@ namespace NFine.Application.SystemManage
     public class UserApp
     {
         private IUserRepository service = new UserRepository();
+        private ICompanyRepository serviceCompany = new CompanyRepository();
         private UserLogOnApp userLogOnApp = new UserLogOnApp();
 
         public List<UserEntity> GetList(string custType="",string keyword = "")
@@ -90,17 +91,23 @@ namespace NFine.Application.SystemManage
                     string dbPassword = Md5.md5(DESEncrypt.Encrypt(password.ToLower(), userLogOnEntity.F_UserSecretkey).ToLower(), 32).ToLower();
                     if (dbPassword == userLogOnEntity.F_UserPassword)
                     {
-                        DateTime lastVisitTime = DateTime.Now;
-                        int LogOnCount = (userLogOnEntity.F_LogOnCount).ToInt() + 1;
-                        if (userLogOnEntity.F_LastVisitTime != null)
+                        if(serviceCompany.FindEntity(t => t.F_CorpId == userEntity.F_CorpId).F_EnabledMark == true)
                         {
-                            userLogOnEntity.F_PreviousVisitTime = userLogOnEntity.F_LastVisitTime.ToDate();
-                        }
-                        userLogOnEntity.F_LastVisitTime = lastVisitTime;
-                        userLogOnEntity.F_LogOnCount = LogOnCount;
-                        userLogOnEntity.F_CorpId = userEntity.F_CorpId;
-                        userLogOnApp.UpdateForm(userLogOnEntity);
-                        return userEntity;
+                            DateTime lastVisitTime = DateTime.Now;
+                            int LogOnCount = (userLogOnEntity.F_LogOnCount).ToInt() + 1;
+                            if (userLogOnEntity.F_LastVisitTime != null)
+                            {
+                                userLogOnEntity.F_PreviousVisitTime = userLogOnEntity.F_LastVisitTime.ToDate();
+                            }
+                            userLogOnEntity.F_LastVisitTime = lastVisitTime;
+                            userLogOnEntity.F_LogOnCount = LogOnCount;
+                            userLogOnEntity.F_CorpId = userEntity.F_CorpId;
+                            userLogOnApp.UpdateForm(userLogOnEntity);
+                            return userEntity;
+                        }else
+                        {
+                            throw new Exception("账号不属于有效公司，请联系管理员");
+                        }                        
                     }
                     else
                     {

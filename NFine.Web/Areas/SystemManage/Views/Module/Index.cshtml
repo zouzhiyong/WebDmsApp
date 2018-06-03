@@ -34,6 +34,12 @@
                     }
                 },
                 {
+                    label: "管理页面", name: "F_IsAdmin", width: 60, align: "center",
+                    formatter: function (cellvalue) {
+                        return cellvalue == true ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";
+                    }
+                },
+                {
                     label: "菜单", name: "F_IsMenu", width: 60, align: "center",
                     formatter: function (cellvalue) {
                         return cellvalue == true ? "<i class=\"fa fa-toggle-on\"></i>" : "<i class=\"fa fa-toggle-off\"></i>";

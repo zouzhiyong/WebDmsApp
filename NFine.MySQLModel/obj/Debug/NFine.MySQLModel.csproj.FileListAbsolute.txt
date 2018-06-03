@@ -34,5 +34,6 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\zh-Hans\Syst
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\zh-Hans\System.Web.WebPages.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\bin\Debug\zh-Hans\System.Web.WebPages.Razor.resources.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\obj\Debug\NFine.MySQLModel.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\obj\Debug\NFine.MySQLModel.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.MySQLModel\obj\Debug\NFine.MySQLModel.pdb

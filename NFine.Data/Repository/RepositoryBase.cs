@@ -164,6 +164,7 @@ namespace NFine.Data
             bool isAsc = pagination.sord.ToLower() == "asc" ? true : false;
             string[] _order = pagination.sidx.Split(',');
             MethodCallExpression resultExp = null;
+            
             var tempData = dbcontext.Set<TEntity>().Where(predicate);
             foreach (string item in _order)
             {
