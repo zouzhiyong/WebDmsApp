@@ -25,7 +25,16 @@ namespace NFine.Application.SystemManage
 
         public List<CompanyEntity> GetList()
         {
-            return service.FindList(t=>true);
+            var expression = ExtLinq.True<CompanyEntity>();
+
+            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            {
+                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+                expression = expression.And(t => t.F_CorpId == CompanyId);
+            }
+
+            return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
+            //return service.FindList(t=>true);
         }
 
         public List<CompanyEntity> GetList(Pagination pagination, string keyword)

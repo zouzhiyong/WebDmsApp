@@ -24,7 +24,7 @@ namespace NFine.Application.SystemManage
             var expression = ExtLinq.True<ItemsEntity>();
             if (!OperatorProvider.Provider.GetCurrent().IsSystem)
             {
-                string F_Id = service.IQueryable(t => t.F_ParentId == "0" && t.F_EnCode == "CustType").Select(s => s.F_Id).First();
+                string F_Id = service.IQueryable(t => t.F_ParentId == "0" && t.F_EnCode == "CustType").FirstOrDefault().F_Id;
                 expression = expression.And(t => t.F_ParentId == F_Id);
                 expression = expression.Or(t => t.F_ParentId == "0" && t.F_EnCode == "CustType");
             }

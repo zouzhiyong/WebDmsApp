@@ -21,14 +21,14 @@ namespace NFine.Application.SystemManage
         {            
             var expression = ExtLinq.True<DepartmentEntity>();            
 
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }else
-            {
-                expression = expression.And(t => t.F_CorpId == F_CorpId);
-            }
+            //if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            //{
+            //    string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+            //    expression = expression.And(t => t.F_CorpId == CompanyId);
+            //}else
+            //{
+            //    expression = expression.And(t => t.F_CorpId == F_CorpId);
+            //}
             return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
         }
 
@@ -39,11 +39,11 @@ namespace NFine.Application.SystemManage
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
             }
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
+            //if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            //{
+            //    string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+            //    expression = expression.And(t => t.F_CorpId == CompanyId);
+            //}
             return service.FindList(expression, pagination);
         }
 
@@ -55,11 +55,11 @@ namespace NFine.Application.SystemManage
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
             }
 
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
+            //if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+            //{
+            //    string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+            //    expression = expression.And(t => t.F_CorpId == CompanyId);
+            //}
             return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
         }
         public DepartmentEntity GetForm(string keyValue)
