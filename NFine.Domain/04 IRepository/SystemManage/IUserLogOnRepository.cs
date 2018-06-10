@@ -15,7 +15,6 @@ namespace NFine.Domain.IRepository.SystemManage
 {
     public interface IUserLogOnRepository : IRepositoryBase<UserLogOnEntity>
     {
-        List<UserLogOnEntity> FindList(Expression<Func<UserLogOnEntity, bool>> predicate);
-        List<UserLogOnEntity> FindList(Expression<Func<UserLogOnEntity, bool>> predicate, Pagination pagination, string keyword);
+
     }
 }

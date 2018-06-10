@@ -6,6 +6,10 @@
 *********************************************************************************/
 using NFine.Code;
 using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using NFine.Data;
+using System.Linq;
 
 namespace NFine.Domain
 {
@@ -28,15 +32,7 @@ namespace NFine.Domain
                     {
                         entity.F_CorpId = LoginInfo.CompanyId;
                     }
-                }
-                //entity.F_CorpId = LoginInfo.CompanyId;
-                //if (OperatorProvider.Provider.GetCurrent().IsSystem)
-                //{
-                //    entity.F_CorpId = "00000000-0000-0000-0000-000000000000";
-                //}else
-                //{
-                //    entity.F_CorpId = LoginInfo.CompanyId;
-                //}              
+                }            
             }
             entity.F_CreatorTime = DateTime.Now;
         }
@@ -58,15 +54,6 @@ namespace NFine.Domain
                         entity.F_CorpId = LoginInfo.CompanyId;
                     }
                 }
-                //entity.F_CorpId = LoginInfo.CompanyId;
-                //if (OperatorProvider.Provider.GetCurrent().IsSystem)
-                //{
-                //    entity.F_CorpId = "00000000-0000-0000-0000-000000000000";
-                //}
-                //else
-                //{
-                //    entity.F_CorpId = LoginInfo.CompanyId;
-                //}
             }
             entity.F_LastModifyTime = DateTime.Now;
         }
@@ -81,5 +68,7 @@ namespace NFine.Domain
             entity.F_DeleteTime = DateTime.Now;
             entity.F_DeleteMark = true;
         }
+
+        
     }
 }

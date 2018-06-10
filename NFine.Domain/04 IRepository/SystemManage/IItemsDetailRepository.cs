@@ -17,8 +17,7 @@ namespace NFine.Domain.IRepository.SystemManage
     {
         List<ItemsDetailEntity> GetItemList(string enCode);
 
-        List<ItemsDetailEntity> FindList(Expression<Func<ItemsDetailEntity, bool>> predicate);
-        List<ItemsDetailEntity> FindList(Expression<Func<ItemsDetailEntity, bool>> predicate, Pagination pagination, string keyword);
+     
 
     }
 }

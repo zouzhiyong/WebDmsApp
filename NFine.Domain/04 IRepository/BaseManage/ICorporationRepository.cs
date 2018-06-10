@@ -15,7 +15,5 @@ namespace NFine.Domain.IRepository.BaseManage
 {
     public interface ICorporationRepository : IRepositoryBase<CorporationEntity>
     {
-        List<CorporationEntity> FindList(Expression<Func<CorporationEntity, bool>> predicate);
-        List<CorporationEntity> FindList(Expression<Func<CorporationEntity, bool>> predicate, Pagination pagination, string keyword);
     }
 }

@@ -45,37 +45,6 @@ namespace NFine.Repository.BaseManage
             }
         }
 
-        public List<WarehouseEntity> FindList(Expression<Func<WarehouseEntity, bool>> predicate)
-        {
-            var expression = ExtLinq.True<WarehouseEntity>();
-            expression.And(predicate);
-
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
-
-            return IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
-        }
-
-        public List<WarehouseEntity> FindList(Expression<Func<WarehouseEntity, bool>> predicate, Pagination pagination, string keyword)
-        {
-            var expression = ExtLinq.True<WarehouseEntity>();
-            expression.And(predicate);
-
-            //if (!string.IsNullOrEmpty(keyword))
-            //{
-            //    expression = expression.And(t => t.F_FullName.Contains(keyword));
-            //}
-
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
-
-            return FindList(expression, pagination);
-        }
+        
     }
 }

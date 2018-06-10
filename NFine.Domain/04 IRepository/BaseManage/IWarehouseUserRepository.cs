@@ -15,7 +15,6 @@ namespace NFine.Domain.IRepository.BaseManage
 {
     public interface IWarehouseUserRepository : IRepositoryBase<WarehouseUserEntity>
     {
-        List<WarehouseUserEntity> FindList(Expression<Func<WarehouseUserEntity, bool>> predicate);
-        List<WarehouseUserEntity> FindList(Expression<Func<WarehouseUserEntity, bool>> predicate, Pagination pagination, string keyword);
+  
     }
 }

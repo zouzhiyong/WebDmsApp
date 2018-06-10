@@ -16,8 +16,6 @@ namespace NFine.Domain.IRepository.SystemManage
 {
     public interface ICompanyRepository : IRepositoryBase<CompanyEntity>
     {
-        List<CompanyEntity> FindList(Expression<Func<CompanyEntity, bool>> predicate);
-        List<CompanyEntity> FindList(Expression<Func<CompanyEntity, bool>> predicate, Pagination pagination,string keyword);
         void DeleteForm(string keyValue);
         void SubmitForm(CompanyEntity companyEntity, CorporationEntity corporationEntity, List<CompanyAuthorizeEntity> companyAuthorizeEntitys, List<RoleAuthorizeEntity> roleAuthorizeEntitys, List<ItemsCustDetailEntity> itemsCustDetailEntitys, string keyValue);
     }

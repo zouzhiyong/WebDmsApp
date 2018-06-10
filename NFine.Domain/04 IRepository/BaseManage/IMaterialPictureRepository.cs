@@ -15,7 +15,6 @@ namespace NFine.Domain.IRepository.BaseManage
 {
     public interface IMaterialPictureRepository : IRepositoryBase<MaterialPictureEntity>
     {
-        List<MaterialPictureEntity> FindList(Expression<Func<MaterialPictureEntity, bool>> predicate);
-        List<MaterialPictureEntity> FindList(Expression<Func<MaterialPictureEntity, bool>> predicate, Pagination pagination, string keyword);
+
     }
 }

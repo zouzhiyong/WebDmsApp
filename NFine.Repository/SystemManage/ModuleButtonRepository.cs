@@ -30,37 +30,6 @@ namespace NFine.Repository.SystemManage
             }
         }
 
-        public List<ModuleButtonEntity> FindList(Expression<Func<ModuleButtonEntity, bool>> predicate)
-        {
-            var expression = ExtLinq.True<ModuleButtonEntity>();
-            expression.And(predicate);
-
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
-
-            return IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
-        }
-
-        public List<ModuleButtonEntity> FindList(Expression<Func<ModuleButtonEntity, bool>> predicate, Pagination pagination, string keyword)
-        {
-            var expression = ExtLinq.True<ModuleButtonEntity>();
-            expression.And(predicate);
-
-            if (!string.IsNullOrEmpty(keyword))
-            {
-                expression = expression.And(t => t.F_FullName.Contains(keyword));
-            }
-
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
-
-            return FindList(expression, pagination);
-        }
+        
     }
 }

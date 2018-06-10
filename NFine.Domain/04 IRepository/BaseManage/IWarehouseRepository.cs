@@ -18,7 +18,6 @@ namespace NFine.Domain.IRepository.BaseManage
         void DeleteForm(string keyValue);
         void SubmitForm(WarehouseEntity warehouseEntity, List<WarehouseUserEntity> warehouseUserEntitys, string keyValue);
 
-        List<WarehouseEntity> FindList(Expression<Func<WarehouseEntity, bool>> predicate);
-        List<WarehouseEntity> FindList(Expression<Func<WarehouseEntity, bool>> predicate, Pagination pagination, string keyword);
+       
     }
 }

@@ -15,7 +15,6 @@ namespace NFine.Domain.IRepository.BaseManage
 {
     public interface ITruckRepository : IRepositoryBase<TruckEntity>
     {
-        List<TruckEntity> FindList(Expression<Func<TruckEntity, bool>> predicate);
-        List<TruckEntity> FindList(Expression<Func<TruckEntity, bool>> predicate, Pagination pagination, string keyword);
+      
     }
 }

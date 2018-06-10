@@ -15,7 +15,6 @@ namespace NFine.Domain.IRepository.SystemManage
 {
     public interface IRoleAuthorizeRepository : IRepositoryBase<RoleAuthorizeEntity>
     {
-        List<RoleAuthorizeEntity> FindList(Expression<Func<RoleAuthorizeEntity, bool>> predicate);
-        List<RoleAuthorizeEntity> FindList(Expression<Func<RoleAuthorizeEntity, bool>> predicate, Pagination pagination, string keyword);
+
     }
 }

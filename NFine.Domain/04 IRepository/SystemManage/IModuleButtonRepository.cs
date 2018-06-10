@@ -17,7 +17,5 @@ namespace NFine.Domain.IRepository.SystemManage
     {
         void SubmitCloneButton(List<ModuleButtonEntity> entitys);
 
-        List<ModuleButtonEntity> FindList(Expression<Func<ModuleButtonEntity, bool>> predicate);
-        List<ModuleButtonEntity> FindList(Expression<Func<ModuleButtonEntity, bool>> predicate, Pagination pagination, string keyword);
     }
 }

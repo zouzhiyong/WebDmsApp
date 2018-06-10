@@ -19,7 +19,6 @@ namespace NFine.Domain.IRepository.BaseManage
 
         void SubmitForm(MaterialEntity materialEntity, List<MaterialUomEntity> materialuomEntitys, MaterialPictureEntity materialpictureEntity, string keyValue);
 
-        List<MaterialEntity> FindList(Expression<Func<MaterialEntity, bool>> predicate);
-        List<MaterialEntity> FindList(Expression<Func<MaterialEntity, bool>> predicate, Pagination pagination, string keyword);
+        
     }
 }

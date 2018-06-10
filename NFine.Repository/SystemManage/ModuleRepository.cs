@@ -18,37 +18,6 @@ namespace NFine.Repository.SystemManage
 {
     public class ModuleRepository : RepositoryBase<ModuleEntity>, IModuleRepository
     {
-        public List<ModuleEntity> FindList(Expression<Func<ModuleEntity, bool>> predicate)
-        {
-            var expression = ExtLinq.True<ModuleEntity>();
-            expression.And(predicate);
-
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
-
-            return IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
-        }
-
-        public List<ModuleEntity> FindList(Expression<Func<ModuleEntity, bool>> predicate, Pagination pagination, string keyword)
-        {
-            var expression = ExtLinq.True<ModuleEntity>();
-            expression.And(predicate);
-
-            if (!string.IsNullOrEmpty(keyword))
-            {
-                expression = expression.And(t => t.F_FullName.Contains(keyword));
-            }
-
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
-
-            return FindList(expression, pagination);
-        }
+        
     }
 }

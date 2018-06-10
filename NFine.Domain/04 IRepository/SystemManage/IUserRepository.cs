@@ -18,7 +18,5 @@ namespace NFine.Domain.IRepository.SystemManage
         void DeleteForm(string keyValue);
         void SubmitForm(UserEntity userEntity, UserLogOnEntity userLogOnEntity, string keyValue);
 
-        List<UserEntity> FindList(Expression<Func<UserEntity, bool>> predicate);
-        List<UserEntity> FindList(Expression<Func<UserEntity, bool>> predicate, Pagination pagination, string keyword);
     }
 }

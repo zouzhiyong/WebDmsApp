@@ -14,7 +14,7 @@ namespace NFine.Domain.Entity.SystemManage
 
         public bool? F_DeleteMark { get; set; }
 
-
+        public int? F_SortCode { get; set; }
         public DateTime? F_CreatorTime { get; set; }
         public string F_CreatorUserId { get; set; }
         public DateTime? F_LastModifyTime { get; set; }

@@ -15,7 +15,6 @@ namespace NFine.Domain.IRepository.SystemManage
 {
     public interface IAreaRepository : IRepositoryBase<AreaEntity>
     {
-        List<AreaEntity> FindList(Expression<Func<AreaEntity, bool>> predicate);
-        List<AreaEntity> FindList(Expression<Func<AreaEntity, bool>> predicate, Pagination pagination, string keyword);
+
     }
 }

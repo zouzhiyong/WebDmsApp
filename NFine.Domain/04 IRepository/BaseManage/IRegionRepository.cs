@@ -15,7 +15,6 @@ namespace NFine.Domain.IRepository.BaseManage
 {
     public interface IRegionRepository : IRepositoryBase<RegionEntity>
     {
-        List<RegionEntity> FindList(Expression<Func<RegionEntity, bool>> predicate);
-        List<RegionEntity> FindList(Expression<Func<RegionEntity, bool>> predicate, Pagination pagination, string keyword);
+        
     }
 }

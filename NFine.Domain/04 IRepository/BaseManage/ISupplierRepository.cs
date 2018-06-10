@@ -15,7 +15,6 @@ namespace NFine.Domain.IRepository.BaseManage
 {
     public interface ISupplierRepository : IRepositoryBase<SupplierEntity>
     {
-        List<SupplierEntity> FindList(Expression<Func<SupplierEntity, bool>> predicate);
-        List<SupplierEntity> FindList(Expression<Func<SupplierEntity, bool>> predicate, Pagination pagination, string keyword);
+        
     }
 }

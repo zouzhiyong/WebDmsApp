@@ -12,6 +12,6 @@ namespace NFine.Domain
     {
         string F_Id { get; set; }
         string F_CorpId { get; set; }
-        string F_SortCode { get; set; }
+        int? F_SortCode { get; set; }
     }
 }
