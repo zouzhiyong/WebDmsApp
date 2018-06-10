@@ -59,7 +59,6 @@ namespace NFine.Data
         }
         public int Delete(Expression<Func<TEntity, bool>> predicate)
         {
-            predicate = expression(predicate);
             var entitys = dbcontext.Set<TEntity>().Where(predicate).ToList();
             entitys.ForEach(m => dbcontext.Entry<TEntity>(m).State = EntityState.Deleted);
             return dbcontext.SaveChanges();
@@ -70,7 +69,6 @@ namespace NFine.Data
         }
         public TEntity FindEntity(Expression<Func<TEntity, bool>> predicate)
         {
-            predicate = expression(predicate);
             return dbcontext.Set<TEntity>().FirstOrDefault(predicate);
         }
         public IQueryable<TEntity> IQueryable()
@@ -79,7 +77,6 @@ namespace NFine.Data
         }
         public IQueryable<TEntity> IQueryable(Expression<Func<TEntity, bool>> predicate)
         {
-            predicate = expression(predicate);
             return dbcontext.Set<TEntity>().Where(predicate);
         }
         public List<TEntity> FindList(string strSql)
@@ -120,7 +117,6 @@ namespace NFine.Data
         }
         public List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate, Pagination pagination)
         {
-            predicate = expression(predicate);
             bool isAsc = pagination.sord.ToLower() == "asc" ? true : false;
             string[] _order = pagination.sidx.Split(',');
             MethodCallExpression resultExp = null;
@@ -146,22 +142,6 @@ namespace NFine.Data
             pagination.records = tempData.Count();
             tempData = tempData.Skip<TEntity>(pagination.rows * (pagination.page - 1)).Take<TEntity>(pagination.rows).AsQueryable();
             return tempData.ToList();
-        }
-        
-        private Expression<Func<TEntity, bool>> expression(Expression<Func<TEntity, bool>> predicate)
-        {
-            if (OperatorProvider.Provider.GetCurrent() != null)
-            {
-                if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-                {
-                    ParameterExpression parameter = Expression.Parameter(typeof(TEntity), "t");//创建参数p
-                    MemberExpression member = Expression.PropertyOrField(parameter, "F_CorpId");
-                    ConstantExpression constant = Expression.Constant(OperatorProvider.Provider.GetCurrent().CompanyId);//创建常数
-                    var lambda = Expression.Lambda<Func<TEntity, bool>>(Expression.Equal(member, constant), parameter);
-                    predicate.And(lambda);
-                }
-            }
-            return predicate;
         }
     }
 }
