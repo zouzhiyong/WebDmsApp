@@ -148,17 +148,30 @@ namespace NFine.Data
             return tempData.ToList();
         }
 
+        public List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate)
+        {
+            return IQueryable(predicate).ToList();
+        }
+
+        public List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, dynamic>> sortPredicate)
+        {            
+            return ExtLinq.SortBy(IQueryable(predicate), sortPredicate).ToList();
+        }
+
         private Expression<Func<TEntity, bool>> expression(Expression<Func<TEntity, bool>> predicate)
         {
             if (OperatorProvider.Provider.GetCurrent() != null)
             {
                 if (!OperatorProvider.Provider.GetCurrent().IsSystem)
                 {
-                    ParameterExpression parameter = Expression.Parameter(typeof(TEntity), "t");//创建参数p
-                    MemberExpression member = Expression.PropertyOrField(parameter, "F_CorpId");
-                    ConstantExpression constant = Expression.Constant(OperatorProvider.Provider.GetCurrent().CompanyId);//创建常数
-                    var lambda = Expression.Lambda<Func<TEntity, bool>>(Expression.Equal(member, constant), parameter);
-                    predicate.And(lambda);
+                    ParameterExpression parameter = Expression.Parameter(typeof(TEntity), "t");//创建参数
+                    if (parameter.Type.Name != "ItemsEntity" && parameter.Type.Name != "ModuleButtonEntity")
+                    {
+                        MemberExpression member = Expression.PropertyOrField(parameter, "F_CorpId");
+                        ConstantExpression constant = Expression.Constant(OperatorProvider.Provider.GetCurrent().CompanyId);//创建常数
+                        var lambda = Expression.Lambda<Func<TEntity, bool>>(Expression.Equal(member, constant), parameter);
+                        predicate = predicate.And(lambda);
+                    }
                 }
             }
             return predicate;

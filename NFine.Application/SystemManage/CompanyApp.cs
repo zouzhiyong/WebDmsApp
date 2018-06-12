@@ -39,7 +39,12 @@ namespace NFine.Application.SystemManage
 
         public List<CompanyEntity> GetList(Pagination pagination, string keyword)
         {
-            return service.FindList(t => true, pagination, keyword);
+            var expression = ExtLinq.True<CompanyEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.F_FullName.Contains(keyword));
+            }
+            return service.FindList(expression, pagination);
         }
         public CompanyEntity GetForm(string keyValue)
         {
