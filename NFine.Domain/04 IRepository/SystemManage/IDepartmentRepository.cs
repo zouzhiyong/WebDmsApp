@@ -13,8 +13,9 @@ using NFine.Domain.Entity.SystemManage;
 
 namespace NFine.Domain.IRepository.SystemManage
 {
-    public interface IDepartmentRepository : IRepositoryBase<DepartmentEntity>
+    public interface IDepartmentRepository<TEntity> : IRepositoryBase<TEntity> where TEntity : class, new()
     {
-      
+        List<TEntity> FindList1(Expression<Func<TEntity, bool>> predicate);
+        List<TEntity> FindList1(Expression<Func<TEntity, bool>> predicate, Pagination pagination);
     }
 }

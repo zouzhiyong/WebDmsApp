@@ -16,8 +16,16 @@ using NFine.Repository.SystemManage;
 
 namespace NFine.Repository.SystemManage
 {
-    public class DepartmentRepository : RepositoryBase<DepartmentEntity>, IDepartmentRepository
+    public class DepartmentRepository<TEntity> : RepositoryBase<TEntity>, IDepartmentRepository<TEntity> where TEntity : class, new()
     {
-        
+        public List<TEntity> FindList1(Expression<Func<TEntity, bool>> predicate)
+        {
+            return IQueryable(predicate).ToList();
+        }
+
+        public List<TEntity> FindList1(Expression<Func<TEntity, bool>> predicate, Pagination pagination)
+        {
+            return FindList(predicate, pagination);
+        }
     }
 }

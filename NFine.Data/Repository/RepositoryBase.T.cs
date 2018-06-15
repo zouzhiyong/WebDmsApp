@@ -24,21 +24,20 @@ namespace NFine.Data
     {
         public NFineDbContext dbcontext = new NFineDbContext();
         public int Insert(TEntity entity)
-        { 
-            dbcontext.Entry<TEntity>(intsertEntity(entity)).State = EntityState.Added;
+        {
+            dbcontext.Entry<TEntity>(entity).State = EntityState.Added;
             return dbcontext.SaveChanges();
         }
         public int Insert(List<TEntity> entitys)
         {
             foreach (var entity in entitys)
-            {                
-                dbcontext.Entry<TEntity>(intsertEntity(entity)).State = EntityState.Added;
+            {
+                dbcontext.Entry<TEntity>(entity).State = EntityState.Added;
             }
             return dbcontext.SaveChanges();
         }
         public int Update(TEntity entity)
         {
-            entity = modifyEntity(entity);
             dbcontext.Set<TEntity>().Attach(entity);
             PropertyInfo[] props = entity.GetType().GetProperties();
             foreach (PropertyInfo prop in props)
@@ -46,10 +45,7 @@ namespace NFine.Data
                 if (prop.GetValue(entity, null) != null)
                 {
                     if (prop.GetValue(entity, null).ToString() == "&nbsp;")
-                    {
                         dbcontext.Entry(entity).Property(prop.Name).CurrentValue = null;
-                    }
-                    
                     dbcontext.Entry(entity).Property(prop.Name).IsModified = true;
                 }
             }
@@ -57,14 +53,12 @@ namespace NFine.Data
         }
         public int Delete(TEntity entity)
         {
-            entity = deleteEntity(entity);
             dbcontext.Set<TEntity>().Attach(entity);
             dbcontext.Entry<TEntity>(entity).State = EntityState.Deleted;
             return dbcontext.SaveChanges();
         }
         public int Delete(Expression<Func<TEntity, bool>> predicate)
         {
-            predicate = expression(predicate);
             var entitys = dbcontext.Set<TEntity>().Where(predicate).ToList();
             entitys.ForEach(m => dbcontext.Entry<TEntity>(m).State = EntityState.Deleted);
             return dbcontext.SaveChanges();
@@ -75,7 +69,6 @@ namespace NFine.Data
         }
         public TEntity FindEntity(Expression<Func<TEntity, bool>> predicate)
         {
-            predicate = expression(predicate);
             return dbcontext.Set<TEntity>().FirstOrDefault(predicate);
         }
         public IQueryable<TEntity> IQueryable()
@@ -84,7 +77,6 @@ namespace NFine.Data
         }
         public IQueryable<TEntity> IQueryable(Expression<Func<TEntity, bool>> predicate)
         {
-            predicate = expression(predicate);
             return dbcontext.Set<TEntity>().Where(predicate);
         }
         public List<TEntity> FindList(string strSql)
@@ -125,7 +117,6 @@ namespace NFine.Data
         }
         public List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate, Pagination pagination)
         {
-            predicate = expression(predicate);
             bool isAsc = pagination.sord.ToLower() == "asc" ? true : false;
             string[] _order = pagination.sidx.Split(',');
             MethodCallExpression resultExp = null;
@@ -151,99 +142,6 @@ namespace NFine.Data
             pagination.records = tempData.Count();
             tempData = tempData.Skip<TEntity>(pagination.rows * (pagination.page - 1)).Take<TEntity>(pagination.rows).AsQueryable();
             return tempData.ToList();
-        }
-
-        public List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate)
-        {
-            return IQueryable(predicate).ToList();
-        }
-
-        public List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, dynamic>> sortPredicate)
-        {
-            return ExtLinq.SortBy(IQueryable(predicate), sortPredicate).ToList();
-        }
-
-        private Expression<Func<TEntity, bool>> expression(Expression<Func<TEntity, bool>> predicate)
-        {
-            if (OperatorProvider.Provider.GetCurrent() != null)
-            {
-                //if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-                //{
-                ParameterExpression parameter = Expression.Parameter(typeof(TEntity), "t");//创建参数
-                if (parameter.Type.Name != "ItemsEntity" && parameter.Type.Name != "ModuleButtonEntity")//除类型主表和模板对应按钮外，其它表查询都需要加上公司ID条件
-                {
-                    MemberExpression member = Expression.PropertyOrField(parameter, "F_CorpId");
-                    ConstantExpression constant = Expression.Constant(OperatorProvider.Provider.GetCurrent().CompanyId);//创建常数
-                    var lambda = Expression.Lambda<Func<TEntity, bool>>(Expression.Equal(member, constant), parameter);
-                    predicate = predicate.And(lambda);
-                }
-                //}
-            }
-            return predicate;
-        }
-
-        private TEntity intsertEntity(TEntity entity)
-        {
-            foreach (var pro in entity.GetType().GetProperties())
-            {
-                
-                if (pro.Name.Equals("F_Id"))
-                {
-                    pro.SetValue(entity, Common.GuId(), null);
-                }
-                if (pro.Name.Equals("F_CreatorTime"))
-                {
-                    pro.SetValue(entity, DateTime.Now, null);
-                }
-                var LoginInfo = OperatorProvider.Provider.GetCurrent();
-                if (LoginInfo != null)
-                {
-                    if (pro.Name.Equals("F_CreatorUserId"))
-                    {
-                        pro.SetValue(entity, LoginInfo.UserId, null);
-                    }
-                    if (pro.Name.Equals("F_CorpId"))
-                    {
-                        pro.SetValue(entity, LoginInfo.CompanyId, null);
-                    }                   
-                }                
-            }
-            return entity;
-        }
-
-        private TEntity modifyEntity(TEntity entity)
-        {
-            foreach (var pro in entity.GetType().GetProperties())
-            {
-                if (pro.Name.Equals("F_LastModifyTime"))
-                {
-                    pro.SetValue(entity, DateTime.Now, null);
-                }
-                var LoginInfo = OperatorProvider.Provider.GetCurrent();
-                if (LoginInfo != null)
-                {
-                    if (pro.Name.Equals("F_CorpId"))
-                    {
-                        pro.SetValue(entity, LoginInfo.CompanyId, null);
-                    }
-                }
-            }
-            return entity;
-        }
-        private TEntity deleteEntity(TEntity entity)
-        {
-            foreach (var pro in entity.GetType().GetProperties())
-            {
-                var LoginInfo = OperatorProvider.Provider.GetCurrent();
-                if (LoginInfo != null)
-                {
-                    if (pro.Name.Equals("F_CorpId"))
-                    {
-                        pro.SetValue(entity, LoginInfo.CompanyId, null);
-                    }
-                }
-            }
-            return entity;
         }
     }
 }

@@ -117,6 +117,7 @@
     <Compile Include="04 IRepository\BaseManage\ISupplierRepository.cs" />
     <Compile Include="04 IRepository\BaseManage\IWarehouseRepository.cs" />
     <Compile Include="04 IRepository\BaseManage\IWarehouseUserRepository.cs" />
+    <Compile Include="04 IRepository\Base\IRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IAreaRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsCustDetailRepository.cs" />
     <Compile Include="04 IRepository\SystemManage\IItemsDetailRepository.cs" />

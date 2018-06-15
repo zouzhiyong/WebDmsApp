@@ -17,7 +17,7 @@ namespace NFine.Data
     /// 仓储接口
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
-    public interface IRepositoryBase<TEntity> where TEntity : class,new()
+    public interface IRepositoryBase<TEntity> where TEntity : class, new()
     {
         int Insert(TEntity entity);
         int Insert(List<TEntity> entitys);
@@ -32,7 +32,5 @@ namespace NFine.Data
         List<TEntity> FindList(string strSql, DbParameter[] dbParameter);
         List<TEntity> FindList(Pagination pagination);
         List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate, Pagination pagination);
-        List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate);
-        List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, dynamic>> sortPredicate);
     }
 }

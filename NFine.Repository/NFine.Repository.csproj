@@ -96,6 +96,7 @@
     <Compile Include="BaseManage\SupplierRepository.cs" />
     <Compile Include="BaseManage\WarehouseRepository.cs" />
     <Compile Include="BaseManage\WarehouseUserRepository.cs" />
+    <Compile Include="Base\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemManage\ItemsCustDetailRepository.cs" />
     <Compile Include="SystemManage\ItemsDetailRepository.cs" />
