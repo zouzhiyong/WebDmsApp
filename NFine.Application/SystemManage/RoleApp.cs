@@ -43,7 +43,7 @@ namespace NFine.Application.SystemManage
         }
         public void DeleteForm(string keyValue)
         {
-            using (var db = new RepositoryBase().BeginTrans())
+            using (var db = new RepositoryEntity().BeginTrans())
             {
                 db.Delete<RoleEntity>(t => t.F_Id == keyValue);
                 db.Delete<RoleAuthorizeEntity>(t => t.F_ObjectId == keyValue);

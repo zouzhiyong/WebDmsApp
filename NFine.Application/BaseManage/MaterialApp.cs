@@ -68,7 +68,7 @@ namespace NFine.Application.BaseManage
         }
         public void DeleteForm(string keyValue)
         {
-            using (var db = new RepositoryBase().BeginTrans())
+            using (var db = new RepositoryEntity().BeginTrans())
             {
                 if (!string.IsNullOrEmpty(keyValue))
                 {
