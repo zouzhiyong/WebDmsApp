@@ -37,6 +37,8 @@ namespace NFine.MySQLModel
         public virtual DbSet<bas_unitofmeasure> bas_unitofmeasure { get; set; }
         public virtual DbSet<bas_warehouse> bas_warehouse { get; set; }
         public virtual DbSet<bas_warehouseuser> bas_warehouseuser { get; set; }
+        public virtual DbSet<pur_order> pur_order { get; set; }
+        public virtual DbSet<pur_orderdetail> pur_orderdetail { get; set; }
         public virtual DbSet<sys_area> sys_area { get; set; }
         public virtual DbSet<sys_company> sys_company { get; set; }
         public virtual DbSet<sys_companyauthorize> sys_companyauthorize { get; set; }
@@ -44,6 +46,7 @@ namespace NFine.MySQLModel
         public virtual DbSet<sys_department> sys_department { get; set; }
         public virtual DbSet<sys_filterip> sys_filterip { get; set; }
         public virtual DbSet<sys_items> sys_items { get; set; }
+        public virtual DbSet<sys_itemscustdetail> sys_itemscustdetail { get; set; }
         public virtual DbSet<sys_itemsdetail> sys_itemsdetail { get; set; }
         public virtual DbSet<sys_log> sys_log { get; set; }
         public virtual DbSet<sys_module> sys_module { get; set; }
@@ -55,6 +58,5 @@ namespace NFine.MySQLModel
         public virtual DbSet<sys_roleauthorize> sys_roleauthorize { get; set; }
         public virtual DbSet<sys_user> sys_user { get; set; }
         public virtual DbSet<sys_userlogon> sys_userlogon { get; set; }
-        public virtual DbSet<sys_itemscustdetail> sys_itemscustdetail { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace NFine.Repository.Base
 
         public new int Insert(TEntity entity)
         {
-            return repositoryBase.Insert(intsertEntity(entity));
+            return repositoryBase.Insert(entity);
         }
         public new int Insert(List<TEntity> entitys)
         {
@@ -29,7 +29,6 @@ namespace NFine.Repository.Base
         }
         public new int Update(TEntity entity)
         {
-            entity = modifyEntity(entity);
             return repositoryBase.Update(entity);
         }
         public new int Delete(TEntity entity)
@@ -87,64 +86,21 @@ namespace NFine.Repository.Base
         {
             if (OperatorProvider.Provider.GetCurrent() != null)
             {
-                ParameterExpression parameter = Expression.Parameter(typeof(TEntity), "t");//创建参数
-                if (parameter.Type.Name != "ItemsEntity" && parameter.Type.Name != "ModuleButtonEntity")//除类型主表和模板对应按钮外，其它表查询都需要加上公司ID条件
-                {
-                    MemberExpression member = Expression.PropertyOrField(parameter, "F_CorpId");
-                    ConstantExpression constant = Expression.Constant(OperatorProvider.Provider.GetCurrent().CompanyId);//创建常数
-                    var lambda = Expression.Lambda<Func<TEntity, bool>>(Expression.Equal(member, constant), parameter);
-                    predicate = predicate.And(lambda);
-                }
+                //if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+                //{
+                    ParameterExpression parameter = Expression.Parameter(typeof(TEntity), "t");//创建参数
+                    if (parameter.Type.Name != "ItemsEntity" && parameter.Type.Name != "ModuleButtonEntity")//除类型主表和模板对应按钮外，其它表查询都需要加上公司ID条件
+                    {
+                        MemberExpression member = Expression.PropertyOrField(parameter, "F_CorpId");
+                        ConstantExpression constant = Expression.Constant(OperatorProvider.Provider.GetCurrent().CompanyId);//创建常数
+                        var lambda = Expression.Lambda<Func<TEntity, bool>>(Expression.Equal(member, constant), parameter);
+                        predicate = predicate.And(lambda);
+                    }
+                //}
             }
             return predicate;
         }
-        private TEntity intsertEntity(TEntity entity)
-        {
-            foreach (var pro in entity.GetType().GetProperties())
-            {
-
-                if (pro.Name.Equals("F_Id"))
-                {
-                    pro.SetValue(entity, Common.GuId(), null);
-                }
-                if (pro.Name.Equals("F_CreatorTime"))
-                {
-                    pro.SetValue(entity, DateTime.Now, null);
-                }
-                var LoginInfo = OperatorProvider.Provider.GetCurrent();
-                if (LoginInfo != null)
-                {
-                    if (pro.Name.Equals("F_CreatorUserId"))
-                    {
-                        pro.SetValue(entity, LoginInfo.UserId, null);
-                    }
-                    if (pro.Name.Equals("F_CorpId"))
-                    {
-                        pro.SetValue(entity, LoginInfo.CompanyId, null);
-                    }
-                }
-            }
-            return entity;
-        }
-        private TEntity modifyEntity(TEntity entity)
-        {
-            foreach (var pro in entity.GetType().GetProperties())
-            {
-                if (pro.Name.Equals("F_LastModifyTime"))
-                {
-                    pro.SetValue(entity, DateTime.Now, null);
-                }
-                var LoginInfo = OperatorProvider.Provider.GetCurrent();
-                if (LoginInfo != null)
-                {
-                    if (pro.Name.Equals("F_CorpId"))
-                    {
-                        pro.SetValue(entity, LoginInfo.CompanyId, null);
-                    }
-                }
-            }
-            return entity;
-        }
+               
         private TEntity deleteEntity(TEntity entity)
         {
             foreach (var pro in entity.GetType().GetProperties())

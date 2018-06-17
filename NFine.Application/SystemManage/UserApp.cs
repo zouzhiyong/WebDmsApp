@@ -11,11 +11,13 @@ using System.Collections.Generic;
 using System.Linq;
 using NFine.Repository.Base;
 using NFine.Domain.IRepository.Base;
+using NFine.Data;
 
 namespace NFine.Application.SystemManage
 {
     public class UserApp
     {
+        private IRepositoryBase<UserEntity> serviceLogin = new RepositoryBase<UserEntity>();
         private IRepositoryEntity<UserEntity> service = new RepositoryEntity<UserEntity>();
         private IRepositoryEntity<CompanyEntity> serviceCompany = new RepositoryEntity<CompanyEntity>();
         private UserLogOnApp userLogOnApp = new UserLogOnApp();
@@ -106,7 +108,7 @@ namespace NFine.Application.SystemManage
         }
         public UserEntity CheckLogin(string username, string password)
         {
-            UserEntity userEntity = service.FindEntity(t => t.F_Account == username);
+            UserEntity userEntity = serviceLogin.FindEntity(t => t.F_Account == username);
             if (userEntity != null)
             {
                 if (userEntity.F_EnabledMark == true)

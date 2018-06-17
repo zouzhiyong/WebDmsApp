@@ -156,7 +156,7 @@ namespace NFine.Application.BaseManage
                 db.Insert(materialpictureEntity);
 
                 db.Delete<MaterialUomEntity>(t => t.F_MaterialId == materialEntity.F_Id && t.F_CorpId == materialEntity.F_CorpId);
-                db.Insert(materialuomEntitys);
+                db.Insert(materialuomEntitysTemp);
                 db.Commit();
             }
         }

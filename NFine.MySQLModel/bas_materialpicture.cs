@@ -19,7 +19,7 @@ namespace NFine.MySQLModel
         public string F_MaterialId { get; set; }
         public string F_Picture { get; set; }
         public Nullable<int> F_PictureType { get; set; }
-        public Nullable<bool> F_IsTitle { get; set; }
+        public bool F_IsTitle { get; set; }
         public Nullable<bool> F_DeleteMark { get; set; }
         public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }

@@ -154,6 +154,12 @@
       <DependentUpon>MySQLModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="pur_order.cs">
+      <DependentUpon>MySQLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pur_orderdetail.cs">
+      <DependentUpon>MySQLModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="sys_area.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>

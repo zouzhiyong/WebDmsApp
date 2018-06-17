@@ -8,7 +8,7 @@ using NFine.Code;
 using NFine.Domain.Entity.BaseManage;
 using NFine.Web.App_Start._01_Handler;
 
-namespace NFine.Web.Areas.PurManage.Controllers
+namespace NFine.Web.Areas.PurchaseManage.Controllers
 {
     public class PurchaseController : ControllerBase
     {

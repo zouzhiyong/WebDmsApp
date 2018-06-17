@@ -23,6 +23,11 @@
 </style>
 <script>
     var $table = null;
+    //主表数据
+    var list = {
+
+    }
+
     //明细初始化数据
     var iniData = {
         OrderLineID: null,
@@ -59,23 +64,23 @@
                 width: 120,
                 align: 'left',
                 type: 'autocomplete',
-                options: {                    
+                options: {
                     source: [
-      {
-          value: "SP0001",
-          text: "百威330ML1",
-          label: "SP0001 百威330ML1百威330ML1"
-      },
-      {
-          value: "SP0002",
-          text: "百威330ML2",
-          label: "SP0002 百威330ML2百威330ML2"
-      },
-      {
-          value: "SP0003",
-          text: "百威330ML3",
-          label: "SP0003 百威330ML3百威330ML3"
-      }
+                          {
+                              value: "SP0001",
+                              text: "百威330ML1",
+                              label: "SP0001 百威330ML1百威330ML1"
+                          },
+                          {
+                              value: "SP0002",
+                              text: "百威330ML2",
+                              label: "SP0002 百威330ML2百威330ML2"
+                          },
+                          {
+                              value: "SP0003",
+                              text: "百威330ML3",
+                              label: "SP0003 百威330ML3百威330ML3"
+                          }
                     ]
                 }
             }, {

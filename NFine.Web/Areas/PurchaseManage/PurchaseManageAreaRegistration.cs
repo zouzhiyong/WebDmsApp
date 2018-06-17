@@ -2,13 +2,13 @@
 
 namespace NFine.Web.Areas.BaseManage
 {
-    public class PurManageAreaRegistration : AreaRegistration
+    public class PurchaseManageAreaRegistration : AreaRegistration
     {
         public override string AreaName
         {
             get
             {
-                return "PurManage";
+                return "PurchaseManage";
             }
         }
 

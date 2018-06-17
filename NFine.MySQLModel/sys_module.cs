@@ -24,6 +24,7 @@ namespace NFine.MySQLModel
         public string F_Target { get; set; }
         public Nullable<bool> F_IsMenu { get; set; }
         public Nullable<bool> F_IsExpand { get; set; }
+        public Nullable<bool> F_IsAdmin { get; set; }
         public Nullable<bool> F_IsPublic { get; set; }
         public Nullable<bool> F_AllowEdit { get; set; }
         public Nullable<bool> F_AllowDelete { get; set; }
