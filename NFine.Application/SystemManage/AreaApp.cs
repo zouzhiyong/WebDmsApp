@@ -5,17 +5,17 @@
  * Website：http://www.nfine.cn
 *********************************************************************************/
 using NFine.Domain.Entity.SystemManage;
-using NFine.Domain.IRepository.SystemManage;
-using NFine.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.SystemManage
 {
     public class AreaApp
     {
-        private IAreaRepository service = new AreaRepository();
+        private IRepositoryEntity<AreaEntity> service = new RepositoryEntity<AreaEntity>();
 
         public List<AreaEntity> GetList()
         {

@@ -5,18 +5,18 @@
  * Website：http://www.nfine.cn
 *********************************************************************************/
 using NFine.Domain.Entity.SystemManage;
-using NFine.Domain.IRepository.SystemManage;
-using NFine.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using NFine.Code;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.SystemManage
 {
     public class ItemsApp
     {
-        private IItemsRepository service = new ItemsRepository();
+        private IRepositoryEntity<ItemsEntity> service = new RepositoryEntity<ItemsEntity>();
 
         public List<ItemsEntity> GetList()
         {

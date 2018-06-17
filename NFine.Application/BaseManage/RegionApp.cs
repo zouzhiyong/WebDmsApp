@@ -5,18 +5,18 @@
  * Website：http://www.nfine.cn
 *********************************************************************************/
 using NFine.Domain.Entity.BaseManage;
-using NFine.Domain.IRepository.BaseManage;
-using NFine.Repository.BaseManage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using NFine.Code;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.BaseManage
 {
     public class RegionApp
     {
-        private IRegionRepository service = new RegionRepository();
+        private IRepositoryEntity<RegionEntity> service = new RepositoryEntity<RegionEntity>();
 
         public List<RegionEntity> GetList()
         {

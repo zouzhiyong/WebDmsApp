@@ -105,36 +105,8 @@
     <Compile Include="03 Entity\SystemSecurity\FilterIPEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\LogEntity.cs" />
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
-    <Compile Include="04 IRepository\BaseManage\IMaterialPictureRepository.cs" />
-    <Compile Include="04 IRepository\BaseManage\IMaterialUomRepository.cs" />
-    <Compile Include="04 IRepository\BaseManage\IMaterialGroupRepository.cs" />
-    <Compile Include="04 IRepository\BaseManage\IMaterialRepository.cs" />
-    <Compile Include="04 IRepository\BaseManage\ICorporationRepository.cs" />
-    <Compile Include="04 IRepository\BaseManage\ICustomerRepository.cs" />
-    <Compile Include="04 IRepository\BaseManage\IRegionRepository.cs" />
-    <Compile Include="04 IRepository\BaseManage\ITruckRepository.cs" />
-    <Compile Include="04 IRepository\BaseManage\IUnitOfMeasureRepository.cs" />
-    <Compile Include="04 IRepository\BaseManage\ISupplierRepository.cs" />
-    <Compile Include="04 IRepository\BaseManage\IWarehouseRepository.cs" />
-    <Compile Include="04 IRepository\BaseManage\IWarehouseUserRepository.cs" />
-    <Compile Include="04 IRepository\Base\IRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\IAreaRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\IItemsCustDetailRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\IItemsDetailRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\IItemsRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\IModuleButtonRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\IModuleRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\IOrganizeRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\ICompanyAuthorizeRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\IRoleAuthorizeRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\IRoleRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\ICompanyRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\IUserLogOnRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\IDepartmentRepository.cs" />
-    <Compile Include="04 IRepository\SystemManage\IUserRepository.cs" />
-    <Compile Include="04 IRepository\SystemSecurity\IDbBackupRepository.cs" />
-    <Compile Include="04 IRepository\SystemSecurity\IFilterIPRepository.cs" />
-    <Compile Include="04 IRepository\SystemSecurity\ILogRepository.cs" />
+    <Compile Include="04 IRepository\Base\IRepositoryEntity.cs" />
+    <Compile Include="04 IRepository\Base\IRepositoryEntity.T.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +135,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

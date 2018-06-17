@@ -6,16 +6,19 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.SystemManage;
-using NFine.Domain.IRepository.SystemManage;
-using NFine.Repository.SystemManage;
 using System.Collections.Generic;
 using System.Linq;
+using NFine.Repository.Base;
+using NFine.Domain.IRepository.Base;
+using System.Text;
+using System.Data.Common;
+using MySql.Data.MySqlClient;
 
 namespace NFine.Application.SystemManage
 {
     public class ItemsCustDetailApp
     {
-        private IItemsCustDetailRepository service = new ItemsCustDetailRepository();
+        private IRepositoryEntity<ItemsCustDetailEntity> service = new RepositoryEntity<ItemsCustDetailEntity>();
         private string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
 
         public List<ItemsCustDetailEntity> GetList(string itemId = "", string keyword = "")
@@ -37,7 +40,22 @@ namespace NFine.Application.SystemManage
         }
         public List<ItemsCustDetailEntity> GetItemList(string enCode, string F_CorpId)
         {
-            return service.GetItemList(enCode, F_CorpId);
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(@"SELECT  d.*
+                            FROM    Sys_ItemsCustDetail d
+                                    INNER  JOIN Sys_Items i ON i.F_Id = d.F_ItemId AND d.F_CorpId=@F_CorpId
+                            WHERE   1 = 1
+                                    AND i.F_EnCode = @enCode
+                                    AND d.F_EnabledMark = 1
+                                    AND d.F_DeleteMark = 0
+                            ORDER BY d.F_SortCode ASC");
+            DbParameter[] parameter =
+            {
+                 new MySqlParameter("@enCode",enCode),
+                 new MySqlParameter("@F_CorpId", F_CorpId)
+            };
+
+            return service.FindList(strSql.ToString(), parameter);
         }
         public ItemsCustDetailEntity GetForm(string keyValue)
         {

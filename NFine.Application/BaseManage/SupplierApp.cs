@@ -6,17 +6,15 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.BaseManage;
-using NFine.Domain.IRepository.BaseManage;
 using System.Collections.Generic;
-using System.Linq;
-using NFine.Repository.BaseManage;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.BaseManage
 {
     public class SupplierApp
     {
-        private ISupplierRepository service = new SupplierRepository();
-
+        private IRepositoryEntity<SupplierEntity> service = new RepositoryEntity<SupplierEntity>();
         public List<SupplierEntity> GetList(Pagination pagination, string keyword)
         {
             var expression = ExtLinq.True<SupplierEntity>();

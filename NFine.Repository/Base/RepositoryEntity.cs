@@ -11,80 +11,97 @@ using System.Linq;
 using System.Linq.Expressions;
 using NFine.Code;
 using NFine.Data;
-using NFine.Domain.Entity.SystemManage;
 using NFine.Domain.IRepository.Base;
-using NFine.Domain.IRepository.SystemManage;
-using NFine.Repository.SystemManage;
 
 namespace NFine.Repository.Base
 {
-    public class Repository<TEntity> : RepositoryBase<TEntity>, IDRepository<TEntity> where TEntity : class, new()
+    public class RepositoryEntity : RepositoryBase, IRepositoryEntity
     {
-        public new int Insert(TEntity entity)
+        private IRepositoryBase repositoryBase = new RepositoryBase();
+        public new IRepositoryEntity BeginTrans()
         {
-            return Insert(intsertEntity(entity));
+            repositoryBase.BeginTrans();
+            return this;
         }
-        public new int Insert(List<TEntity> entitys)
+        public new int Commit()
         {
-            return Insert(entitys);
+            return repositoryBase.Commit();
         }
-        public new int Update(TEntity entity)
+        public new void Dispose()
+        {
+            repositoryBase.Dispose();
+        }
+
+        public new int Insert<TEntity>(TEntity entity) where TEntity : class
+        {
+            return repositoryBase.Insert(intsertEntity(entity));
+        }
+        public new int Insert<TEntity>(List<TEntity> entitys) where TEntity : class
+        {
+            List<TEntity> _entitys = new List<TEntity>();
+            foreach (var entity in entitys)
+            {
+                _entitys.Add(intsertEntity(entity));
+            }
+            return repositoryBase.Insert(_entitys);
+        }
+        public new int Update<TEntity>(TEntity entity) where TEntity : class
         {
             entity = modifyEntity(entity);
-            return Update(entity);
+            return repositoryBase.Update(entity);
         }
-        public new int Delete(TEntity entity)
+        public new int Delete<TEntity>(TEntity entity) where TEntity : class
         {
             entity = deleteEntity(entity);            
-            return Delete(entity);
+            return repositoryBase.Delete(entity);
         }
-        public new int Delete(Expression<Func<TEntity, bool>> predicate)
+        public new int Delete<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
         {
             predicate = expression(predicate);
-            return Delete(predicate);
+            return repositoryBase.Delete(predicate);
         }
-        public new TEntity FindEntity(object keyValue)
+        public new TEntity FindEntity<TEntity>(object keyValue) where TEntity : class
         {
-            return FindEntity(keyValue);
+            return repositoryBase.FindEntity<TEntity>(keyValue);
         }
-        public new TEntity FindEntity(Expression<Func<TEntity, bool>> predicate)
+        public new TEntity FindEntity<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
+        {
+            predicate = expression<TEntity>(predicate);
+            return repositoryBase.FindEntity(predicate);
+        }
+        public new IQueryable<TEntity> IQueryable<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
         {
             predicate = expression(predicate);
-            return FindEntity(predicate);
+            return repositoryBase.IQueryable(predicate);
         }
-        public new IQueryable<TEntity> IQueryable(Expression<Func<TEntity, bool>> predicate)
+        public new List<TEntity> FindList<TEntity>(string strSql) where TEntity : class
         {
-            predicate = expression(predicate);
-            return IQueryable(predicate);
+            return repositoryBase.FindList<TEntity>(strSql);
         }
-        public new List<TEntity> FindList(string strSql)
+        public new List<TEntity> FindList<TEntity>(string strSql, DbParameter[] dbParameter) where TEntity : class
         {
-            return FindList(strSql);
+            return repositoryBase.FindList<TEntity>(strSql, dbParameter);
         }
-        public new List<TEntity> FindList(string strSql, DbParameter[] dbParameter)
-        {
-            return FindList(strSql, dbParameter);
-        }
-        public new List<TEntity> FindList(Pagination pagination)
+        public new List<TEntity> FindList<TEntity>(Pagination pagination) where TEntity : class, new()
         {            
-            return FindList(pagination);
+            return repositoryBase.FindList<TEntity>(pagination);
         }
-        public new List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate)
+        public List<TEntity> FindList<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
         {
             return IQueryable(predicate).ToList();
         }
-        public new List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate, Pagination pagination)
+        public new List<TEntity> FindList<TEntity>(Expression<Func<TEntity, bool>> predicate, Pagination pagination) where TEntity : class, new()
         {
             predicate = expression(predicate);            
-            return FindList(predicate, pagination);
+            return repositoryBase.FindList(predicate, pagination);
         }
-        public List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, dynamic>> sortPredicate)
+        public List<TEntity> FindList<TEntity>(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, dynamic>> sortPredicate) where TEntity : class, new()
         {
             return ExtLinq.SortBy(IQueryable(predicate), sortPredicate).ToList();
         }
 
 
-        private Expression<Func<TEntity, bool>> expression(Expression<Func<TEntity, bool>> predicate)
+        private Expression<Func<TEntity, bool>> expression<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
         {
             if (OperatorProvider.Provider.GetCurrent() != null)
             {
@@ -99,7 +116,7 @@ namespace NFine.Repository.Base
             }
             return predicate;
         }
-        private TEntity intsertEntity(TEntity entity)
+        private TEntity intsertEntity<TEntity>(TEntity entity) where TEntity : class
         {
             foreach (var pro in entity.GetType().GetProperties())
             {
@@ -114,20 +131,20 @@ namespace NFine.Repository.Base
                 }
                 var LoginInfo = OperatorProvider.Provider.GetCurrent();
                 if (LoginInfo != null)
-                {
-                    if (pro.Name.Equals("F_CreatorUserId"))
-                    {
-                        pro.SetValue(entity, LoginInfo.UserId, null);
-                    }
+                {                    
                     if (pro.Name.Equals("F_CorpId"))
                     {
                         pro.SetValue(entity, LoginInfo.CompanyId, null);
+                    }
+                    if (pro.Name.Equals("F_CreatorUserId"))
+                    {
+                        pro.SetValue(entity, LoginInfo.UserId, null);
                     }
                 }
             }
             return entity;
         }
-        private TEntity modifyEntity(TEntity entity)
+        private TEntity modifyEntity<TEntity>(TEntity entity) where TEntity : class
         {
             foreach (var pro in entity.GetType().GetProperties())
             {
@@ -142,11 +159,15 @@ namespace NFine.Repository.Base
                     {
                         pro.SetValue(entity, LoginInfo.CompanyId, null);
                     }
+                    if (pro.Name.Equals("F_LastModifyUserId"))
+                    {
+                        pro.SetValue(entity, LoginInfo.UserId, null);
+                    }
                 }
             }
             return entity;
         }
-        private TEntity deleteEntity(TEntity entity)
+        private TEntity deleteEntity<TEntity>(TEntity entity) where TEntity : class
         {
             foreach (var pro in entity.GetType().GetProperties())
             {

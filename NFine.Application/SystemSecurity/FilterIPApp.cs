@@ -6,16 +6,16 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.SystemSecurity;
-using NFine.Domain.IRepository.SystemSecurity;
-using NFine.Repository.SystemSecurity;
 using System.Collections.Generic;
 using System.Linq;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.SystemSecurity
 {
     public class FilterIPApp
     {
-        private IFilterIPRepository service = new FilterIPRepository();
+        private IRepositoryEntity<FilterIPEntity> service = new RepositoryEntity<FilterIPEntity>();
 
         public List<FilterIPEntity> GetList(string keyword)
         {

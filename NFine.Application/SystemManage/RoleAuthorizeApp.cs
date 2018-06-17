@@ -6,18 +6,19 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.SystemManage;
-using NFine.Domain.IRepository.SystemManage;
 using NFine.Domain.ViewModel;
-using NFine.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.SystemManage
 {
     public class RoleAuthorizeApp
     {
-        private IRoleAuthorizeRepository service = new RoleAuthorizeRepository();
+        private IRepositoryEntity<RoleAuthorizeEntity> service = new RepositoryEntity<RoleAuthorizeEntity>();
+
         private ModuleApp moduleApp = new ModuleApp();
         private ModuleButtonApp moduleButtonApp = new ModuleButtonApp();
 

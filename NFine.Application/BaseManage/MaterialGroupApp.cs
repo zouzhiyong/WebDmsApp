@@ -6,18 +6,18 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.BaseManage;
-using NFine.Domain.IRepository.BaseManage;
 using System.Collections.Generic;
 using System.Linq;
-using NFine.Repository.BaseManage;
 using System;
+using NFine.Repository.Base;
+using NFine.Domain.IRepository.Base;
 
 namespace NFine.Application.BaseManage
 {
     public class MaterialGroupApp
     {
-        private IMaterialGroupRepository service = new MaterialGroupRepository();
-        private IMaterialRepository materialService = new MaterialRepository();
+        private IRepositoryEntity<MaterialGroupEntity> service = new RepositoryEntity<MaterialGroupEntity>();
+        private IRepositoryEntity<MaterialEntity> materialService = new RepositoryEntity<MaterialEntity>();
 
         public List<MaterialGroupEntity> GetList(string keyValue="")
         {

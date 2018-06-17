@@ -6,20 +6,16 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.BaseManage;
-using NFine.Domain.ViewModel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using NFine.Application.SystemManage;
-using NFine.Domain.Entity.SystemManage;
-using NFine.Repository.BaseManage;
-using NFine.Domain.IRepository.BaseManage;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.BaseManage
 {
     public class MaterialUomApp
     {
-        private IMaterialUomRepository service = new MaterialUomRepository();
+        private IRepositoryEntity<MaterialUomEntity> service = new RepositoryEntity<MaterialUomEntity>();
         private MaterialApp materialApp = new MaterialApp();
         string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
 

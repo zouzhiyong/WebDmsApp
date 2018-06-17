@@ -6,19 +6,23 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.SystemManage;
-using NFine.Domain.IRepository.SystemManage;
 using System.Collections.Generic;
 using System.Linq;
-using NFine.Repository.SystemManage;
 using NFine.Domain.Entity.BaseManage;
+using NFine.Repository.Base;
+using NFine.Domain.IRepository.Base;
+using System.Text;
+using System.Data.Common;
+using MySql.Data.MySqlClient;
 
 namespace NFine.Application.SystemManage
 {
     public class CompanyApp
     {
-        private ICompanyRepository service = new CompanyRepository();
-        private IRoleAuthorizeRepository roleauthorize = new RoleAuthorizeRepository();        
-        private IItemsCustDetailRepository itemsCustDetail = new ItemsCustDetailRepository();
+        private IRepositoryEntity<CompanyEntity> service = new RepositoryEntity<CompanyEntity>();
+        private IRepositoryEntity<RoleAuthorizeEntity> roleauthorize = new RepositoryEntity<RoleAuthorizeEntity>();
+        private IRepositoryEntity<ItemsCustDetailEntity> itemsCustDetail = new RepositoryEntity<ItemsCustDetailEntity>();
+
         private ModuleApp moduleApp = new ModuleApp();
         private ModuleButtonApp moduleButtonApp = new ModuleButtonApp();
         string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
@@ -52,7 +56,14 @@ namespace NFine.Application.SystemManage
         }
         public void DeleteForm(string keyValue)
         {
-            service.DeleteForm(keyValue);            
+            //service.DeleteForm(keyValue);    
+            using (var db = new RepositoryEntity().BeginTrans())
+            {
+                db.Delete<CompanyEntity>(t => t.F_Id == keyValue);
+                db.Delete<CompanyAuthorizeEntity>(t => t.F_CorpId == keyValue);//删除用户权限表     
+                db.Delete<CorporationEntity>(t => t.F_CorpId == keyValue);//删除用户级销商表
+                db.Commit();
+            }
         }
 
         public void UpdateForm(CompanyEntity companyEntity)
@@ -115,7 +126,7 @@ namespace NFine.Application.SystemManage
             expression = expression.And(t => !permissionIds.Contains(t.F_ItemId) && t.F_CorpId== companyEntity.F_CorpId);
             roleauthorizeEntitys = roleauthorize.IQueryable(expression).ToList();
 
-            List<ItemsCustDetailEntity> itemsCustDetailEntitys = itemsCustDetail.GetItemNotCustList(companyEntity.F_Id);
+            List<ItemsCustDetailEntity> itemsCustDetailEntitys = GetItemNotCustList(companyEntity.F_Id);
             List<ItemsCustDetailEntity> itemsCustDetailEntityList = new List<ItemsCustDetailEntity>();
             foreach (var item in itemsCustDetailEntitys)
             {
@@ -142,7 +153,50 @@ namespace NFine.Application.SystemManage
             }
 
             //
-            service.SubmitForm(companyEntity, corporationEntity, companyAuthorizeEntitys, roleauthorizeEntitys, itemsCustDetailEntityList, keyValue);
+            //service.SubmitForm(companyEntity, corporationEntity, companyAuthorizeEntitys, roleauthorizeEntitys, itemsCustDetailEntityList, keyValue);
+
+            using (var db = new RepositoryEntity().BeginTrans())
+            {
+                if (!string.IsNullOrEmpty(keyValue))
+                {
+                    db.Update(companyEntity);
+                }
+                else
+                {
+                    db.Insert(companyEntity);
+                    db.Insert(corporationEntity);
+                }
+                db.Delete<CompanyAuthorizeEntity>(t => t.F_CorpId == companyEntity.F_Id);//删除用户权限表                
+
+                foreach (var item in roleauthorizeEntitys)
+                {
+                    db.Delete<RoleAuthorizeEntity>(t => t.F_Id == item.F_Id);
+                }
+
+                db.Insert(companyAuthorizeEntitys);
+
+                db.Insert(itemsCustDetailEntitys);
+
+                db.Commit();
+            }
+        }
+
+
+        private List<ItemsCustDetailEntity> GetItemNotCustList(string F_CorpId)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(@"SELECT  d.*
+                            FROM    Sys_ItemsDetail d
+                                    Left  JOIN Sys_ItemsCustDetail i ON i.F_Id = d.F_Id AND i.F_CorpId=@F_CorpId
+                            WHERE   1 = 1
+                                    AND d.F_IsDefault = 1
+                                    AND i.F_Id is null
+                            ORDER BY d.F_SortCode ASC");
+            DbParameter[] parameter =
+            {
+                 new MySqlParameter("@F_CorpId",F_CorpId)
+            };
+            return itemsCustDetail.FindList(strSql.ToString(), parameter);
         }
     }
 }

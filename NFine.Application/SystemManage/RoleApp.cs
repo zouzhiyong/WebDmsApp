@@ -6,16 +6,16 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.SystemManage;
-using NFine.Domain.IRepository.SystemManage;
-using NFine.Repository.SystemManage;
 using System.Collections.Generic;
-using System.Linq;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
+using NFine.Data;
 
 namespace NFine.Application.SystemManage
 {
     public class RoleApp
     {
-        private IRoleRepository service = new RoleRepository();
+        private IRepositoryEntity<RoleEntity> service = new RepositoryEntity<RoleEntity>();
         private ModuleApp moduleApp = new ModuleApp();
         private ModuleButtonApp moduleButtonApp = new ModuleButtonApp();
 
@@ -43,7 +43,12 @@ namespace NFine.Application.SystemManage
         }
         public void DeleteForm(string keyValue)
         {
-            service.DeleteForm(keyValue);
+            using (var db = new RepositoryBase().BeginTrans())
+            {
+                db.Delete<RoleEntity>(t => t.F_Id == keyValue);
+                db.Delete<RoleAuthorizeEntity>(t => t.F_ObjectId == keyValue);
+                db.Commit();
+            }
         }
         public void SubmitForm(RoleEntity roleEntity, string[] permissionIds, string keyValue)
         {
@@ -76,7 +81,22 @@ namespace NFine.Application.SystemManage
                 }
                 roleAuthorizeEntitys.Add(roleAuthorizeEntity);
             }
-            service.SubmitForm(roleEntity, roleAuthorizeEntitys, keyValue);
+            //service.SubmitForm(roleEntity, roleAuthorizeEntitys, keyValue);
+            using (var db = new RepositoryEntity().BeginTrans())
+            {
+                if (!string.IsNullOrEmpty(keyValue))
+                {
+                    db.Update(roleEntity);
+                }
+                else
+                {
+                    roleEntity.F_Category = 1;
+                    db.Insert(roleEntity);
+                }
+                db.Delete<RoleAuthorizeEntity>(t => t.F_ObjectId == roleEntity.F_Id);
+                db.Insert(roleAuthorizeEntitys);
+                db.Commit();
+            }
         }
     }
 }

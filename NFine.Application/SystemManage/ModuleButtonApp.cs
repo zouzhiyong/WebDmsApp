@@ -6,18 +6,19 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.SystemManage;
-using NFine.Domain.IRepository.SystemManage;
-using NFine.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.SystemManage
 {
     public class ModuleButtonApp
     {
-        private IModuleButtonRepository service = new ModuleButtonRepository();
-        private ICompanyAuthorizeRepository companyauthorize = new CompanyAuthorizeRepository();
+        private IRepositoryEntity<ModuleButtonEntity> service = new RepositoryEntity<ModuleButtonEntity>();
+        private IRepositoryEntity<CompanyAuthorizeEntity> companyauthorize = new RepositoryEntity<CompanyAuthorizeEntity>();
+
         string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
 
         public List<ModuleButtonEntity> GetList(string moduleId = "")
@@ -88,7 +89,16 @@ namespace NFine.Application.SystemManage
                 moduleButtonEntity.F_ModuleId = moduleId;
                 entitys.Add(moduleButtonEntity);
             }
-            service.SubmitCloneButton(entitys);
+
+            using (var db = new RepositoryEntity().BeginTrans())
+            {
+                foreach (var item in entitys)
+                {
+                    db.Insert(item);
+                }
+                db.Commit();
+            }
+            //service.SubmitCloneButton(entitys);
         }
     }
 }

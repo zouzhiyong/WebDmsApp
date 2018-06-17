@@ -107,3 +107,4 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\zh-Hans\Sys
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\obj\Debug\NFine.Application.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\obj\Debug\NFine.Application.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\obj\Debug\NFine.Application.pdb
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Application\bin\Debug\MySql.Data.xml

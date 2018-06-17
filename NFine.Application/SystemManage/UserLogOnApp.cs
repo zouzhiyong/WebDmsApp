@@ -7,14 +7,14 @@
 using System;
 using NFine.Code;
 using NFine.Domain.Entity.SystemManage;
-using NFine.Domain.IRepository.SystemManage;
-using NFine.Repository.SystemManage;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.SystemManage
 {
     public class UserLogOnApp
     {
-        private IUserLogOnRepository service = new UserLogOnRepository();
+        private IRepositoryEntity<UserLogOnEntity> service = new RepositoryEntity<UserLogOnEntity>();
 
         public UserLogOnEntity GetForm(string keyValue)
         {

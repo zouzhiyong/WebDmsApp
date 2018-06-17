@@ -6,22 +6,24 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.BaseManage;
-using NFine.Domain.IRepository.BaseManage;
 using System.Collections.Generic;
 using System.Linq;
-using NFine.Repository.BaseManage;
 using NFine.Data;
 using System.IO;
 using System;
 using System.Drawing;
 using System.Web;
+using NFine.Repository.Base;
+using NFine.Domain.IRepository.Base;
+using System.Text;
+using System.Data.Common;
+using MySql.Data.MySqlClient;
 
 namespace NFine.Application.BaseManage
 {
     public class MaterialApp
     {
-        private IMaterialRepository service = new MaterialRepository();
-
+        private IRepositoryEntity<MaterialEntity> service = new RepositoryEntity<MaterialEntity>();
         public List<MaterialEntity> GetList(string itemId = "", string keyword = "")
         {
             var expression = ExtLinq.True<MaterialEntity>();
@@ -44,7 +46,21 @@ namespace NFine.Application.BaseManage
         }
         public List<MaterialEntity> GetItemList(string enCode)
         {
-            return service.GetItemList(enCode);
+            //return service.GetItemList(enCode);
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append(@"SELECT  d.*
+                            FROM    Bas_Material d
+                                    INNER  JOIN Bas_MaterialGroup i ON i.F_Id = d.F_ItemGroupID or i.F_Id = d.F_ItemCategoryID 
+                            WHERE   1 = 1
+                                    AND i.F_EnCode = @enCode
+                                    AND d.F_EnabledMark = 1
+                                    AND d.F_DeleteMark = 0
+                            ORDER BY d.F_SortCode ASC");
+            DbParameter[] parameter =
+            {
+                 new MySqlParameter("@enCode",enCode)
+            };
+            return service.FindList(strSql.ToString(), parameter);
         }
         public MaterialEntity GetForm(string keyValue)
         {
@@ -125,7 +141,24 @@ namespace NFine.Application.BaseManage
                 }                
             }
 
-            service.SubmitForm(materialEntity, materialuomEntitysTemp, materialpictureEntity, keyValue);
+            //service.SubmitForm(materialEntity, materialuomEntitysTemp, materialpictureEntity, keyValue);
+            using (var db = new RepositoryEntity().BeginTrans())
+            {
+                if (!string.IsNullOrEmpty(keyValue))
+                {
+                    db.Update(materialEntity);
+                }
+                else
+                {
+                    db.Insert(materialEntity);
+                }
+                db.Delete<MaterialPictureEntity>(t => t.F_MaterialId == materialEntity.F_Id && t.F_PictureType == 0 && t.F_CorpId == materialEntity.F_CorpId);
+                db.Insert(materialpictureEntity);
+
+                db.Delete<MaterialUomEntity>(t => t.F_MaterialId == materialEntity.F_Id && t.F_CorpId == materialEntity.F_CorpId);
+                db.Insert(materialuomEntitys);
+                db.Commit();
+            }
         }
     }
 }

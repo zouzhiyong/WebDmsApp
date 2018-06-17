@@ -6,18 +6,18 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.SystemManage;
-using NFine.Domain.IRepository.SystemManage;
-using NFine.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.SystemManage
 {
     public class ModuleApp
     {
-        private IModuleRepository service = new ModuleRepository();
-        private ICompanyAuthorizeRepository companyauthorize = new CompanyAuthorizeRepository();
+        private IRepositoryEntity<ModuleEntity> service = new RepositoryEntity<ModuleEntity>();
+        private IRepositoryEntity<CompanyAuthorizeEntity> companyauthorize = new RepositoryEntity<CompanyAuthorizeEntity>();
         string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
 
         public List<ModuleEntity> GetList()

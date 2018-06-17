@@ -6,16 +6,16 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.SystemSecurity;
-using NFine.Domain.IRepository.SystemSecurity;
-using NFine.Repository.SystemSecurity;
 using System;
 using System.Collections.Generic;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.SystemSecurity
 {
     public class LogApp
     {
-        private ILogRepository service = new LogRepository();
+        private IRepositoryEntity<LogEntity> service = new RepositoryEntity<LogEntity>();
 
         public List<LogEntity> GetList(Pagination pagination, string queryJson)
         {

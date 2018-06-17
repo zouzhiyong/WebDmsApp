@@ -29,8 +29,8 @@ namespace NFine.Domain
         }
         public void Modify(string keyValue)
         {
-            //var entity = this as IModificationAudited;
-            //entity.F_Id = keyValue;
+            var entity = this as IModificationAudited;
+            entity.F_Id = keyValue;
             //var LoginInfo = OperatorProvider.Provider.GetCurrent();
             //if (LoginInfo != null)
             //{
@@ -40,14 +40,14 @@ namespace NFine.Domain
         }
         public void Remove()
         {
-            var entity = this as IDeleteAudited;
-            var LoginInfo = OperatorProvider.Provider.GetCurrent();
-            if (LoginInfo != null)
-            {
-                entity.F_DeleteUserId = LoginInfo.UserId;                
-            }
-            entity.F_DeleteTime = DateTime.Now;
-            entity.F_DeleteMark = true;
+            //var entity = this as IDeleteAudited;
+            //var LoginInfo = OperatorProvider.Provider.GetCurrent();
+            //if (LoginInfo != null)
+            //{
+            //    entity.F_DeleteUserId = LoginInfo.UserId;                
+            //}
+            //entity.F_DeleteTime = DateTime.Now;
+            //entity.F_DeleteMark = true;
         }
 
         

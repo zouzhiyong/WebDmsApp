@@ -15,7 +15,7 @@ using NFine.Domain.Entity.SystemManage;
 
 namespace NFine.Domain.IRepository.Base
 {
-    public interface IDRepository<TEntity> : IRepositoryBase<TEntity> where TEntity : class, new()
+    public interface IRepositoryEntity<TEntity> : IRepositoryBase<TEntity> where TEntity : class, new()
     {
         new int Insert(TEntity entity);
         new int Insert(List<TEntity> entitys);
@@ -29,7 +29,7 @@ namespace NFine.Domain.IRepository.Base
         new List<TEntity> FindList(string strSql);
         new List<TEntity> FindList(string strSql, DbParameter[] dbParameter);
         new List<TEntity> FindList(Pagination pagination);
-        new List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate);
+        List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate);
         new List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate, Pagination pagination);
         List<TEntity> FindList(Expression<Func<TEntity, bool>> predicate, Expression<Func<TEntity, dynamic>> sortPredicate);
     }

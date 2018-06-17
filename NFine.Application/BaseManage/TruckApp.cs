@@ -6,17 +6,15 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.BaseManage;
-using NFine.Domain.IRepository.BaseManage;
 using System.Collections.Generic;
-using System.Linq;
-using NFine.Repository.BaseManage;
+using NFine.Repository.Base;
+using NFine.Domain.IRepository.Base;
 
 namespace NFine.Application.BaseManage
 {
     public class TruckApp
     {
-        private ITruckRepository service = new TruckRepository();
-
+        private IRepositoryEntity<TruckEntity> service = new RepositoryEntity<TruckEntity>();
         public List<TruckEntity> GetList(Pagination pagination, string keyword)
         {
             var expression = ExtLinq.True<TruckEntity>();

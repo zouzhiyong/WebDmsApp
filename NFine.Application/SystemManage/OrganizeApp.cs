@@ -5,18 +5,18 @@
  * Website：http://www.nfine.cn
 *********************************************************************************/
 using NFine.Domain.Entity.SystemManage;
-using NFine.Domain.IRepository.SystemManage;
-using NFine.Repository.SystemManage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using NFine.Code;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.SystemManage
 {
     public class OrganizeApp
     {
-        private IOrganizeRepository service = new OrganizeRepository();
+        private IRepositoryEntity<OrganizeEntity> service = new RepositoryEntity<OrganizeEntity>();
 
         public List<OrganizeEntity> GetList(Pagination pagination, string F_CategoryId, string keyword)
         {

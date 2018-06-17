@@ -6,17 +6,17 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.BaseManage;
-using NFine.Domain.IRepository.BaseManage;
 using System.Collections.Generic;
 using System.Linq;
-using NFine.Repository.BaseManage;
 using NFine.Application.SystemManage;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.BaseManage
 {
     public class WarehouseApp
     {
-        private IWarehouseRepository service = new WarehouseRepository();
+        private IRepositoryEntity<WarehouseEntity> service = new RepositoryEntity<WarehouseEntity>();
         private UserApp userApp = new UserApp();
 
         public List<WarehouseEntity> GetList(string keyword="")
@@ -80,7 +80,23 @@ namespace NFine.Application.BaseManage
                 warehouseUserEntity.F_CorpId = CompanyId;
                 warehouseUserEntitys.Add(warehouseUserEntity);
             }
-            service.SubmitForm(warehouseEntity, warehouseUserEntitys, keyValue);
+
+            using (var db = new RepositoryEntity().BeginTrans())
+            {
+                if (!string.IsNullOrEmpty(keyValue))
+                {
+                    db.Update(warehouseEntity);
+                }
+                else
+                {
+                    db.Insert(warehouseEntity);
+                }
+                db.Delete<WarehouseUserEntity>(t => t.F_WarehouseId == warehouseEntity.F_Id);
+                db.Insert(warehouseUserEntitys);
+                db.Commit();
+            }
+            //service.SubmitForm(warehouseEntity, warehouseUserEntitys, keyValue);
+            
         }       
     }
 }

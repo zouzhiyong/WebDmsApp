@@ -6,17 +6,16 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.BaseManage;
-using NFine.Domain.IRepository.BaseManage;
 using System.Collections.Generic;
 using System.Linq;
-using NFine.Repository.BaseManage;
+using NFine.Domain.IRepository.Base;
+using NFine.Repository.Base;
 
 namespace NFine.Application.BaseManage
 {
     public class UnitOfMeasureApp
     {
-        private IUnitOfMeasureRepository service = new UnitOfMeasureRepository();
-
+        private IRepositoryEntity<UnitOfMeasureEntity> service = new RepositoryEntity<UnitOfMeasureEntity>();
         public List<UnitOfMeasureEntity> GetList(string keyword="")
         {
             var expression = ExtLinq.True<UnitOfMeasureEntity>();

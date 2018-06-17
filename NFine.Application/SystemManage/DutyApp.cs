@@ -6,16 +6,16 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.SystemManage;
-using NFine.Domain.IRepository.SystemManage;
-using NFine.Repository.SystemManage;
 using System.Collections.Generic;
 using System.Linq;
+using NFine.Repository.Base;
+using NFine.Domain.IRepository.Base;
 
 namespace NFine.Application.SystemManage
 {
     public class DutyApp
     {
-        private IRoleRepository service = new RoleRepository();
+        private IRepositoryEntity<RoleEntity> service = new RepositoryEntity<RoleEntity>();
 
         public List<RoleEntity> GetSelect(string F_CorpId)
         {            

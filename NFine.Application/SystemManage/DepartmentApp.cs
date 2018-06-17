@@ -6,10 +6,7 @@
 *********************************************************************************/
 using NFine.Code;
 using NFine.Domain.Entity.SystemManage;
-using NFine.Domain.IRepository.SystemManage;
-using NFine.Repository.SystemManage;
 using System.Collections.Generic;
-using System.Linq;
 using NFine.Repository.Base;
 using NFine.Domain.IRepository.Base;
 
@@ -17,7 +14,7 @@ namespace NFine.Application.SystemManage
 {
     public class DepartmentApp
     {
-        private IDRepository<DepartmentEntity> service = new Repository<DepartmentEntity>();
+        private IRepositoryEntity<DepartmentEntity> service = new RepositoryEntity<DepartmentEntity>();
 
         public List<DepartmentEntity> GetSelect(string F_CorpId)
         {            
