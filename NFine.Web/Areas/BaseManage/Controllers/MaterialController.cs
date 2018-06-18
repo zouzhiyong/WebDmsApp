@@ -34,13 +34,8 @@ namespace NFine.Web.Areas.BaseManage.Controllers
         [HandlerAjaxOnly]
         public ActionResult GetSelectJson(string enCode)
         {
-            var data = materialApp.GetItemList(enCode);
-            List<object> list = new List<object>();
-            foreach (MaterialEntity item in data)
-            {
-                list.Add(new { id = item.F_EnCode, text = item.F_FullName });
-            }
-            return Content(list.ToJson());
+            var data = materialApp.GetItemList(enCode);            
+            return Content(data.ToJson());
         }
         [HttpGet]
         [HandlerAjaxOnly]

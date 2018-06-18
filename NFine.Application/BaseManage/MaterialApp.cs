@@ -46,16 +46,22 @@ namespace NFine.Application.BaseManage
         }
         public List<MaterialEntity> GetItemList(string enCode)
         {
-            //return service.GetItemList(enCode);
             StringBuilder strSql = new StringBuilder();
-            strSql.Append(@"SELECT  d.*
+            strSql.Append(@"SELECT  *
                             FROM    Bas_Material d
-                                    INNER  JOIN Bas_MaterialGroup i ON i.F_Id = d.F_ItemGroupID or i.F_Id = d.F_ItemCategoryID 
-                            WHERE   1 = 1
-                                    AND i.F_EnCode = @enCode
+                            WHERE   1 = 1                                    
                                     AND d.F_EnabledMark = 1
                                     AND d.F_DeleteMark = 0
+                                    AND (d.F_EnCode = @enCode OR d.F_FullName=@enCode)
                             ORDER BY d.F_SortCode ASC");
+            //strSql.Append(@"SELECT  d.*
+            //                FROM    Bas_Material d
+            //                        INNER  JOIN Bas_MaterialGroup i ON i.F_Id = d.F_ItemGroupID or i.F_Id = d.F_ItemCategoryID 
+            //                WHERE   1 = 1
+            //                        AND i.F_EnCode = @enCode
+            //                        AND d.F_EnabledMark = 1
+            //                        AND d.F_DeleteMark = 0
+            //                ORDER BY d.F_SortCode ASC");
             DbParameter[] parameter =
             {
                  new MySqlParameter("@enCode",enCode)

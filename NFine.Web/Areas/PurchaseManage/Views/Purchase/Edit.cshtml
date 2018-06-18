@@ -5,8 +5,8 @@
 <style>
     /**明细部分*/
     [v-cloak] { display: none; }
-    .form { margin: 5px; background: #fff; border: solid 0px #eee; -moz-box-shadow: 0px 0px 5px #ddd; -webkit-box-shadow: 0px 0px 5px #ddd; box-shadow: 0px 0px 5px #ddd; border-radius: 3px; }
-    .gridPanel { border: 1px solid #edebeb; }
+    .form { margin-bottom: 5px; background: #fff; border: solid 1px #eee; }
+    .gridPanel { border: 0px solid #edebeb; }
         .gridPanel table { margin-bottom: 0; width: 100%; }
         .gridPanel .fixed-table-header table > thead > tr > th { border: none; background-color: #eeeeee; height: 40px; padding: 6px; text-align: center; }
         .gridPanel .fixed-table-body { overflow-y: auto; }
@@ -23,155 +23,157 @@
 </style>
 <script>
     var $table = null;
-    //主表数据
-    var list = {
 
+    var InitData = {
+        //主表初始化数据
+        list: {
+            F_Id: "",//行ID
+            F_RowId: "",//行编号订单号+序号
+            F_POId: "",//单据编号
+            F_ItemID: "",//物料ID
+            F_ItemIDName: "",//物料名称（辅助）
+            F_UomID: "",//单位ID
+            F_UomIDList: "",//单位ID列表（辅助）
+            F_WarehouseID: "",//仓库ID
+            F_WarehouseIDList: "",//仓库ID列表（辅助）
+            F_BinID: "",//货仓ID
+            F_BinIDList: "",//货仓ID列表（辅助）
+            F_BillQty: "",//单据数量
+            F_OperQty: "",//操作数量
+            F_BalanceQty: "",//剩余数量
+            F_UnitAmount: "",//单价
+            F_UnitCost: "",//单位成本
+            F_Amount: "",//总金额
+            F_ReturnReasonID: "",//退货原因
+            F_ReturnReasonIDList: "",//退货原因列表（辅助）
+            F_IsFree: false,//是否免费物料
+            F_IsGift: false,//是否赠品
+            F_SortCode: "",//序号
+            F_EnabledMark: true,//有效否
+            F_Description: "",//备注
+            F_Rows: []//明细行
+        },
+        //主表控件相关参数
+        controlsList: [
+            { filed: "F_SupplierID", label: "供应商", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入供应商", url: "", id: "", text: "", list: [] },
+            { filed: "F_PurchaserID", label: "采购员", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入采购员", url: "", id: "", text: "", list: [] },
+            { filed: "F_BillType", label: "订单类型", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入订单类型", url: "", id: "", text: "", list: [] },
+            { filed: "F_BillDate", label: "订单日期", layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
+            { filed: "F_PostDate", label: "过账日期", layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
+            { filed: "F_TruckID", label: "车辆", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入车辆", url: "", id: "", text: "", list: [] },
+            { filed: "F_DriverID", label: "司机", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入司机", url: "", id: "", text: "", list: [] },
+            { filed: "F_IsStockFinished", label: "是否发货", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "", text: "", list: [] },
+            { filed: "F_Status", label: "状态", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "", text: "", list: [] },
+            { filed: "F_EnCode", label: "单据编号", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { filed: "F_Description", label: "备注", layer: "footer", divClass: "col-xs-12", inputclass: "", controlType: "input", dataType: "text", placeholder: "请输入您要备注的内容" },
+            { filed: "F_CreatorUserId", label: "制单人", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { filed: "F_LastModifyUserId", label: "修改人", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { filed: "F_ConfirmUserId", label: "审批人", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+
+        ],
+        controlsRows: []
     }
 
-    //明细初始化数据
-    var iniData = {
-        OrderLineID: null,
-        Code: null,
-        Name: null,
-        IsGift: null,
-        UomID: null,
-        MaterUnitType: [],
-        UnitAmount: null,
-        BillQty: null,
-        OperQty: null,
-        BalanceQty: null,
-        WarehouseID: null,
-        Amount: null,
-        Remark: null
-    };
+    //列选项
+    var columns = [
+        {
+            field: 'F_ItemID',
+            title: '商品编号',
+            width: 120,
+            align: 'left',
+            type: 'autocomplete'
+        },
+        {
+            field: 'F_ItemID',
+            title: '商品编号',
+            width: 120,
+            align: 'left',
+            type: 'autocomplete'
+        }, {
+            field: 'F_ItemIDName',
+            title: '商品名称',
+            width: 260,
+            align: 'left',
+        }, {
+            field: 'F_UomID',
+            title: '单位',
+            width: 60,
+            align: 'center',
+            type: 'select'
+        }, {
+            field: 'F_IsGift',
+            title: '是否赠品',
+            width: 80,
+            align: 'center',
+            type: 'select'
+        }, {
+            field: 'F_UnitAmount',
+            title: '单价(¥)',
+            width: 80,
+            type: 'number'
+        }, {
+            field: 'F_BillQty',
+            title: '订单数量',
+            width: 80,
+            align: 'right',
+            type: 'number'
+        }, {
+            field: 'F_OperQty',
+            title: '实际数量',
+            width: 80,
+            align: 'right',
+            type: 'number'
+        }, {
+            field: 'F_BalanceQty',
+            title: '剩余数量',
+            width: 80,
+            align: 'right',
+            type: 'number'
+        }, {
+            field: 'F_Amount',
+            title: '金额(¥)',
+            width: 60,
+            align: 'right',
+            type: 'number'
+        }, {
+            field: 'F_WarehouseID',
+            title: '仓库',
+            width: 100,
+            align: 'center',
+            type: 'select'
+        }, {
+            field: 'F_Description',
+            title: '备注',
+            align: 'left',
+            type: 'text'
+        }, {
+            field: 'operate',
+            title: '操作',
+            width: 60,
+            align: 'center',
+            type: 'opration'
+        }
+    ];
+
+
 
     $(function () {
         initControl();
-
-        //gridList();
     })
     function initControl() {
-        var columns = [
-            {
-                field: 'OrderLineID',
-                title: '序号',
-                width: 40,
-                align: 'center',
-                type: 'index'
-            }, {
-                field: 'Code',
-                title: '商品编号',
-                width: 120,
-                align: 'left',
-                type: 'autocomplete',
-                options: {
-                    source: [
-                          {
-                              value: "SP0001",
-                              text: "百威330ML1",
-                              label: "SP0001 百威330ML1百威330ML1"
-                          },
-                          {
-                              value: "SP0002",
-                              text: "百威330ML2",
-                              label: "SP0002 百威330ML2百威330ML2"
-                          },
-                          {
-                              value: "SP0003",
-                              text: "百威330ML3",
-                              label: "SP0003 百威330ML3百威330ML3"
-                          }
-                    ]
-                }
-            }, {
-                field: 'Name',
-                title: '商品名称',
-                width: 260,
-                align: 'left',
-            }, {
-                field: 'UomID',
-                title: '单位',
-                width: 60,
-                align: 'center',
-                type: 'select'
-            }, {
-                field: 'IsGift',
-                title: '是否赠品',
-                width: 80,
-                align: 'center',
-                type: 'select'
-            }, {
-                field: 'UnitAmount',
-                title: '单价(¥)',
-                width: 80,
-                type: 'input'
-            }, {
-                field: 'BillQty',
-                title: '订单数量',
-                width: 80,
-                align: 'right',
-                type: 'number'
-            }, {
-                field: 'OperQty',
-                title: '实际数量',
-                width: 80,
-                align: 'right',
-                type: 'number'
-            }, {
-                field: 'BalanceQty',
-                title: '剩余数量',
-                width: 80,
-                align: 'right',
-                type: 'number'
-            }, {
-                field: 'Discount',
-                title: '优惠金额(¥)',
-                width: 80,
-                align: 'right',
-                type: 'number'
-            }, {
-                field: 'Amount',
-                title: '金额(¥)',
-                width: 60,
-                align: 'right',
-                type: 'number'
-            }, {
-                field: 'WarehouseID',
-                title: '仓库',
-                width: 100,
-                align: 'center',
-                type: 'select'
-            }, {
-                field: 'Remark',
-                title: '备注',
-                align: 'left',
-                type: 'text'
-            }, {
-                field: 'operate',
-                title: '操作',
-                width: 60,
-                align: 'center',
-                type: 'opration'
-            }
-        ];
-
-        var vueData = { columns: JSON.parse(JSON.stringify(columns)), rows: [], key: 'Code' };
-        vueData.rows.push(JSON.parse(JSON.stringify(iniData)));
-
-
         var modelVue = new Vue({
-            el: '#form1',
-            data: vueData,
+            el: '.pur',
+            data: JSON.parse(JSON.stringify(InitData)),
             computed: {
 
             },
             mounted: function () {
                 var _self = this;
                 tableHeight();
-                var rowCount = Math.round($(".fixed-table-body").height() / 32);
-                for (var i = 0; i < rowCount; i++) {
-                    _self.rows.push(JSON.parse(JSON.stringify(iniData)));
-                }
+                //var rowCount = Math.round($(".fixed-table-body").height() / 32);
+                //for (var i = 0; i < rowCount; i++) {
+                //    _self.rows.push(JSON.parse(JSON.stringify(iniData)));
+                //}
             },
             methods: {
                 handleFocusTo: function (event, trIndex, colIndex, trItem, colItem) {
@@ -181,7 +183,17 @@
                         minChars: 0,
                         autoFocus: false,
                         delay: 0,
-                        source: JSON.parse(JSON.stringify(colItem.options.source)),
+                        source: function (request, response) {
+                            if (term in cache) {
+                                response(cache[term]);
+                                return;
+                            }
+
+                            $.getJSON("search.php", request, function (data, status, xhr) {
+                                cache[term] = data;
+                                response(data);
+                            });
+                        },
                         classes: {
                             "ui-autocomplete": "highlight"
                         },
@@ -211,127 +223,37 @@
 
     //自适应高
     function tableHeight() {
-        $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 95);
+        $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 160);
         $(window).resize(function () {
-            $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 95);
+            $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 160);
         });
     }
 
 </script>
 
-<form id="form1" v-cloak>
+<div class="pur" v-cloak>
     <div class="form">
         <div class="row">
             <div class="col-xs-12">
-                <div class="formValue pull-left" style="width:231px;">
-                    <div class="row">
-                        <label class="col-xs-4" for="F_SupplierID" style="line-height:30px;text-align:right">供应商</label>
+                <div class="formValue pull-left" style="width:240px;" v-for="item in controlsList" v-if="item.layer=='header'">
+                    <div :class="item.dataType=='date'?'row date':'row'" v-if="item.controlType=='select'">
+                        <label class="col-xs-4" :for="item.filed" style="line-height:30px;text-align:right">{{item.label}}:</label>
                         <div class="col-xs-8">
-                            <select id="F_SupplierID" name="F_SupplierID" class="form-control required" v-select2></select>
+                            <select :id="item.filed" :name="item.filed" class="form-control required" v-select2="list[item.filed]">
+                                <option :value="_item[item.id]" v-for="_item in list[item.filed+'List']">{{_item[item.name]}}</option>
+                            </select>
                         </div>
                     </div>
-                </div>
-                <div class="formValue pull-left" style="width:231px;">
-                    <div class="row">
-                        <label class="col-xs-4" for="F_PurchaserID" style="line-height:30px;text-align:right">采购员</label>
+                    <div class="row" v-if="item.controlType=='input'">
+                        <label class="col-xs-4" :for="item.filed" style="line-height:30px;text-align:right">{{item.label}}:</label>
                         <div class="col-xs-8">
-                            <select id="F_PurchaserID" name="F_PurchaserID" class="form-control required" v-select2></select>
+                            <input :id="item.filed" :name="item.filed" type="text" class="form-control" v-model="list[item.filed]" :placeholder="item.placeholder" />
                         </div>
                     </div>
-                </div>
-                <div class="formValue pull-left" style="width:231px;">
-                    <div class="row">
-                        <label class="col-xs-4" for="F_BillType" style="line-height:30px;text-align:right">订单类型</label>
+                    <div class="row" v-if="item.controlType=='div'">
+                        <label class="col-xs-4" :for="item.filed" style="line-height:30px;text-align:right">{{item.label}}:</label>
                         <div class="col-xs-8">
-                            <select id="F_BillType" name="F_BillType" class="form-control required" v-select2></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="formValue pull-left" style="width:231px;">
-                    <div class="row">
-                        <label class="col-xs-4" for="F_BillDate" style="line-height:30px;text-align:right">订单日期</label>
-                        <div class="col-xs-8">
-                            <input id="F_BillDate" name="F_BillDate" type="text" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-                <div class="formValue pull-left" style="width:231px;">
-                    <div class="row">
-                        <label class="col-xs-4" for="F_PostDate" style="line-height:30px;text-align:right">过账日期</label>
-                        <div class="col-xs-8">
-                            <input id="F_PostDate" name="F_PostDate" type="text" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-                <div class="formValue pull-left" style="width:231px;">
-                    <div class="row">
-                        <label class="col-xs-4" for="F_TruckID" style="line-height:30px;text-align:right">车辆</label>
-                        <div class="col-xs-8">
-                            <select id="F_TruckID" name="F_TruckID" class="form-control required" v-select2></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="formValue pull-left" style="width:231px;">
-                    <div class="row">
-                        <label class="col-xs-4" for="F_DriverID" style="line-height:30px;text-align:right">司机</label>
-                        <div class="col-xs-8">
-                            <select id="F_DriverID" name="F_DriverID" class="form-control required" v-select2></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="formValue pull-left" style="width:231px;">
-                    <div class="row">
-                        <label class="col-xs-4" for="F_IsStockFinished" style="line-height:30px;text-align:right">是否发货</label>
-                        <div class="col-xs-8">
-                            <select id="F_IsStockFinished" name="F_IsStockFinished" class="form-control required" v-select2></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="formValue pull-left" style="width:231px;">
-                    <div class="row">
-                        <label class="col-xs-4" for="F_Status" style="line-height:30px;text-align:right">状态</label>
-                        <div class="col-xs-8">
-                            <select id="F_Status" name="F_Status" class="form-control required" v-select2></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="formValue pull-left" style="width:231px;">
-                    <div class="row">
-                        <label class="col-xs-4" for="F_CreateUserID" style="line-height:30px;text-align:right">制单人</label>
-                        <div class="col-xs-8">
-                            <select id="F_CreateUserID" name="F_CreateUserID" class="form-control required" v-select2></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="formValue pull-left" style="width:231px;">
-                    <div class="row">
-                        <label class="col-xs-4" for="F_UpdateUserID" style="line-height:30px;text-align:right">修改人</label>
-                        <div class="col-xs-8">
-                            <select id="F_UpdateUserID" name="F_UpdateUserID" class="form-control required" v-select2></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="formValue pull-left" style="width:231px;">
-                    <div class="row">
-                        <label class="col-xs-4" for="F_ConfirmUserID" style="line-height:30px;text-align:right">审批人</label>
-                        <div class="col-xs-8">
-                            <select id="F_ConfirmUserID" name="F_ConfirmUserID" class="form-control required" v-select2></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="formValue pull-left" style="width:462px;">
-                    <div class="row">
-                        <label class="col-xs-2" for="F_Remark" style="line-height:30px;text-align:right">备注</label>
-                        <div class="col-xs-10">
-                            <input id="F_Remark" name="F_Remark" type="text" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-                <div class="formValue pull-left" style="width:231px;">
-                    <div class="row">
-                        <label class="col-xs-4" for="F_Code" style="line-height:30px;text-align:right">单据号</label>
-                        <div class="col-xs-8">
-                            <input id="F_Code" name="F_Code" type="text" class="form-control" />
+                            <div :id="item.filed" :name="item.filed" style="border-bottom: solid 1px #ddd;height: 30px;line-height:30px;">{{list[item.filed]}}</div>
                         </div>
                     </div>
                 </div>
@@ -342,7 +264,15 @@
                 <table>
                     <thead>
                         <tr>
-                            <th v-for="item in columns" :style="{width:item.width+'px'}" :data-field="item.field">{{item.title}}</th>
+                            <th style="width:5%">
+                                <div class="th-inner ">序号</div>
+                            </th>
+                            <th v-for="itemThead in columns" :style="{width:itemThead.width}">
+                                <div class="th-inner ">{{itemThead.name}}</div>
+                            </th>
+                            <th style="width:10%">
+                                <div class="th-inner ">操作</div>
+                            </th>
                         </tr>
                     </thead>
                 </table>
@@ -350,7 +280,7 @@
             <div class="fixed-table-body">
                 <table style="margin-top: 0;">
                     <tbody>
-                        <tr data-index="0" v-for="(trItem, trIndex) in rows">
+                        <tr data-index="0" v-for="(trItem, trIndex) in F_Rows">
                             <td v-for="(colItem, colIndex) in columns" :style="{'text-align':colItem.align,width:colItem.width+'px'}">
                                 <input autocomplete="off" v-if="colItem.type=='autocomplete'" v-model="trItem[colItem.field]" :id="colItem.field+trIndex" :name="colItem.field" type="text" class="form-control" v-on:focus="handleFocusTo($event,trIndex, colIndex, trItem, colItem)" />
                                 <input autocomplete="off" v-else-if="colItem.type=='text'" v-model="trItem[colItem.field]" :id="colItem.field+trIndex" :name="colItem.field" type="text" class="form-control" />
@@ -395,7 +325,20 @@
                     </tbody>
                 </table>
             </div>
+            <div class="row">
+                <div class="formValue">
+                    <div :class="item.divClass" v-for="item in controlsList" v-if="item.layer=='footer'">
+                        <template v-if="item.controlType=='input'">
+                            <input type="text" autocomplete="off" class="form-control" :id="item.filed" :name="item.filed" :placeholder="item.placeholder" v-model="list[item.filed]" v-bind:disabled="list.Status>=2" />
+                        </template>
+                        <template v-if="item.controlType=='div'">
+                            <label class="control-label" style="height: 30px;line-height: 30px;">{{item.label}}：{{list[item.filed]}}</label>
+                        </template>
+                    </div>
+                </div>
+            </div>
         </div>
+        
     </div>
     <div class="text-center" style="padding:10px;">
         <a id="NF-save" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_save()"><i class="fa fa-save"></i> 保存</a>
@@ -403,5 +346,6 @@
         <a id="NF-print" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_print()"><i class="fa fa-print"></i> 打印</a>
         <a id="NF-printview" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_printview()"><i class="fa fa-eye"></i> 打印预览</a>
     </div>
-</form>
+</div>
+
 

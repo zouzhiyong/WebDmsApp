@@ -23,7 +23,7 @@ namespace NFine.Domain.Entity.PurchaseManage
         public Nullable<long> F_Status { get; set; }
         public Nullable<int> F_IsStockFinished { get; set; }
         public Nullable<System.DateTime> F_ConfirmTime { get; set; }
-        public string F_ConfirmUserID { get; set; }
+        public string F_ConfirmUserId { get; set; }
         public Nullable<int> F_SortCode { get; set; }
         public Nullable<bool> F_DeleteMark { get; set; }
         public Nullable<bool> F_EnabledMark { get; set; }
