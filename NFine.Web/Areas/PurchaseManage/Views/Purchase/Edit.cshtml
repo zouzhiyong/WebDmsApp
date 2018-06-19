@@ -98,30 +98,10 @@
                     });
                     _self.autoAddRow(arr);
                     return arr;
-                },
-                total: function () {//求和                        
-                    var _self = this;
-                    var totalObj = {};
-                    _self.controlsDetails.map(function (item) {
-                        if (!!item.isTotal) {                            
-                            var total_sum = _self.saveData.reduce(function (sum, row) {
-                                if (row[item.field] != "") {
-                                    return (sum) + parseFloat(row[item.field] || 0);
-                                } else {
-                                    return (sum);
-                                }
-                            }, 0);
-                            
-                            totalObj[item.field] = total_sum;
-                        }
-
-                    });
-                    return totalObj;
-                },
+                }
             },
             created: function () {
-                var _self = this;
- 
+                var _self = this; 
                 for (var i = 0; i < 10; i++) {
                     _self.list.details.push(JSON.parse(JSON.stringify(_self.detail)));
                 }
@@ -130,16 +110,8 @@
                 var _self = this;
                 _self.autoHeight();
                 _self.autoAddRow(_self.list.details);
-                //var rowCount = Math.round($(".fixed-table-body").height() / 32);
-                //for (var i = 0; i < rowCount; i++) {
-                //    _self.details.push(JSON.parse(JSON.stringify(_self.detail)));
-                //}
             },
             methods: {
-                //选择事件
-                handleFocus: function (event, tbodyItem, itemThead, field) {
-                    $(event.target).select();
-                },
                 handleFocusTo: function (event, trIndex, colIndex, trItem, colItem) {
                     var el = event.target;
                     var options = {
@@ -180,74 +152,7 @@
                     };
 
                     //$(el).autocomplete("search", $(el).val());
-                },
-                //点击单元格后变成输入状态
-                handleClickInput: function (event, field, tbodyIndex, itemThead) {
-                    var _self = this;
-                    _self.inputField = field + tbodyIndex;
-                    var $obj = $(event.target).closest('td');
-
-                    Vue.nextTick(function () {
-                        if (itemThead.type != "select") {
-                            setTimeout(function () {
-                                $obj.find('input').focus();
-                            }, 100)
-
-                        } else {
-                            $obj.find("[data-name='" + field + "']").focus();
-                            $obj.find("[data-name='" + field + "']").on("change", function (e) {
-                                setTimeout(function () {
-                                    $('#' + $obj.data("nextfocusfield") + $obj.data("rowindex")).click();
-                                }, 100)
-
-                            })
-                            $obj.find("[data-name='" + field + "']").select2("open");
-
-                        }
-                    })
-                },
-                //离开焦点时变成不可编辑状态
-                handleBlur: function (trIdName) {
-                    //如果焦点移开至非单元格，则清空
-                    if (this.inputField == trIdName) {
-                        this.inputField = "";
-                    }
-                },
-                hanldeEnter: function (event) {
-
-                },
-                hanldeClickDelete: function (tbodyIndex) { },
-                autoAddRow: function (arr) {
-                    var _self = this;
-
-                    var defautRows = Math.ceil($(".fixed-table-body").height() / 32.4);
-                    var r = _self.list.details.length - arr.length < defautRows;
-                    if (_self.list.details.length - arr.length < defautRows) {
-                        for (var i = 0; i < defautRows ; i++) {
-                            //将单据号赋值给明细
-                            if (_self.list.details && _self.list.details.length > 0) {
-                                _self.list.details.push(JSON.parse(JSON.stringify(_self.detail)));
-                            };
-                        }
-                    }
-                    _self.autoWidth();
-                },
-                autoHeight: function () {
-                    var _self = this;
-                    $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 160);
-                    $(window).resize(function () {
-                        $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 160);
-                        _self.autoWidth();
-                    })
-                },
-                //确保表格宽度一致，滚动条占用了宽度
-                autoWidth: function () {
-                    Vue.nextTick(function () {
-                        var w = $(".fixed-table-body .table")[0].getBoundingClientRect().width;
-                        $(".fixed-table-header .table").width(w);
-                        $(".fixed-table-footer .table").width(w);
-                    })
-                },
+                },             
             }
         })
     }

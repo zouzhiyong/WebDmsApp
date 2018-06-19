@@ -86,7 +86,7 @@
                                         <div v-bind:style="{'text-align':itemThead.align}"
                                              v-bind:data-value="tbodyItem[itemThead.field]"
                                              v-on:click.stop="handleClickInput($event,itemThead.field,tbodyIndex,itemThead)">
-                                            <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>
+                                            <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>{{tbodyItem[itemThead.field]}}
                                             <span v-else>{{tbodyItem[itemThead.field]}}</span>
                                         </div>
                                     </template>
@@ -160,3 +160,107 @@
         <a id="NF-printview" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_printview()"><i class="fa fa-eye"></i> 打印预览</a>
     </div>
 </div>
+<script>
+    Vue.mixin({
+        computed: {
+            total: function () {//求和                        
+                var _self = this;
+                var totalObj = {};
+                _self.controlsDetails.map(function (item) {
+                    if (!!item.isTotal) {
+                        var total_sum = _self.list.details.reduce(function (sum, row) {
+                            if (row[item.field] != "") {
+                                return (sum) + parseFloat(row[item.field] || 0);
+                            } else {
+                                return (sum);
+                            }
+                        }, 0);
+
+                        totalObj[item.field] = total_sum;
+                    }
+
+                });
+                return totalObj;
+            },
+        },
+        methods: {
+            //选择事件
+            handleFocus: function (event, tbodyItem, itemThead, field) {
+                $(event.target).select();
+            },
+            //点击单元格后变成输入状态
+            handleClickInput: function (event, field, tbodyIndex, itemThead) {
+                var _self = this;
+                _self.inputField = field + tbodyIndex;
+                var $obj = $(event.target).closest('td');
+
+                Vue.nextTick(function () {
+                    if (itemThead.type != "select") {
+                        setTimeout(function () {
+                            $obj.find('input').focus();
+                        }, 100)
+
+                    } else {
+                        $obj.find("[data-name='" + field + "']").focus();
+                        $obj.find("[data-name='" + field + "']").on("change", function (e) {
+                            setTimeout(function () {
+                                $('#' + $obj.data("nextfocusfield") + $obj.data("rowindex")).click();
+                            }, 100)
+
+                        })
+                        $obj.find("[data-name='" + field + "']").select2("open");
+
+                    }
+                })
+            },
+            //离开焦点时变成不可编辑状态
+            handleBlur: function (trIdName) {
+                //如果焦点移开至非单元格，则清空
+                if (this.inputField == trIdName) {
+                    this.inputField = "";
+                }
+            },
+            //回车事件
+            hanldeEnter: function (event) {
+                var $objTempParentTd = $(event.target).closest('td');
+                var $objTemp = $('#' + $objTempParentTd.data("nextfocusfield") + $objTempParentTd.data("rowindex"));
+                if ($objTemp.data("colindex") <= $objTempParentTd.data("colindex")) {
+                    $objTemp = $('#' + $objTempParentTd.data("nextfocusfield") + (Number($objTempParentTd.data("rowindex")) + 1));
+                }
+                $objTemp.click();
+            },
+            hanldeClickDelete: function (tbodyIndex) { },
+            autoAddRow: function (arr) {
+                var _self = this;
+
+                var defautRows = Math.ceil($(".fixed-table-body").height() / 32.4);
+                var r = _self.list.details.length - arr.length < defautRows;
+                if (_self.list.details.length - arr.length < defautRows) {
+                    for (var i = 0; i < defautRows ; i++) {
+                        //将单据号赋值给明细
+                        if (_self.list.details && _self.list.details.length > 0) {
+                            _self.list.details.push(JSON.parse(JSON.stringify(_self.detail)));
+                        };
+                    }
+                }
+                _self.autoWidth();
+            },
+            autoHeight: function () {
+                var _self = this;
+                $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 160);
+                $(window).resize(function () {
+                    $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 160);
+                    _self.autoWidth();
+                })
+            },
+            //确保表格宽度一致，滚动条占用了宽度
+            autoWidth: function () {
+                Vue.nextTick(function () {
+                    var w = $(".fixed-table-body .table")[0].getBoundingClientRect().width;
+                    $(".fixed-table-header .table").width(w);
+                    $(".fixed-table-footer .table").width(w);
+                })
+            },
+        }
+    })
+</script>

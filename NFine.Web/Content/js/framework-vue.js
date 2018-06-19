@@ -38,11 +38,17 @@ Vue.directive('select2', {
 //数字显示千分符保留2位小数<span v-number="item.value"></span>，结果:<span>1.00</span>
 Vue.directive('number', {
     bind: function (el, binding, vnode) {
-        
+        var value = binding.value;
+
+        if (!!isNaN(parseFloat(value))) {
+            el.innerHTML = value;
+        } else {
+            el.innerHTML = parseFloat(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+        }
     },
     update: function (el, binding, vnode) {
         var value = binding.value;
-        
+
         if (!!isNaN(parseFloat(value))) {
             el.innerHTML = value;
         } else {
