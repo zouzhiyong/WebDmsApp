@@ -1,0 +1,162 @@
+﻿<style>
+    /**明细部分*/
+    [v-cloak] { display: none; }
+    .form { margin-bottom: 5px; background: #fff; border: solid 1px #eee; }
+    .gridPanel { border: 0px solid #edebeb; }
+        .gridPanel table { margin-bottom: 0; max-width:2000px; }
+        .gridPanel .fixed-table-header table > thead > tr > th { border: none; background-color: #eeeeee; height: 40px; padding: 6px; text-align: center; }
+        .gridPanel .fixed-table-header table > thead > tr > th .th-inner {line-height:30px;}
+        .gridPanel .fixed-table-body { overflow-y: auto; }
+            .gridPanel .fixed-table-body table > tbody > tr > td { border-right: 1px solid #edebeb; border-bottom: 1px solid #edebeb; padding: 0; background-color: #fff; }
+                .gridPanel .fixed-table-body table > tbody > tr > td .select2-container--default .select2-selection--single { border-width: 0; }
+                .gridPanel .fixed-table-body table > tbody > tr > td:last-child { border-right-width: 0; }
+                .gridPanel .fixed-table-body table > tbody > tr > td > div { min-height: 32px; padding: 6px; }
+                .gridPanel .fixed-table-body table > tbody > tr > td input { padding: 3px; width: 100% !important; border-radius: 0; box-shadow: none; height: 32px; border-width: 0; }
+                    .gridPanel .fixed-table-body table > tbody > tr > td input:focus { border-width: 1px; }
+                    .gridPanel .fixed-table-body table > tbody > tr > td input::-webkit-outer-spin-button,
+                    .gridPanel .fixed-table-body table > tbody > tr > td input::-webkit-inner-spin-button { -webkit-appearance: none; }
+                    .gridPanel .fixed-table-body table > tbody > tr > td input[type="number"] { -moz-appearance: textfield; }
+        .gridPanel .fixed-table-footer table > tbody > tr > td { background-color: #eeeeee; border: none;font-weight:bold; }
+</style>
+<div class="pur" v-cloak>
+    <div class="form">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="formValue pull-left" style="width:240px;" v-for="item in controlsList" v-if="item.layer=='header'">
+                    <div :class="item.dataType=='date'?'row date':'row'" v-if="item.controlType=='select'">
+                        <label class="col-xs-4" :for="item.filed" style="line-height:30px;text-align:right">{{item.label}}:</label>
+                        <div class="col-xs-8">
+                            <select :id="item.filed" :name="item.filed" class="form-control required" v-select2="list[item.filed]">
+                                <option :value="_item[item.id]" v-for="_item in list[item.filed+'List']">{{_item[item.name]}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" v-if="item.controlType=='input'">
+                        <label class="col-xs-4" :for="item.filed" style="line-height:30px;text-align:right">{{item.label}}:</label>
+                        <div class="col-xs-8">
+                            <input :id="item.filed" :name="item.filed" type="text" class="form-control" v-model="list[item.filed]" :placeholder="item.placeholder" />
+                        </div>
+                    </div>
+                    <div class="row" v-if="item.controlType=='div'">
+                        <label class="col-xs-4" :for="item.filed" style="line-height:30px;text-align:right">{{item.label}}:</label>
+                        <div class="col-xs-8">
+                            <div :id="item.filed" :name="item.filed" style="border-bottom: solid 1px #ddd;height: 30px;line-height:30px;">{{list[item.filed]}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gridPanel">
+            <div class="fixed-table-header" style="margin-right: 0px;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width:5%">
+                                <div class="th-inner ">序号</div>
+                            </th>
+                            <th v-for="itemThead in controlsDetails" :style="{width:itemThead.width}">
+                                <div class="th-inner ">{{itemThead.label}}</div>
+                            </th>
+                            <th style="width:10%">
+                                <div class="th-inner ">操作</div>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="fixed-table-body">
+                <table class="table table-condensed" style="margin-top: 0px;table-layout: fixed;">
+                    <tbody>
+                        <tr v-for="(tbodyItem,tbodyIndex) in list.details">
+                            <td style="text-align:center;width:5%;">
+                                {{tbodyIndex+1}}
+                            </td>
+                            <td v-for="(itemThead,theadIndex) in controlsDetails" v-bind:id="itemThead.field+tbodyIndex" :data-rowindex="tbodyIndex" :data-colindex="theadIndex" :data-nextfocusfield="itemThead.nextFocusField" :class="itemThead.type=='operate'?'col_operate':''" :style="{width:itemThead.width,'position':'relative'}" v-on:click.stop="handleClickInput($event,itemThead.field,tbodyIndex,itemThead)">
+                                <template v-if="itemThead.controlType=='select'">
+                                    <select v-select2="tbodyItem[itemThead.field]"
+                                            v-bind:disabled="list.F_Status>=2"
+                                            class="form-control js-example-placeholder-single"
+                                            style="width:100%;border:0px;border-radius:0px;">
+                                        <option value="">&nbsp</option>
+                                        <option v-for="option in tbodyItem[itemThead.filed+'List']" v-bind:value="option.id">{{ option.text }}</option>
+                                    </select>
+                                </template>
+                                <template v-else>
+                                    <template v-if="inputField!=itemThead.field+tbodyIndex || list.F_Status>=2">
+                                        <div v-bind:style="{'text-align':itemThead.align}"
+                                             v-bind:data-value="tbodyItem[itemThead.field]"
+                                             v-on:click.stop="handleClickInput($event,itemThead.field,tbodyIndex,itemThead)">
+                                            <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>
+                                            <span v-else>{{tbodyItem[itemThead.field]}}</span>
+                                        </div>
+                                    </template>
+                                    <template v-else>
+                                        <div v-if="itemThead.controlType=='div'" :style="{'text-align':itemThead.align}">
+                                            <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>
+                                            <span v-else>{{tbodyItem[itemThead.field]}}</span>
+                                        </div>
+                                        <input v-if="itemThead.controlType=='input' && itemThead.dataType=='text'"
+                                               v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
+                                               v-bind:style="{'text-align':itemThead.align}"
+                                               v-model="tbodyItem[itemThead.field]"
+                                               v-on:blur="handleBlur(itemThead.field+tbodyIndex)"
+                                               v-on:keyup.enter="hanldeEnter($event)"
+                                               autocomplete="off" class="form-control" type="text" />
+                                        <input v-if="itemThead.controlType=='input' && itemThead.dataType=='number'"
+                                               v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
+                                               v-bind:style="{'text-align':itemThead.align}"
+                                               v-model="tbodyItem[itemThead.field]"
+                                               v-on:blur="handleBlur(itemThead.field+tbodyIndex)"
+                                               v-on:keyup.enter="hanldeEnter($event)"
+                                               autocomplete="off" class="form-control input" type="number" />
+                                    </template>
+                                </template>
+                            </td>
+                            <td style="text-align:center;width:10%;" class="col_operate">
+                                <div style="text-align:center;padding:0 20px;">
+                                    <a v-if="list.F_Status<2 && tbodyItem.wsitemid!=''" class="btn widget-btn-icon btn-xs ladda-button delete single" v-on:click="hanldeClickDelete(tbodyIndex)">
+                                        <i class="iconfont icon-delete"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="fixed-table-footer" style="margin-right: 0px;">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td style="width:5%;text-align:center;">
+                                合计：
+                            </td>
+                            <td v-for="(itemFooter,theadIndex) in controlsDetails" v-bind:style="{width:itemFooter.width,'text-align':itemFooter.align }">
+                                {{itemFooter.totalLabel}}<span v-if="!!itemFooter.isTotal" v-number="total[itemFooter.field]"></span>
+                            </td>
+                            <td style="width:10%;text-align:center;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="formValue">
+                    <div :class="item.divClass" v-for="item in controlsList" v-if="item.layer=='footer'">
+                        <template v-if="item.controlType=='input'">
+                            <input type="text" autocomplete="off" class="form-control" :id="item.filed" :name="item.filed" :placeholder="item.placeholder" v-model="list[item.filed]" v-bind:disabled="list.F_Status>=2" />
+                        </template>
+                        <template v-if="item.controlType=='div'">
+                            <label class="control-label" style="height: 30px;line-height: 30px;">{{item.label}}：{{list[item.filed]}}</label>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="text-center" style="padding:10px;">
+        <a id="NF-save" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_save()"><i class="fa fa-save"></i> 保存</a>
+        <a id="NF-audit" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_audit()"><i class="fa fa-save"></i> 审核</a>
+        <a id="NF-print" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_print()"><i class="fa fa-print"></i> 打印</a>
+        <a id="NF-printview" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_printview()"><i class="fa fa-eye"></i> 打印预览</a>
+    </div>
+</div>

@@ -42,6 +42,7 @@ Vue.directive('number', {
     },
     update: function (el, binding, vnode) {
         var value = binding.value;
+        
         if (!!isNaN(parseFloat(value))) {
             el.innerHTML = value;
         } else {

@@ -704,6 +704,7 @@
     <Content Include="Areas\SystemManage\Views\ItemsCust\Index.cshtml" />
     <None Include="Properties\PublishProfiles\NFine.Framework.Release.pubxml" />
     <Content Include="Views\Shared\_Order.cshtml" />
+    <Content Include="Views\Partial\PartialOrder.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
