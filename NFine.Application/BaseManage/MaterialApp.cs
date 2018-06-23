@@ -46,27 +46,28 @@ namespace NFine.Application.BaseManage
         }
         public List<MaterialEntity> GetItemList(string enCode)
         {
-            StringBuilder strSql = new StringBuilder();
-            strSql.Append(@"SELECT  *
-                            FROM    Bas_Material d
-                            WHERE   1 = 1                                    
-                                    AND d.F_EnabledMark = 1
-                                    AND d.F_DeleteMark = 0
-                                    AND (d.F_EnCode = @enCode OR d.F_FullName=@enCode)
-                            ORDER BY d.F_SortCode ASC");
-            //strSql.Append(@"SELECT  d.*
+            return service.FindList(t => t.F_EnCode.Contains(enCode) || t.F_FullName.Contains(enCode));
+            //StringBuilder strSql = new StringBuilder();
+            //strSql.Append(@"SELECT  *
             //                FROM    Bas_Material d
-            //                        INNER  JOIN Bas_MaterialGroup i ON i.F_Id = d.F_ItemGroupID or i.F_Id = d.F_ItemCategoryID 
-            //                WHERE   1 = 1
-            //                        AND i.F_EnCode = @enCode
+            //                WHERE   1 = 1                                    
             //                        AND d.F_EnabledMark = 1
             //                        AND d.F_DeleteMark = 0
+            //                        AND (d.F_EnCode like '%'+ @enCode + '%' OR d.F_FullName like '%'+ @enCode + '%')
             //                ORDER BY d.F_SortCode ASC");
-            DbParameter[] parameter =
-            {
-                 new MySqlParameter("@enCode",enCode)
-            };
-            return service.FindList(strSql.ToString(), parameter);
+            ////strSql.Append(@"SELECT  d.*
+            ////                FROM    Bas_Material d
+            ////                        INNER  JOIN Bas_MaterialGroup i ON i.F_Id = d.F_ItemGroupID or i.F_Id = d.F_ItemCategoryID 
+            ////                WHERE   1 = 1
+            ////                        AND i.F_EnCode = @enCode
+            ////                        AND d.F_EnabledMark = 1
+            ////                        AND d.F_DeleteMark = 0
+            ////                ORDER BY d.F_SortCode ASC");
+            //DbParameter[] parameter =
+            //{
+            //     new MySqlParameter("@enCode",enCode)
+            //};
+            //return service.FindList(strSql.ToString(), parameter);
         }
         public MaterialEntity GetForm(string keyValue)
         {

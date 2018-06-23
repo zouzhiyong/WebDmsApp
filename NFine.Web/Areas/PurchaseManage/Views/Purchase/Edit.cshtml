@@ -9,77 +9,41 @@
     var InitData = {
         inputField:"",
         //主表初始化数据
-        list: {
-            F_Id: "",//行ID
-            F_RowId: "",//行编号订单号+序号
-            F_POId: "",//单据编号
-            F_ItemID: "",//物料ID
-            F_ItemIDName: "",//物料名称（辅助）
-            F_UomID: "",//单位ID
-            F_UomIDList: "",//单位ID列表（辅助）
-            F_WarehouseID: "",//仓库ID
-            F_WarehouseIDList: "",//仓库ID列表（辅助）
-            F_BinID: "",//货仓ID
-            F_BinIDList: "",//货仓ID列表（辅助）
-            F_BillQty: "",//单据数量
-            F_OperQty: "",//操作数量
-            F_BalanceQty: "",//剩余数量
-            F_UnitAmount: "",//单价
-            F_UnitCost: "",//单位成本
-            F_Amount: "",//总金额
-            F_ReturnReasonID: "",//退货原因
-            F_ReturnReasonIDList: "",//退货原因列表（辅助）
-            F_IsFree: false,//是否免费物料
-            F_IsGift: false,//是否赠品
-            F_SortCode: "",//序号
-            F_EnabledMark: true,//有效否
-            F_Description: "",//备注
+        list: {            
             details: []//明细行
         },
         //主表控件相关参数
         controlsList: [
-            { field: "F_SupplierID", label: "供应商", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入供应商", url: "", id: "", text: "" },
-            { field: "F_PurchaserID", label: "采购员", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入采购员", url: "", id: "", text: "" },
-            { field: "F_BillType", label: "订单类型", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入订单类型", url: "", id: "", text: "" },
-            { field: "F_BillDate", label: "订单日期", layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
-            { field: "F_PostDate", label: "过账日期", layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
-            { field: "F_TruckID", label: "车辆", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入车辆", url: "", id: "", text: "" },
-            { field: "F_DriverID", label: "司机", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入司机", url: "", id: "", text: "" },
-            { field: "F_IsStockFinished", label: "是否发货", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "", text: "" },
-            { field: "F_Status", label: "状态", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "", text: "" },
-            { field: "F_EnCode", label: "单据编号", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
-            { field: "F_Description", label: "备注", layer: "footer", divClass: "col-xs-12", inputclass: "", controlType: "input", dataType: "text", placeholder: "请输入您要备注的内容" },
-            { field: "F_CreatorUserId", label: "制单人", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
-            { field: "F_LastModifyUserId", label: "修改人", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
-            { field: "F_ConfirmUserId", label: "审批人", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
-
+            { field: "F_EnCode", label: "单据编号",defaultValue:"", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },            
+            { field: "F_PostDate", label: "收货日期", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
+            { field: "F_SupplierID", label: "供应商", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入供应商", url: "", id: "", text: "" },
+            { field: "F_PurchaserID", label: "采购员", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入采购员", url: "", id: "", text: "" },
+            { field: "F_BillType", label: "订单类型", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入订单类型", url: "", id: "", text: "" },
+            { field: "F_IsStockFinished", label: "发运状态", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "", text: "" },
+            { field: "F_Status", label: "单据状态", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "", text: "" },
+            
+            { field: "F_Description", label: "备注", defaultValue: "", layer: "footer", divClass: "col-xs-12", inputclass: "", controlType: "input", dataType: "text", placeholder: "请输入您要备注的内容" },
+            { field: "F_CreatorUserId", label: "制单人", defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { field: "F_BillDate", label: "制单日期", defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { field: "F_LastModifyUserId", label: "修改人", defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { field: "F_LastModifyTime", label: "修改日期", defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { field: "F_ConfirmUserId", label: "审批人", defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { field: "F_PrintNums", label: "打印次数", defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
         ],
-        detail: {
-            F_ItemID: "",//商品编号
-            F_ItemIDName: "",//商品名称
-            F_UomID: "",//单位
-            F_IsGift: "",//是否赠品
-            F_UnitAmount: "",//单价(¥)
-            F_BillQty: "",//订单数量
-            F_OperQty: "",//实际数量
-            F_BalanceQty: "",//剩余数量
-            F_Amount: "",//金额(¥)
-            F_WarehouseID: "",//仓库
-            F_Description: ""//备注
-        },
+        detail: {},
         //明细控件相关参数
         controlsDetails: [
-            { field: "F_ItemID", nextFocusField: "F_UomID", label: "商品编号", totalLabel: "", width: "120px", align: 'left', divClass: "", inputclass: "", controlType: "autocomplete", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
-            { field: "F_ItemIDName", nextFocusField: "", label: "商品名称", totalLabel: "", width: "120px", align: 'left', divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
-            { field: "F_UomID", nextFocusField: "F_IsGift", label: "单位", totalLabel: "", width: "60px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
-            { field: "F_IsGift", nextFocusField: "F_UnitAmount", label: "是否赠品", totalLabel: "", width: "80px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "", placeholder: "", url: "", id: "", text: "", isTotal: false },
-            { field: "F_UnitAmount", nextFocusField: "F_BillQty", label: "单价(¥)", totalLabel: "", width: "80px", align: 'center', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: false },
-            { field: "F_BillQty", nextFocusField: "F_OperQty", label: "订单数量", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
-            { field: "F_OperQty", nextFocusField: "F_Amount", label: "实际数量", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
-            { field: "F_BalanceQty", nextFocusField: "", label: "剩余数量", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
-            { field: "F_Amount", nextFocusField: "F_WarehouseID", label: "金额(¥)", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
-            { field: "F_WarehouseID", nextFocusField: "F_Description", label: "仓库", totalLabel: "", width: "100px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "", placeholder: "", url: "", id: "", text: "", isTotal: false },
-            { field: "F_Description", nextFocusField: "", label: "备注", totalLabel: "", width: "100px", align: 'left', divClass: "", inputclass: "", controlType: "input", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false }
+            { field: "F_ItemID", nextFocusField: "F_UomID", label: "商品编号", defaultValue: "", totalLabel: "", width: "120px", align: 'left', divClass: "", inputclass: "", controlType: "autocomplete", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
+            { field: "F_ItemIDName", nextFocusField: "", label: "商品名称", defaultValue: "", totalLabel: "", width: "120px", align: 'left', divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
+            { field: "F_UomID", nextFocusField: "F_IsGift", label: "单位", defaultValue: "", totalLabel: "", width: "60px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
+            { field: "F_IsGift", nextFocusField: "F_UnitAmount", label: "是否赠品", defaultValue: "", totalLabel: "", width: "80px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "", placeholder: "", url: "", id: "", text: "", isTotal: false },
+            { field: "F_UnitAmount", nextFocusField: "F_BillQty", label: "单价(¥)", defaultValue: "", totalLabel: "", width: "80px", align: 'center', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: false },
+            { field: "F_BillQty", nextFocusField: "F_OperQty", label: "订单数量", defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
+            { field: "F_OperQty", nextFocusField: "F_Amount", label: "实际数量", defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
+            { field: "F_BalanceQty", nextFocusField: "", label: "剩余数量", defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
+            { field: "F_Amount", nextFocusField: "F_Description", label: "金额(¥)", defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
+            { field: "F_WarehouseID", nextFocusField: "F_Description", label: "仓库", defaultValue: "", totalLabel: "", width: "100px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "", placeholder: "", url: "", id: "", text: "", isTotal: false },
+            { field: "F_Description", nextFocusField: "F_ItemID", label: "备注", defaultValue: "", totalLabel: "", width: "100px", align: 'left', divClass: "", inputclass: "", controlType: "input", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false }
         ]
     }
 
@@ -87,6 +51,15 @@
         initControl();
     })
     function initControl() {
+        //初始化主表数据
+        InitData.controlsList.map(function (item) {
+            InitData.list[item.field] = item.defaultValue;
+        })
+        //初始化明细表数据
+        InitData.controlsDetails.map(function (item) {
+            InitData.detail[item.field] = item.defaultValue;
+        })
+
         var modelVue = new Vue({
             el: '.pur',
             data: JSON.parse(JSON.stringify(InitData)),
@@ -120,15 +93,22 @@
                         autoFocus: false,
                         delay: 0,
                         source: function (request, response) {
-                            if (term in cache) {
-                                response(cache[term]);
-                                return;
-                            }
-
-                            //$.getJSON("search.php", request, function (data, status, xhr) {
-                            //    cache[term] = data;
-                            //    response(data);
-                            //});
+                            $.ajax({
+                                url: rootUrl + "/BaseManage/Material/GetSelectJson",
+                                dataType: "json",
+                                data: {
+                                    enCode: request.term
+                                },
+                                success: function (data) {
+                                    //data.map(function (item) {
+                                    //    item.value = item.F_Id;
+                                    //    item.Code = item.F_EnCode;
+                                    //    item.label = item.F_FullName;
+                                    //})
+                                    response(data);
+                                }
+                            });
+                          
                         },
                         classes: {
                             "ui-autocomplete": "highlight"
@@ -137,8 +117,8 @@
                             return false;
                         },
                         select: function (event, ui) {
-                            trItem.Code = ui.item.value;
-                            trItem.Name = ui.item.text;
+                            trItem.F_ItemID = ui.item.F_EnCode;
+                            trItem.F_ItemIDName = ui.item.F_FullName;
                             $(el).blur();
                             return false;
                         }
@@ -147,7 +127,7 @@
 
                     auto.autocomplete("instance")._renderItem = function (ul, item) {
                         return $("<li>")
-                    .append("<div>" + item.label + "</div>")
+                    .append("<div>" + item.F_EnCode + " " + item.F_FullName + "</div>")
                     .appendTo(ul);
                     };
 

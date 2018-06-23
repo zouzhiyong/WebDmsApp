@@ -11,9 +11,11 @@ namespace NFine.Domain.Entity.PurchaseManage
     public class OrderDetailEntity : IEntity<OrderDetailEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
     {
         public string F_Id { get; set; }
+        public string F_POId { get; set; }
         public string F_CorpId { get; set; }
         public string F_RowId { get; set; }
         public string F_ItemID { get; set; }
+        public string F_ItemName { get; set; }
         public string F_UomID { get; set; }
         public string F_WarehouseID { get; set; }
         public string F_BinID { get; set; }
@@ -23,9 +25,11 @@ namespace NFine.Domain.Entity.PurchaseManage
         public decimal F_UnitAmount { get; set; }
         public decimal F_UnitCost { get; set; }
         public decimal F_Amount { get; set; }
+        public Nullable<decimal> F_DiscountAmount { get; set; }
         public string F_ReturnReasonID { get; set; }
         public Nullable<bool> F_IsFree { get; set; }
         public Nullable<bool> F_IsGift { get; set; }
+        public Nullable<int> F_ReturnQuantity { get; set; }
         public Nullable<int> F_SortCode { get; set; }
         public Nullable<bool> F_DeleteMark { get; set; }
         public Nullable<bool> F_EnabledMark { get; set; }
@@ -36,6 +40,5 @@ namespace NFine.Domain.Entity.PurchaseManage
         public string F_LastModifyUserId { get; set; }
         public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
-        public string F_POId { get; set; }
     }
 }

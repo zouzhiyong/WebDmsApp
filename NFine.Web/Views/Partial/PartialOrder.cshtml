@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="formValue pull-left" style="width:240px;" v-for="item in controlsList" v-if="item.layer=='header'">
-                    <div :class="item.dataType=='date'?'row date':'row'" v-if="item.controlType=='select'">
+                    <div class="row" v-if="item.controlType=='select'">
                         <label class="col-xs-4" :for="item.filed" style="line-height:30px;text-align:right">{{item.label}}:</label>
                         <div class="col-xs-8">
                             <select :id="item.filed" :name="item.filed" class="form-control required" v-select2="list[item.filed]">
@@ -31,7 +31,13 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row" v-if="item.controlType=='input'">
+                    <div class="row" v-if="item.controlType=='input' && item.dataType=='date'">
+                        <label class="col-xs-4" :for="item.filed" style="line-height:30px;text-align:right">{{item.label}}:</label>
+                        <div class="col-xs-8">
+                            <input :id="item.filed" :name="item.filed" type="text" class="form-control datepicker" readonly v-model="list[item.filed]" :placeholder="item.placeholder" />
+                        </div>
+                    </div>
+                    <div class="row" v-if="item.controlType=='input' && item.dataType=='text'">
                         <label class="col-xs-4" :for="item.filed" style="line-height:30px;text-align:right">{{item.label}}:</label>
                         <div class="col-xs-8">
                             <input :id="item.filed" :name="item.filed" type="text" class="form-control" v-model="list[item.filed]" :placeholder="item.placeholder" />
@@ -40,7 +46,7 @@
                     <div class="row" v-if="item.controlType=='div'">
                         <label class="col-xs-4" :for="item.filed" style="line-height:30px;text-align:right">{{item.label}}:</label>
                         <div class="col-xs-8">
-                            <div :id="item.filed" :name="item.filed" style="border-bottom: solid 1px #ddd;height: 30px;line-height:30px;">{{list[item.filed]}}</div>
+                            <div :id="item.filed" :name="item.filed" style="border: solid 1px #ddd;height: 30px;line-height:30px;">{{list[item.filed]}}</div>
                         </div>
                     </div>
                 </div>
@@ -86,7 +92,7 @@
                                         <div v-bind:style="{'text-align':itemThead.align}"
                                              v-bind:data-value="tbodyItem[itemThead.field]"
                                              v-on:click.stop="handleClickInput($event,itemThead.field,tbodyIndex,itemThead)">
-                                            <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>{{tbodyItem[itemThead.field]}}
+                                            <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>
                                             <span v-else>{{tbodyItem[itemThead.field]}}</span>
                                         </div>
                                     </template>
@@ -95,6 +101,20 @@
                                             <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>
                                             <span v-else>{{tbodyItem[itemThead.field]}}</span>
                                         </div>
+                                        <input v-if="itemThead.controlType=='autocomplete' && itemThead.dataType=='text'"
+                                               v-on:focus="handleFocusTo($event, tbodyIndex, theadIndex, tbodyItem, itemThead)"
+                                               v-bind:style="{'text-align':itemThead.align}"
+                                               v-model="tbodyItem[itemThead.field]"
+                                               v-on:blur="handleBlur(itemThead.field+tbodyIndex)"
+                                               v-on:keyup.enter="hanldeEnter($event)"
+                                               autocomplete="off" class="form-control" type="text" />
+                                        <input v-if="itemThead.controlType=='input' && itemThead.dataType=='date'"
+                                               v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
+                                               v-bind:style="{'text-align':itemThead.align}"
+                                               v-model="tbodyItem[itemThead.field]"
+                                               v-on:blur="handleBlur(itemThead.field+tbodyIndex)"
+                                               v-on:keyup.enter="hanldeEnter($event)"
+                                               autocomplete="off" class="form-control datepicker" type="text" readonly/>
                                         <input v-if="itemThead.controlType=='input' && itemThead.dataType=='text'"
                                                v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
                                                v-bind:style="{'text-align':itemThead.align}"
@@ -183,6 +203,9 @@
                 return totalObj;
             },
         },
+        mounted: function () {
+            $('.datepicker').bindDate();
+        },
         methods: {
             //选择事件
             handleFocus: function (event, tbodyItem, itemThead, field) {
@@ -224,6 +247,7 @@
             hanldeEnter: function (event) {
                 var $objTempParentTd = $(event.target).closest('td');
                 var $objTemp = $('#' + $objTempParentTd.data("nextfocusfield") + $objTempParentTd.data("rowindex"));
+                
                 if ($objTemp.data("colindex") <= $objTempParentTd.data("colindex")) {
                     $objTemp = $('#' + $objTempParentTd.data("nextfocusfield") + (Number($objTempParentTd.data("rowindex")) + 1));
                 }

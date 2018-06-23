@@ -218,6 +218,7 @@
           <ScalarProperty Name="F_Description" ColumnName="F_Description" />
           <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
           <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+          <ScalarProperty Name="F_TaxRate" ColumnName="F_TaxRate" />
           <ScalarProperty Name="F_EmployeeID" ColumnName="F_EmployeeID" />
           <ScalarProperty Name="F_Contact" ColumnName="F_Contact" />
           <ScalarProperty Name="F_City" ColumnName="F_City" />
@@ -320,6 +321,7 @@
     <EntitySetMapping Name="pur_order">
       <EntityTypeMapping TypeName="nfinebaseModel.pur_order">
         <MappingFragment StoreEntitySet="pur_order">
+          <ScalarProperty Name="F_PrintNums" ColumnName="F_PrintNums" />
           <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
           <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
           <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -330,13 +332,15 @@
           <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
           <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
           <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
-          <ScalarProperty Name="F_ConfirmUserID" ColumnName="F_ConfirmUserID" />
+          <ScalarProperty Name="F_TaxRate" ColumnName="F_TaxRate" />
+          <ScalarProperty Name="F_ConfirmUserId" ColumnName="F_ConfirmUserId" />
           <ScalarProperty Name="F_ConfirmTime" ColumnName="F_ConfirmTime" />
           <ScalarProperty Name="F_IsStockFinished" ColumnName="F_IsStockFinished" />
           <ScalarProperty Name="F_Status" ColumnName="F_Status" />
           <ScalarProperty Name="F_PurchaserID" ColumnName="F_PurchaserID" />
           <ScalarProperty Name="F_DriverID" ColumnName="F_DriverID" />
           <ScalarProperty Name="F_TruckID" ColumnName="F_TruckID" />
+          <ScalarProperty Name="F_SupplierName" ColumnName="F_SupplierName" />
           <ScalarProperty Name="F_SupplierID" ColumnName="F_SupplierID" />
           <ScalarProperty Name="F_PostDate" ColumnName="F_PostDate" />
           <ScalarProperty Name="F_BillType" ColumnName="F_BillType" />
@@ -350,7 +354,6 @@
     <EntitySetMapping Name="pur_orderdetail">
       <EntityTypeMapping TypeName="nfinebaseModel.pur_orderdetail">
         <MappingFragment StoreEntitySet="pur_orderdetail">
-          <ScalarProperty Name="F_PoId" ColumnName="F_PoId" />
           <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
           <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
           <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -361,9 +364,11 @@
           <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
           <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
           <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+          <ScalarProperty Name="F_ReturnQuantity" ColumnName="F_ReturnQuantity" />
           <ScalarProperty Name="F_IsGift" ColumnName="F_IsGift" />
           <ScalarProperty Name="F_IsFree" ColumnName="F_IsFree" />
           <ScalarProperty Name="F_ReturnReasonID" ColumnName="F_ReturnReasonID" />
+          <ScalarProperty Name="F_DiscountAmount" ColumnName="F_DiscountAmount" />
           <ScalarProperty Name="F_Amount" ColumnName="F_Amount" />
           <ScalarProperty Name="F_UnitCost" ColumnName="F_UnitCost" />
           <ScalarProperty Name="F_UnitAmount" ColumnName="F_UnitAmount" />
@@ -373,9 +378,11 @@
           <ScalarProperty Name="F_BinID" ColumnName="F_BinID" />
           <ScalarProperty Name="F_WarehouseID" ColumnName="F_WarehouseID" />
           <ScalarProperty Name="F_UomID" ColumnName="F_UomID" />
+          <ScalarProperty Name="F_ItemName" ColumnName="F_ItemName" />
           <ScalarProperty Name="F_ItemID" ColumnName="F_ItemID" />
           <ScalarProperty Name="F_RowId" ColumnName="F_RowId" />
           <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+          <ScalarProperty Name="F_POId" ColumnName="F_POId" />
           <ScalarProperty Name="F_Id" ColumnName="F_Id" />
         </MappingFragment>
       </EntityTypeMapping>

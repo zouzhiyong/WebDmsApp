@@ -215,6 +215,7 @@
     <Property Name="F_City" Type="varchar" MaxLength="20" />
     <Property Name="F_Contact" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="F_EmployeeID" Type="varchar" MaxLength="50" />
+    <Property Name="F_TaxRate" Type="decimal" Precision="10" Scale="5" />
     <Property Name="F_DeleteMark" Type="bool" />
     <Property Name="F_EnabledMark" Type="bool" />
     <Property Name="F_Description" Type="varchar" MaxLength="255" />
@@ -318,13 +319,15 @@
     <Property Name="F_BillType" Type="int" Nullable="false" />
     <Property Name="F_PostDate" Type="datetime" Precision="0" />
     <Property Name="F_SupplierID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_SupplierName" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="F_TruckID" Type="varchar" MaxLength="50" />
     <Property Name="F_DriverID" Type="varchar" MaxLength="50" />
     <Property Name="F_PurchaserID" Type="varchar" MaxLength="50" />
     <Property Name="F_Status" Type="uint" />
     <Property Name="F_IsStockFinished" Type="int" />
     <Property Name="F_ConfirmTime" Type="datetime" Precision="0" />
-    <Property Name="F_ConfirmUserID" Type="varchar" MaxLength="50" />
+    <Property Name="F_ConfirmUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_TaxRate" Type="decimal" Precision="10" Scale="5" />
     <Property Name="F_SortCode" Type="int" />
     <Property Name="F_DeleteMark" Type="bool" />
     <Property Name="F_EnabledMark" Type="bool" />
@@ -335,16 +338,18 @@
     <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
     <Property Name="F_DeleteTime" Type="datetime" Precision="0" />
     <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+    <Property Name="F_PrintNums" Type="int" />
   </EntityType>
   <EntityType Name="pur_orderdetail">
     <Key>
       <PropertyRef Name="F_Id" />
     </Key>
     <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="F_PoId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_POId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_RowId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_ItemID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_ItemName" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="F_UomID" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_WarehouseID" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_BinID" Type="varchar" MaxLength="50" />
@@ -354,9 +359,11 @@
     <Property Name="F_UnitAmount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="F_UnitCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="F_Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="F_DiscountAmount" Type="decimal" Precision="10" Scale="2" />
     <Property Name="F_ReturnReasonID" Type="varchar" MaxLength="50" />
     <Property Name="F_IsFree" Type="bool" />
     <Property Name="F_IsGift" Type="bool" />
+    <Property Name="F_ReturnQuantity" Type="int" />
     <Property Name="F_SortCode" Type="int" />
     <Property Name="F_DeleteMark" Type="bool" />
     <Property Name="F_EnabledMark" Type="bool" />

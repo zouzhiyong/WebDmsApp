@@ -26,6 +26,7 @@ namespace NFine.MySQLModel
         public string F_City { get; set; }
         public string F_Contact { get; set; }
         public string F_EmployeeID { get; set; }
+        public Nullable<decimal> F_TaxRate { get; set; }
         public Nullable<bool> F_DeleteMark { get; set; }
         public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }
