@@ -7,21 +7,22 @@
     var $table = null;
 
     var InitData = {
-        inputField:"",
+        inputField: "",
         //主表初始化数据
-        list: {            
+        list: {
             details: []//明细行
         },
         //主表控件相关参数
         controlsList: [
-            { field: "F_EnCode", label: "单据编号",defaultValue:"", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },            
-            { field: "F_PostDate", label: "收货日期", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
-            { field: "F_SupplierID", label: "供应商", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入供应商", url: "", id: "", text: "" },
-            { field: "F_PurchaserID", label: "采购员", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入采购员", url: "", id: "", text: "" },
-            { field: "F_BillType", label: "订单类型", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入订单类型", url: "", id: "", text: "" },
-            { field: "F_IsStockFinished", label: "发运状态", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "", text: "" },
-            { field: "F_Status", label: "单据状态", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "", text: "" },
-            
+            { field: "F_EnCode", label: "单据编号", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { field: "F_PostDate", label: "收货日期", defaultValue: new Date().Format("yyyy-MM-dd"), layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
+            { field: "F_SupplierID", label: "供应商", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入供应商", url: "/BaseManage/Supplier/GetSelcetJson", id: "F_Id", text: "F_Name", list: [{ F_Id: "", F_Name: "=请选择=" }] },
+            { field: "F_PurchaserID", label: "采购员", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入采购员", url: "", id: "", text: "", list: [] },
+            { field: "F_IsStockFinished", label: "发运状态", defaultValue: "0", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "id", text: "text", list: [{ id: "0", text: "未收货" }, { id: "1", text: "部分收货" }, { id: "2", text: "收货完成" }] },
+            { field: "F_Status", label: "单据状态", visible: false, defaultValue: "0", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "id", text: "text", list: [{ id: "0", text: "新增" }, { id: "1", text: "保存" }, { id: "2", text: "确定" }, { id: "3", text: "待审核" }, { id: "4", text: "已审核" }, { id: "5", text: "关闭" }] },
+            { field: "F_StatusName", label: "单据状态", defaultValue: "0", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "", url: "", id: "id", text: "text", list: [] },
+            { field: "F_TaxRate", label: "税率(%)", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+
             { field: "F_Description", label: "备注", defaultValue: "", layer: "footer", divClass: "col-xs-12", inputclass: "", controlType: "input", dataType: "text", placeholder: "请输入您要备注的内容" },
             { field: "F_CreatorUserId", label: "制单人", defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
             { field: "F_BillDate", label: "制单日期", defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
@@ -33,7 +34,7 @@
         detail: {},
         //明细控件相关参数
         controlsDetails: [
-            { field: "F_ItemID", nextFocusField: "F_UomID", label: "商品编号", defaultValue: "", totalLabel: "", width: "120px", align: 'left', divClass: "", inputclass: "", controlType: "autocomplete", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
+            { field: "F_ItemID", nextFocusField: "F_UomID", label: "商品编号", defaultValue: "", totalLabel: "", width: "120px", align: 'left', divClass: "", inputclass: "", controlType: "autocomplete", dataType: "text", placeholder: "", url: "/BaseManage/Material/GetSelectJson", id: "F_EnCode", text: "F_FullName", isTotal: false },
             { field: "F_ItemIDName", nextFocusField: "", label: "商品名称", defaultValue: "", totalLabel: "", width: "120px", align: 'left', divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
             { field: "F_UomID", nextFocusField: "F_IsGift", label: "单位", defaultValue: "", totalLabel: "", width: "60px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
             { field: "F_IsGift", nextFocusField: "F_UnitAmount", label: "是否赠品", defaultValue: "", totalLabel: "", width: "80px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "", placeholder: "", url: "", id: "", text: "", isTotal: false },
@@ -51,15 +52,6 @@
         initControl();
     })
     function initControl() {
-        //初始化主表数据
-        InitData.controlsList.map(function (item) {
-            InitData.list[item.field] = item.defaultValue;
-        })
-        //初始化明细表数据
-        InitData.controlsDetails.map(function (item) {
-            InitData.detail[item.field] = item.defaultValue;
-        })
-
         var modelVue = new Vue({
             el: '.pur',
             data: JSON.parse(JSON.stringify(InitData)),
@@ -74,65 +66,37 @@
                 }
             },
             created: function () {
-                var _self = this; 
-                for (var i = 0; i < 10; i++) {
-                    _self.list.details.push(JSON.parse(JSON.stringify(_self.detail)));
-                }
+                
             },
             mounted: function () {
-                var _self = this;
-                _self.autoHeight();
-                _self.autoAddRow(_self.list.details);
+                
+
             },
             methods: {
-                handleFocusTo: function (event, trIndex, colIndex, trItem, colItem) {
-                    var el = event.target;
-                    var options = {
-                        minLength: 0,
-                        minChars: 0,
-                        autoFocus: false,
-                        delay: 0,
-                        source: function (request, response) {
-                            $.ajax({
-                                url: rootUrl + "/BaseManage/Material/GetSelectJson",
-                                dataType: "json",
-                                data: {
-                                    enCode: request.term
-                                },
-                                success: function (data) {
-                                    //data.map(function (item) {
-                                    //    item.value = item.F_Id;
-                                    //    item.Code = item.F_EnCode;
-                                    //    item.label = item.F_FullName;
-                                    //})
-                                    response(data);
-                                }
-                            });
-                          
-                        },
-                        classes: {
-                            "ui-autocomplete": "highlight"
-                        },
-                        focus: function (event, ui) {
-                            return false;
-                        },
-                        select: function (event, ui) {
-                            trItem.F_ItemID = ui.item.F_EnCode;
-                            trItem.F_ItemIDName = ui.item.F_FullName;
-                            $(el).blur();
-                            return false;
+                //日期改变事件
+                handleChangeDate: function (e) {
+                    var _self = this;
+                    if (e.target.name == "F_PostDate") {
+                        _self.list.F_PostDate = $(e.target).val();
+                    }
+                },
+            },
+            watch: {
+                'list.F_SupplierID': function (newVal, oldVal) {
+                    var _self = this;
+                    _self.list.F_TaxRate = 0;
+                    $.ajax({
+                        url: rootUrl + "/BaseManage/Supplier/GetFormJson?keyValue=" + newVal,
+                        dataType: "json",
+                        success: function (data) {
+                            if (!!data) {
+                                _self.list.F_TaxRate = data.F_TaxRate;
+                            } else {
+                                _self.list.F_TaxRate = 0;
+                            }                            
                         }
-                    };
-                    var auto = $(el).autocomplete(options);
-
-                    auto.autocomplete("instance")._renderItem = function (ul, item) {
-                        return $("<li>")
-                    .append("<div>" + item.F_EnCode + " " + item.F_FullName + "</div>")
-                    .appendTo(ul);
-                    };
-
-                    //$(el).autocomplete("search", $(el).val());
-                },             
+                    });
+                },                
             }
         })
     }
@@ -141,6 +105,6 @@
 </script>
 
 
-@{Html.RenderPartial("~/Views/Partial/PartialOrder.cshtml");}  
+@{Html.RenderPartial("~/Views/Partial/PartialOrder.cshtml");}
 
 

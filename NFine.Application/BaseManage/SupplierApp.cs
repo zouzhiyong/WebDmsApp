@@ -29,6 +29,12 @@ namespace NFine.Application.BaseManage
             }
             return service.FindList(expression, pagination);
         }
+
+        public List<SupplierEntity> GetSelect()
+        {
+            return service.FindList(t=>t.F_EnabledMark==true);
+        }
+
         public SupplierEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);

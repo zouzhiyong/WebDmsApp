@@ -29,6 +29,14 @@ namespace NFine.Web.Areas.BaseManage.Controllers
         }
         [HttpGet]
         [HandlerAjaxOnly]
+        public ActionResult GetSelcetJson()
+        {
+            var data = supplierApp.GetSelect();
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
         public ActionResult GetFormJson(string keyValue)
         {
             var data = supplierApp.GetForm(keyValue);

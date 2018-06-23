@@ -1,11 +1,10 @@
 ﻿
 //VUE(v-select)
-Vue.directive('select2', {
+Vue.directive('select', {
     inserted: function (el, binding, vnode) {
         var options = binding.value || {};
         var defaultOpt = {
-            placeholder: "--请选择--",
-            allowClear: true,
+            allowClear: false,
             minimumResultsForSearch: -1,
             language: "zh-CN",
         };
@@ -56,3 +55,5 @@ Vue.directive('number', {
         }
     }
 })
+
+
