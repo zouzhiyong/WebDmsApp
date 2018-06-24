@@ -120,9 +120,9 @@ $(function ($) {
     })
 });
 $(function ($) {
-    $("#content-wrapper").find('.mainContent').height($(window).height() - 100);
+    $("#content-wrapper").find('.mainContent').height($(window).height() - 137);
     $(window).resize(function (e) {
-        $("#content-wrapper").find('.mainContent').height($(window).height() - 100);
+        $("#content-wrapper").find('.mainContent').height($(window).height() - 137);
     });
     $('#sidebar-nav,#nav-col-submenu').on('click', '.dropdown-toggle', function (e) {
         e.preventDefault();

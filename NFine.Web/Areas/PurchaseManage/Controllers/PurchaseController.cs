@@ -12,7 +12,6 @@ namespace NFine.Web.Areas.PurchaseManage.Controllers
 {
     public class PurchaseController : ControllerBase
     {
-        //private PurchaseApp purchaseApp = new PurchaseApp();
 
         //[HttpGet]
         //[HandlerAjaxOnly]

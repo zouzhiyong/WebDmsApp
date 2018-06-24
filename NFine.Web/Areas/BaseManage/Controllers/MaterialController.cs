@@ -37,6 +37,15 @@ namespace NFine.Web.Areas.BaseManage.Controllers
             var data = materialApp.GetItemList(enCode);            
             return Content(data.ToJson());
         }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetSelectPurMaterialUom(string enCode)
+        {
+            var data = materialApp.GetPurItemUomList(enCode);
+            return Content(data.ToJson());
+        }
+
         [HttpGet]
         [HandlerAjaxOnly]
         public ActionResult GetFormJson(string keyValue)

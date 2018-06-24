@@ -24,12 +24,15 @@ namespace NFine.Application.BaseManage
     public class MaterialApp
     {
         private IRepositoryEntity<MaterialEntity> service = new RepositoryEntity<MaterialEntity>();
+        private IRepositoryEntity<UnitOfMeasureEntity> serviceUom = new RepositoryEntity<UnitOfMeasureEntity>();
+        private IRepositoryEntity<WarehouseEntity> serviceWarehouse = new RepositoryEntity<WarehouseEntity>();
+
         public List<MaterialEntity> GetList(string itemId = "", string keyword = "")
         {
             var expression = ExtLinq.True<MaterialEntity>();
             if (!string.IsNullOrEmpty(itemId))
             {
-                expression = expression.And(t => t.F_ItemGroupID == itemId || t.F_ItemCategoryID==itemId);
+                expression = expression.And(t => t.F_ItemGroupID == itemId || t.F_ItemCategoryID == itemId);
             }
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -69,6 +72,42 @@ namespace NFine.Application.BaseManage
             //};
             //return service.FindList(strSql.ToString(), parameter);
         }
+
+        public List<PurMaterialUoms> GetPurItemUomList(string enCode)
+        {
+            StringBuilder strSql = new StringBuilder();//
+            strSql.Append(@"SELECT  c.*
+                            FROM    Bas_Material a
+                                    INNER  JOIN Bas_MaterialUom b on a.F_Id = b.F_MaterialId
+                                    INNER  JOIN Bas_UnitOfMeasure c on c.F_Id = b.F_UomId
+                            WHERE   1 = 1
+                                    AND a.F_Id = @Id
+                                    AND b.F_IsPurchaseUOM = 1
+                                    AND a.F_EnabledMark = 1
+                                    AND b.F_EnabledMark = 1
+                                    AND c.F_EnabledMark = 1
+                            ORDER BY c.F_SortCode ASC");
+
+            var items = service.FindList(t => t.F_EnCode.Contains(enCode) || t.F_FullName.Contains(enCode));
+            List<PurMaterialUoms> list = new List<PurMaterialUoms>();
+            foreach (var item in items)
+            {
+                DbParameter[] parameter =
+                {
+                    new MySqlParameter("@Id",item.F_Id)
+                };
+
+                PurMaterialUoms mu = new PurMaterialUoms();
+                mu.F_Id = item.F_Id;
+                mu.F_EnCode = item.F_EnCode;
+                mu.F_FullName = item.F_FullName;
+                mu.F_PurchasePrice = item.F_PurchasePrice;
+                mu.F_UnitOfMeasureEntity = serviceUom.FindList(strSql.ToString(), parameter);
+                mu.F_WarehouseEntity= serviceWarehouse.FindList(t=>t.F_EnabledMark==true);
+                list.Add(mu);
+            }
+            return list;
+        }
         public MaterialEntity GetForm(string keyValue)
         {
             return service.FindEntity(keyValue);
@@ -85,8 +124,8 @@ namespace NFine.Application.BaseManage
                 db.Commit();
             }
         }
-        public void SubmitForm(MaterialEntity materialEntity, MaterialUomEntity[] materialuomEntitys,MaterialPictureEntity materialpictureEntity, string keyValue)
-        { 
+        public void SubmitForm(MaterialEntity materialEntity, MaterialUomEntity[] materialuomEntitys, MaterialPictureEntity materialpictureEntity, string keyValue)
+        {
             string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
             if (!string.IsNullOrEmpty(keyValue))
             {
@@ -100,7 +139,7 @@ namespace NFine.Application.BaseManage
             else
             {
                 materialEntity.Create();
-                materialEntity.F_DeleteMark = false;                
+                materialEntity.F_DeleteMark = false;
             }
 
             //封面图片
@@ -121,7 +160,7 @@ namespace NFine.Application.BaseManage
             {
                 Directory.CreateDirectory(strPath);
             }
-            new Bitmap(stream).Save(strPath+ newFileName);
+            new Bitmap(stream).Save(strPath + newFileName);
             materialpictureEntity.F_Picture = newFileName;
 
 
@@ -133,9 +172,9 @@ namespace NFine.Application.BaseManage
                 items.F_MaterialId = materialEntity.F_Id;
                 items.F_CorpId = CompanyId;
                 items.F_RateQty = (items.F_RateQty <= 0 ? 1 : items.F_RateQty);
-                if(items.F_UomId!=null && items.F_UomId != "")
-                {                  
-                    if(items.F_UomType==1)
+                if (items.F_UomId != null && items.F_UomId != "")
+                {
+                    if (items.F_UomType == 1)
                     {
                         materialEntity.F_BaseUOM = items.F_UomId;
                         materialEntity.F_SalesUOM = (items.F_IsSalesUOM == true ? items.F_UomId : "");
@@ -145,7 +184,7 @@ namespace NFine.Application.BaseManage
                     }
                     items.F_DeleteMark = false;
                     materialuomEntitysTemp.Add(items);
-                }                
+                }
             }
 
             //service.SubmitForm(materialEntity, materialuomEntitysTemp, materialpictureEntity, keyValue);

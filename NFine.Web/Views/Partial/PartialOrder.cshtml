@@ -1,7 +1,7 @@
 ﻿<style>
     /**明细部分*/
     [v-cloak] { display: none; }
-    .form { margin-bottom: 5px; background: #fff; border: solid 1px #eee; }
+    .form { margin-bottom: 10px; background: #fff; border: solid 1px #eee; }
     .gridPanel { border: 0px solid #edebeb; }
         .gridPanel table { margin-bottom: 0; max-width:2000px; }
         .gridPanel .fixed-table-header table > thead > tr > th { border: none; background-color: #eeeeee; height: 40px; padding: 6px; text-align: center; }
@@ -19,178 +19,204 @@
         .gridPanel .fixed-table-footer table > tbody > tr > td { background-color: #eeeeee; border: none;font-weight:bold; }
 </style>
 <div class="pur" v-cloak>
-    <div class="form">
+    <div id="content-title" style="height:45px;background-color:#fff;border-bottom:solid 1px #eee;padding:0 15px;display:block">
         <div class="row">
-            <div class="col-xs-12">
-                <div class="formValue pull-left" style="width:240px;" v-for="item in controlsList" v-if="item.layer=='header' && item.visible!=false">
-                    <div class="row" v-if="item.controlType=='select'">
-                        <label class="col-xs-4" :for="item.field" style="line-height:30px;text-align:right">{{item.label}}:</label>
-                        <div class="col-xs-8">
-                            <select :id="item.field" :name="item.field" class="form-control required" v-select v-model="list[item.field]" v-on:change="handleChange(list,item.field)">
-                                <option :value="_item[item.id]" v-for="_item in list[item.field+'List']">{{_item[item.text]}}</option>
-                            </select>
+            <div class="col-xs-2 title text-left" style="padding:3px;"><h4>@ViewBag.Title</h4></div>
+            <div class="col-xs-3 orderid text-left" style="padding:5px;"><h6>{{"单据编号:"+list.F_EnCode}}</h6></div>
+            <div class="col-xs-offset-5 text-right tools"></div>
+        </div>
+    </div>
+    <div style="margin:10px;margin-bottom:0;">
+        <div class="form">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="formValue pull-left" style="width:210px;" v-for="item in controlsList" v-if="item.layer=='header' && item.visible!=false">
+                        <div class="row" v-if="item.controlType=='select'">
+                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right">{{item.label}}:</label>
+                            <div class="col-xs-7" style="display:table;">
+                                <select :id="item.field" :name="item.field" class="form-control required" v-select v-model="list[item.field]" v-on:change="handleChange(list,item.field)" v-bind:disabled="item.disabled || list.F_Status>=2">
+                                    <option :value="_item[item.id==''?'id':item.id]" v-for="_item in list[item.field+'List']">{{_item[item.text==''?'text':item.text]}}</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row" v-if="item.controlType=='input' && item.dataType=='date'">
-                        <label class="col-xs-4" :for="item.field" style="line-height:30px;text-align:right">{{item.label}}:</label>
-                        <div class="col-xs-8">
-                            <input :id="item.field" :name="item.field" type="text" class="form-control datepicker" v-model="list[item.field]" :placeholder="item.placeholder" />
+                        <div class="row" v-if="item.controlType=='input' && item.dataType=='date'">
+                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right">{{item.label}}:</label>
+                            <div class="col-xs-7" style="display:table;">
+                                <div class="input-group">
+                                    <input :id="item.field" :name="item.field" type="text" class="form-control datepicker" v-model="list[item.field]" readonly :placeholder="item.placeholder" v-bind:disabled="item.disabled || list.F_Status>=2" />
+                                    <label :for="item.field" class="input-group-addon" style="font-size:12px;font-weight:normal !important;padding:6px;border-radius:0;"><i class="glyphicon glyphicon-th"></i></label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row" v-if="item.controlType=='input' && item.dataType=='text'">
-                        <label class="col-xs-4" :for="item.field" style="line-height:30px;text-align:right">{{item.label}}:</label>
-                        <div class="col-xs-8">
-                            <input :id="item.field" :name="item.field" type="text" class="form-control" v-model="list[item.field]" :placeholder="item.placeholder" />
+                        <div class="row" v-if="item.controlType=='input' && item.dataType=='text'">
+                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right">{{item.label}}:</label>
+                            <div class="col-xs-7" style="display:table;">
+                                <input :id="item.field" :name="item.field" type="text" class="form-control" v-model="list[item.field]" :placeholder="item.placeholder" v-bind:disabled="item.disabled || list.F_Status>=2" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row" v-if="item.controlType=='div'">
-                        <label class="col-xs-4" :for="item.field" style="line-height:30px;text-align:right">{{item.label}}:</label>
-                        <div class="col-xs-8">
-                            <div :id="item.field" :name="item.field" style="border: solid 1px #ddd;height: 30px;line-height:30px;padding:0 5px;">{{list[item.field]}}</div>
+                        <div class="row" v-if="item.controlType=='div'">
+                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right">{{item.label}}:</label>
+                            <div class="col-xs-7" style="display:table;">
+                                <div :id="item.field" :name="item.field" style="border: solid 1px #ddd;height: 30px;line-height:30px;padding:0 5px;">{{list[item.field]}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="gridPanel">
-            <div class="fixed-table-header" style="margin-right: 0px;">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th style="width:5%">
-                                <div class="th-inner ">序号</div>
-                            </th>
-                            <th v-for="itemThead in controlsDetails" :style="{width:itemThead.width}">
-                                <div class="th-inner ">{{itemThead.label}}</div>
-                            </th>
-                            <th style="width:10%">
-                                <div class="th-inner ">操作</div>
-                            </th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-            <div class="fixed-table-body">
-                <table class="table table-condensed" style="margin-top: 0px;table-layout: fixed;">
-                    <tbody>
-                        <tr v-for="(tbodyItem,tbodyIndex) in list.details">
-                            <td style="text-align:center;width:5%;">
-                                {{tbodyIndex+1}}
-                            </td>
-                            <td v-for="(itemThead,theadIndex) in controlsDetails" v-bind:id="itemThead.field+tbodyIndex" :data-rowindex="tbodyIndex" :data-colindex="theadIndex" :data-nextfocusfield="itemThead.nextFocusField" :class="itemThead.type=='operate'?'col_operate':''" :style="{width:itemThead.width,'position':'relative'}" v-on:click.stop="handleClickInput($event,itemThead.field,tbodyIndex,itemThead)">
-                                <template v-if="itemThead.controlType=='select'">
-                                    <select v-model="tbodyItem[itemThead.field]"
-                                            v-bind:disabled="list.F_Status>=2"
-                                            v-select
-                                             v-on:change="handleChange(tbodyItem,itemThead.field)"
-                                            class="form-control"
-                                            style="width:100%;border:0px;border-radius:0px;">
-                                        <option value="">&nbsp</option>
-                                        <option v-for="option in tbodyItem[itemThead.field+'List']" v-bind:value="option.id">{{ option.text }}</option>
-                                    </select>
-                                </template>
-                                <template v-else>
-                                    <template v-if="inputField!=itemThead.field+tbodyIndex || list.F_Status>=2">
-                                        <div v-bind:style="{'text-align':itemThead.align}"
-                                             v-bind:data-value="tbodyItem[itemThead.field]"
-                                             v-on:click.stop="handleClickInput($event,itemThead.field,tbodyIndex,itemThead)">
-                                            <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>
-                                            <span v-else>{{tbodyItem[itemThead.field]}}</span>
-                                        </div>
+            <div class="gridPanel">
+                <div class="fixed-table-header" style="margin-right: 0px;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width:5%">
+                                    <div class="th-inner ">序号</div>
+                                </th>
+                                <th v-for="itemThead in controlsDetails" :style="{width:itemThead.width}">
+                                    <div class="th-inner ">{{itemThead.label}}</div>
+                                </th>
+                                <th style="width:10%">
+                                    <div class="th-inner ">操作</div>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="fixed-table-body" style="position: relative">
+                    <table class="table table-condensed" style="margin-top: 0px;table-layout: fixed;">
+                        <tbody>
+                            <tr v-for="(tbodyItem,tbodyIndex) in list.details">
+                                <td style="text-align:center;width:5%;">
+                                    {{tbodyIndex+1}}
+                                </td>
+                                <td v-for="(itemThead,theadIndex) in controlsDetails" v-bind:id="itemThead.field+tbodyIndex" :data-rowindex="tbodyIndex" :data-colindex="theadIndex" :data-nextfocusfield="itemThead.nextFocusField" :class="itemThead.type=='operate'?'col_operate':''" :style="{width:itemThead.width}" v-on:click.stop="handleClickInput($event,itemThead.field,tbodyIndex,itemThead)">
+                                    <template v-if="itemThead.controlType=='select'">
+                                        <select v-model="tbodyItem[itemThead.field]"
+                                                v-bind:disabled="list.F_Status>=2 || itemThead.disabled"
+                                                v-select
+                                                v-on:change="handleChange(tbodyItem,itemThead.field)"
+                                                class="form-control"
+                                                style="width:100%;border:0px;border-radius:0px;">
+                                            <option v-for="option in tbodyItem[itemThead.field+'List']" v-bind:value="option[itemThead.id==''?'id':itemThead.id]">{{ option[itemThead.text==''?'text':itemThead.text] }}</option>
+                                        </select>
                                     </template>
                                     <template v-else>
-                                        <div v-if="itemThead.controlType=='div'" :style="{'text-align':itemThead.align}">
-                                            <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>
-                                            <span v-else>{{tbodyItem[itemThead.field]}}</span>
-                                        </div>
-                                        <input v-if="itemThead.controlType=='autocomplete' && itemThead.dataType=='text'"
-                                               v-on:focus="handleFocusTo(tbodyItem, itemThead)"
-                                               v-bind:style="{'text-align':itemThead.align}"
-                                               v-model="tbodyItem[itemThead.field]"
-                                               v-on:blur="handleBlur(itemThead.field+tbodyIndex)"
-                                               v-on:keyup.enter="hanldeEnter($event)"
-                                               autocomplete="off" class="form-control" type="text" />
-                                        <input v-if="itemThead.controlType=='input' && itemThead.dataType=='date'"
-                                               v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
-                                               v-bind:style="{'text-align':itemThead.align}"
-                                               v-model="tbodyItem[itemThead.field]"
-                                               v-on:blur="handleBlur(itemThead.field+tbodyIndex)"
-                                               v-on:keyup.enter="hanldeEnter($event)"
-                                               autocomplete="off" class="form-control datepicker" type="text" readonly/>
-                                        <input v-if="itemThead.controlType=='input' && itemThead.dataType=='text'"
-                                               v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
-                                               v-bind:style="{'text-align':itemThead.align}"
-                                               v-model="tbodyItem[itemThead.field]"
-                                               v-on:blur="handleBlur(itemThead.field+tbodyIndex)"
-                                               v-on:keyup.enter="hanldeEnter($event)"
-                                               autocomplete="off" class="form-control" type="text" />
-                                        <input v-if="itemThead.controlType=='input' && itemThead.dataType=='number'"
-                                               v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
-                                               v-bind:style="{'text-align':itemThead.align}"
-                                               v-model="tbodyItem[itemThead.field]"
-                                               v-on:blur="handleBlur(itemThead.field+tbodyIndex)"
-                                               v-on:keyup.enter="hanldeEnter($event)"
-                                               autocomplete="off" class="form-control input" type="number" />
+                                        <template v-if="inputField!=itemThead.field+tbodyIndex || list.F_Status>=2">
+                                            <div v-bind:style="{'text-align':itemThead.align}"
+                                                 v-bind:data-value="tbodyItem[itemThead.field]"
+                                                 v-on:click.stop="handleClickInput($event,itemThead.field,tbodyIndex,itemThead)">
+                                                <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>
+                                                <span v-else>{{tbodyItem[itemThead.field]}}</span>
+                                            </div>
+                                        </template>
+                                        <template v-else>
+                                            <div v-if="itemThead.controlType=='div'" :style="{'text-align':itemThead.align}">
+                                                <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>
+                                                <span v-else>{{tbodyItem[itemThead.field]}}</span>
+                                            </div>
+                                            <input v-if="itemThead.controlType=='autocomplete' && itemThead.dataType=='text'"
+                                                   v-on:focus="handleFocusTo(tbodyItem, itemThead)"
+                                                   v-bind:style="{'text-align':itemThead.align}"
+                                                   v-model="tbodyItem[itemThead.field]"
+                                                   v-on:blur="handleBlur(itemThead.field+tbodyIndex)"
+                                                   v-on:keyup.enter="hanldeEnter($event)"
+                                                   autocomplete="off" class="form-control" type="text" />
+                                            <input v-if="itemThead.controlType=='input' && itemThead.dataType=='date'"
+                                                   v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
+                                                   v-bind:style="{'text-align':itemThead.align}"
+                                                   v-model="tbodyItem[itemThead.field]"
+                                                   v-on:blur="handleBlur(itemThead.field+tbodyIndex)"
+                                                   v-on:keyup.enter="hanldeEnter($event)"
+                                                   autocomplete="off" class="form-control datepicker" type="text" readonly />
+                                            <input v-if="itemThead.controlType=='input' && itemThead.dataType=='text'"
+                                                   v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
+                                                   v-bind:style="{'text-align':itemThead.align}"
+                                                   v-model="tbodyItem[itemThead.field]"
+                                                   v-on:blur="handleBlur(itemThead.field+tbodyIndex)"
+                                                   v-on:keyup.enter="hanldeEnter($event)"
+                                                   autocomplete="off" class="form-control" type="text" />
+                                            <input v-if="itemThead.controlType=='input' && itemThead.dataType=='number'"
+                                                   v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
+                                                   v-bind:style="{'text-align':itemThead.align}"
+                                                   v-model="tbodyItem[itemThead.field]"
+                                                   v-on:blur="handleBlur(itemThead.field+tbodyIndex)"
+                                                   v-on:keyup.enter="hanldeEnter($event)"
+                                                   autocomplete="off" class="form-control input" type="number" />
+                                        </template>
                                     </template>
-                                </template>
-                            </td>
-                            <td style="text-align:center;width:10%;" class="col_operate">
-                                <div style="text-align:center;padding:0 20px;">
-                                    <a v-if="list.F_Status<2 && tbodyItem.wsitemid!=''" class="btn widget-btn-icon btn-xs ladda-button delete single" v-on:click="hanldeClickDelete(tbodyIndex)">
-                                        <i class="iconfont icon-delete"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="fixed-table-footer" style="margin-right: 0px;">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td style="width:5%;text-align:center;">
-                                合计：
-                            </td>
-                            <td v-for="(itemFooter,theadIndex) in controlsDetails" v-bind:style="{width:itemFooter.width,'text-align':itemFooter.align }">
-                                {{itemFooter.totalLabel}}<span v-if="!!itemFooter.isTotal" v-number="total[itemFooter.field]"></span>
-                            </td>
-                            <td style="width:10%;text-align:center;"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row">
-                <div class="formValue">
-                    <div :class="item.divClass" v-for="item in controlsList" v-if="item.layer=='footer'">
-                        <template v-if="item.controlType=='input'">
-                            <input type="text" autocomplete="off" class="form-control" :id="item.field" :name="item.field" :placeholder="item.placeholder" v-model="list[item.field]" v-bind:disabled="list.F_Status>=2" />
-                        </template>
-                        <template v-if="item.controlType=='div'">
-                            <label class="control-label" style="height: 30px;line-height: 30px;">{{item.label}}：{{list[item.field]}}</label>
-                        </template>
+                                </td>
+                                <td style="text-align:center;width:10%;" class="col_operate">
+                                    <div style="text-align:center;padding:0 20px;">
+                                        <a v-if="list.F_Status<2 && tbodyItem.wsitemid!=''" class="btn widget-btn-icon btn-xs ladda-button delete single" v-on:click="hanldeClickDelete(tbodyIndex)">
+                                            <i class="iconfont icon-delete"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="fixed-table-footer" style="margin-right: 0px;">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td style="width:5%;text-align:center;">
+                                    合计：
+                                </td>
+                                <td v-for="(itemFooter,theadIndex) in controlsDetails" v-bind:style="{width:itemFooter.width,'text-align':itemFooter.align }">
+                                    {{itemFooter.totalLabel}}<span v-if="!!itemFooter.isTotal" v-number="total[itemFooter.field]"></span>
+                                </td>
+                                <td style="width:10%;text-align:center;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="formValue">
+                        <div :class="item.divClass" v-for="item in controlsList" v-if="item.layer=='footer'">
+                            <template v-if="item.controlType=='input'">
+                                <input type="text" autocomplete="off" class="form-control" :id="item.field" :name="item.field" :placeholder="item.placeholder" v-model="list[item.field]" v-bind:disabled="list.F_Status>=2" />
+                            </template>
+                            <template v-if="item.controlType=='div'">
+                                <label class="control-label" style="height: 30px;line-height: 30px;">{{item.label}}：{{list[item.field]}}</label>
+                            </template>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-    </div>
-    <div class="text-center" style="padding:10px;">
-        <a id="NF-save" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_save()"><i class="fa fa-save"></i> 保存</a>
-        <a id="NF-audit" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_audit()"><i class="fa fa-save"></i> 审核</a>
-        <a id="NF-print" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_print()"><i class="fa fa-print"></i> 打印</a>
-        <a id="NF-printview" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_printview()"><i class="fa fa-eye"></i> 打印预览</a>
+        </div>
+        <div class="text-center" style="padding:10px;margin: 0 -10px;background-color: #fff;">
+            <a id="NF-save" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_save()"><i class="fa fa-save"></i> 保存</a>
+            <a id="NF-audit" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_audit()"><i class="fa fa-save"></i> 审核</a>
+            <a id="NF-print" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_print()"><i class="fa fa-print"></i> 打印</a>
+            <a id="NF-printview" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_printview()"><i class="fa fa-eye"></i> 打印预览</a>
+        </div>
     </div>
 </div>
 <script>
+    var fid = self.frameElement.getAttribute('id');//获取id
+    window.top.$("#" + fid, window.top.document).css({ "margin": "-10px", "margin-bottom": "0", "width": "calc(100% + 20px)", "height": "calc(100% + 10px)" });
+
     Vue.mixin({
         computed: {
-            total: function () {//求和                        
+            saveData: function () {
+                var _self = this;
+                var arr = _self.list.details.filter(function (item) {
+                    return item.F_ItemID != ""
+                });
+
+                arr.map(function (item) {
+                    _self.handleComputed(item);
+                })
+                _self.autoAddRow(arr);
+                return arr;
+            },
+            total: function () {//求和
                 var _self = this;
                 var totalObj = {};
-                _self.controlsDetails.map(function (item) {
+                _self.controlsDetails.map(function (item) {                    
                     if (!!item.isTotal) {
-                        var total_sum = _self.list.details.reduce(function (sum, row) {
+                        var total_sum = _self.saveData.reduce(function (sum, row) {
                             if (row[item.field] != "") {
                                 return (sum) + parseFloat(row[item.field] || 0);
                             } else {
@@ -207,9 +233,10 @@
         },
         created: function () {
             var _self = this;
+
             //初始化主表数据
             _self.controlsList.map(function (item) {
-                _self.$set(_self.list, item.field,item.defaultValue);      
+                _self.$set(_self.list, item.field,item.defaultValue);
                 if (item.controlType == "select") {
                     if (item.url == "") {
                         _self.$set(_self.list, item.field + 'List', JSON.parse(JSON.stringify(item.list)));
@@ -218,9 +245,11 @@
                             url: rootUrl + item.url,
                             async: false,
                             dataType: "json",
-                            success: function (data) { 
+                            success: function (data) {
                                 if (!!item.list && item.list.length > 0) {
                                     data.splice(0, 0, JSON.parse(JSON.stringify(item.list[0])));
+                                } else {
+                                    _self.$set(_self.list, item.field, data[0][item.id]);
                                 }
                                 _self.$set(_self.list, item.field + 'List', data);
                             }
@@ -231,6 +260,14 @@
             //初始化明细表数据
             _self.controlsDetails.map(function (item) {
                 _self.$set(_self.detail, item.field, item.defaultValue);
+                if (item.controlType == "select") {
+                    if (item.url == "") {
+                        _self.$set(_self.detail, item.field + 'List', JSON.parse(JSON.stringify(item.list)));
+                    } else {
+                        _self.$set(_self.detail, item.field + 'List', JSON.parse(JSON.stringify(item.list)));
+                    }
+
+                }
             })
 
             //添加10行明细
@@ -240,7 +277,6 @@
         },
         mounted: function () {
             var _self = this;
-            
             _self.autoHeight();
             _self.autoAddRow(_self.list.details);
 
@@ -251,11 +287,14 @@
                 autoclose: true,
                 todayBtn: 'linked',//今日按钮
                 weekStart: 1,
-            }).on('changeDate', function (e) {                
+            }).on('changeDate', function (e) {
                 _self.handleChangeDate(e);
             });
         },
         methods: {
+            //计算
+            handleComputed: function (item) {
+            },
             //日期改变事件
             handleChangeDate: function (e) {
             },
@@ -264,6 +303,7 @@
             },
             //物料选择
             handleFocusTo: function (trItem, colItem) {
+                var _self = this;
                 var el = event.target;
                 var options = {
                     minLength: 0,
@@ -272,12 +312,12 @@
                     delay: 0,
                     source: function (request, response) {
                         $.ajax({
-                            url: rootUrl + "/BaseManage/Material/GetSelectJson",
+                            url: rootUrl + colItem.url,
                             dataType: "json",
                             data: {
                                 enCode: request.term
                             },
-                            success: function (data) {                                
+                            success: function (data) {
                                 response(data);
                             }
                         });
@@ -292,6 +332,7 @@
                     select: function (event, ui) {
                         trItem[colItem.field] = ui.item[colItem.id];
                         trItem[colItem.field + "Name"] = ui.item[colItem.text];
+                        _self.handleSelectMater(trItem, ui.item, colItem);
                         $(el).blur();
                         return false;
                     }
@@ -300,11 +341,14 @@
 
                 auto.autocomplete("instance")._renderItem = function (ul, item) {
                     return $("<li>")
-                .append("<div>" + item[colItem.id] + " " + item[colItem.text] + "</div>")
+                .append("<div style='font-size:12px;'>" + item[colItem.id] + " " + item[colItem.text] + "</div>")
                 .appendTo(ul);
                 };
 
                 //$(el).autocomplete("search", $(el).val());
+            },
+            //选择物料事件
+            handleSelectMater: function (trItem, uiItem) {
             },
             //选择事件
             handleFocus: function (event, tbodyItem, itemThead, field) {
@@ -346,7 +390,7 @@
             hanldeEnter: function (event) {
                 var $objTempParentTd = $(event.target).closest('td');
                 var $objTemp = $('#' + $objTempParentTd.data("nextfocusfield") + $objTempParentTd.data("rowindex"));
-                
+
                 if ($objTemp.data("colindex") <= $objTempParentTd.data("colindex")) {
                     $objTemp = $('#' + $objTempParentTd.data("nextfocusfield") + (Number($objTempParentTd.data("rowindex")) + 1));
                 }
@@ -370,9 +414,9 @@
             },
             autoHeight: function () {
                 var _self = this;
-                $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 160);
+                $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 156);
                 $(window).resize(function () {
-                    $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 160);
+                    $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 156);
                     _self.autoWidth();
                 })
             },
@@ -384,17 +428,6 @@
                     $(".fixed-table-footer .table").width(w);
                 })
             },
-        },
-        watch: {
-            'list.F_Status': function (newVal, oldVal) {
-                var _self = this;
-                _self.list.F_StatusList.map(function (item) {
-                    if (item.id == newVal) {
-                        _self.list.F_StatusName = item.text;
-                    }
-                })
-
-            }
         }
     })
 </script>

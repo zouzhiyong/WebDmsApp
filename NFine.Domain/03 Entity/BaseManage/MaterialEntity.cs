@@ -5,6 +5,7 @@
  * Website：http://www.nfine.cn
 *********************************************************************************/
 using System;
+using System.Collections.Generic;
 
 namespace NFine.Domain.Entity.BaseManage
 {
@@ -52,5 +53,20 @@ namespace NFine.Domain.Entity.BaseManage
         public MaterialPictureEntity F_MaterialPictureEntity { get; set; }
         public MaterialEntity F_MaterialEntity { get; set; }
         public MaterialUomEntity[] F_MaterialUomEntity { get; set; }
+    }
+
+    public class PurMaterialUoms
+    {
+        public string F_Id { get; set; }
+        public string F_CorpId { get; set; }
+        public string F_EnCode { get; set; }
+        public string F_FullName { get; set; }
+        public string F_ShortName { get; set; }
+        public string F_PurchaseUOM { get; set; }
+        public Nullable<decimal> F_PurchasePrice { get; set; } 
+        public Nullable<bool> F_EnabledMark { get; set; }
+        public Nullable<int> F_SortCode { get; set; }
+        public List<UnitOfMeasureEntity> F_UnitOfMeasureEntity { get; set; }
+        public List<WarehouseEntity> F_WarehouseEntity { get; set; }
     }
 }

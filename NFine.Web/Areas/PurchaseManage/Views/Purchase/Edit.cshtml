@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "采购订单";
     Layout = "~/Views/Shared/_Order.cshtml";
 }
 
@@ -14,18 +14,17 @@
         },
         //主表控件相关参数
         controlsList: [
-            { field: "F_EnCode", label: "单据编号", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { field: "F_EnCode", label: "单据编号", visible: false, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { field: "F_BillDate", label: "制单日期", defaultValue: new Date().Format("yyyy-MM-dd"), layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
             { field: "F_PostDate", label: "收货日期", defaultValue: new Date().Format("yyyy-MM-dd"), layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
-            { field: "F_SupplierID", label: "供应商", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入供应商", url: "/BaseManage/Supplier/GetSelcetJson", id: "F_Id", text: "F_Name", list: [{ F_Id: "", F_Name: "=请选择=" }] },
-            { field: "F_PurchaserID", label: "采购员", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入采购员", url: "", id: "", text: "", list: [] },
-            { field: "F_IsStockFinished", label: "发运状态", defaultValue: "0", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "id", text: "text", list: [{ id: "0", text: "未收货" }, { id: "1", text: "部分收货" }, { id: "2", text: "收货完成" }] },
-            { field: "F_Status", label: "单据状态", visible: false, defaultValue: "0", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "id", text: "text", list: [{ id: "0", text: "新增" }, { id: "1", text: "保存" }, { id: "2", text: "确定" }, { id: "3", text: "待审核" }, { id: "4", text: "已审核" }, { id: "5", text: "关闭" }] },
-            { field: "F_StatusName", label: "单据状态", defaultValue: "0", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "", url: "", id: "id", text: "text", list: [] },
+            { field: "F_SupplierID", label: "供应商", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入供应商", url: "/BaseManage/Supplier/GetSelcetJson", id: "F_Id", text: "F_Name", list: [] },
+            { field: "F_PurchaserID", label: "采购员", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入采购员", url: "/SystemManage/User/GetSelectJson?custType=Buyer", id: "F_Id", text: "F_RealName", list: [{ F_Id: "", F_RealName: "=请选择=" }] },
+            { field: "F_IsStockFinished", label: "发运状态", disabled: true, defaultValue: "0", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "id", text: "text", list: [{ id: "0", text: "未收货" }, { id: "1", text: "部分收货" }, { id: "2", text: "收货完成" }] },
+            { field: "F_Status", label: "单据状态", disabled: true, defaultValue: "0", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "id", text: "text", list: [{ id: "0", text: "新增" }, { id: "1", text: "保存" }, { id: "2", text: "确定" }, { id: "3", text: "待审核" }, { id: "4", text: "已审核" }, { id: "5", text: "关闭" }] },
             { field: "F_TaxRate", label: "税率(%)", defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
 
             { field: "F_Description", label: "备注", defaultValue: "", layer: "footer", divClass: "col-xs-12", inputclass: "", controlType: "input", dataType: "text", placeholder: "请输入您要备注的内容" },
             { field: "F_CreatorUserId", label: "制单人", defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
-            { field: "F_BillDate", label: "制单日期", defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
             { field: "F_LastModifyUserId", label: "修改人", defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
             { field: "F_LastModifyTime", label: "修改日期", defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
             { field: "F_ConfirmUserId", label: "审批人", defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
@@ -34,16 +33,16 @@
         detail: {},
         //明细控件相关参数
         controlsDetails: [
-            { field: "F_ItemID", nextFocusField: "F_UomID", label: "商品编号", defaultValue: "", totalLabel: "", width: "120px", align: 'left', divClass: "", inputclass: "", controlType: "autocomplete", dataType: "text", placeholder: "", url: "/BaseManage/Material/GetSelectJson", id: "F_EnCode", text: "F_FullName", isTotal: false },
+            { field: "F_ItemID", nextFocusField: "F_UomID", label: "商品编号", defaultValue: "", totalLabel: "", width: "120px", align: 'left', divClass: "", inputclass: "", controlType: "autocomplete", dataType: "text", placeholder: "", url: "/BaseManage/Material/GetSelectPurMaterialUom", id: "F_EnCode", text: "F_FullName", isTotal: false },
             { field: "F_ItemIDName", nextFocusField: "", label: "商品名称", defaultValue: "", totalLabel: "", width: "120px", align: 'left', divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
-            { field: "F_UomID", nextFocusField: "F_IsGift", label: "单位", defaultValue: "", totalLabel: "", width: "60px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
-            { field: "F_IsGift", nextFocusField: "F_UnitAmount", label: "是否赠品", defaultValue: "", totalLabel: "", width: "80px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "", placeholder: "", url: "", id: "", text: "", isTotal: false },
+            { field: "F_UomID", nextFocusField: "F_IsGift", label: "单位", defaultValue: "", totalLabel: "", width: "60px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "F_Id", text: "F_Name", list: [], isTotal: false },
+            { field: "F_IsGift", nextFocusField: "F_UnitAmount", label: "是否赠品", defaultValue: "0", totalLabel: "", width: "80px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "", placeholder: "", url: "", id: "", text: "", list: [], isTotal: false },
             { field: "F_UnitAmount", nextFocusField: "F_BillQty", label: "单价(¥)", defaultValue: "", totalLabel: "", width: "80px", align: 'center', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: false },
             { field: "F_BillQty", nextFocusField: "F_OperQty", label: "订单数量", defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
             { field: "F_OperQty", nextFocusField: "F_Amount", label: "实际数量", defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
             { field: "F_BalanceQty", nextFocusField: "", label: "剩余数量", defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
-            { field: "F_Amount", nextFocusField: "F_Description", label: "金额(¥)", defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
-            { field: "F_WarehouseID", nextFocusField: "F_Description", label: "仓库", defaultValue: "", totalLabel: "", width: "100px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "", placeholder: "", url: "", id: "", text: "", isTotal: false },
+            { field: "F_Amount", nextFocusField: "F_Description", label: "金额(¥)", defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
+            { field: "F_WarehouseID", nextFocusField: "F_Description", label: "仓库", defaultValue: "", totalLabel: "", width: "100px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "", placeholder: "", url: "", id: "F_Id", text: "F_Name", list: [], isTotal: false },
             { field: "F_Description", nextFocusField: "F_ItemID", label: "备注", defaultValue: "", totalLabel: "", width: "100px", align: 'left', divClass: "", inputclass: "", controlType: "input", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false }
         ]
     }
@@ -56,29 +55,54 @@
             el: '.pur',
             data: JSON.parse(JSON.stringify(InitData)),
             computed: {
-                saveData: function () {
-                    var _self = this;
-                    var arr = _self.list.details.filter(function (item) {
-                        return item.F_ItemID == ""
-                    });
-                    _self.autoAddRow(arr);
-                    return arr;
-                }
+
             },
             created: function () {
-                
+
             },
             mounted: function () {
-                
+
 
             },
             methods: {
+                //计算
+                handleComputed: function (item) {
+                    var _self = this;
+                    var F_UnitAmount = !isNaN(parseFloat(item.F_UnitAmount)) ? parseFloat(item.F_UnitAmount) : 0;
+                    var F_BillQty = !isNaN(parseFloat(item.F_BillQty)) ? parseFloat(item.F_BillQty) : 0;
+                    item.F_Amount = F_UnitAmount * F_BillQty;
+                },
                 //日期改变事件
                 handleChangeDate: function (e) {
                     var _self = this;
                     if (e.target.name == "F_PostDate") {
                         _self.list.F_PostDate = $(e.target).val();
                     }
+                },
+                //选择物料事件
+                handleSelectMater: function (item, uiItem, colItem) {
+                    var _self = this;
+                    //赋值单位
+                    uiItem.F_UnitOfMeasureEntity.map(function (_item, index) {
+                        item.F_UomIDList.push(_item);
+                        if (item.F_UomID == "" && index == 0) {
+                            item.F_UomID = uiItem.F_UnitOfMeasureEntity[0].F_Id;
+                        }
+                    })
+
+                    //赋值仓库
+                    uiItem.F_WarehouseEntity.map(function (_item, index) {
+                        item.F_WarehouseIDList.push(_item);
+                        if (item.F_WarehouseID == "" && index == 0) {
+                            item.F_WarehouseID = uiItem.F_WarehouseEntity[0].F_Id;
+                        }
+                    })
+
+                    //赋值是否赠品
+                    item.F_IsGiftList = [{ id: "0", text: "否" }, { id: "1", text: "是" }];
+
+                    //采购单价赋值
+                    item.F_UnitAmount = uiItem.F_PurchasePrice;
                 },
             },
             watch: {
@@ -93,10 +117,10 @@
                                 _self.list.F_TaxRate = data.F_TaxRate;
                             } else {
                                 _self.list.F_TaxRate = 0;
-                            }                            
+                            }
                         }
                     });
-                },                
+                },
             }
         })
     }

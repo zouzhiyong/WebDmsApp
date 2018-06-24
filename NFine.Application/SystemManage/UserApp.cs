@@ -35,8 +35,8 @@ namespace NFine.Application.SystemManage
                 expression = expression.Or(t => t.F_MobilePhone.Contains(keyword));
             }
 
-            string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-            expression = expression.And(t => t.F_CorpId == CompanyId);
+            //string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+            //expression = expression.And(t => t.F_CorpId == CompanyId);
 
             return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
         }
