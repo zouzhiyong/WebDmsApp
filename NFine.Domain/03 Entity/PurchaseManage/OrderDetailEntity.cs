@@ -15,7 +15,8 @@ namespace NFine.Domain.Entity.PurchaseManage
         public string F_CorpId { get; set; }
         public string F_RowId { get; set; }
         public string F_ItemID { get; set; }
-        public string F_ItemName { get; set; }
+        public string F_ItemCode { get; set; }
+        public string F_ItemCodeName { get; set; }
         public string F_UomID { get; set; }
         public string F_WarehouseID { get; set; }
         public string F_BinID { get; set; }
