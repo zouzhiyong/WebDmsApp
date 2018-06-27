@@ -58,5 +58,7 @@ namespace NFine.MySQLModel
         public virtual DbSet<sys_roleauthorize> sys_roleauthorize { get; set; }
         public virtual DbSet<sys_user> sys_user { get; set; }
         public virtual DbSet<sys_userlogon> sys_userlogon { get; set; }
+        public virtual DbSet<sys_serialnumber> sys_serialnumber { get; set; }
+        public virtual DbSet<sys_serialnumberdetail> sys_serialnumberdetail { get; set; }
     }
 }

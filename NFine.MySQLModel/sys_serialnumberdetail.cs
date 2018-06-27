@@ -12,29 +12,19 @@ namespace NFine.MySQLModel
     using System;
     using System.Collections.Generic;
     
-    public partial class pur_orderdetail
+    public partial class sys_serialnumberdetail
     {
         public string F_Id { get; set; }
-        public string F_POId { get; set; }
         public string F_CorpId { get; set; }
-        public string F_RowId { get; set; }
-        public string F_ItemID { get; set; }
-        public string F_ItemName { get; set; }
-        public string F_UomID { get; set; }
-        public string F_WarehouseID { get; set; }
-        public string F_BinID { get; set; }
-        public int F_BillQty { get; set; }
-        public int F_OperQty { get; set; }
-        public Nullable<int> F_BalanceQty { get; set; }
-        public decimal F_UnitAmount { get; set; }
-        public decimal F_UnitCost { get; set; }
-        public decimal F_Amount { get; set; }
-        public Nullable<decimal> F_DiscountAmount { get; set; }
-        public string F_ReturnReasonID { get; set; }
-        public Nullable<bool> F_IsFree { get; set; }
-        public Nullable<bool> F_IsGift { get; set; }
-        public Nullable<int> F_ReturnQuantity { get; set; }
-        public Nullable<int> F_SortCode { get; set; }
+        public string F_EnCode { get; set; }
+        public string F_SerialId { get; set; }
+        public System.DateTime F_NumberDate { get; set; }
+        public int F_NumberLength { get; set; }
+        public int F_FirstNumber { get; set; }
+        public long F_LastNumber { get; set; }
+        public Nullable<int> F_WarningNumber { get; set; }
+        public int F_IncrementByNumber { get; set; }
+        public Nullable<int> F_LastNumberUsed { get; set; }
         public Nullable<bool> F_DeleteMark { get; set; }
         public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }
@@ -44,7 +34,6 @@ namespace NFine.MySQLModel
         public string F_LastModifyUserId { get; set; }
         public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
-        public string F_ItemCode { get; set; }
-        public string F_ItemCodeName { get; set; }
+        public Nullable<int> F_SortCode { get; set; }
     }
 }

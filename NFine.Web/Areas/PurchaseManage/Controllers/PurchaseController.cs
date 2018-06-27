@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NFine.Application.BaseManage;
+using NFine.Application.SystemManage;
 using NFine.Code;
 using NFine.Domain.Entity.BaseManage;
 using NFine.Web.App_Start._01_Handler;
@@ -12,20 +13,22 @@ namespace NFine.Web.Areas.PurchaseManage.Controllers
 {
     public class PurchaseController : ControllerBase
     {
-
-        //[HttpGet]
-        //[HandlerAjaxOnly]
-        //public ActionResult GetGridJson(Pagination pagination, string keyword)
-        //{
-        //    var data = new
-        //    {
-        //        rows = purchaseApp.GetList(pagination, keyword),
-        //        total = pagination.total,
-        //        page = pagination.page,
-        //        records = pagination.records
-        //    };
-        //    return Content(data.ToJson());
-        //}
+        private SerialNumberDetailApp serialNumberDetailApp = new SerialNumberDetailApp();
+        
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetGridJson()
+        {
+            string data = serialNumberDetailApp.GetAutoIncrementCode("PurchaseOrder");
+            //var data = new
+            //{
+            //    rows = purchaseApp.GetList(pagination, keyword),
+            //    total = pagination.total,
+            //    page = pagination.page,
+            //    records = pagination.records
+            //};
+            return Content(data);
+        }
         //[HttpGet]
         //[HandlerAjaxOnly]
         //public ActionResult GetFormJson(string keyValue)

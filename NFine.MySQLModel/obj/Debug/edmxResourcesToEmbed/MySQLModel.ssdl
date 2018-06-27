@@ -328,6 +328,7 @@
     <Property Name="F_ConfirmTime" Type="datetime" Precision="0" />
     <Property Name="F_ConfirmUserId" Type="varchar" MaxLength="50" />
     <Property Name="F_TaxRate" Type="decimal" Precision="10" Scale="5" />
+    <Property Name="F_PrintNums" Type="int" />
     <Property Name="F_SortCode" Type="int" />
     <Property Name="F_DeleteMark" Type="bool" />
     <Property Name="F_EnabledMark" Type="bool" />
@@ -338,7 +339,6 @@
     <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
     <Property Name="F_DeleteTime" Type="datetime" Precision="0" />
     <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
-    <Property Name="F_PrintNums" Type="int" />
   </EntityType>
   <EntityType Name="pur_orderdetail">
     <Key>
@@ -349,7 +349,8 @@
     <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_RowId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_ItemID" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="F_ItemName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="F_ItemCode" Type="varchar" MaxLength="50" />
+    <Property Name="F_ItemCodeName" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="F_UomID" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_WarehouseID" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_BinID" Type="varchar" MaxLength="50" />
@@ -765,6 +766,59 @@
     <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
     <Property Name="F_CorpId" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="sys_serialnumber">
+    <Key>
+      <PropertyRef Name="F_Id" />
+    </Key>
+    <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_EnCode" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="F_FullName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_IsManual" Type="bool" />
+    <Property Name="F_MaintainMethod" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="F_Prefix" Type="varchar" MaxLength="10" />
+    <Property Name="F_StartingNumber" Type="int" Nullable="false" />
+    <Property Name="F_EndingNumber" Type="uint" Nullable="false" />
+    <Property Name="F_WarningNumber" Type="int" />
+    <Property Name="F_IncrementByNumber" Type="int" Nullable="false" />
+    <Property Name="F_YearLength" Type="int" />
+    <Property Name="F_DeleteMark" Type="bool" />
+    <Property Name="F_EnabledMark" Type="bool" />
+    <Property Name="F_Description" Type="varchar" MaxLength="255" />
+    <Property Name="F_CreatorTime" Type="datetime" Precision="0" />
+    <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_LastModifyTime" Type="datetime" Precision="0" />
+    <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_DeleteTime" Type="datetime" Precision="0" />
+    <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+    <Property Name="F_SortCode" Type="int" />
+  </EntityType>
+  <EntityType Name="sys_serialnumberdetail">
+    <Key>
+      <PropertyRef Name="F_Id" />
+    </Key>
+    <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_EnCode" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="F_SerialId" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="F_NumberDate" Type="date" Nullable="false" />
+    <Property Name="F_NumberLength" Type="int" Nullable="false" />
+    <Property Name="F_FirstNumber" Type="int" Nullable="false" />
+    <Property Name="F_LastNumber" Type="uint" Nullable="false" />
+    <Property Name="F_WarningNumber" Type="int" />
+    <Property Name="F_IncrementByNumber" Type="int" Nullable="false" />
+    <Property Name="F_LastNumberUsed" Type="int" />
+    <Property Name="F_DeleteMark" Type="bool" />
+    <Property Name="F_EnabledMark" Type="bool" />
+    <Property Name="F_Description" Type="varchar" MaxLength="255" />
+    <Property Name="F_CreatorTime" Type="datetime" Precision="0" />
+    <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_LastModifyTime" Type="datetime" Precision="0" />
+    <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_DeleteTime" Type="datetime" Precision="0" />
+    <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+    <Property Name="F_SortCode" Type="int" />
+  </EntityType>
   <EntityType Name="sys_user">
     <Key>
       <PropertyRef Name="F_Id" />
@@ -857,6 +911,8 @@
     <EntitySet Name="sys_organize1" EntityType="Self.sys_organize1" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_role" EntityType="Self.sys_role" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_roleauthorize" EntityType="Self.sys_roleauthorize" Schema="nfinebase" store:Type="Tables" />
+    <EntitySet Name="sys_serialnumber" EntityType="Self.sys_serialnumber" Schema="nfinebase" store:Type="Tables" />
+    <EntitySet Name="sys_serialnumberdetail" EntityType="Self.sys_serialnumberdetail" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_user" EntityType="Self.sys_user" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_userlogon" EntityType="Self.sys_userlogon" Schema="nfinebase" store:Type="Tables" />
   </EntityContainer>

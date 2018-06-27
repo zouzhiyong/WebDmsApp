@@ -35,6 +35,7 @@ namespace NFine.Domain
             if (LoginInfo != null)
             {
                 entity.F_CorpId = LoginInfo.CompanyId;
+                entity.F_LastModifyUserId= LoginInfo.UserId;
             }
             entity.F_LastModifyTime = DateTime.Now;
         }

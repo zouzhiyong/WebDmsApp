@@ -211,6 +211,12 @@
     <Compile Include="sys_roleauthorize.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="sys_serialnumber.cs">
+      <DependentUpon>MySQLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sys_serialnumberdetail.cs">
+      <DependentUpon>MySQLModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="sys_user.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>

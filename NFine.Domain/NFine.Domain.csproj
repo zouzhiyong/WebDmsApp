@@ -92,6 +92,8 @@
     <Compile Include="03 Entity\BaseManage\WarehouseEntity.cs" />
     <Compile Include="03 Entity\PurchaseManage\OrderDetailEntity.cs" />
     <Compile Include="03 Entity\PurchaseManage\OrderEntity.cs" />
+    <Compile Include="03 Entity\SystemManage\SerialNumberDetailEntity.cs" />
+    <Compile Include="03 Entity\SystemManage\SerialNumberEntity.cs" />
     <Compile Include="03 Entity\SystemManage\CompanyEntity.cs" />
     <Compile Include="03 Entity\SystemManage\CompanyAuthorizeEntity.cs" />
     <Compile Include="03 Entity\SystemManage\ItemsCustDetailEntity.cs" />

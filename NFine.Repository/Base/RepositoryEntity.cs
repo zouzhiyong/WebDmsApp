@@ -102,7 +102,7 @@ namespace NFine.Repository.Base
                 //if (!OperatorProvider.Provider.GetCurrent().IsSystem)
                 //{
                     ParameterExpression parameter = Expression.Parameter(typeof(TEntity), "t");//创建参数
-                    if (parameter.Type.Name != "ItemsEntity" && parameter.Type.Name != "ModuleButtonEntity")//除类型主表和模板对应按钮外，其它表查询都需要加上公司ID条件
+                    if (parameter.Type.Name != "ItemsEntity" && parameter.Type.Name != "ModuleButtonEntity" && parameter.Type.Name!= "SerialNumberEntity")//除类型主表和模板对应按钮外，其它表查询都需要加上公司ID条件
                     {
                         MemberExpression member = Expression.PropertyOrField(parameter, "F_CorpId");
                         ConstantExpression constant = Expression.Constant(OperatorProvider.Provider.GetCurrent().CompanyId);//创建常数
