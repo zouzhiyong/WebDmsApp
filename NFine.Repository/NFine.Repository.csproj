@@ -101,6 +101,10 @@
       <Project>{7dc886cd-b8a0-44e8-aadd-57fcb0cfecb8}</Project>
       <Name>NFine.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NFine.Mapping\NFine.Mapping.csproj">
+      <Project>{4E642CBE-F6C5-4CB9-9474-6B349652FE77}</Project>
+      <Name>NFine.Mapping</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -18,6 +18,10 @@
                     .gridPanel .fixed-table-body table > tbody > tr > td input[type="number"] { -moz-appearance: textfield; }
         .gridPanel .fixed-table-footer table > tbody > tr > td { background-color: #eeeeee; border: none; font-weight: bold; }
         .gridPanel .fixed-table-body table > tbody > tr:not(.active) > td .select2-selection__arrow { display: none; }
+        .select2-container--default.select2-container--disabled .select2-selection--single {
+    background-color: #fff;
+    cursor: default;
+}
 </style>
 <div class="pur" v-cloak>
     <div id="content-title" style="height:45px;background-color:#fff;border-bottom:solid 1px #eee;padding:0 15px;display:block">
@@ -182,7 +186,7 @@
                 </div>
                 <div class="row">
                     <div class="formValue">
-                        <div :class="item.divClass" v-for="item in controlsList" v-if="item.layer=='footer'">
+                        <div :class="item.divClass" v-for="item in controlsList" v-if="item.layer=='footer' && item.visible!=false">
                             <template v-if="item.controlType=='input'">
                                 <input type="text" autocomplete="off" class="form-control" :id="item.field" :name="item.field" :placeholder="item.placeholder" v-model="list[item.field]" v-bind:disabled="list.F_Status>=2" />
                             </template>
@@ -196,10 +200,10 @@
 
         </div>
         <div class="text-center" style="padding:10px;margin: 0 -10px;background-color: #fff;">
-            <a id="NF-save" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_save()"><i class="fa fa-save"></i> 保存</a>
-            <a id="NF-audit" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_audit()"><i class="fa fa-save"></i> 审核</a>
-            <a id="NF-print" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_print()"><i class="fa fa-print"></i> 打印</a>
-            <a id="NF-printview" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_printview()"><i class="fa fa-eye"></i> 打印预览</a>
+            <a v-if="list.F_Status<2" id="NF-save" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickSave(1)"><i class="fa fa-save"></i> 保存</a>
+            <a v-if="list.F_Status<2" id="NF-audit" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickSave(2)"><i class="fa fa-save"></i> 审核</a>
+            <a id="NF-print" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickPrint()"><i class="fa fa-print"></i> 打印</a>
+            <a id="NF-printview" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickPrintView()"><i class="fa fa-eye"></i> 打印预览</a>
         </div>
     </div>
 </div>
@@ -303,16 +307,45 @@
 
         },
         methods: {
+            //保存
+            handleClickSave: function (type) {
+                var _self = this;
+                if (_self.saveData.length <= 0) {
+                    $.modalMsg("没有明细记录", "warning");
+                    return;
+                }
+
+                var _self = this;
+                var submitFormData = JSON.parse(JSON.stringify(_self.list));
+                submitFormData.details = JSON.parse(JSON.stringify(_self.saveData));
+                submitFormData.F_Status = type;
+
+                $.submitForm({
+                    url: rootUrl + _self.submitFormUrl,
+                    param: submitFormData,
+                    success: function (result) {
+                        if (result.state == "success") {
+                            _self.list = $.extend(true, _self.list, result.data);
+                        }
+                    }
+                });
+            },
+            //打印
+            handleClickPrint: function () { },
+            //打印预览
+            handleClickPrintView: function () { },
             //删除
             hanldeClickDelete: function (index) {
                 this.list.details.splice(index, 1);
                 this.autoWidth();
             },
-            //计算
+            //计算(默认空)
             handleComputed: function (item) {
+                
             },
-            //日期改变事件
+            //日期改变事件(默认空)
             handleChangeDate: function (e) {
+                
             },
             //下拉选择事件
             handleChange: function (item, field) {
@@ -368,8 +401,9 @@
 
                 //$(el).autocomplete("search", $(el).val());
             },
-            //选择物料事件(继续)
+            //选择物料事件(默认空)
             handleSelectMater: function (trItem, uiItem) {
+                
             },
             //选择事件
             handleFocus: function (event, tbodyItem, itemThead, field) {
@@ -448,6 +482,20 @@
                     $(".fixed-table-header .table").width(w);
                     $(".fixed-table-footer .table").width(w);
                 })
+            },
+        }, 
+        watch: {
+            'list.F_CreatorUserId': function (newVal, oldVal) {
+                var _self = this;
+                _self.list.F_CreatorUserName = top.clients.user[newVal] == null ? "" : top.clients.user[newVal].fullname;
+            },
+            'list.F_LastModifyUserId': function (newVal, oldVal) {
+                var _self = this;
+                _self.list.F_LastModifyUserName = top.clients.user[newVal] == null ? "" : top.clients.user[newVal].fullname;
+            },
+            'list.F_ConfirmUserId': function (newVal, oldVal) {
+                var _self = this;
+                _self.list.F_ConfirmUserName = top.clients.user[newVal] == null ? "" : top.clients.user[newVal].fullname;
             },
         }
     })

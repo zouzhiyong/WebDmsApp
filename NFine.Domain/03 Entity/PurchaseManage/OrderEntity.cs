@@ -5,6 +5,9 @@
  * Website：http://www.nfine.cn
 *********************************************************************************/
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NFine.Domain.Entity.PurchaseManage
 {
@@ -20,6 +23,7 @@ namespace NFine.Domain.Entity.PurchaseManage
         public string F_SupplierName { get; set; }
         public string F_TruckID { get; set; }
         public string F_DriverID { get; set; }
+        [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string F_PurchaserID { get; set; }
         public Nullable<long> F_Status { get; set; }
         public Nullable<int> F_IsStockFinished { get; set; }
@@ -37,5 +41,7 @@ namespace NFine.Domain.Entity.PurchaseManage
         public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
         public Nullable<int> F_PrintNums { get; set; }
+        [NotMapped]
+        public List<OrderDetailEntity> details { get; set; }
     }
 }

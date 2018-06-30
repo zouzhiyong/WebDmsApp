@@ -206,7 +206,8 @@ $.submitForm = function (options) {
         headers: {},
         loading: "正在提交数据...",
         success: null,
-        close: true
+        close: true,
+        async:true
     };
     var options = $.extend(defaults, options);
     $.loading(true, options.loading);
@@ -216,6 +217,7 @@ $.submitForm = function (options) {
         }
         $.ajax({
             url: options.url,
+            async:options.async,
             data: options.param,
             processData: options.processData,
             contentType:options.contentType,

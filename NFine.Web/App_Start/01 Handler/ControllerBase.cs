@@ -37,15 +37,15 @@ namespace NFine.Web
         }
         protected virtual ActionResult Success(string message)
         {
-            return Content(new AjaxResult { state = ResultType.success.ToString(), message = message }.ToJson());
+            return Content(new AjaxResult { state = ResultType.success.ToString(), message = message }.ToJson(), "application/json; charset=utf-8");
         }
         protected virtual ActionResult Success(string message, object data)
         {
-            return Content(new AjaxResult { state = ResultType.success.ToString(), message = message, data = data }.ToJson());
+            return Content(new AjaxResult { state = ResultType.success.ToString(), message = message, data = data }.ToJson(), "application/json; charset=utf-8");
         }
         protected virtual ActionResult Error(string message)
         {
-            return Content(new AjaxResult { state = ResultType.error.ToString(), message = message }.ToJson());
+            return Content(new AjaxResult { state = ResultType.error.ToString(), message = message }.ToJson(), "application/json; charset=utf-8");
         }
     }
 }

@@ -3,32 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using NFine.Application.BaseManage;
-using NFine.Application.SystemManage;
-using NFine.Code;
-using NFine.Domain.Entity.BaseManage;
+using NFine.Application.PurManage;
+using NFine.Domain.Entity.PurchaseManage;
 using NFine.Web.App_Start._01_Handler;
 
 namespace NFine.Web.Areas.PurchaseManage.Controllers
 {
     public class PurchaseController : ControllerBase
     {
-        private SerialNumberDetailApp serialNumberDetailApp = new SerialNumberDetailApp();
-        
-        [HttpGet]
+        private OrderApp orderApp = new OrderApp();
+
+        [HttpPost]
         [HandlerAjaxOnly]
-        public ActionResult GetGridJson()
+        [MyValidateAntiForgeryToken]
+        public ActionResult SubmitForm(OrderEntity model)
         {
-            string data = serialNumberDetailApp.GetAutoIncrementCode("PurchaseOrder");
-            //var data = new
-            //{
-            //    rows = purchaseApp.GetList(pagination, keyword),
-            //    total = pagination.total,
-            //    page = pagination.page,
-            //    records = pagination.records
-            //};
-            return Content(data);
+            var result=orderApp.SubmitForm(model);
+            return Success("操作成功。", result);
         }
+        //SubmitForm(OrderEntity orderEntity, OrderDetailEntity[] orderDetailEntitys, string keyValue)
+        //[HttpGet]
+        //[HandlerAjaxOnly]
+        //public ActionResult GetGridJson()
+        //{
+        //string data = serialNumberDetailApp.GetAutoIncrementCode("PurchaseOrder");
+        //var data = new
+        //{
+        //    rows = purchaseApp.GetList(pagination, keyword),
+        //    total = pagination.total,
+        //    page = pagination.page,
+        //    records = pagination.records
+        //};
+        //return Content(data);
+        // }
         //[HttpGet]
         //[HandlerAjaxOnly]
         //public ActionResult GetFormJson(string keyValue)

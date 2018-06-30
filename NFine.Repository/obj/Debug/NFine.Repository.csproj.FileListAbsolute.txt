@@ -62,3 +62,5 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\zh-Hans\Syst
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\obj\Debug\NFine.Repository.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\obj\Debug\NFine.Repository.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\obj\Debug\NFine.Repository.pdb
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Mapping.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Mapping.pdb

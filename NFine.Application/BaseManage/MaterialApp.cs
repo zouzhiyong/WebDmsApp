@@ -18,6 +18,7 @@ using NFine.Domain.IRepository.Base;
 using System.Text;
 using System.Data.Common;
 using MySql.Data.MySqlClient;
+using NFine.Application.SystemManage;
 
 namespace NFine.Application.BaseManage
 {
@@ -126,7 +127,6 @@ namespace NFine.Application.BaseManage
         }
         public void SubmitForm(MaterialEntity materialEntity, MaterialUomEntity[] materialuomEntitys, MaterialPictureEntity materialpictureEntity, string keyValue)
         {
-            string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
             if (!string.IsNullOrEmpty(keyValue))
             {
                 materialEntity.Modify(keyValue);
@@ -139,6 +139,7 @@ namespace NFine.Application.BaseManage
             else
             {
                 materialEntity.Create();
+                SerialNumberDetailApp.GetAutoIncrementCode<MaterialEntity>(materialEntity);//编号
                 materialEntity.F_DeleteMark = false;
             }
 
@@ -170,7 +171,6 @@ namespace NFine.Application.BaseManage
             {
                 items.Create();
                 items.F_MaterialId = materialEntity.F_Id;
-                items.F_CorpId = CompanyId;
                 items.F_RateQty = (items.F_RateQty <= 0 ? 1 : items.F_RateQty);
                 if (items.F_UomId != null && items.F_UomId != "")
                 {
