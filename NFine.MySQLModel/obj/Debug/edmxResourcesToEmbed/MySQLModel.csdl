@@ -32,10 +32,10 @@
     <EntitySet Name="sys_organize1" EntityType="nfinebaseModel.sys_organize1" />
     <EntitySet Name="sys_role" EntityType="nfinebaseModel.sys_role" />
     <EntitySet Name="sys_roleauthorize" EntityType="nfinebaseModel.sys_roleauthorize" />
-    <EntitySet Name="sys_user" EntityType="nfinebaseModel.sys_user" />
-    <EntitySet Name="sys_userlogon" EntityType="nfinebaseModel.sys_userlogon" />
     <EntitySet Name="sys_serialnumber" EntityType="nfinebaseModel.sys_serialnumber" />
     <EntitySet Name="sys_serialnumberdetail" EntityType="nfinebaseModel.sys_serialnumberdetail" />
+    <EntitySet Name="sys_user" EntityType="nfinebaseModel.sys_user" />
+    <EntitySet Name="sys_userlogon" EntityType="nfinebaseModel.sys_userlogon" />
   </EntityContainer>
   <EntityType Name="bas_corporation">
     <Key>
@@ -351,12 +351,12 @@
     </Key>
     <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_CorpId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_EnCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_EnCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_BillDate" Type="DateTime" Nullable="false" />
     <Property Name="F_BillType" Type="Int32" Nullable="false" />
     <Property Name="F_PostDate" Type="DateTime" />
     <Property Name="F_SupplierID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_SupplierName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="F_SupplierName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="F_TruckID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_DriverID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_PurchaserID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -365,6 +365,7 @@
     <Property Name="F_ConfirmTime" Type="DateTime" />
     <Property Name="F_ConfirmUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_TaxRate" Type="Decimal" />
+    <Property Name="F_PrintNums" Type="Int32" />
     <Property Name="F_SortCode" Type="Int32" />
     <Property Name="F_DeleteMark" Type="Boolean" />
     <Property Name="F_EnabledMark" Type="Boolean" />
@@ -375,7 +376,6 @@
     <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_DeleteTime" Type="DateTime" />
     <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="F_PrintNums" Type="Int32" />
   </EntityType>
   <EntityType Name="pur_orderdetail">
     <Key>
@@ -384,14 +384,15 @@
     <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_POId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_CorpId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_RowId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_RowId" Type="Int32" />
     <Property Name="F_ItemID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_ItemName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="F_ItemCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_ItemCodeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="F_UomID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_WarehouseID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_BinID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_BillQty" Type="Int32" Nullable="false" />
-    <Property Name="F_OperQty" Type="Int32" Nullable="false" />
+    <Property Name="F_OperQty" Type="Int32" />
     <Property Name="F_BalanceQty" Type="Int32" />
     <Property Name="F_UnitAmount" Type="Decimal" Nullable="false" />
     <Property Name="F_UnitCost" Type="Decimal" Nullable="false" />
@@ -411,8 +412,6 @@
     <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_DeleteTime" Type="DateTime" />
     <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="F_ItemCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_ItemCodeName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="sys_area">
     <Key>
@@ -804,6 +803,59 @@
     <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_CorpId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="sys_serialnumber">
+    <Key>
+      <PropertyRef Name="F_Id" />
+    </Key>
+    <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_CorpId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_EnCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_IsManual" Type="Boolean" />
+    <Property Name="F_MaintainMethod" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="F_Prefix" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="F_StartingNumber" Type="Int32" Nullable="false" />
+    <Property Name="F_EndingNumber" Type="Int64" Nullable="false" />
+    <Property Name="F_WarningNumber" Type="Int32" />
+    <Property Name="F_IncrementByNumber" Type="Int32" Nullable="false" />
+    <Property Name="F_YearLength" Type="Int32" />
+    <Property Name="F_DeleteMark" Type="Boolean" />
+    <Property Name="F_EnabledMark" Type="Boolean" />
+    <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="F_CreatorTime" Type="DateTime" />
+    <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_LastModifyTime" Type="DateTime" />
+    <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_DeleteTime" Type="DateTime" />
+    <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="F_SortCode" Type="Int32" />
+  </EntityType>
+  <EntityType Name="sys_serialnumberdetail">
+    <Key>
+      <PropertyRef Name="F_Id" />
+    </Key>
+    <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_CorpId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_EnCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_SerialId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_NumberDate" Type="DateTime" Nullable="false" />
+    <Property Name="F_NumberLength" Type="Int32" Nullable="false" />
+    <Property Name="F_FirstNumber" Type="Int32" Nullable="false" />
+    <Property Name="F_LastNumber" Type="Int64" Nullable="false" />
+    <Property Name="F_WarningNumber" Type="Int32" />
+    <Property Name="F_IncrementByNumber" Type="Int32" Nullable="false" />
+    <Property Name="F_LastNumberUsed" Type="Int32" />
+    <Property Name="F_DeleteMark" Type="Boolean" />
+    <Property Name="F_EnabledMark" Type="Boolean" />
+    <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="F_CreatorTime" Type="DateTime" />
+    <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_LastModifyTime" Type="DateTime" />
+    <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="F_DeleteTime" Type="DateTime" />
+    <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="F_SortCode" Type="Int32" />
+  </EntityType>
   <EntityType Name="sys_user">
     <Key>
       <PropertyRef Name="F_Id" />
@@ -863,58 +915,5 @@
     <Property Name="F_Language" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_Theme" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="F_CorpId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="sys_serialnumber">
-    <Key>
-      <PropertyRef Name="F_Id" />
-    </Key>
-    <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_CorpId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_EnCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="F_FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_IsManual" Type="Boolean" />
-    <Property Name="F_MaintainMethod" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="F_Prefix" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="F_StartingNumber" Type="Int32" Nullable="false" />
-    <Property Name="F_EndingNumber" Type="Int64" Nullable="false" />
-    <Property Name="F_WarningNumber" Type="Int32" />
-    <Property Name="F_IncrementByNumber" Type="Int32" Nullable="false" />
-    <Property Name="F_YearLength" Type="Int32" />
-    <Property Name="F_DeleteMark" Type="Boolean" />
-    <Property Name="F_EnabledMark" Type="Boolean" />
-    <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="F_CreatorTime" Type="DateTime" />
-    <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_LastModifyTime" Type="DateTime" />
-    <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_DeleteTime" Type="DateTime" />
-    <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="F_SortCode" Type="Int32" />
-  </EntityType>
-  <EntityType Name="sys_serialnumberdetail">
-    <Key>
-      <PropertyRef Name="F_Id" />
-    </Key>
-    <Property Name="F_Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_CorpId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_EnCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="F_SerialId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="F_NumberDate" Type="DateTime" Nullable="false" />
-    <Property Name="F_NumberLength" Type="Int32" Nullable="false" />
-    <Property Name="F_FirstNumber" Type="Int32" Nullable="false" />
-    <Property Name="F_LastNumber" Type="Int64" Nullable="false" />
-    <Property Name="F_WarningNumber" Type="Int32" />
-    <Property Name="F_IncrementByNumber" Type="Int32" Nullable="false" />
-    <Property Name="F_LastNumberUsed" Type="Int32" />
-    <Property Name="F_DeleteMark" Type="Boolean" />
-    <Property Name="F_EnabledMark" Type="Boolean" />
-    <Property Name="F_Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="F_CreatorTime" Type="DateTime" />
-    <Property Name="F_CreatorUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_LastModifyTime" Type="DateTime" />
-    <Property Name="F_LastModifyUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="F_DeleteTime" Type="DateTime" />
-    <Property Name="F_DeleteUserId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="F_SortCode" Type="Int32" />
   </EntityType>
 </Schema>

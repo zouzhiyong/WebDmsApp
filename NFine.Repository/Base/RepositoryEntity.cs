@@ -99,8 +99,8 @@ namespace NFine.Repository.Base
         {
             if (OperatorProvider.Provider.GetCurrent() != null)
             {
-                //if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-                //{
+                if (!OperatorProvider.Provider.GetCurrent().IsSystem)
+                {
                     ParameterExpression parameter = Expression.Parameter(typeof(TEntity), "t");//创建参数
                     if (parameter.Type.Name != "ItemsEntity" && parameter.Type.Name != "ModuleButtonEntity" && parameter.Type.Name!= "SerialNumberEntity")//除类型主表和模板对应按钮外，其它表查询都需要加上公司ID条件
                     {
@@ -109,7 +109,7 @@ namespace NFine.Repository.Base
                         var lambda = Expression.Lambda<Func<TEntity, bool>>(Expression.Equal(member, constant), parameter);
                         predicate = predicate.And(lambda);
                     }
-                //}
+                }
             }
             return predicate;
         }

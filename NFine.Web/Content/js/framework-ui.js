@@ -454,6 +454,7 @@ $.fn.dataGrid = function (options) {
         shrinkToFit: true,
         gridview: true,
         isTools: true,
+        ToolsType:"top",//top,row
         isEditField: 'isEditField',
         pagerpos: "left",
         styleUI: 'Bootstrap',
@@ -488,28 +489,30 @@ $.fn.dataGrid = function (options) {
 
         options.colModel.push({
             label: '', width: 80, name: '', align: 'center',
-            formatter: function (cellvalue, _options, rowObject) {
-                if (!!rowObject[options.isEditField]) {
+            formatter: function (cellvalue, _options, row) {
+                if (!!row[options.isEditField]) {
                     return "";
                 } else {
-                    var $tempElementHtml = $elementHtml.replace(/\(\)/gi, '(\'' + rowObject.F_Id + '\')').replace(/id/gi, 'name');
+                    var $tempElementHtml = $elementHtml.replace(/\(\)/gi, '(\'' + row.F_Id + '\')').replace(/id/gi, 'name');
                     return $tempElementHtml;
                 }
             }
         })
     } else {
-        options["onSelectRow"] = function (rowid) {
-            var length = $(this).jqGrid("getGridParam", "selrow").length;
-            var $operate = $(".operate");
-            if (length > 0) {
-                $operate.animate({ "left": 0 }, 200);
-            } else {
-                $operate.animate({ "left": '-100.1%' }, 200);
-            }
-            $operate.find('.close').click(function () {
-                $operate.animate({ "left": '-100.1%' }, 200);
-            })
-        };
+        if (options.ToolsType == "top") {
+            options["onSelectRow"] = function (rowid) {
+                var length = $(this).jqGrid("getGridParam", "selrow").length;
+                var $operate = $(".operate");
+                if (length > 0) {
+                    $operate.animate({ "left": 0 }, 200);
+                } else {
+                    $operate.animate({ "left": '-100.1%' }, 200);
+                }
+                $operate.find('.close').click(function () {
+                    $operate.animate({ "left": '-100.1%' }, 200);
+                })
+            };
+        }
     }
 
     $element.jqGrid(options);

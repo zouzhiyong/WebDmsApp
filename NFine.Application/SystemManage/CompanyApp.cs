@@ -77,6 +77,7 @@ namespace NFine.Application.SystemManage
             if (!string.IsNullOrEmpty(keyValue))
             {
                 companyEntity.Modify(keyValue);
+                companyEntity.F_CorpId = companyEntity.F_Id;
             }
             else
             {
@@ -130,26 +131,11 @@ namespace NFine.Application.SystemManage
             List<ItemsCustDetailEntity> itemsCustDetailEntityList = new List<ItemsCustDetailEntity>();
             foreach (var item in itemsCustDetailEntitys)
             {
-                ItemsCustDetailEntity itemsCustDetailEntity = new ItemsCustDetailEntity();
-                itemsCustDetailEntity.Create();
-                itemsCustDetailEntity.F_Id = item.F_Id;
-                itemsCustDetailEntity.F_ItemId = item.F_ItemId;
-                itemsCustDetailEntity.F_ParentId = item.F_ParentId;
-                itemsCustDetailEntity.F_ItemCode = item.F_ItemCode;
-                itemsCustDetailEntity.F_ItemName = item.F_ItemName;
-                itemsCustDetailEntity.F_SimpleSpelling = item.F_SimpleSpelling;
-                itemsCustDetailEntity.F_IsDefault = item.F_IsDefault;
-                itemsCustDetailEntity.F_Layers = item.F_Layers;
-                itemsCustDetailEntity.F_SortCode = item.F_SortCode;
-                itemsCustDetailEntity.F_DeleteMark = item.F_DeleteMark;
-                itemsCustDetailEntity.F_EnabledMark = item.F_EnabledMark;
-                itemsCustDetailEntity.F_Description = item.F_Description;
-                itemsCustDetailEntity.F_LastModifyTime = item.F_LastModifyTime;
-                itemsCustDetailEntity.F_LastModifyUserId = item.F_LastModifyUserId;
-                itemsCustDetailEntity.F_DeleteTime = item.F_DeleteTime;
-                itemsCustDetailEntity.F_DeleteUserId = item.F_DeleteUserId;
-                itemsCustDetailEntity.F_CorpId = companyEntity.F_Id;
-                itemsCustDetailEntityList.Add(itemsCustDetailEntity);
+                var F_Id = item.F_Id;
+                item.Create();
+                item.F_Id = F_Id;
+                item.F_CorpId = companyEntity.F_Id;
+                itemsCustDetailEntityList.Add(item);
             }
 
             //
@@ -175,7 +161,7 @@ namespace NFine.Application.SystemManage
 
                 db.Insert(companyAuthorizeEntitys);
 
-                db.Insert(itemsCustDetailEntitys);
+                db.Insert(itemsCustDetailEntityList);
 
                 db.Commit();
             }

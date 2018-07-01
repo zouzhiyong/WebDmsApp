@@ -13,6 +13,7 @@ using System.Text;
 using System.Web.Mvc;
 using NFine.Application.BaseManage;
 using NFine.Domain.Entity.BaseManage;
+using NFine.Data;
 
 namespace NFine.Web.Controllers
 {
@@ -20,6 +21,7 @@ namespace NFine.Web.Controllers
     public class ClientsDataController : Controller
     {
         private string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
+        private IRepositoryBase service = new RepositoryBase();
 
         [HttpGet]
         [HandlerAjaxOnly]
@@ -43,31 +45,53 @@ namespace NFine.Web.Controllers
         private object GetDataItemList()
         {
             Dictionary<string, object> dictionaryItem = new Dictionary<string, object>();
-            
-            foreach (var item in new ItemsApp().GetList())
+
+            List<ItemsEntity> itemList = service.IQueryable<ItemsEntity>().ToList();
+            List<ItemsDetailEntity> itemData = service.IQueryable<ItemsDetailEntity>().ToList();
+            List<ItemsCustDetailEntity> itemCustData = service.IQueryable<ItemsCustDetailEntity>(t => t.F_CorpId == CompanyId).ToList();
+            string GeneralId = itemList.First(t => t.F_EnCode == "Sys_Items").F_Id;
+
+            foreach (var item in itemList)
             {
                 if (OperatorProvider.Provider.GetCurrent().IsSystem)
                 {
                     List<ItemsDetailEntity> itemdata = new ItemsDetailApp().GetList();
-                    var dataItemList = itemdata.FindAll(t => t.F_ItemId.Equals(item.F_Id));
+                    var dataItemList = itemdata.FindAll(t => t.F_ItemId == item.F_Id);
                     Dictionary<string, string> dictionaryItemList = new Dictionary<string, string>();
-                    foreach (var itemList in dataItemList)
+                    foreach (var _item in dataItemList)
                     {
-                        dictionaryItemList.Add(itemList.F_ItemCode, itemList.F_ItemName);
+                        dictionaryItemList.Add(_item.F_ItemCode, _item.F_ItemName);
                     }
                     dictionaryItem.Add(item.F_EnCode, dictionaryItemList);
                 }
                 else
                 {
-                    List<ItemsCustDetailEntity> itemdata = new ItemsCustDetailApp().GetList();
-                    var dataItemList = itemdata.FindAll(t => t.F_ItemId.Equals(item.F_Id));
-                    Dictionary<string, string> dictionaryItemList = new Dictionary<string, string>();
-                    foreach (var itemList in dataItemList)
+                    Dictionary<string, string> dictionaryItemList = new Dictionary<string, string>();                    
+                    var dataItemList = itemData.FindAll(t => t.F_ItemId == item.F_Id && item.F_ParentId == GeneralId);
+                    foreach (var _item in dataItemList)
                     {
-                        dictionaryItemList.Add(itemList.F_ItemCode, itemList.F_ItemName);
+                        dictionaryItemList.Add(_item.F_ItemCode, _item.F_ItemName);
                     }
+                    var dataItemCustList = itemCustData.FindAll(t => t.F_ItemId == item.F_Id);
+                    foreach (var _item in dataItemCustList)
+                    {
+                        dictionaryItemList.Add(_item.F_ItemCode, _item.F_ItemName);
+                    }
+                    //List<ItemsDetailEntity> itemData = new ItemsDetailApp().GetList();
+                    //var dataItemList = itemData.FindAll(t => t.F_ItemId == item.F_Id && item.F_EnCode == "Sys_Items");
+                    //List<ItemsCustDetailEntity> itemCustData = new ItemsCustDetailApp().GetList();
+                    //var dataItemCustList = itemCustData.FindAll(t => t.F_ItemId == item.F_Id);
+                    //Dictionary<string, string> dictionaryItemList = new Dictionary<string, string>();
+                    //foreach (var itemList in dataItemList)
+                    //{
+                    //    dictionaryItemList.Add(itemList.F_ItemCode, itemList.F_ItemName);
+                    //}
+                    //foreach (var itemList in dataItemCustList)
+                    //{
+                    //    dictionaryItemList.Add(itemList.F_ItemCode, itemList.F_ItemName);
+                    //}
                     dictionaryItem.Add(item.F_EnCode, dictionaryItemList);
-                }                
+                }
             }
             return dictionaryItem;
         }
@@ -232,10 +256,11 @@ namespace NFine.Web.Controllers
             Dictionary<string, object> dictionary = new Dictionary<string, object>();
             foreach (ModuleButtonEntity item in dataModuleId)
             {
-                var buttonList = data.Where(t => t.F_ModuleId.Equals(item.F_ModuleId) && t.F_EnabledMark==true);
+                var buttonList = data.Where(t => t.F_ModuleId.Equals(item.F_ModuleId) && t.F_EnabledMark == true);
                 dictionary.Add(item.F_ModuleId, buttonList);
             }
             return dictionary;
         }
     }
+    
 }

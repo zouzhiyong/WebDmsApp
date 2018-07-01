@@ -19,7 +19,7 @@ namespace NFine.Application.SystemManage
     {
         private IRepositoryBase<UserEntity> serviceLogin = new RepositoryBase<UserEntity>();
         private IRepositoryEntity<UserEntity> service = new RepositoryEntity<UserEntity>();
-        private IRepositoryEntity<CompanyEntity> serviceCompany = new RepositoryEntity<CompanyEntity>();
+        private IRepositoryBase<CompanyEntity> serviceCompany = new RepositoryBase<CompanyEntity>();
         private UserLogOnApp userLogOnApp = new UserLogOnApp();
 
         public List<UserEntity> GetList(string custType="",string keyword = "")
@@ -117,7 +117,9 @@ namespace NFine.Application.SystemManage
                     string dbPassword = Md5.md5(DESEncrypt.Encrypt(password.ToLower(), userLogOnEntity.F_UserSecretkey).ToLower(), 32).ToLower();
                     if (dbPassword == userLogOnEntity.F_UserPassword)
                     {
-                        if(serviceCompany.FindEntity(t => t.F_CorpId == userEntity.F_CorpId).F_EnabledMark == true)
+                        string F_CorpId = userEntity.F_CorpId;
+                        CompanyEntity companyEntity = serviceCompany.FindEntity(t => t.F_CorpId == F_CorpId);
+                        if (companyEntity.F_EnabledMark == true)
                         {
                             DateTime lastVisitTime = DateTime.Now;
                             int LogOnCount = (userLogOnEntity.F_LogOnCount).ToInt() + 1;

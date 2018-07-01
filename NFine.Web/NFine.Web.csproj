@@ -466,6 +466,10 @@
       <Project>{db19ce03-c307-43fe-a209-08aa4ae10e21}</Project>
       <Name>NFine.Code</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NFine.Data\NFine.Data.csproj">
+      <Project>{F71003E8-A836-48F4-9DF6-DF9095CEBD18}</Project>
+      <Name>NFine.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NFine.Domain\NFine.Domain.csproj">
       <Project>{7dc886cd-b8a0-44e8-aadd-57fcb0cfecb8}</Project>
       <Name>NFine.Domain</Name>
@@ -689,9 +693,12 @@
     <Content Include="Areas\SystemManage\Views\ItemsCust\Details.cshtml" />
     <Content Include="Areas\SystemManage\Views\ItemsCust\Form.cshtml" />
     <Content Include="Areas\SystemManage\Views\ItemsCust\Index.cshtml" />
+    <Content Include="Areas\PurchaseManage\Views\Purchase\Index.cshtml" />
     <None Include="Properties\PublishProfiles\NFine.Framework.Release.pubxml" />
     <Content Include="Views\Shared\_Order.cshtml" />
     <Content Include="Views\Partial\PartialOrder.cshtml" />
+    <Content Include="Views\Shared\_Query.cshtml" />
+    <Content Include="Views\Partial\PartialOrderDetail.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -16,9 +16,9 @@ namespace NFine.Domain.Entity.PurchaseManage
         public string F_Id { get; set; }
         public string F_CorpId { get; set; }
         public string F_EnCode { get; set; }
-        public System.DateTime F_BillDate { get; set; }
+        public string F_BillDate { get; set; }
         public int F_BillType { get; set; }
-        public Nullable<System.DateTime> F_PostDate { get; set; }
+        public string F_PostDate { get; set; }
         public string F_SupplierID { get; set; }
         public string F_SupplierName { get; set; }
         public string F_TruckID { get; set; }

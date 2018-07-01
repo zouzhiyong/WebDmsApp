@@ -74,6 +74,28 @@ namespace NFine.Application.BaseManage
             //return service.FindList(strSql.ToString(), parameter);
         }
 
+        public List<UnitOfMeasureEntity> getUOM(string itemId)
+        {
+            StringBuilder strSql = new StringBuilder();//
+            strSql.Append(@"SELECT  c.*
+                            FROM    Bas_Material a
+                                    INNER  JOIN Bas_MaterialUom b on a.F_Id = b.F_MaterialId
+                                    INNER  JOIN Bas_UnitOfMeasure c on c.F_Id = b.F_UomId
+                            WHERE   1 = 1
+                                    AND a.F_Id = @Id
+                                    AND b.F_IsPurchaseUOM = 1
+                                    AND a.F_EnabledMark = 1
+                                    AND b.F_EnabledMark = 1
+                                    AND c.F_EnabledMark = 1
+                            ORDER BY c.F_SortCode ASC");
+            DbParameter[] parameter =
+                {
+                    new MySqlParameter("@Id",itemId)
+                };
+
+            return serviceUom.FindList(strSql.ToString(), parameter);
+        }
+
         public List<PurMaterialUoms> GetPurItemUomList(string enCode)
         {
             StringBuilder strSql = new StringBuilder();//

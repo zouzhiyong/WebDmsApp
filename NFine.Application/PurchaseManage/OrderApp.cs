@@ -13,13 +13,20 @@ using System.Collections.Generic;
 using System.Reflection;
 using NFine.Code;
 using System;
+using System.Linq;
+using NFine.Application.BaseManage;
+using NFine.Domain.Entity.BaseManage;
+using System.Text;
+using System.Data.Common;
+using MySql.Data.MySqlClient;
 
 namespace NFine.Application.PurManage
 {
     public class OrderApp
     {
         private IRepositoryEntity<OrderEntity> service = new RepositoryEntity<OrderEntity>();
-        private IRepositoryEntity<OrderDetailEntity> serviceDetail = new RepositoryEntity<OrderDetailEntity>();
+        private IRepositoryEntity<OrderDetailEntity> serviceDetail = new RepositoryEntity<OrderDetailEntity>();        
+        private IRepositoryEntity<WarehouseEntity> serviceWarehouse = new RepositoryEntity<WarehouseEntity>();
 
         public OrderEntity SubmitForm(OrderEntity model)
         {
@@ -37,7 +44,7 @@ namespace NFine.Application.PurManage
                         model.F_ConfirmTime = DateTime.Now;
                     }
                     model.details = null;
-                    db.Update(model);                    
+                    db.Update(model);
                 }
                 //更新主表数据
                 else
@@ -59,10 +66,50 @@ namespace NFine.Application.PurManage
 
                 //提交
                 db.Commit();
-                model.details = serviceDetail.FindList(t => t.F_POId == model.F_EnCode);
+
+
+                var details = serviceDetail.IQueryable(t => t.F_POId == model.F_EnCode).SortBy(t => t.F_RowId).ToList();
+                List<OrderDetailEntity> orderDetailEntity = new List<OrderDetailEntity>();
+                MaterialApp marterialApp = new MaterialApp();
+
+                foreach (var item in details)
+                {
+                    item.F_UomIDList = marterialApp.getUOM(item.F_ItemID);
+                    item.F_WarehouseIDList = serviceWarehouse.FindList(t => t.F_EnabledMark == true);
+                    orderDetailEntity.Add(item);
+                }
+                model.details = orderDetailEntity;
 
                 return model;
             }
+        }
+
+        public List<OrderEntity> GetList(Pagination pagination, string keyword)
+        {
+            var expression = ExtLinq.True<OrderEntity>();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                expression = expression.And(t => t.F_EnCode.Contains(keyword));
+            }
+
+            return service.FindList(expression, pagination);
+        }
+
+        public OrderEntity GetForm(string keyValue)
+        {
+            var orderItem = service.FindEntity(keyValue);
+            var details = serviceDetail.FindList(t => t.F_POId == orderItem.F_EnCode);
+            List<OrderDetailEntity> orderDetailEntity = new List<OrderDetailEntity>();
+            MaterialApp marterialApp = new MaterialApp();
+
+            foreach (var item in details)
+            {
+                item.F_UomIDList = marterialApp.getUOM(item.F_ItemID);
+                item.F_WarehouseIDList = serviceWarehouse.FindList(t => t.F_EnabledMark == true);
+                orderDetailEntity.Add(item);
+            }
+            orderItem.details = orderDetailEntity;
+            return orderItem;
         }
     }
 }

@@ -17,14 +17,15 @@ namespace NFine.MySQLModel
         public string F_Id { get; set; }
         public string F_POId { get; set; }
         public string F_CorpId { get; set; }
-        public string F_RowId { get; set; }
+        public Nullable<int> F_RowId { get; set; }
         public string F_ItemID { get; set; }
-        public string F_ItemName { get; set; }
+        public string F_ItemCode { get; set; }
+        public string F_ItemCodeName { get; set; }
         public string F_UomID { get; set; }
         public string F_WarehouseID { get; set; }
         public string F_BinID { get; set; }
         public int F_BillQty { get; set; }
-        public int F_OperQty { get; set; }
+        public Nullable<int> F_OperQty { get; set; }
         public Nullable<int> F_BalanceQty { get; set; }
         public decimal F_UnitAmount { get; set; }
         public decimal F_UnitCost { get; set; }
@@ -44,7 +45,5 @@ namespace NFine.MySQLModel
         public string F_LastModifyUserId { get; set; }
         public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
-        public string F_ItemCode { get; set; }
-        public string F_ItemCodeName { get; set; }
     }
 }

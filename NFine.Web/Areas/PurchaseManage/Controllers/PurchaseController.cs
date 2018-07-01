@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NFine.Application.PurManage;
+using NFine.Code;
 using NFine.Domain.Entity.PurchaseManage;
 using NFine.Web.App_Start._01_Handler;
 
@@ -12,6 +13,30 @@ namespace NFine.Web.Areas.PurchaseManage.Controllers
     public class PurchaseController : ControllerBase
     {
         private OrderApp orderApp = new OrderApp();
+
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetGridJson(Pagination pagination, string keyword)
+        {
+            var data = new
+            {
+                rows = orderApp.GetList(pagination, keyword),
+                total = pagination.total,
+                page = pagination.page,
+                records = pagination.records
+            };
+            return Content(data.ToJson());
+        }
+
+        [HttpGet]
+        [HandlerAjaxOnly]
+        public ActionResult GetFormJson(string keyValue)
+        {
+            var data = orderApp.GetForm(keyValue);
+            return Content(data.ToJson());
+        }
+
 
         [HttpPost]
         [HandlerAjaxOnly]

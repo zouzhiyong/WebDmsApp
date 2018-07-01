@@ -5,6 +5,9 @@
  * Website：http://www.nfine.cn
 *********************************************************************************/
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using NFine.Domain.Entity.BaseManage;
 
 namespace NFine.Domain.Entity.PurchaseManage
 {
@@ -13,7 +16,7 @@ namespace NFine.Domain.Entity.PurchaseManage
         public string F_Id { get; set; }
         public string F_POId { get; set; }
         public string F_CorpId { get; set; }
-        public string F_RowId { get; set; }
+        public int F_RowId { get; set; }
         public string F_ItemID { get; set; }
         public string F_ItemCode { get; set; }
         public string F_ItemCodeName { get; set; }
@@ -41,5 +44,9 @@ namespace NFine.Domain.Entity.PurchaseManage
         public string F_LastModifyUserId { get; set; }
         public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
+        [NotMapped]
+        public List<UnitOfMeasureEntity> F_UomIDList { get; set; }
+        [NotMapped]
+        public List<WarehouseEntity> F_WarehouseIDList { get; set; }
     }
 }

@@ -321,7 +321,6 @@
     <EntitySetMapping Name="pur_order">
       <EntityTypeMapping TypeName="nfinebaseModel.pur_order">
         <MappingFragment StoreEntitySet="pur_order">
-          <ScalarProperty Name="F_PrintNums" ColumnName="F_PrintNums" />
           <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
           <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
           <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -332,6 +331,7 @@
           <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
           <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
           <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+          <ScalarProperty Name="F_PrintNums" ColumnName="F_PrintNums" />
           <ScalarProperty Name="F_TaxRate" ColumnName="F_TaxRate" />
           <ScalarProperty Name="F_ConfirmUserId" ColumnName="F_ConfirmUserId" />
           <ScalarProperty Name="F_ConfirmTime" ColumnName="F_ConfirmTime" />
@@ -354,8 +354,6 @@
     <EntitySetMapping Name="pur_orderdetail">
       <EntityTypeMapping TypeName="nfinebaseModel.pur_orderdetail">
         <MappingFragment StoreEntitySet="pur_orderdetail">
-          <ScalarProperty Name="F_ItemCodeName" ColumnName="F_ItemCodeName" />
-          <ScalarProperty Name="F_ItemCode" ColumnName="F_ItemCode" />
           <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
           <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
           <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
@@ -380,6 +378,8 @@
           <ScalarProperty Name="F_BinID" ColumnName="F_BinID" />
           <ScalarProperty Name="F_WarehouseID" ColumnName="F_WarehouseID" />
           <ScalarProperty Name="F_UomID" ColumnName="F_UomID" />
+          <ScalarProperty Name="F_ItemCodeName" ColumnName="F_ItemCodeName" />
+          <ScalarProperty Name="F_ItemCode" ColumnName="F_ItemCode" />
           <ScalarProperty Name="F_ItemID" ColumnName="F_ItemID" />
           <ScalarProperty Name="F_RowId" ColumnName="F_RowId" />
           <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
@@ -794,6 +794,61 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="sys_serialnumber">
+      <EntityTypeMapping TypeName="nfinebaseModel.sys_serialnumber">
+        <MappingFragment StoreEntitySet="sys_serialnumber">
+          <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+          <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
+          <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
+          <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
+          <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
+          <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+          <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+          <ScalarProperty Name="F_Description" ColumnName="F_Description" />
+          <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
+          <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+          <ScalarProperty Name="F_YearLength" ColumnName="F_YearLength" />
+          <ScalarProperty Name="F_IncrementByNumber" ColumnName="F_IncrementByNumber" />
+          <ScalarProperty Name="F_WarningNumber" ColumnName="F_WarningNumber" />
+          <ScalarProperty Name="F_EndingNumber" ColumnName="F_EndingNumber" />
+          <ScalarProperty Name="F_StartingNumber" ColumnName="F_StartingNumber" />
+          <ScalarProperty Name="F_Prefix" ColumnName="F_Prefix" />
+          <ScalarProperty Name="F_MaintainMethod" ColumnName="F_MaintainMethod" />
+          <ScalarProperty Name="F_IsManual" ColumnName="F_IsManual" />
+          <ScalarProperty Name="F_FullName" ColumnName="F_FullName" />
+          <ScalarProperty Name="F_EnCode" ColumnName="F_EnCode" />
+          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+          <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sys_serialnumberdetail">
+      <EntityTypeMapping TypeName="nfinebaseModel.sys_serialnumberdetail">
+        <MappingFragment StoreEntitySet="sys_serialnumberdetail">
+          <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+          <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
+          <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
+          <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
+          <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
+          <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+          <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+          <ScalarProperty Name="F_Description" ColumnName="F_Description" />
+          <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
+          <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+          <ScalarProperty Name="F_LastNumberUsed" ColumnName="F_LastNumberUsed" />
+          <ScalarProperty Name="F_IncrementByNumber" ColumnName="F_IncrementByNumber" />
+          <ScalarProperty Name="F_WarningNumber" ColumnName="F_WarningNumber" />
+          <ScalarProperty Name="F_LastNumber" ColumnName="F_LastNumber" />
+          <ScalarProperty Name="F_FirstNumber" ColumnName="F_FirstNumber" />
+          <ScalarProperty Name="F_NumberLength" ColumnName="F_NumberLength" />
+          <ScalarProperty Name="F_NumberDate" ColumnName="F_NumberDate" />
+          <ScalarProperty Name="F_SerialId" ColumnName="F_SerialId" />
+          <ScalarProperty Name="F_EnCode" ColumnName="F_EnCode" />
+          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+          <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="sys_user">
       <EntityTypeMapping TypeName="nfinebaseModel.sys_user">
         <MappingFragment StoreEntitySet="sys_user">
@@ -852,61 +907,6 @@
           <ScalarProperty Name="F_UserSecretkey" ColumnName="F_UserSecretkey" />
           <ScalarProperty Name="F_UserPassword" ColumnName="F_UserPassword" />
           <ScalarProperty Name="F_UserId" ColumnName="F_UserId" />
-          <ScalarProperty Name="F_Id" ColumnName="F_Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sys_serialnumber">
-      <EntityTypeMapping TypeName="nfinebaseModel.sys_serialnumber">
-        <MappingFragment StoreEntitySet="sys_serialnumber">
-          <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
-          <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
-          <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
-          <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
-          <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
-          <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
-          <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
-          <ScalarProperty Name="F_Description" ColumnName="F_Description" />
-          <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
-          <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
-          <ScalarProperty Name="F_YearLength" ColumnName="F_YearLength" />
-          <ScalarProperty Name="F_IncrementByNumber" ColumnName="F_IncrementByNumber" />
-          <ScalarProperty Name="F_WarningNumber" ColumnName="F_WarningNumber" />
-          <ScalarProperty Name="F_EndingNumber" ColumnName="F_EndingNumber" />
-          <ScalarProperty Name="F_StartingNumber" ColumnName="F_StartingNumber" />
-          <ScalarProperty Name="F_Prefix" ColumnName="F_Prefix" />
-          <ScalarProperty Name="F_MaintainMethod" ColumnName="F_MaintainMethod" />
-          <ScalarProperty Name="F_IsManual" ColumnName="F_IsManual" />
-          <ScalarProperty Name="F_FullName" ColumnName="F_FullName" />
-          <ScalarProperty Name="F_EnCode" ColumnName="F_EnCode" />
-          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
-          <ScalarProperty Name="F_Id" ColumnName="F_Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="sys_serialnumberdetail">
-      <EntityTypeMapping TypeName="nfinebaseModel.sys_serialnumberdetail">
-        <MappingFragment StoreEntitySet="sys_serialnumberdetail">
-          <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
-          <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
-          <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
-          <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
-          <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
-          <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
-          <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
-          <ScalarProperty Name="F_Description" ColumnName="F_Description" />
-          <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
-          <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
-          <ScalarProperty Name="F_LastNumberUsed" ColumnName="F_LastNumberUsed" />
-          <ScalarProperty Name="F_IncrementByNumber" ColumnName="F_IncrementByNumber" />
-          <ScalarProperty Name="F_WarningNumber" ColumnName="F_WarningNumber" />
-          <ScalarProperty Name="F_LastNumber" ColumnName="F_LastNumber" />
-          <ScalarProperty Name="F_FirstNumber" ColumnName="F_FirstNumber" />
-          <ScalarProperty Name="F_NumberLength" ColumnName="F_NumberLength" />
-          <ScalarProperty Name="F_NumberDate" ColumnName="F_NumberDate" />
-          <ScalarProperty Name="F_SerialId" ColumnName="F_SerialId" />
-          <ScalarProperty Name="F_EnCode" ColumnName="F_EnCode" />
-          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
           <ScalarProperty Name="F_Id" ColumnName="F_Id" />
         </MappingFragment>
       </EntityTypeMapping>

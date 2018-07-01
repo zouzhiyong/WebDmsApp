@@ -30,6 +30,7 @@ namespace NFine.MySQLModel
         public Nullable<System.DateTime> F_ConfirmTime { get; set; }
         public string F_ConfirmUserId { get; set; }
         public Nullable<decimal> F_TaxRate { get; set; }
+        public Nullable<int> F_PrintNums { get; set; }
         public Nullable<int> F_SortCode { get; set; }
         public Nullable<bool> F_DeleteMark { get; set; }
         public Nullable<bool> F_EnabledMark { get; set; }
@@ -40,6 +41,5 @@ namespace NFine.MySQLModel
         public string F_LastModifyUserId { get; set; }
         public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
-        public Nullable<int> F_PrintNums { get; set; }
     }
 }

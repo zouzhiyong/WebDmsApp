@@ -18,6 +18,7 @@ namespace NFine.Application.SystemManage
     {
         private IRepositoryEntity<ItemsEntity> service = new RepositoryEntity<ItemsEntity>();
 
+
         public List<ItemsEntity> GetList()
         {
             //如果是经销商，只能看到父级为自定义类型的数据            

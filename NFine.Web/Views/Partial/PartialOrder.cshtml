@@ -101,7 +101,7 @@
                                                 v-on:change="handleChange(tbodyItem,itemThead.field)"
                                                 class="form-control"
                                                 style="width:100%;border:0px;border-radius:0px;">
-                                            <option v-for="option in tbodyItem[itemThead.field+'List']" v-bind:value="option[itemThead.id==''?'id':itemThead.id]">{{ option[itemThead.text==''?'text':itemThead.text] }}</option>
+                                            <option v-if="tbodyItem.F_ItemID!=''" v-for="option in tbodyItem[itemThead.field+'List']" v-bind:value="option[itemThead.id==''?'id':itemThead.id]">{{ option[itemThead.text==''?'text':itemThead.text] }}</option>
                                         </select>
                                     </template>
                                     <template v-else>
@@ -208,6 +208,8 @@
     </div>
 </div>
 <script>
+    var keyValue = $.request("keyValue");
+
     var fid = self.frameElement.getAttribute('id');//获取id
     window.top.$("#" + fid, window.top.document).css({ "margin": "-10px", "margin-bottom": "0", "width": "calc(100% + 20px)", "height": "calc(100% + 10px)" });
 
@@ -219,7 +221,8 @@
                     return item.F_ItemID != ""
                 });
 
-                arr.map(function (item) {
+                arr.map(function (item,index) {
+                    item.F_RowId = index;
                     _self.handleComputed(item);
                 })
                 _self.autoAddRow(arr);
@@ -288,6 +291,9 @@
             for (var i = 0; i < 10; i++) {
                 _self.list.details.push(JSON.parse(JSON.stringify(_self.detail)));
             }
+
+            //初始化数据
+            _self.handleInit();
         },
         mounted: function () {
             var _self = this;
@@ -307,6 +313,27 @@
 
         },
         methods: {
+            //获取数据
+            handleInit: function () {
+                var _self = this;
+                if (!!keyValue) {
+                    $.ajax({
+                        url: rootUrl + "/PurchaseManage/Purchase/GetFormJson",
+                        data: { keyValue: keyValue },
+                        dataType: "json",
+                        async: false,
+                        success: function (data) {
+                            console.log(data);
+                            data.details.map(function (item) {
+                                item["F_ItemCodeHide"] = item.F_ItemCode;
+                                
+                                //_self.handleSelectMater(item, uiItem, null) 
+                            })
+                            _self.list = $.extend(true, _self.list, data);
+                        }
+                    });
+                }
+            },
             //保存
             handleClickSave: function (type) {
                 var _self = this;
