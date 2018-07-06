@@ -22,11 +22,6 @@ namespace NFine.Application.BaseManage
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
             }
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CorporationId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CorporationId);
-            }
             return service.FindList(expression, pagination);
         }
         public CorporationEntity GetForm(string keyValue)

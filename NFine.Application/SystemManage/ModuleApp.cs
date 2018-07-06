@@ -18,7 +18,6 @@ namespace NFine.Application.SystemManage
     {
         private IRepositoryEntity<ModuleEntity> service = new RepositoryEntity<ModuleEntity>();
         private IRepositoryEntity<CompanyAuthorizeEntity> companyauthorize = new RepositoryEntity<CompanyAuthorizeEntity>();
-        string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
 
         public List<ModuleEntity> GetList()
         {
@@ -29,7 +28,7 @@ namespace NFine.Application.SystemManage
             }else
             {
                 var data = new List<ModuleEntity>();
-                var companyauthorizedata = companyauthorize.IQueryable(t => t.F_CorpId == CompanyId && t.F_ModuleType==1);
+                var companyauthorizedata = companyauthorize.IQueryable(t => t.F_ModuleType==1);
                 foreach (var item in companyauthorizedata)
                 {
                     ModuleEntity moduleEntity = modulDataList.Find(t => t.F_Id == item.F_ModuleId);

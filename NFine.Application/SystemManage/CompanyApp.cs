@@ -25,20 +25,11 @@ namespace NFine.Application.SystemManage
 
         private ModuleApp moduleApp = new ModuleApp();
         private ModuleButtonApp moduleButtonApp = new ModuleButtonApp();
-        string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
 
         public List<CompanyEntity> GetList()
         {
             var expression = ExtLinq.True<CompanyEntity>();
-
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
-
             return service.IQueryable(expression).OrderBy(t => t.F_SortCode).ToList();
-            //return service.FindList(t=>true);
         }
 
         public List<CompanyEntity> GetList(Pagination pagination, string keyword)

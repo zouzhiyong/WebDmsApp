@@ -19,18 +19,17 @@ namespace NFine.Application.BaseManage
     {
         private IRepositoryEntity<WarehouseUserEntity> service = new RepositoryEntity<WarehouseUserEntity>();
         private UserApp userApp = new UserApp();
-        string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
 
         public List<WarehouseUserEntity> GetList(string keyword = "")
         {
-            return service.IQueryable(t => t.F_WarehouseId == keyword && t.F_CorpId== CompanyId).ToList();
+            return service.IQueryable(t => t.F_WarehouseId == keyword).ToList();
         }
         public List<UserEntity> GetUserList(string warehouseId)
         {
             var data = new List<UserEntity>();
             
             var userdata = userApp.GetList();
-            var warehouseuserdata = service.IQueryable(t => t.F_WarehouseId == warehouseId && t.F_CorpId == CompanyId).ToList();
+            var warehouseuserdata = service.IQueryable(t => t.F_WarehouseId == warehouseId).ToList();
             foreach (var item in warehouseuserdata)
             {
                 UserEntity userEntity = userdata.Find(t => t.F_Id == item.F_UserId);

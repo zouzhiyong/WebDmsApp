@@ -25,8 +25,7 @@ namespace NFine.Application.SystemManage
             {
                 expression = expression.And(t => t.F_FullName.Contains(keyword));
             }
-            string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-            expression = expression.And(t => t.F_CorpId == CompanyId && t.F_CategoryId == F_CategoryId);
+            expression = expression.And(t => t.F_CategoryId == F_CategoryId);
             return service.FindList(expression, pagination);
         }
 

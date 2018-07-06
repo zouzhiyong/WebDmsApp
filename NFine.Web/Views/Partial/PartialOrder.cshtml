@@ -1,16 +1,17 @@
 ﻿<style>
     /**明细部分*/
     [v-cloak] { display: none; }
+    .tools .navbar-nav > li > a { padding-top: 12px; padding-bottom: 12px; }
     .form { margin-bottom: 10px; background: #fff; border: solid 1px #eee; }
     .gridPanel { border: 0px solid #edebeb; }
-        .gridPanel table { margin-bottom: 0; max-width: 2000px; }
+        .gridPanel table { margin-bottom: 0; max-width: 2000px; table-layout: fixed; }
         .gridPanel .fixed-table-header table > thead > tr > th { border: none; background-color: #eeeeee; height: 40px; padding: 6px; text-align: center; }
             .gridPanel .fixed-table-header table > thead > tr > th .th-inner { line-height: 30px; }
         .gridPanel .fixed-table-body { overflow-y: auto; }
             .gridPanel .fixed-table-body table > tbody > tr > td { border-right: 1px solid #edebeb; border-bottom: 1px solid #edebeb; padding: 0; background-color: #fff; }
-                .gridPanel .fixed-table-body table > tbody > tr > td .select2-container--default .select2-selection--single { border-width: 0; }
+                .gridPanel .fixed-table-body table > tbody > tr > td .select2-container--default .select2-selection--single { border-width: 0; height: 32px; }
                 .gridPanel .fixed-table-body table > tbody > tr > td:last-child { border-right-width: 0; }
-                .gridPanel .fixed-table-body table > tbody > tr > td > div { min-height: 32px; padding: 6px; }
+                .gridPanel .fixed-table-body table > tbody > tr > td > div { min-height: 32px; padding: 8px 6px; }
                 .gridPanel .fixed-table-body table > tbody > tr > td input { padding: 3px; width: 100% !important; border-radius: 0; box-shadow: none; height: 32px; border-width: 0; }
                     .gridPanel .fixed-table-body table > tbody > tr > td input:focus { border-width: 1px; }
                     .gridPanel .fixed-table-body table > tbody > tr > td input::-webkit-outer-spin-button,
@@ -18,22 +19,91 @@
                     .gridPanel .fixed-table-body table > tbody > tr > td input[type="number"] { -moz-appearance: textfield; }
         .gridPanel .fixed-table-footer table > tbody > tr > td { background-color: #eeeeee; border: none; font-weight: bold; }
         .gridPanel .fixed-table-body table > tbody > tr:not(.active) > td .select2-selection__arrow { display: none; }
-        .select2-container--default.select2-container--disabled .select2-selection--single {
-    background-color: #fff;
-    cursor: default;
-}
+    .form .details .select2-container--default.select2-container--disabled .select2-selection--single { background-color: #fff; cursor: default; }
+    .form .details .select2-selection__rendered { line-height: 32px; }
 </style>
 <div class="pur" v-cloak>
     <div id="content-title" style="height:45px;background-color:#fff;border-bottom:solid 1px #eee;padding:0 15px;display:block">
         <div class="row">
             <div class="col-xs-2 title text-left" style="padding:3px;"><h4>@ViewBag.Title</h4></div>
             <div class="col-xs-3 orderid text-left" style="padding:5px;"><h6>{{"单据编号:"+list.F_EnCode}}</h6></div>
-            <div class="col-xs-offset-5 text-right tools"></div>
+            <div class="col-xs-7 text-right tools">
+                <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li id="fat-menu" class="dropdown">
+                            <a id="drop1" accesskey="n" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                新建 (N)
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="drop1">
+                                <li><a href="javascript:;" accesskey="a" v-on:click="handleToolsAdd">新增(A)</a></li>
+                                <li><a href="javascript:;" accesskey="s" v-on:click="handleToolsSave">保存(S)</a></li>
+                            </ul>
+                        </li>
+                        <li id="fat-menu" class="dropdown">
+                            <a id="drop2" href="javascript:;"  accesskey="m" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                管理 (M)
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="drop2">
+                                <li><a href="javascript:;" accesskey="o" v-on:click="handleToolsConfirm">确定(F)</a></li>
+                                <li><a href="javascript:;" accesskey="r" v-on:click="handleToolsReverse">反确定(R)</a></li>
+                                @*<li role="separator" class="divider"></li>*@
+                                <li><a href="javascript:;" accesskey="x" v-on:click="handleToolsClose">关闭订单(X)</a></li>
+                                <li><a href="javascript:;" accesskey="c" v-on:click="handleToolsCopy">复制订单(C)</a></li>
+                                <li><a href="javascript:;" accesskey="g" v-on:click="handleToolsPost">过账(P)</a></li>
+                            </ul>
+                        </li>
+                        <li id="fat-menu" class="dropdown">
+                            <a id="drop3" accesskey="p" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                打印 (P)
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="drop3">
+                                <li><a href="javascript:;" accesskey="p" v-on:click="handleToolsPrint">打印 (P)</a></li>
+                                <li><a href="javascript:;" accesskey="v" v-on:click="handleToolsPrintView">打印预览(V)</a></li>
+                                <li><a href="javascript:;" accesskey="t" v-on:click="handleToolsTemplete">打印模板(T)</a></li>
+                            </ul>
+                        </li>
+                        <li id="fat-menu" class="dropdown">
+                            <a id="drop4" accesskey="h" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                快捷 (H)
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="drop4">
+                                <li><a href="javascript:;" accesskey="e" v-on:click="handleToolsExit">采购退货单(E)</a></li>
+                            </ul>
+                        </li>
+                        <li id="fat-menu" class="dropdown">
+                            <a id="drop5" accesskey="l" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                查看 (L)
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="drop5">
+                                <li><a href="javascript:;" accesskey="t" v-on:click="handleToolsReturn">采购退货单(T)</a></li>
+                                <li><a href="javascript:;" accesskey="d" v-on:click="handleToolsDelivery">收货单(D)</a></li>
+                                <li><a href="javascript:;" accesskey="u" v-on:click="handleToolsPurchase">采购发票(U)</a></li>
+                            </ul>
+                        </li>
+                        <li id="fat-menu" class="dropdown">
+                            <a id="drop6" accesskey="o" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                审批 (O)
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="drop6">
+                                <li><a href="javascript:;" accesskey="q" v-on:click="handleToolsRequest">审核请求(Q)</a></li>
+                                <li><a href="javascript:;" accesskey="i" v-on:click="handleToolsDelivery">审核(I)</a></li>
+                                <li><a href="javascript:;" accesskey="b" v-on:click="handleToolsNoDelivery">不审核(B)</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     <div style="margin:10px;margin-bottom:0;">
         <div class="form">
-            <div class="row">
+            <div class="row index">
                 <div class="col-xs-12">
                     <div class="formValue pull-left" style="width:210px;" v-for="item in controlsList" v-if="item.layer=='header' && item.visible!=false">
                         <div class="row" v-if="item.controlType=='select'">
@@ -68,7 +138,7 @@
                     </div>
                 </div>
             </div>
-            <div class="gridPanel">
+            <div class="gridPanel details">
                 <div class="fixed-table-header" style="margin-right: 0px;">
                     <table class="table">
                         <thead>
@@ -210,8 +280,10 @@
 <script>
     var keyValue = $.request("keyValue");
 
-    var fid = self.frameElement.getAttribute('id');//获取id
-    window.top.$("#" + fid, window.top.document).css({ "margin": "-10px", "margin-bottom": "0", "width": "calc(100% + 20px)", "height": "calc(100% + 10px)" });
+    self.frameElement.style.margin = "-10px";
+    self.frameElement.style.marginBottom = "0";
+    self.frameElement.style.width = "calc(100% + 20px)";
+    self.frameElement.style.height = "calc(100% + 10px)";
 
     Vue.mixin({
         computed: {
@@ -221,7 +293,7 @@
                     return item.F_ItemID != ""
                 });
 
-                arr.map(function (item,index) {
+                arr.map(function (item, index) {
                     item.F_RowId = index;
                     _self.handleComputed(item);
                 })
@@ -310,7 +382,12 @@
             }).on('changeDate', function (e) {
                 _self.handleChangeDate(e);
             });
-
+            _self.autoWidth();
+            //确保表头表体表尾滚动时同步
+            $('.fixed-table-body').scroll(function () {
+                $('.fixed-table-header').scrollLeft($(this).scrollLeft());
+                $('.fixed-table-footer').scrollLeft($(this).scrollLeft());
+            });
         },
         methods: {
             //获取数据
@@ -326,8 +403,8 @@
                             console.log(data);
                             data.details.map(function (item) {
                                 item["F_ItemCodeHide"] = item.F_ItemCode;
-                                
-                                //_self.handleSelectMater(item, uiItem, null) 
+
+                                //_self.handleSelectMater(item, uiItem, null)
                             })
                             _self.list = $.extend(true, _self.list, data);
                         }
@@ -368,11 +445,10 @@
             },
             //计算(默认空)
             handleComputed: function (item) {
-                
             },
             //日期改变事件(默认空)
             handleChangeDate: function (e) {
-                
+
             },
             //下拉选择事件
             handleChange: function (item, field) {
@@ -430,7 +506,7 @@
             },
             //选择物料事件(默认空)
             handleSelectMater: function (trItem, uiItem) {
-                
+
             },
             //选择事件
             handleFocus: function (event, tbodyItem, itemThead, field) {
@@ -510,7 +586,7 @@
                     $(".fixed-table-footer .table").width(w);
                 })
             },
-        }, 
+        },
         watch: {
             'list.F_CreatorUserId': function (newVal, oldVal) {
                 var _self = this;

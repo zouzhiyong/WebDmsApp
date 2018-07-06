@@ -21,11 +21,6 @@ namespace NFine.Application.BaseManage
         public List<RegionEntity> GetList()
         {
             var expression = ExtLinq.True<RegionEntity>();
-            if (!OperatorProvider.Provider.GetCurrent().IsSystem)
-            {
-                string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
-                expression = expression.And(t => t.F_CorpId == CompanyId);
-            }
             return service.IQueryable(expression).ToList();
         }
         public RegionEntity GetForm(string keyValue)

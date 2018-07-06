@@ -17,7 +17,6 @@ namespace NFine.Application.BaseManage
     {
         private IRepositoryEntity<MaterialUomEntity> service = new RepositoryEntity<MaterialUomEntity>();
         private MaterialApp materialApp = new MaterialApp();
-        string CompanyId = OperatorProvider.Provider.GetCurrent().CompanyId;
 
         public List<MaterialUomEntity> GetList(string keyword = "")
         {
@@ -26,7 +25,6 @@ namespace NFine.Application.BaseManage
             {
                 expression = expression.And(t => t.F_MaterialId == keyword);
             }
-            expression = expression.And(t => t.F_CorpId == CompanyId);
             return service.IQueryable(expression).OrderBy(t=>t.F_SortCode).ToList();
         }
        

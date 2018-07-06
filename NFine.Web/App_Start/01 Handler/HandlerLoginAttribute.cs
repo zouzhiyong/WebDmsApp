@@ -19,7 +19,8 @@ namespace NFine.Web
             if (OperatorProvider.Provider.GetCurrent() == null)
             {
                 WebHelper.WriteCookie("nfine_login_error", "overdue");
-                filterContext.HttpContext.Response.Write("<script>top.location.href = '../Login/Index';</script>");
+                string sysVirDir = "/" + Configs.GetValue("SystemVirtualDirectory").ToLower() + "/";
+                filterContext.HttpContext.Response.Write("<script>top.location.href = '" + sysVirDir + "Login/Index';</script>");
                 return;
             }
         }
