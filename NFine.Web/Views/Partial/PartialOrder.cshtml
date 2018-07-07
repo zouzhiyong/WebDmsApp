@@ -41,7 +41,7 @@
                             </ul>
                         </li>
                         <li id="fat-menu" class="dropdown">
-                            <a id="drop2" href="javascript:;"  accesskey="m" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <a id="drop2" href="javascript:;" accesskey="m" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 管理 (M)
                                 <span class="caret"></span>
                             </a>
@@ -60,18 +60,20 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="drop3">
-                                <li><a href="javascript:;" accesskey="p" v-on:click="handleToolsPrint">打印 (P)</a></li>
+                                <li><a href="javascript:;" accesskey="p" v-on:click="handleToolsPrint">打印(P)</a></li>
                                 <li><a href="javascript:;" accesskey="v" v-on:click="handleToolsPrintView">打印预览(V)</a></li>
                                 <li><a href="javascript:;" accesskey="t" v-on:click="handleToolsTemplete">打印模板(T)</a></li>
                             </ul>
                         </li>
                         <li id="fat-menu" class="dropdown">
-                            <a id="drop4" accesskey="h" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                快捷 (H)
+                            <a id="drop4" accesskey="k" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                快捷 (K)
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="drop4">
                                 <li><a href="javascript:;" accesskey="e" v-on:click="handleToolsExit">采购退货单(E)</a></li>
+                                <li><a href="javascript:;" accesskey="u" v-on:click="handleToolsUp">上一单(U)</a></li>
+                                <li><a href="javascript:;" accesskey="d" v-on:click="handleToolsDown">下一单(D)</a></li>
                             </ul>
                         </li>
                         <li id="fat-menu" class="dropdown">
@@ -81,8 +83,8 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="drop5">
                                 <li><a href="javascript:;" accesskey="t" v-on:click="handleToolsReturn">采购退货单(T)</a></li>
-                                <li><a href="javascript:;" accesskey="d" v-on:click="handleToolsDelivery">收货单(D)</a></li>
-                                <li><a href="javascript:;" accesskey="u" v-on:click="handleToolsPurchase">采购发票(U)</a></li>
+                                <li><a href="javascript:;" accesskey="h" v-on:click="handleToolsDelivery">收货单(H)</a></li>
+                                <li><a href="javascript:;" accesskey="w" v-on:click="handleToolsPurchase">采购发票(W)</a></li>
                             </ul>
                         </li>
                         <li id="fat-menu" class="dropdown">
@@ -118,7 +120,7 @@
                             <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right">{{item.label}}:</label>
                             <div class="col-xs-7" style="display:table;">
                                 <div class="input-group">
-                                    <input :id="item.field" :name="item.field" type="text" class="form-control datepicker" v-model="list[item.field]" readonly :placeholder="item.placeholder" v-bind:disabled="item.disabled || list.F_Status>=2" />
+                                    <input :id="item.field" :name="item.field" type="text" class="form-control datepicker" v-date:list v-model="list[item.field]" readonly :placeholder="item.placeholder" v-bind:disabled="item.disabled || list.F_Status>=2" />
                                     <label :for="item.field" class="input-group-addon" style="font-size:12px;font-weight:normal !important;padding:6px;border-radius:0;"><i class="glyphicon glyphicon-th"></i></label>
                                 </div>
                             </div>
@@ -143,7 +145,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th style="width:50px">
+                                <th style="width:40px">
                                     <div class="th-inner ">序号</div>
                                 </th>
                                 <th v-if="itemThead.visible!=false" v-for="itemThead in controlsDetails" :style="{width:itemThead.width}">
@@ -160,7 +162,7 @@
                     <table class="table table-condensed" style="margin-top: 0px;table-layout: fixed;">
                         <tbody>
                             <tr v-for="(tbodyItem,tbodyIndex) in list.details" :class="tbodyItem.F_ItemID!=''?'active':''">
-                                <td style="text-align:center;width:50px;">
+                                <td style="text-align:center;width:40px;">
                                     {{tbodyIndex+1}}
                                 </td>
                                 <td v-if="itemThead.visible!=false" v-for="(itemThead,theadIndex) in controlsDetails" v-bind:id="itemThead.field+tbodyIndex" :data-rowindex="tbodyIndex" :data-colindex="theadIndex" :data-nextfocusfield="itemThead.nextFocusField" :class="itemThead.type=='operate'?'col_operate':''" :style="{width:itemThead.width}" v-on:click.stop="handleClickInput($event,itemThead.field,tbodyIndex,itemThead)">
@@ -243,7 +245,7 @@
                     <table class="table">
                         <tbody>
                             <tr>
-                                <td style="width:50px;text-align:center;">
+                                <td style="width:40px;text-align:center;">
                                     合计：
                                 </td>
                                 <td v-if="itemFooter.visible!=false" v-for="(itemFooter,theadIndex) in controlsDetails" v-bind:style="{width:itemFooter.width,'text-align':itemFooter.align }">
@@ -261,7 +263,10 @@
                                 <input type="text" autocomplete="off" class="form-control" :id="item.field" :name="item.field" :placeholder="item.placeholder" v-model="list[item.field]" v-bind:disabled="list.F_Status>=2" />
                             </template>
                             <template v-if="item.controlType=='div'">
-                                <label class="control-label" style="height: 30px;line-height: 30px;">{{item.label}}：{{list[item.field]}}</label>
+                                {{item.label}}：
+                                <span v-if="item.dataType=='date'" style="height: 30px;line-height: 30px;" v-date="list[item.field]"></span>
+                                @*<span v-else-if="item.dataType=='number'" v-number="list[item.field]" style="height: 30px;line-height: 30px;"></span>*@
+                                <span v-else style="height: 30px;line-height: 30px;">{{list[item.field]}}</span>
                             </template>
                         </div>
                     </div>
@@ -372,16 +377,6 @@
             _self.autoHeight();
             _self.autoAddRow(_self.list.details);
 
-            var _self = this;
-            $(".datepicker").datepicker({
-                format: "yyyy-mm-dd",
-                language: "zh-CN",
-                autoclose: true,
-                todayBtn: 'linked',//今日按钮
-                weekStart: 1,
-            }).on('changeDate', function (e) {
-                _self.handleChangeDate(e);
-            });
             _self.autoWidth();
             //确保表头表体表尾滚动时同步
             $('.fixed-table-body').scroll(function () {
@@ -400,11 +395,9 @@
                         dataType: "json",
                         async: false,
                         success: function (data) {
-                            console.log(data);
+
                             data.details.map(function (item) {
                                 item["F_ItemCodeHide"] = item.F_ItemCode;
-
-                                //_self.handleSelectMater(item, uiItem, null)
                             })
                             _self.list = $.extend(true, _self.list, data);
                         }
@@ -445,10 +438,6 @@
             },
             //计算(默认空)
             handleComputed: function (item) {
-            },
-            //日期改变事件(默认空)
-            handleChangeDate: function (e) {
-
             },
             //下拉选择事件
             handleChange: function (item, field) {
@@ -586,6 +575,27 @@
                     $(".fixed-table-footer .table").width(w);
                 })
             },
+
+            //工具栏事件
+            handleToolsAdd: function () { },//新增(A)
+            handleToolsSave: function () { },//保存(S)
+            handleToolsConfirm: function () { },//确定(F)
+            handleToolsReverse: function () { },//反确定(R)
+            handleToolsClose: function () { },//关闭订单(X)
+            handleToolsCopy: function () { },//复制订单(C)
+            handleToolsPost: function () { },//过账(P)
+            handleToolsPrint: function () { },//打印(P)
+            handleToolsPrintView: function () { },//打印预览(V)
+            handleToolsTemplete: function () { },//打印模板(T)
+            handleToolsExit: function () { },//采购退货单(E)
+            handleToolsUp: function () { },//上一单(U)
+            handleToolsDown: function () { },//下一单(D)
+            handleToolsReturn: function () { },//采购退货单(T)
+            handleToolsDelivery: function () { },//收货单(H)
+            handleToolsPurchase: function () { },//采购发票(W)
+            handleToolsRequest: function () { },//审核请求(Q)
+            handleToolsDelivery: function () { },//审核(I)
+            handleToolsNoDelivery: function () { },//不审核(B)
         },
         watch: {
             'list.F_CreatorUserId': function (newVal, oldVal) {

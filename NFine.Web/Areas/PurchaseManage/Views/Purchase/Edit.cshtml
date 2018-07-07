@@ -27,13 +27,13 @@
             { field: "F_Description", label: "备注", visible: true, defaultValue: "", layer: "footer", divClass: "col-xs-12", inputclass: "", controlType: "input", dataType: "text", placeholder: "请输入您要备注的内容" },
             { field: "F_CreatorUserId", label: "制单人ID", visible: false, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
             { field: "F_CreatorUserName", label: "制单人", visible: true, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
-            { field: "F_CreatorTime", label: "制单日期", visible: true, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { field: "F_CreatorTime", label: "制单日期", visible: true, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "date", placeholder: "" },
             { field: "F_LastModifyUserId", label: "修改人ID", visible: false, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
             { field: "F_LastModifyUserName", label: "修改人", visible: false, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
-            { field: "F_LastModifyTime", label: "修改日期", visible: false, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { field: "F_LastModifyTime", label: "修改日期", visible: false, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "date", placeholder: "" },
             { field: "F_ConfirmUserId", label: "审批人", visible: false, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
             { field: "F_ConfirmUserName", label: "审批人", visible: true, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
-            { field: "F_ConfirmTime", label: "审批日期", visible: true, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { field: "F_ConfirmTime", label: "审批日期", visible: true, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "date", placeholder: "" },
             { field: "F_PrintNums", label: "打印次数", visible: true, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
         ],
         detail: {},
@@ -44,12 +44,12 @@
             { field: "F_ItemID", nextFocusField: "", label: "商品ID", visible: false, defaultValue: "", totalLabel: "", width: "", align: 'left', divClass: "", inputclass: "", controlType: "", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
             { field: "F_ItemCodeHide", nextFocusField: "", label: "商品ID", visible: false, defaultValue: "", totalLabel: "", width: "", align: 'left', divClass: "", inputclass: "", controlType: "", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
 
-            { field: "F_ItemCode", nextFocusField: "F_BillQty", label: "商品编号", visible: true, defaultValue: "", totalLabel: "", width: "90px", align: 'left', divClass: "", inputclass: "", controlType: "autocomplete", dataType: "text", placeholder: "", url: "/BaseManage/Material/GetSelectPurMaterialUom", id: "F_Id", text: "F_FullName", code: "F_EnCode", isTotal: false },
+            { field: "F_ItemCode", nextFocusField: "F_BillQty", label: "商品编号", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'left', divClass: "", inputclass: "", controlType: "autocomplete", dataType: "text", placeholder: "", url: "/BaseManage/Material/GetSelectPurMaterialUom", id: "F_Id", text: "F_FullName", code: "F_EnCode", isTotal: false },
             { field: "F_ItemCodeName", nextFocusField: "F_BillQty", label: "商品名称", visible: true, defaultValue: "", totalLabel: "", width: "120px", align: 'left', divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
-            { field: "F_UomID", nextFocusField: "F_BillQty", label: "单位", visible: true, defaultValue: "", totalLabel: "", width: "60px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "F_Id", text: "F_Name", list: [], isTotal: false },
-            { field: "F_IsGift", nextFocusField: "F_BillQty", label: "是否赠品", visible: true, defaultValue: false, totalLabel: "", width: "80px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "", placeholder: "", url: "", id: "id", text: "text", list: [{ id: false, text: "否" }, { id: true, text: "是" }], isTotal: false },
-            { field: "F_UnitAmount", nextFocusField: "F_BillQty", label: "单价(¥)", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'center', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: false },
-            { field: "F_BillQty", nextFocusField: "F_Description", label: "订单数量", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
+            { field: "F_UomID", nextFocusField: "F_BillQty", label: "单位", visible: true, defaultValue: "", totalLabel: "", width: "50px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "F_Id", text: "F_Name", list: [], isTotal: false },
+            { field: "F_IsGift", nextFocusField: "F_BillQty", label: "是否赠品", visible: true, defaultValue: false, totalLabel: "", width: "70px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "", placeholder: "", url: "", id: "id", text: "text", list: [{ id: false, text: "否" }, { id: true, text: "是" }], isTotal: false },
+            { field: "F_UnitAmount", nextFocusField: "F_BillQty", label: "单价(¥)", visible: true, defaultValue: "", totalLabel: "", width: "70px", align: 'center', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: false },
+            { field: "F_BillQty", nextFocusField: "F_Description", label: "订单数量", visible: true, defaultValue: "", totalLabel: "", width: "70px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
             { field: "F_OperQty", nextFocusField: "", label: "实际数量", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
             { field: "F_BalanceQty", nextFocusField: "", label: "剩余数量", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
             { field: "F_Amount", nextFocusField: "F_Description", label: "金额(¥)", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
@@ -67,16 +67,6 @@
         var modelVue = new Vue({
             el: '.pur',
             data: JSON.parse(JSON.stringify(InitData)),
-            computed: {
-
-            },
-            created: function () {
-
-            },
-            mounted: function () {
-
-
-            },
             methods: {
                 //计算
                 handleComputed: function (item) {
@@ -93,16 +83,6 @@
                     item.F_BillQty = item.F_BillQty == "" ? 0 : item.F_BillQty;
                     //剩余数量
                     item.F_BalanceQty = item.F_BalanceQty == "" ? 0 : item.F_BalanceQty;
-                },
-                //日期改变事件
-                handleChangeDate: function (e) {
-                    var _self = this;
-                    if (e.target.name == "F_BillDate") {
-                        _self.list.F_BillDate = $(e.target).val();
-                    }
-                    if (e.target.name == "F_PostDate") {
-                        _self.list.F_PostDate = $(e.target).val();
-                    }
                 },
                 //选择物料事件
                 handleSelectMater: function (item, uiItem, colItem) {
@@ -122,9 +102,7 @@
                             item.F_WarehouseID = uiItem.F_WarehouseEntity[0].F_Id;
                         }
                     })
-                    
-                    //赋值是否赠品
-                    //item.F_IsGiftList = [{ id: false, text: "否" }, { id: true, text: "是" }];
+
 
                     //采购单价赋值
                     item.F_UnitAmount = uiItem.F_PurchasePrice;
@@ -146,7 +124,7 @@
                             }
                         }
                     });
-                },
+                }
             }
         })
     }
