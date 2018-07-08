@@ -6,10 +6,8 @@
     var keyValue = $.request("keyValue");
     $(function () {
         if (!!keyValue) {
-            $.ajax({
-                url: rootUrl + "/BaseManage/Truck/GetFormJson",
-                data: { keyValue: keyValue },
-                dataType: "json",
+            $.getForm({
+                url: rootUrl + "/BaseManage/Truck/GetFormJson?keyValue=" + keyValue,
                 async: false,
                 success: function (data) {
                     $("#form1").formSerialize(data);

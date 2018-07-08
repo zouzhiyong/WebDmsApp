@@ -37,14 +37,35 @@ namespace NFine.Web.Areas.PurchaseManage.Controllers
             return Content(data.ToJson());
         }
 
+        [HttpGet]
+        [HandlerAjaxOnly]
+        [HandlerAuthorize]
+        [MyValidateAntiForgeryToken]
+        public ActionResult GetCopyFormJson(string keyValue)
+        {
+            var data = orderApp.GetCopyForm(keyValue);
+            return Content(data.ToJson());
+        }
+
 
         [HttpPost]
         [HandlerAjaxOnly]
+        [HandlerAuthorize]
         [MyValidateAntiForgeryToken]
         public ActionResult SubmitForm(OrderEntity model)
         {
             var result=orderApp.SubmitForm(model);
             return Success("操作成功。", result);
+        }
+
+        [HttpPost]
+        [HandlerAjaxOnly]
+        [HandlerAuthorize]
+        [MyValidateAntiForgeryToken]
+        public ActionResult DeleteForm(string keyValue)
+        {
+            orderApp.DeleteForm(keyValue);
+            return Success("删除成功。");
         }
         //SubmitForm(OrderEntity orderEntity, OrderDetailEntity[] orderDetailEntitys, string keyValue)
         //[HttpGet]

@@ -37,7 +37,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="drop1">
                                 <li><a href="javascript:;" accesskey="a" v-on:click="handleToolsAdd">新增(A)</a></li>
-                                <li><a href="javascript:;" accesskey="s" v-on:click="handleToolsSave">保存(S)</a></li>
+                                <li v-if="list.F_Status<2"><a href="javascript:;" accesskey="s" v-on:click="handleToolsSave">保存(S)</a></li>
                             </ul>
                         </li>
                         <li id="fat-menu" class="dropdown">
@@ -46,15 +46,15 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="drop2">
-                                <li><a href="javascript:;" accesskey="o" v-on:click="handleToolsConfirm">确定(F)</a></li>
-                                <li><a href="javascript:;" accesskey="r" v-on:click="handleToolsReverse">反确定(R)</a></li>
+                                <li v-if="list.F_Status<2"><a href="javascript:;" accesskey="o" v-on:click="handleToolsConfirm">确定(F)</a></li>
+                                @*<li><a href="javascript:;" accesskey="r" v-on:click="handleToolsReverse">反确定(R)</a></li>*@
                                 @*<li role="separator" class="divider"></li>*@
-                                <li><a href="javascript:;" accesskey="x" v-on:click="handleToolsClose">关闭订单(X)</a></li>
-                                <li><a href="javascript:;" accesskey="c" v-on:click="handleToolsCopy">复制订单(C)</a></li>
-                                <li><a href="javascript:;" accesskey="g" v-on:click="handleToolsPost">过账(P)</a></li>
+                                @*<li><a href="javascript:;" accesskey="x" v-on:click="handleToolsClose">关闭订单(X)</a></li>*@
+                                <li v-if="list.F_Status>0"><a href="javascript:;" accesskey="c" v-on:click="handleToolsCopy">复制订单(C)</a></li>
+                                @*<li><a href="javascript:;" accesskey="g" v-on:click="handleToolsPost">过账(P)</a></li>*@
                             </ul>
                         </li>
-                        <li id="fat-menu" class="dropdown">
+                        <li v-if="list.F_Status>=2" id="fat-menu" class="dropdown">
                             <a id="drop3" accesskey="p" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 打印 (P)
                                 <span class="caret"></span>
@@ -72,8 +72,8 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="drop4">
                                 <li><a href="javascript:;" accesskey="e" v-on:click="handleToolsExit">采购退货单(E)</a></li>
-                                <li><a href="javascript:;" accesskey="u" v-on:click="handleToolsUp">上一单(U)</a></li>
-                                <li><a href="javascript:;" accesskey="d" v-on:click="handleToolsDown">下一单(D)</a></li>
+                                <li v-if="list.F_Status>0"><a href="javascript:;" accesskey="u" v-on:click="handleToolsUp">上一单(U)</a></li>
+                                <li v-if="list.F_Status>0"><a href="javascript:;" accesskey="d" v-on:click="handleToolsDown">下一单(D)</a></li>
                             </ul>
                         </li>
                         <li id="fat-menu" class="dropdown">
@@ -87,7 +87,7 @@
                                 <li><a href="javascript:;" accesskey="w" v-on:click="handleToolsPurchase">采购发票(W)</a></li>
                             </ul>
                         </li>
-                        <li id="fat-menu" class="dropdown">
+                        @*<li id="fat-menu" class="dropdown">
                             <a id="drop6" accesskey="o" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 审批 (O)
                                 <span class="caret"></span>
@@ -97,7 +97,7 @@
                                 <li><a href="javascript:;" accesskey="i" v-on:click="handleToolsDelivery">审核(I)</a></li>
                                 <li><a href="javascript:;" accesskey="b" v-on:click="handleToolsNoDelivery">不审核(B)</a></li>
                             </ul>
-                        </li>
+                        </li>*@
                     </ul>
                 </div>
             </div>
@@ -107,9 +107,9 @@
         <div class="form">
             <div class="row index">
                 <div class="col-xs-12">
-                    <div class="formValue pull-left" style="width:210px;" v-for="item in controlsList" v-if="item.layer=='header' && item.visible!=false">
+                    <div class="formValue pull-left" style="width:180px;" v-for="item in controlsList" v-if="item.layer=='header' && item.visible!=false">
                         <div class="row" v-if="item.controlType=='select'">
-                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right">{{item.label}}:</label>
+                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right;display:table">{{item.label}}:</label>
                             <div class="col-xs-7" style="display:table;">
                                 <select :id="item.field" :name="item.field" class="form-control required" v-select v-model="list[item.field]" v-on:change="handleChange(list,item.field)" v-bind:disabled="item.disabled || list.F_Status>=2">
                                     <option :value="_item[item.id==''?'id':item.id]" v-for="_item in list[item.field+'List']">{{_item[item.text==''?'text':item.text]}}</option>
@@ -117,7 +117,7 @@
                             </div>
                         </div>
                         <div class="row" v-if="item.controlType=='input' && item.dataType=='date'">
-                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right">{{item.label}}:</label>
+                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right;display:table">{{item.label}}:</label>
                             <div class="col-xs-7" style="display:table;">
                                 <div class="input-group">
                                     <input :id="item.field" :name="item.field" type="text" class="form-control datepicker" v-date:list v-model="list[item.field]" readonly :placeholder="item.placeholder" v-bind:disabled="item.disabled || list.F_Status>=2" />
@@ -126,15 +126,15 @@
                             </div>
                         </div>
                         <div class="row" v-if="item.controlType=='input' && item.dataType=='text'">
-                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right">{{item.label}}:</label>
+                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right;display:table">{{item.label}}:</label>
                             <div class="col-xs-7" style="display:table;">
                                 <input :id="item.field" :name="item.field" type="text" class="form-control" v-model="list[item.field]" :placeholder="item.placeholder" v-bind:disabled="item.disabled || list.F_Status>=2" />
                             </div>
                         </div>
                         <div class="row" v-if="item.controlType=='div'">
-                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right">{{item.label}}:</label>
+                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right;display:table">{{item.label}}:</label>
                             <div class="col-xs-7" style="display:table;">
-                                <div :id="item.field" :name="item.field" style="border: solid 1px #ddd;height: 30px;line-height:30px;padding:0 5px;">{{list[item.field]}}</div>
+                                <div :id="item.field" :name="item.field" style="border: solid 1px #ddd;height: 30px;line-height:30px;padding:0 5px;background-color:#eee">{{list[item.field]}}</div>
                             </div>
                         </div>
                     </div>
@@ -145,7 +145,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th style="width:40px">
+                                <th style="width:50px">
                                     <div class="th-inner ">序号</div>
                                 </th>
                                 <th v-if="itemThead.visible!=false" v-for="itemThead in controlsDetails" :style="{width:itemThead.width}">
@@ -162,7 +162,7 @@
                     <table class="table table-condensed" style="margin-top: 0px;table-layout: fixed;">
                         <tbody>
                             <tr v-for="(tbodyItem,tbodyIndex) in list.details" :class="tbodyItem.F_ItemID!=''?'active':''">
-                                <td style="text-align:center;width:40px;">
+                                <td style="text-align:center;width:50px;">
                                     {{tbodyIndex+1}}
                                 </td>
                                 <td v-if="itemThead.visible!=false" v-for="(itemThead,theadIndex) in controlsDetails" v-bind:id="itemThead.field+tbodyIndex" :data-rowindex="tbodyIndex" :data-colindex="theadIndex" :data-nextfocusfield="itemThead.nextFocusField" :class="itemThead.type=='operate'?'col_operate':''" :style="{width:itemThead.width}" v-on:click.stop="handleClickInput($event,itemThead.field,tbodyIndex,itemThead)">
@@ -178,7 +178,7 @@
                                     </template>
                                     <template v-else>
                                         <template v-if="inputField!=itemThead.field+tbodyIndex || list.F_Status>=2">
-                                            <div v-bind:style="{'text-align':itemThead.align}"
+                                            <div v-bind:style="{'text-align':itemThead.align,'background-color':itemThead.controlType=='autocomplete' || itemThead.controlType=='input'?'rgb(248, 247, 247)':''}"
                                                  v-bind:data-value="tbodyItem[itemThead.field]"
                                                  v-on:click.stop="handleClickInput($event,itemThead.field,tbodyIndex,itemThead)">
                                                 <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>
@@ -245,7 +245,7 @@
                     <table class="table">
                         <tbody>
                             <tr>
-                                <td style="width:40px;text-align:center;">
+                                <td style="width:50px;text-align:center;">
                                     合计：
                                 </td>
                                 <td v-if="itemFooter.visible!=false" v-for="(itemFooter,theadIndex) in controlsDetails" v-bind:style="{width:itemFooter.width,'text-align':itemFooter.align }">
@@ -276,9 +276,9 @@
         </div>
         <div class="text-center" style="padding:10px;margin: 0 -10px;background-color: #fff;">
             <a v-if="list.F_Status<2" id="NF-save" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickSave(1)"><i class="fa fa-save"></i> 保存</a>
-            <a v-if="list.F_Status<2" id="NF-audit" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickSave(2)"><i class="fa fa-save"></i> 审核</a>
-            <a id="NF-print" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickPrint()"><i class="fa fa-print"></i> 打印</a>
-            <a id="NF-printview" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickPrintView()"><i class="fa fa-eye"></i> 打印预览</a>
+            <a v-if="list.F_Status<2" id="NF-audit" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickSave(2)"><i class="fa fa-save"></i> 确定</a>
+            <a v-if="list.F_Status>=2" id="NF-print" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickPrint()"><i class="fa fa-print"></i> 打印</a>
+            <a v-if="list.F_Status>=2" id="NF-printview" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickPrintView()"><i class="fa fa-eye"></i> 打印预览</a>
         </div>
     </div>
 </div>
@@ -338,7 +338,6 @@
                         $.ajax({
                             url: rootUrl + item.url,
                             async: false,
-                            dataType: "json",
                             success: function (data) {
                                 if (!!item.list && item.list.length > 0) {
                                     data.splice(0, 0, JSON.parse(JSON.stringify(item.list[0])));
@@ -370,7 +369,7 @@
             }
 
             //初始化数据
-            _self.handleInit();
+            _self.handleInit(_self.GetFormJson, keyValue);
         },
         mounted: function () {
             var _self = this;
@@ -386,16 +385,12 @@
         },
         methods: {
             //获取数据
-            handleInit: function () {
+            handleInit: function (url,keyValue) {
                 var _self = this;
                 if (!!keyValue) {
-                    $.ajax({
-                        url: rootUrl + "/PurchaseManage/Purchase/GetFormJson",
-                        data: { keyValue: keyValue },
-                        dataType: "json",
-                        async: false,
+                    $.getForm({
+                        url: rootUrl + url + "?keyValue=" + keyValue,
                         success: function (data) {
-
                             data.details.map(function (item) {
                                 item["F_ItemCodeHide"] = item.F_ItemCode;
                             })
@@ -454,7 +449,6 @@
                     source: function (request, response) {
                         $.ajax({
                             url: rootUrl + colItem.url,
-                            dataType: "json",
                             data: {
                                 enCode: request.term
                             },
@@ -577,25 +571,55 @@
             },
 
             //工具栏事件
-            handleToolsAdd: function () { },//新增(A)
-            handleToolsSave: function () { },//保存(S)
-            handleToolsConfirm: function () { },//确定(F)
-            handleToolsReverse: function () { },//反确定(R)
-            handleToolsClose: function () { },//关闭订单(X)
-            handleToolsCopy: function () { },//复制订单(C)
-            handleToolsPost: function () { },//过账(P)
-            handleToolsPrint: function () { },//打印(P)
-            handleToolsPrintView: function () { },//打印预览(V)
-            handleToolsTemplete: function () { },//打印模板(T)
-            handleToolsExit: function () { },//采购退货单(E)
-            handleToolsUp: function () { },//上一单(U)
-            handleToolsDown: function () { },//下一单(D)
-            handleToolsReturn: function () { },//采购退货单(T)
-            handleToolsDelivery: function () { },//收货单(H)
-            handleToolsPurchase: function () { },//采购发票(W)
-            handleToolsRequest: function () { },//审核请求(Q)
-            handleToolsDelivery: function () { },//审核(I)
-            handleToolsNoDelivery: function () { },//不审核(B)
+            //新增(A)
+            handleToolsAdd: function () {
+                var url = rootUrl + "/PurchaseManage/Purchase/Edit";
+                var $obj = $(self.frameElement);
+                $obj.attr("src", url).attr("data-id", url);
+            },
+            //保存(S)
+            handleToolsSave: function () {
+                this.handleClickSave(1);
+            },
+            //确定(F)
+            handleToolsConfirm: function () {
+                this.handleClickSave(2);
+            },
+            //反确定(R)
+            handleToolsReverse: function () { },
+            //关闭订单(X)
+            handleToolsClose: function () { },
+            //复制订单(C)
+            handleToolsCopy: function () {
+                var _self = this;
+                _self.handleInit(_self.GetCopyFormJson, _self.list.F_Id);                
+            },
+            //过账(P)
+            handleToolsPost: function () { },
+            //打印(P)
+            handleToolsPrint: function () { },
+            //打印预览(V)
+            handleToolsPrintView: function () { },
+            //打印模板(T)
+            handleToolsTemplete: function () { },
+            //采购退货单(E)
+            handleToolsExit: function () { },
+            //上一单(U)
+            handleToolsUp: function () { },
+            //下一单(D)
+            handleToolsDown: function () { },
+            //采购退货单(T)
+            handleToolsReturn: function () { },
+            //收货单(H)
+            handleToolsDelivery: function () { },
+            //采购发票(W)
+            handleToolsPurchase: function () { },
+            //审核请求(Q)
+            handleToolsRequest: function () { },
+            //审核(I)
+            handleToolsDelivery: function () { },
+            //不审核(B)
+            handleToolsNoDelivery: function () { },
         },
         watch: {
             'list.F_CreatorUserId': function (newVal, oldVal) {

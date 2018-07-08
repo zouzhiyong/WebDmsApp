@@ -8,7 +8,9 @@
 
     var InitData = {
         inputField: "",
-        submitFormUrl: "/PurchaseManage/Purchase/SubmitForm",
+        GetFormJson: "/PurchaseManage/Purchase/GetFormJson",//获取单据
+        GetCopyFormJson: "/PurchaseManage/Purchase/GetCopyFormJson",//复制单据
+        submitFormUrl: "/PurchaseManage/Purchase/SubmitForm",//提交单据
         //主表初始化数据
         list: {
             details: []//明细行
@@ -22,7 +24,7 @@
             { field: "F_PurchaserID", label: "采购员", visible: true, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入采购员", url: "/SystemManage/User/GetSelectJson?custType=Buyer", id: "F_Id", text: "F_RealName", list: [{ F_Id: "", F_RealName: "=请选择=" }] },
             { field: "F_IsStockFinished", label: "发运状态", visible: true, disabled: true, defaultValue: "0", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "id", text: "text", list: [{ id: "0", text: "未收货" }, { id: "1", text: "部分收货" }, { id: "2", text: "收货完成" }] },
             { field: "F_Status", label: "单据状态", visible: true, disabled: true, defaultValue: "0", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "id", text: "text", list: [{ id: "0", text: "新增" }, { id: "1", text: "保存" }, { id: "2", text: "确定" }, { id: "3", text: "待审核" }, { id: "4", text: "已审核" }, { id: "5", text: "关闭" }] },
-            { field: "F_TaxRate", label: "税率(%)", visible: false, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { field: "F_TaxRate", label: "税率(%)", visible: true, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
 
             { field: "F_Description", label: "备注", visible: true, defaultValue: "", layer: "footer", divClass: "col-xs-12", inputclass: "", controlType: "input", dataType: "text", placeholder: "请输入您要备注的内容" },
             { field: "F_CreatorUserId", label: "制单人ID", visible: false, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
@@ -115,7 +117,6 @@
                     _self.list.F_TaxRate = 0;
                     $.ajax({
                         url: rootUrl + "/BaseManage/Supplier/GetFormJson?keyValue=" + newVal,
-                        dataType: "json",
                         success: function (data) {
                             if (!!data) {
                                 _self.list.F_TaxRate = data.F_TaxRate;

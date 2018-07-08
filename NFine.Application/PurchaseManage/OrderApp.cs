@@ -67,20 +67,7 @@ namespace NFine.Application.PurManage
                 //提交
                 db.Commit();
 
-
-                var details = serviceDetail.IQueryable(t => t.F_POId == model.F_EnCode).SortBy(t => t.F_RowId).ToList();
-                List<OrderDetailEntity> orderDetailEntity = new List<OrderDetailEntity>();
-                MaterialApp marterialApp = new MaterialApp();
-
-                foreach (var item in details)
-                {
-                    item.F_UomIDList = marterialApp.getUOM(item.F_ItemID);
-                    item.F_WarehouseIDList = serviceWarehouse.FindList(t => t.F_EnabledMark == true);
-                    orderDetailEntity.Add(item);
-                }
-                model.details = orderDetailEntity;
-
-                return model;
+                return GetOrderData(model.F_Id);
             }
         }
 
@@ -95,20 +82,85 @@ namespace NFine.Application.PurManage
             return service.FindList(expression, pagination);
         }
 
+        /// <summary>
+        /// 获取单据
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
         public OrderEntity GetForm(string keyValue)
         {
-            var orderItem = service.FindEntity(keyValue);
-            var details = serviceDetail.FindList(t => t.F_POId == orderItem.F_EnCode);
-            List<OrderDetailEntity> orderDetailEntity = new List<OrderDetailEntity>();
+            return GetOrderData(keyValue);
+        }
+        /// <summary>
+        /// 复制单据
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
+        public OrderEntity GetCopyForm(string keyValue)
+        {
+            var orderItem = GetOrderData(keyValue);
+
+            orderItem.F_Id = "";
+            orderItem.F_Status = 0;
+            orderItem.F_CreatorTime = null;
+            orderItem.F_CreatorUserId = "";
+            orderItem.F_ConfirmTime = null;
+            orderItem.F_ConfirmUserId = "";
+            orderItem.F_LastModifyTime = null;
+            orderItem.F_LastModifyUserId = "";
+            orderItem.F_PrintNums = 0;
+            orderItem.F_EnCode = "";
+
+            foreach (var item in orderItem.details)
+            {
+                item.F_Id = "";
+                item.F_POId = "";
+                item.F_LastModifyTime = null;
+                item.F_LastModifyUserId = "";
+                item.F_CreatorTime = null;
+                item.F_CreatorUserId = "";
+            }           
+
+            return orderItem;
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="keyValue"></param>
+        public void DeleteForm(string keyValue)
+        {
+            OrderEntity orderEntity = service.FindEntity(t => t.F_Id == keyValue);
+            if (orderEntity.F_Status >1)
+            {
+                throw new Exception("此单据状态无法删除!");
+            }
+            else
+            {
+                using (var db = new RepositoryEntity().BeginTrans())
+                {
+                    //删除主表数据
+                    service.Delete(t => t.F_Id == keyValue && t.F_Status == 1);
+                    //删除明细表数据
+                    serviceDetail.Delete(t => t.F_POId == orderEntity.F_EnCode);
+                    //提交
+                    db.Commit();
+                }
+            }
+        }
+
+        private OrderEntity GetOrderData(string keyValue)
+        {
+            OrderEntity orderItem = service.FindEntity(keyValue);
+            List<OrderDetailEntity> details = serviceDetail.IQueryable(t => t.F_POId == orderItem.F_EnCode).SortBy(t => t.F_RowId).ToList();
             MaterialApp marterialApp = new MaterialApp();
 
             foreach (var item in details)
             {
                 item.F_UomIDList = marterialApp.getUOM(item.F_ItemID);
                 item.F_WarehouseIDList = serviceWarehouse.FindList(t => t.F_EnabledMark == true);
-                orderDetailEntity.Add(item);
             }
-            orderItem.details = orderDetailEntity;
+            orderItem.details = details;
             return orderItem;
         }
     }

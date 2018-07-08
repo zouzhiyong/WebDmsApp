@@ -3,6 +3,7 @@
     $("[data-toggle='tooltip']").tooltip();
 
     $.ajaxSetup({ //设置全局性的Ajax选项
+        dataType: "json",
         complete: function () {
             $.loading(false);
         }
@@ -294,6 +295,53 @@ $.deleteForm = function (options) {
             }, 500);
         }
     });
+
+}
+$.getForm = function (options) {
+    var defaults = {
+        url: "",
+        param: [],
+        headers: {},
+        loading: "正在获取数据...",
+        success: null,
+        close: true,
+        async: false
+    };
+    var options = $.extend(defaults, options);
+    $.loading(true, options.loading);
+    window.setTimeout(function () {
+        if ($('[name=__RequestVerificationToken]').length > 0) {
+            options.headers["__RequestVerificationToken"] = $('[name=__RequestVerificationToken]').val();
+        }
+        $.ajax({
+            url: options.url,
+            async: options.async,
+            data: options.param,
+            processData: options.processData,
+            contentType: options.contentType,
+            type: "get",
+            headers: options.headers,
+            dataType: "json",
+            success: function (data) {
+                if (data.state == "error") {
+                    $.modalMsg(data.message, "error");
+                } else {
+                    options.success(data);
+                }                
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                $.loading(false);
+
+                $.modalMsg(errorThrown, "error");
+            },
+            beforeSend: function () {
+                $.loading(true, options.loading);
+            },
+            complete: function () {
+                $.loading(false);
+            }
+        });
+    }, 500);
 
 }
 $.jsonWhere = function (data, action) {

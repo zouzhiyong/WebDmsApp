@@ -35,7 +35,11 @@ namespace NFine.Web
             {
                 StringBuilder sbScript = new StringBuilder();
                 sbScript.Append("<script type='text/javascript'>alert('很抱歉！您的权限不足，访问被拒绝！');</script>");
-                filterContext.Result = new ContentResult() { Content = sbScript.ToString() };
+
+                JsonResult json = new JsonResult();
+                json.Data = new { state = "error", message = "很抱歉！您的权限不足，访问被拒绝！" };
+                json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+                filterContext.Result = json;// new ContentResult() { Content = sbScript.ToString() };
                 return;
             }
         }

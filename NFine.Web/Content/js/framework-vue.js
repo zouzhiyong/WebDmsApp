@@ -82,7 +82,7 @@ Vue.directive('date', {
         if (el.tagName == "SPAN" || el.tagName == "DIV") {
             var value = binding.value;
             var format = el.getAttribute('format') ? el.getAttribute('format') : "yyyy-MM-dd";
-            el.innerHTML = (value == null ? "" : new Date(value).Format(format));
+            el.innerHTML = (value == null || value == "" ? "" : new Date(value).Format(format));
         }
     }
 });

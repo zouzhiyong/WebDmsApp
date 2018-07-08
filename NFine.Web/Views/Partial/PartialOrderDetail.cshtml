@@ -5,65 +5,36 @@
 
 
 <script>
+    var currUrl = self.frameElement.getAttribute('src');
     $(function () {
         gridList();
     })
     function gridList() {
         var $gridList = $("#gridList");
+        var colModelOprator = {
+            label: '操作', name: 'F_Description', width: 80, align: 'center',
+            formatter: function (cellvalue, options, row) {
+                var $elementHtml = "";
+                $('.operate').find('a[authorize=yes]').css({ 'cursor': 'pointer', 'padding': '2px 8px', 'margin-right': '20px' }).addClass('btn').each(function () {
+                    if ($(this).attr("id") == "NF-delete" && row.F_Status != "1") {
+                        var $span = $("<span style='padding:2px 14px;margin-right:20px;height:22px;display:inline-block'></span>");
+                        $elementHtml = $elementHtml + $span.prop("outerHTML")
+                    } else {
+                        $elementHtml = $elementHtml + $(this).prop("outerHTML")
+                    }
+                });
+                var $elementHtml = $elementHtml.replace(/\(\)/gi, '(\'' + row.F_Id + '\')').replace(/id/gi, 'name');
+                return $elementHtml;
+            }
+        }
+        options.colModel.push(colModelOprator);
+
         $gridList.dataGrid({
             isTools: false,
             ToolsType: "row",
-            url: rootUrl + "/PurchaseManage/Purchase/GetGridJson",
+            url: rootUrl + options.findUrl,
             height: $(window).height() - 128,
-            colModel: [
-                { label: '主键', name: 'F_Id', hidden: true },
-                { label: '采购单号', name: 'F_EnCode', width: 100, align: 'left' },
-                { label: '供应商', name: 'F_SupplierName', width: 80, align: 'left' },
-                {
-                    label: "订单日期", name: "F_BillDate", width: 80, align: "left", formatter: function (cellvalue) {
-                        return cellvalue == null ? "" : new Date(cellvalue).Format("yyyy-MM-dd");
-                    }
-                },
-                {
-                    label: "过账日期", name: "F_PostDate", width: 80, align: "left", formatter: function (cellvalue) {
-                        return cellvalue == null ? "" : new Date(cellvalue).Format("yyyy-MM-dd");
-                    }
-                },
-                {
-                    label: "创建人", name: "F_CreatorUserId", width: 80, align: "left", formatter: function (cellvalue) {
-                        return top.clients.user[cellvalue] == null ? "" : top.clients.user[cellvalue].fullname;
-                    }
-                },
-                {
-                    label: "审批人", name: "F_ConfirmUserId", width: 80, align: "left", formatter: function (cellvalue) {
-                        return top.clients.user[cellvalue] == null ? "" : top.clients.user[cellvalue].fullname;
-                    }
-                },
-                
-                {
-                    label: "状态", name: "F_Status", width: 60, align: "left",
-                    formatter: function (cellvalue) {
-                        return top.clients.dataItems.billStatus[cellvalue] == null ? "" : top.clients.dataItems.billStatus[cellvalue];
-                    }
-                },
-                { label: '备注', name: 'F_Description', width: 100, align: 'left' },
-                {
-                    label: '操作', name: 'F_Description', width: 80, align: 'center',
-                    formatter: function (cellvalue, options, row) {
-                        var $elementHtml = "";
-                        $('.operate').find('a[authorize=yes]').css({ 'cursor': 'pointer', 'padding': '2px 8px', 'margin-right': '20px' }).addClass('btn').each(function () {
-                            if ($(this).attr("id") == "NF-delete" && row.F_Status != "1") {
-                                var $span = $("<span style='padding:2px 14px;margin-right:20px;height:22px;display:inline-block'></span>");
-                                $elementHtml = $elementHtml + $span.prop("outerHTML")
-                            } else {
-                                $elementHtml = $elementHtml + $(this).prop("outerHTML")
-                            }                            
-                        });
-                        var $elementHtml = $elementHtml.replace(/\(\)/gi, '(\'' + row.F_Id + '\')').replace(/id/gi, 'name');
-                        return $elementHtml;
-                    }
-                }
-            ],
+            colModel: options.colModel,
             pager: "#gridPager",
             sortname: 'F_CreatorTime desc',
             viewrecords: true
@@ -75,30 +46,24 @@
         });
     }
     function btn_add() {
-        $.modalOpen({
-            id: "Form",
-            title: "新建订单",
-            url: rootUrl + "/BaseManage/Warehouse/Form",
-            width: "700px",
-            height: "510px",
-            callBack: function (iframeId) {
-                top.frames[iframeId].submitForm();
-            }
-        });
-    }
-    function btn_edit(keyValue) {
-        var url = rootUrl + "/PurchaseManage/Purchase/Index";
+        var url = currUrl;
         var $obj = window.top.$(".menuItem[href='" + url + "']", window.top.document);
-        $obj.attr("href", rootUrl + "/PurchaseManage/Purchase/Edit?keyValue=" + keyValue);
+        $obj.attr("href", rootUrl + options.editUrl);
         $obj.click();
         $obj.attr("href", url);
-        
+    }
+    function btn_edit(keyValue) {
+        var url = currUrl;
+        var $obj = window.top.$(".menuItem[href='" + url + "']", window.top.document);
+        $obj.attr("href", rootUrl + options.editUrl+"?keyValue=" + keyValue);
+        $obj.click();
+        $obj.attr("href", url);        
     }
     function btn_delete(keyValue) {
         $.deleteForm({
-            url: rootUrl + "/BaseManage/Warehouse/DeleteForm",
+            url: rootUrl + options.delUrl,
             param: { keyValue: keyValue },
-            success: function () {
+            success: function (data) {
                 $.currentWindow().$("#gridList").trigger("reloadGrid");
             }
         })
