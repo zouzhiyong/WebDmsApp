@@ -17,11 +17,11 @@ namespace NFine.Web.Areas.PurchaseManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetGridJson(Pagination pagination, string keyword)
+        public ActionResult GetGridJson(Pagination pagination, string keyword,int type)
         {
             var data = new
             {
-                rows = orderApp.GetList(pagination, keyword),
+                rows = orderApp.GetList(pagination, keyword,type),
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records

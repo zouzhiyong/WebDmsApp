@@ -18,16 +18,16 @@ namespace NFine.Application.SystemManage
         private static IRepositoryEntity<SerialNumberEntity> service = new RepositoryEntity<SerialNumberEntity>();
         private static IRepositoryEntity<SerialNumberDetailEntity> serviceDetail = new RepositoryEntity<SerialNumberDetailEntity>();
 
-        public static void GetAutoIncrementCode<TEntity>(TEntity entity)
+        public static void GetAutoIncrementCode<TEntity>(TEntity entity, string keyword = null)
         {
             var CodeResult = "";
-            var entityName = entity.GetType().FullName.ToString();//获取实体名称与编码规则表中F_EnCode字段对比
+            var entityName = keyword==null? entity.GetType().FullName.ToString(): keyword;//获取实体名称与编码规则表中F_EnCode字段对比
             foreach (var pro in entity.GetType().GetProperties())
             {
-                if (pro.Name.Equals("F_EnCode") && ( pro.GetValue(entity) == null || pro.GetValue(entity).ToString().Trim() == ""))
+                if (pro.Name.Equals("F_EnCode") && (pro.GetValue(entity) == null || pro.GetValue(entity).ToString().Trim() == ""))
                 {
                     DateTime dt = DateTime.Now;
-                    
+
                     var item = service.FindList(t => t.F_EnCode == entityName).FirstOrDefault();
                     int length = item.F_EndingNumber.ToString().Length;
                     string Id = item.F_Id;
@@ -70,13 +70,13 @@ namespace NFine.Application.SystemManage
                             CodeResult = item.F_Prefix + itemDetail.F_LastNumberUsed.ToString().PadLeft(length, '0');
                             break;
                         case "1":
-                            CodeResult = item.F_Prefix + dt.ToString("yyMM") + itemDetail.F_LastNumberUsed.ToString().PadLeft(length, '0');
+                            CodeResult = item.F_Prefix + dt.ToString("yyyyMM") + itemDetail.F_LastNumberUsed.ToString().PadLeft(length, '0');
                             break;
                         case "2":
-                            CodeResult = item.F_Prefix + dt.ToString("yyMM") + itemDetail.F_LastNumberUsed.ToString().PadLeft(length, '0');
+                            CodeResult = item.F_Prefix + dt.ToString("yyyyMM") + itemDetail.F_LastNumberUsed.ToString().PadLeft(length, '0');
                             break;
                         case "3":
-                            CodeResult = item.F_Prefix + dt.ToString("yyMMdd") + itemDetail.F_LastNumberUsed.ToString().PadLeft(length, '0');
+                            CodeResult = item.F_Prefix + dt.ToString("yyyyMMdd") + itemDetail.F_LastNumberUsed.ToString().PadLeft(length, '0');
                             break;
                         default:
                             CodeResult = item.F_Prefix + itemDetail.F_LastNumberUsed.ToString().PadLeft(length, '0');

@@ -221,7 +221,11 @@ function GetLoadNav() {
                 $.each(childNodes, function (i) {
                     var subrow = childNodes[i];
                     _html += '<li>';
-                    _html += '<a class="menuItem" data-id="' + subrow.F_Id + '" href="' + rootUrl + subrow.F_UrlAddress + '" data-index="' + subrow.F_SortCode + '">' + subrow.F_FullName + '</a>';
+                    if (subrow.F_Target == "blank") {
+                        _html += '<a class="menuItem" style="display:none;" data-id="' + subrow.F_Id + '" href="' + rootUrl + subrow.F_UrlAddress + '" data-index="' + subrow.F_SortCode + '">' + subrow.F_FullName + '</a>';
+                    } else {
+                        _html += '<a class="menuItem" data-id="' + subrow.F_Id + '" href="' + rootUrl + subrow.F_UrlAddress + '" data-index="' + subrow.F_SortCode + '">' + subrow.F_FullName + '</a>';
+                    }
                     _html += '</li>';
                 });
                 _html += '</ul>';

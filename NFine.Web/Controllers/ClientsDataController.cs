@@ -231,7 +231,7 @@ namespace NFine.Web.Controllers
         {
             StringBuilder sbJson = new StringBuilder();
             sbJson.Append("[");
-            List<ModuleEntity> entitys = data.FindAll(t => t.F_ParentId == parentId);
+            List<ModuleEntity> entitys = data.FindAll(t => t.F_ParentId == parentId && t.F_EnabledMark==true);
             if (entitys.Count > 0)
             {
                 foreach (var item in entitys)

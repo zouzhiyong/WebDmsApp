@@ -25,79 +25,20 @@
 <div class="pur" v-cloak>
     <div id="content-title" style="height:45px;background-color:#fff;border-bottom:solid 1px #eee;padding:0 15px;display:block">
         <div class="row">
-            <div class="col-xs-2 title text-left" style="padding:3px;"><h4>@ViewBag.Title</h4></div>
+            <div class="col-xs-2 title text-left" style="padding:3px;"><h4>{{title}}</h4></div>
             <div class="col-xs-3 orderid text-left" style="padding:5px;"><h6>{{"单据编号:"+list.F_EnCode}}</h6></div>
             <div class="col-xs-7 text-right tools">
                 <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li id="fat-menu" class="dropdown">
-                            <a id="drop1" accesskey="n" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                新建 (N)
+                    <ul class="nav navbar-nav navbar-right">                        
+                        <li id="fat-menu" class="dropdown" v-for="(item,index) in tools" v-if="handleIfFun(item.visible)">
+                            <a :id="'drop'+index" :accesskey="item.accesskey" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                {{item.label}}
                                 <span class="caret"></span>
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="drop1">
-                                <li><a href="javascript:;" accesskey="a" v-on:click="handleToolsAdd">新增(A)</a></li>
-                                <li v-if="list.F_Status<2"><a href="javascript:;" accesskey="s" v-on:click="handleToolsSave">保存(S)</a></li>
+                            <ul class="dropdown-menu" :aria-labelledby="'drop'+index" v-if="item.submenu.length>0">
+                                <li v-if="handleIfFun(subItem.visible)" v-for="subItem in item.submenu"><a href="javascript:;" :accesskey="subItem.accesskey" v-on:click="hanldeToolsClick(subItem)">{{subItem.label}}</a></li>
                             </ul>
-                        </li>
-                        <li id="fat-menu" class="dropdown">
-                            <a id="drop2" href="javascript:;" accesskey="m" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                管理 (M)
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="drop2">
-                                <li v-if="list.F_Status<2"><a href="javascript:;" accesskey="o" v-on:click="handleToolsConfirm">确定(F)</a></li>
-                                @*<li><a href="javascript:;" accesskey="r" v-on:click="handleToolsReverse">反确定(R)</a></li>*@
-                                @*<li role="separator" class="divider"></li>*@
-                                @*<li><a href="javascript:;" accesskey="x" v-on:click="handleToolsClose">关闭订单(X)</a></li>*@
-                                <li v-if="list.F_Status>0"><a href="javascript:;" accesskey="c" v-on:click="handleToolsCopy">复制订单(C)</a></li>
-                                @*<li><a href="javascript:;" accesskey="g" v-on:click="handleToolsPost">过账(P)</a></li>*@
-                            </ul>
-                        </li>
-                        <li v-if="list.F_Status>=2" id="fat-menu" class="dropdown">
-                            <a id="drop3" accesskey="p" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                打印 (P)
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="drop3">
-                                <li><a href="javascript:;" accesskey="p" v-on:click="handleToolsPrint">打印(P)</a></li>
-                                <li><a href="javascript:;" accesskey="v" v-on:click="handleToolsPrintView">打印预览(V)</a></li>
-                                <li><a href="javascript:;" accesskey="t" v-on:click="handleToolsTemplete">打印模板(T)</a></li>
-                            </ul>
-                        </li>
-                        <li id="fat-menu" class="dropdown">
-                            <a id="drop4" accesskey="k" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                快捷 (K)
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="drop4">
-                                <li><a href="javascript:;" accesskey="e" v-on:click="handleToolsExit">采购退货单(E)</a></li>
-                                <li v-if="list.F_Status>0"><a href="javascript:;" accesskey="u" v-on:click="handleToolsUp">上一单(U)</a></li>
-                                <li v-if="list.F_Status>0"><a href="javascript:;" accesskey="d" v-on:click="handleToolsDown">下一单(D)</a></li>
-                            </ul>
-                        </li>
-                        <li id="fat-menu" class="dropdown">
-                            <a id="drop5" accesskey="l" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                查看 (L)
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="drop5">
-                                <li><a href="javascript:;" accesskey="t" v-on:click="handleToolsReturn">采购退货单(T)</a></li>
-                                <li><a href="javascript:;" accesskey="h" v-on:click="handleToolsDelivery">收货单(H)</a></li>
-                                <li><a href="javascript:;" accesskey="w" v-on:click="handleToolsPurchase">采购发票(W)</a></li>
-                            </ul>
-                        </li>
-                        @*<li id="fat-menu" class="dropdown">
-                            <a id="drop6" accesskey="o" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                审批 (O)
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="drop6">
-                                <li><a href="javascript:;" accesskey="q" v-on:click="handleToolsRequest">审核请求(Q)</a></li>
-                                <li><a href="javascript:;" accesskey="i" v-on:click="handleToolsDelivery">审核(I)</a></li>
-                                <li><a href="javascript:;" accesskey="b" v-on:click="handleToolsNoDelivery">不审核(B)</a></li>
-                            </ul>
-                        </li>*@
+                        </li>                        
                     </ul>
                 </div>
             </div>
@@ -284,6 +225,7 @@
 </div>
 <script>
     var keyValue = $.request("keyValue");
+    var billType = $.request("type");
 
     self.frameElement.style.margin = "-10px";
     self.frameElement.style.marginBottom = "0";
@@ -362,6 +304,8 @@
 
                 }
             })
+            //赋值单据类型
+            _self.F_BillType = billType;
 
             //添加10行明细
             for (var i = 0; i < 10; i++) {
@@ -399,7 +343,7 @@
                     });
                 }
             },
-            //保存
+            //提交
             handleClickSave: function (type) {
                 var _self = this;
                 if (_self.saveData.length <= 0) {
@@ -407,10 +351,24 @@
                     return;
                 }
 
+                //判断标记大于0的字段是否有大于0
+                for (var i = 0; i < _self.controlsDetails.length; i++) {
+                    var item = _self.controlsDetails[i];                    
+                    if (!!item.isThanZero && item.isThanZero == true) {
+                        var tempArr = _self.saveData.filter(function (_item) { return _item[item.field] <= 0; });                        
+                        if (tempArr.length > 0) {
+                            $.modalMsg(item.label + "必须大于0", "warning");
+                            return;
+                        }
+                    }
+                }
+                
+
                 var _self = this;
                 var submitFormData = JSON.parse(JSON.stringify(_self.list));
                 submitFormData.details = JSON.parse(JSON.stringify(_self.saveData));
                 submitFormData.F_Status = type;
+                submitFormData.F_BillType = billType;
 
                 $.submitForm({
                     url: rootUrl + _self.submitFormUrl,
@@ -422,10 +380,6 @@
                     }
                 });
             },
-            //打印
-            handleClickPrint: function () { },
-            //打印预览
-            handleClickPrintView: function () { },
             //删除
             hanldeClickDelete: function (index) {
                 this.list.details.splice(index, 1);
@@ -569,13 +523,24 @@
                     $(".fixed-table-footer .table").width(w);
                 })
             },
-
-            //工具栏事件
+            //调用工具栏事件
+            hanldeToolsClick: function (subItem) {
+                if (!!subItem.event) {
+                    this[subItem.event](subItem);
+                }                
+            },
+            //判断是否隐藏
+            handleIfFun: function (visible) {
+                if (!visible || visible == "") {
+                    return true;
+                } else {
+                    return eval(visible);
+                }                
+            },
             //新增(A)
-            handleToolsAdd: function () {
-                var url = rootUrl + "/PurchaseManage/Purchase/Edit";
+            handleToolsAdd: function (subItem) {
                 var $obj = $(self.frameElement);
-                $obj.attr("src", url).attr("data-id", url);
+                $obj.attr("src", $obj.data("id"));
             },
             //保存(S)
             handleToolsSave: function () {
@@ -585,41 +550,21 @@
             handleToolsConfirm: function () {
                 this.handleClickSave(2);
             },
-            //反确定(R)
-            handleToolsReverse: function () { },
-            //关闭订单(X)
-            handleToolsClose: function () { },
             //复制订单(C)
-            handleToolsCopy: function () {
+            handleToolsCopy: function (url) {
                 var _self = this;
-                _self.handleInit(_self.GetCopyFormJson, _self.list.F_Id);                
+                _self.handleInit(_self.GetCopyFormJson, _self.list.F_Id);
             },
-            //过账(P)
-            handleToolsPost: function () { },
+            //上一单(U)
+            handleToolsUp: function () { },
+            //下一单(D)
+            handleToolsDown: function () { },
             //打印(P)
             handleToolsPrint: function () { },
             //打印预览(V)
             handleToolsPrintView: function () { },
             //打印模板(T)
             handleToolsTemplete: function () { },
-            //采购退货单(E)
-            handleToolsExit: function () { },
-            //上一单(U)
-            handleToolsUp: function () { },
-            //下一单(D)
-            handleToolsDown: function () { },
-            //采购退货单(T)
-            handleToolsReturn: function () { },
-            //收货单(H)
-            handleToolsDelivery: function () { },
-            //采购发票(W)
-            handleToolsPurchase: function () { },
-            //审核请求(Q)
-            handleToolsRequest: function () { },
-            //审核(I)
-            handleToolsDelivery: function () { },
-            //不审核(B)
-            handleToolsNoDelivery: function () { },
         },
         watch: {
             'list.F_CreatorUserId': function (newVal, oldVal) {

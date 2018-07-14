@@ -4,8 +4,8 @@
 }
 
 
-<script>
-    var currUrl = self.frameElement.getAttribute('src');
+<script>    
+
     $(function () {
         gridList();
     })
@@ -46,18 +46,18 @@
         });
     }
     function btn_add() {
-        var url = currUrl;
-        var $obj = window.top.$(".menuItem[href='" + url + "']", window.top.document);
-        $obj.attr("href", rootUrl + options.editUrl);
+        var url = rootUrl + options.editUrl;
+        var $obj = window.top.$(".menuItem[href='" + url + "']", window.top.document);        
         $obj.click();
-        $obj.attr("href", url);
+        var $iframe = window.top.$(".NFine_iframe[data-id='" + url + "']", window.top.document);
+        $iframe.attr("src", rootUrl + options.editUrl);
     }
     function btn_edit(keyValue) {
-        var url = currUrl;
-        var $obj = window.top.$(".menuItem[href='" + url + "']", window.top.document);
-        $obj.attr("href", rootUrl + options.editUrl+"?keyValue=" + keyValue);
+        var url = rootUrl + options.editUrl;
+        var $obj = window.top.$(".menuItem[href='" + url + "']", window.top.document);        
         $obj.click();
-        $obj.attr("href", url);        
+        var $iframe = window.top.$(".NFine_iframe[data-id='" + url + "']", window.top.document);
+        $iframe.attr("src", rootUrl + options.editUrl + "&keyValue=" + keyValue);
     }
     function btn_delete(keyValue) {
         $.deleteForm({

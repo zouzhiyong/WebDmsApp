@@ -30,6 +30,11 @@ namespace NFine.Application.PurManage
 
         public OrderEntity SubmitForm(OrderEntity model)
         {
+            if(model.F_BillType!=1 && model.F_BillType != -1)
+            {
+                throw new Exception("此单据为非法单据!");
+            }
+
             List<OrderDetailEntity> orderDetailEntitys = model.details;
             using (var db = new RepositoryEntity().BeginTrans())
             {
@@ -50,7 +55,14 @@ namespace NFine.Application.PurManage
                 else
                 {
                     model.Create();
-                    SerialNumberDetailApp.GetAutoIncrementCode<OrderEntity>(model);//获取编号                    
+                    if (model.F_BillType == 1)
+                    {
+                        SerialNumberDetailApp.GetAutoIncrementCode<OrderEntity>(model, "PurchaseOrder");//获取编号  
+                    }else
+                    {
+                        SerialNumberDetailApp.GetAutoIncrementCode<OrderEntity>(model, "PurchaseReturnOrder");//获取编号   
+                    }                    
+                                      
                     db.Insert(model);
                 }
 
@@ -71,9 +83,10 @@ namespace NFine.Application.PurManage
             }
         }
 
-        public List<OrderEntity> GetList(Pagination pagination, string keyword)
+        public List<OrderEntity> GetList(Pagination pagination, string keyword,int type)
         {
             var expression = ExtLinq.True<OrderEntity>();
+            expression = expression.And(t => t.F_BillType == type);
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_EnCode.Contains(keyword));

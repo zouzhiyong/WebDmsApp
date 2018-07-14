@@ -3,11 +3,12 @@
     Layout = "~/Views/Shared/_Query.cshtml";
 }
 <script>
+    var billType = $.request("type");
+
     var options = {
-        addUrl: "/PurchaseManage/Purchase/Index",
-        editUrl: "/PurchaseManage/Purchase/Edit",
+        editUrl: "/PurchaseManage/Purchase/Edit?type=" + billType,
         delUrl: "/PurchaseManage/Purchase/DeleteForm",
-        findUrl: "/PurchaseManage/Purchase/GetGridJson",
+        findUrl: "/PurchaseManage/Purchase/GetGridJson?type=" + billType,
         colModel: [
             { label: '主键', name: 'F_Id', hidden: true },
             { label: '采购单号', name: 'F_EnCode', width: 100, align: 'left' },
