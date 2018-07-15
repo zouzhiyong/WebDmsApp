@@ -95,14 +95,60 @@ namespace NFine.Application.PurManage
             return service.FindList(expression, pagination);
         }
 
+        public OrderEntity GetPreNextDataJson(string keyword, int type,int PreNextType)
+        {
+            string F_EnCode = "";
+            //上一页
+            if (PreNextType == 1)
+            {
+                F_EnCode = service.IQueryable(t=>t.F_BillType==type).OrderByDescending(t => t.F_CreatorTime).SkipWhile(t => t.F_EnCode != keyword).Skip(1).FirstOrDefault().F_EnCode;
+            }
+            //下一页
+            else
+            {
+                F_EnCode = service.IQueryable(t => t.F_BillType == type).OrderBy(t => t.F_CreatorTime).SkipWhile(t => t.F_EnCode != keyword).Skip(1).FirstOrDefault().F_EnCode;
+            }
+            
+            return GetOrderData(F_EnCode);
+        }
+
         /// <summary>
         /// 获取单据
         /// </summary>
         /// <param name="keyValue"></param>
         /// <returns></returns>
-        public OrderEntity GetForm(string keyValue)
+        public OrderEntity GetForm(string keyValue, int type, int PreNextType)
         {
-            return GetOrderData(keyValue);
+            //下一页
+            if (PreNextType == 1)
+            {
+                var data = service.IQueryable(t => t.F_BillType == type).AsEnumerable().OrderByDescending(t => t.F_CreatorTime).SkipWhile(t => t.F_Id != keyValue).Skip(1).FirstOrDefault();
+                if (data == null)
+                {
+                    throw new Exception("已经是最后一条！");
+                }else
+                {
+                    return GetOrderData(data.F_Id);
+                }
+                
+            }
+            //上一页
+            else if (PreNextType == -1)
+            {
+                var data = service.IQueryable(t => t.F_BillType == type).AsEnumerable().OrderBy(t => t.F_CreatorTime).SkipWhile(t => t.F_Id != keyValue).Skip(1).FirstOrDefault();
+                if (data == null)
+                {
+                    throw new Exception("已经是第一条！");
+                }
+                else
+                {
+                    return GetOrderData(data.F_Id);
+                }
+            }
+            else
+            {
+                return GetOrderData(keyValue);
+            }            
         }
         /// <summary>
         /// 复制单据

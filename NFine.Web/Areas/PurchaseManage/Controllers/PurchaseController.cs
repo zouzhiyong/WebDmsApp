@@ -29,11 +29,12 @@ namespace NFine.Web.Areas.PurchaseManage.Controllers
             return Content(data.ToJson());
         }
 
+
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetFormJson(string keyValue)
+        public ActionResult GetFormJson(string keyValue, int type, int prenexttype)
         {
-            var data = orderApp.GetForm(keyValue);
+            var data = orderApp.GetForm(keyValue,type, prenexttype);
             return Content(data.ToJson());
         }
 

@@ -313,7 +313,7 @@
             }
 
             //初始化数据
-            _self.handleInit(_self.GetFormJson, keyValue);
+            _self.handleInit(_self.GetFormJson, keyValue,0);
         },
         mounted: function () {
             var _self = this;
@@ -329,11 +329,11 @@
         },
         methods: {
             //获取数据
-            handleInit: function (url,keyValue) {
+            handleInit: function (url, keyValue, prenexttype) {
                 var _self = this;
                 if (!!keyValue) {
                     $.getForm({
-                        url: rootUrl + url + "?keyValue=" + keyValue,
+                        url: rootUrl + url + "?keyValue=" + keyValue + "&type=" + billType + "&prenexttype=" + prenexttype,
                         success: function (data) {
                             data.details.map(function (item) {
                                 item["F_ItemCodeHide"] = item.F_ItemCode;
@@ -553,12 +553,18 @@
             //复制订单(C)
             handleToolsCopy: function (url) {
                 var _self = this;
-                _self.handleInit(_self.GetCopyFormJson, _self.list.F_Id);
+                _self.handleInit(_self.GetCopyFormJson, _self.list.F_Id,0);
             },
-            //上一单(U)
-            handleToolsUp: function () { },
-            //下一单(D)
-            handleToolsDown: function () { },
+            //上一条(U)
+            handleToolsUp: function () {
+                var _self = this;
+                _self.handleInit(_self.GetFormJson, _self.list.F_Id, -1);
+            },
+            //下一条(D)
+            handleToolsDown: function () {
+                var _self = this;
+                _self.handleInit(_self.GetFormJson, _self.list.F_Id, 1);
+            },
             //打印(P)
             handleToolsPrint: function () { },
             //打印预览(V)

@@ -13,6 +13,8 @@
         GetFormJson: "/PurchaseManage/Purchase/GetFormJson",//获取单据
         GetCopyFormJson: "/PurchaseManage/Purchase/GetCopyFormJson",//复制单据
         submitFormUrl: "/PurchaseManage/Purchase/SubmitForm",//提交单据
+        editToolsExitUrl: "/PurchaseManage/Purchase/Edit?type=" + (-billType),//进入采购订单或退货单编辑窗口
+        findToolsExitUrl: "/PurchaseManage/Purchase/Index?type=" + (-billType),//查看采购订单或退货单
         tools:[
             {
                 label: "新建 (N)", accesskey: "n", submenu: [
@@ -35,14 +37,14 @@
             },
             {
                 label: "快捷 (K)", accesskey: "m", submenu: [
-                  { label: "采购退货单(E)", accesskey: "e", event: "handleToolsExit" },
+                  { label: billType == 1 ? "采购退货单(E)" : "采购订单(E)", accesskey: "e", event: "handleToolsInReturn" },
                   { label: "上一单(U)", accesskey: "u", visible: 'this.list.F_Status>0', event: "handleToolsUp" },
                   { label: "下一单(D)", accesskey: "d", visible: 'this.list.F_Status>0', event: "handleToolsDown" }
                 ]
             },
             {
                 label: "查看 (L)", accesskey: "l",submenu: [
-                  { label: "采购退货单(T)", accesskey: "t", event: "handleToolsReturn" },
+                  { label: billType == 1 ? "采购退货单(T)" : "采购订单(T)", accesskey: "t", event: "handleToolsFinInReturn" },
                   { label: "收货单(H)", accesskey: "h", event: "handleToolsDelivery" },
                   { label: "采购发票(W)", accesskey: "w", event: "handleToolsPurchase" }
                 ]
@@ -167,9 +169,20 @@
                     this.handleClickSave(2);
                 },
                 //采购退货单(E)
-                handleToolsExit: function () { },                
-                //查看采购退货单(T)
-                handleToolsReturn: function () { },
+                handleToolsInReturn: function () {
+                    var _self = this;
+                    var url = rootUrl + _self.editToolsExitUrl;
+                    var $obj = window.top.$(".menuItem[href='" + url + "']", window.top.document);
+                    $obj.click();
+                },
+                //查看采购退货单或采购订单(T)
+                handleToolsFinInReturn: function () {
+                    var _self = this;
+                    var url = rootUrl + _self.findToolsExitUrl;
+                    console.log(url)
+                    var $obj = window.top.$(".menuItem[href='" + url + "']", window.top.document);
+                    $obj.click();
+                },
                 //查看收货单(H)
                 handleToolsDelivery: function () { },
                 //查看采购发票(W)
