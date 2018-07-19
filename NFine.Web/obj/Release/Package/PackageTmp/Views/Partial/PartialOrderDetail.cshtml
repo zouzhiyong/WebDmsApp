@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "采购订单";
+    Layout = "~/Views/Shared/_Query.cshtml";
+}
+
+
+<script>    
+
+    $(function () {
+        gridList();
+    })
+    function gridList() {
+        var $gridList = $("#gridList");
+        var colModelOprator = {
+            label: '操作', name: 'F_Description', width: 80, align: 'center',
+            formatter: function (cellvalue, options, row) {
+                var $elementHtml = "";
+                $('.operate').find('a[authorize=yes]').css({ 'cursor': 'pointer', 'padding': '2px 8px', 'margin-right': '20px' }).addClass('btn').each(function () {
+                    if ($(this).attr("id") == "NF-delete" && row.F_Status != "1") {
+                        var $span = $("<span style='padding:2px 14px;margin-right:20px;height:22px;display:inline-block'></span>");
+                        $elementHtml = $elementHtml + $span.prop("outerHTML")
+                    } else {
+                        $elementHtml = $elementHtml + $(this).prop("outerHTML")
+                    }
+                });
+                var $elementHtml = $elementHtml.replace(/\(\)/gi, '(\'' + row.F_Id + '\')').replace(/id/gi, 'name');
+                return $elementHtml;
+            }
+        }
+        options.colModel.push(colModelOprator);
+
+        $gridList.dataGrid({
+            isTools: false,
+            ToolsType: "row",
+            url: rootUrl + options.findUrl,
+            height: $(window).height() - 128,
+            colModel: options.colModel,
+            pager: "#gridPager",
+            sortname: 'F_CreatorTime desc',
+            viewrecords: true
+        });
+        $("#btn_search").click(function () {
+            $gridList.jqGrid('setGridParam', {
+                postData: { keyword: $("#txt_keyword").val() },
+            }).trigger('reloadGrid');
+        });
+    }
+    function btn_add() {
+        var url = rootUrl + options.editUrl;
+        var $obj = window.top.$(".menuItem[href='" + url + "']", window.top.document);        
+        $obj.click();
+        var $iframe = window.top.$(".NFine_iframe[data-id='" + url + "']", window.top.document);
+        $iframe.attr("src", rootUrl + options.editUrl);
+    }
+    function btn_edit(keyValue) {
+        var url = rootUrl + options.editUrl;
+        var $obj = window.top.$(".menuItem[href='" + url + "']", window.top.document);        
+        $obj.click();
+        var $iframe = window.top.$(".NFine_iframe[data-id='" + url + "']", window.top.document);
+        $iframe.attr("src", rootUrl + options.editUrl + "&keyValue=" + keyValue);
+    }
+    function btn_delete(keyValue) {
+        $.deleteForm({
+            url: rootUrl + options.delUrl,
+            param: { keyValue: keyValue },
+            success: function (data) {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+            }
+        })
+    }
+
+</script>
+
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-primary" onclick="$.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <a id="NF-add" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_add()"><i class="fa fa-plus"></i>新建订单</a>
+        </div>
+        <div class="operate">
+            <ul class="nav nav-pills">
+                <li><a id="NF-edit" authorize="yes" onclick="btn_edit()" title="修改订单"><i class="fa fa-pencil-square-o"></i></a></li>
+                <li><a id="NF-delete" authorize="yes" onclick="btn_delete()" title="删除订单"><i class="fa fa-trash-o"></i></a></li>
+            </ul>
+            <a href="javascript:;" class="close"></a>
+        </div>
+        <script>$('.toolbar').authorizeButton()</script>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="输入订单编号" style="width: 200px;">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-primary"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="gridPanel">
+    <table id="gridList"></table>
+    <div id="gridPager"></div>
+</div>

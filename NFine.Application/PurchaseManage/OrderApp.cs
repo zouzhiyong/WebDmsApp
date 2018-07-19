@@ -20,7 +20,7 @@ using System.Text;
 using System.Data.Common;
 using MySql.Data.MySqlClient;
 
-namespace NFine.Application.PurManage
+namespace NFine.Application.PurchaseManage
 {
     public class OrderApp
     {
@@ -67,12 +67,12 @@ namespace NFine.Application.PurManage
                 }
 
                 //删除从表数据
-                db.Delete<OrderDetailEntity>(t => t.F_POId == model.F_EnCode);
+                db.Delete<OrderDetailEntity>(t => t.F_EnCode == model.F_EnCode);
                 //插入从表数据
                 foreach (var item in orderDetailEntitys)
                 {
                     item.Create();
-                    item.F_POId = model.F_EnCode;
+                    item.F_EnCode = model.F_EnCode;
                     db.Insert(item);
                 }
 
@@ -95,22 +95,24 @@ namespace NFine.Application.PurManage
             return service.FindList(expression, pagination);
         }
 
-        public OrderEntity GetPreNextDataJson(string keyword, int type,int PreNextType)
+        public List<OrderEntity> GetList(SearchPagination searchPagination)
         {
-            string F_EnCode = "";
-            //上一页
-            if (PreNextType == 1)
+            SearchOrderEntity searchOrderEntity = searchPagination.searchEntity;
+            var expression = ExtLinq.True<OrderEntity>();
+            expression = expression.And(t => t.F_BillType == searchOrderEntity.F_BillType && t.F_BillDate>=searchOrderEntity.BeginTime && t.F_BillDate<=searchOrderEntity.EndTime && t.F_Status==2);
+            if (!string.IsNullOrEmpty(searchOrderEntity.F_EnCode))
             {
-                F_EnCode = service.IQueryable(t=>t.F_BillType==type).OrderByDescending(t => t.F_CreatorTime).SkipWhile(t => t.F_EnCode != keyword).Skip(1).FirstOrDefault().F_EnCode;
+                expression = expression.And(t => t.F_EnCode.Contains(searchOrderEntity.F_EnCode));
             }
-            //下一页
-            else
+            if (!string.IsNullOrEmpty(searchOrderEntity.F_SupplierID))
             {
-                F_EnCode = service.IQueryable(t => t.F_BillType == type).OrderBy(t => t.F_CreatorTime).SkipWhile(t => t.F_EnCode != keyword).Skip(1).FirstOrDefault().F_EnCode;
+                expression = expression.And(t => t.F_SupplierID.Contains(searchOrderEntity.F_SupplierID));
             }
-            
-            return GetOrderData(F_EnCode);
+
+            return service.FindList(expression, searchPagination);
         }
+
+
 
         /// <summary>
         /// 获取单据
@@ -173,7 +175,7 @@ namespace NFine.Application.PurManage
             foreach (var item in orderItem.details)
             {
                 item.F_Id = "";
-                item.F_POId = "";
+                item.F_EnCode = "";
                 item.F_LastModifyTime = null;
                 item.F_LastModifyUserId = "";
                 item.F_CreatorTime = null;
@@ -201,7 +203,7 @@ namespace NFine.Application.PurManage
                     //删除主表数据
                     service.Delete(t => t.F_Id == keyValue && t.F_Status == 1);
                     //删除明细表数据
-                    serviceDetail.Delete(t => t.F_POId == orderEntity.F_EnCode);
+                    serviceDetail.Delete(t => t.F_EnCode == orderEntity.F_EnCode);
                     //提交
                     db.Commit();
                 }
@@ -211,7 +213,7 @@ namespace NFine.Application.PurManage
         private OrderEntity GetOrderData(string keyValue)
         {
             OrderEntity orderItem = service.FindEntity(keyValue);
-            List<OrderDetailEntity> details = serviceDetail.IQueryable(t => t.F_POId == orderItem.F_EnCode).SortBy(t => t.F_RowId).ToList();
+            List<OrderDetailEntity> details = serviceDetail.IQueryable(t => t.F_EnCode == orderItem.F_EnCode).SortBy(t => t.F_RowId).ToList();
             MaterialApp marterialApp = new MaterialApp();
 
             foreach (var item in details)

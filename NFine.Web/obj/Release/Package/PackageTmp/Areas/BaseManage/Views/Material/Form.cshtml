@@ -1,0 +1,772 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+
+<script src="~/Content/js/jqgrid/jqgrid.min.js"></script>
+<script src="~/Content/js/jqgrid/grid.locale-cn.js"></script>
+<link href="~/Content/js/cropper/cropper.css" rel="stylesheet" />
+<script src="~/Content/js/cropper/cropper.js"></script>
+<style>
+        img { max-width: 460px; max-height: 280px; }
+      .docs-preview {
+      margin-right: -1rem;padding-left:10px;
+    }
+
+    .img-preview {
+      float: left;
+      margin-bottom: .5rem;
+      margin-right: .5rem;
+      overflow: hidden;
+    }
+
+    .img-preview > img {
+      max-width: 100%;
+    }
+
+    .preview-lg {
+      height: 9rem;
+      width: 16rem;
+    }
+
+    .preview-md {
+      height: 4.5rem;
+      width: 8rem;
+    }
+
+    .preview-sm {
+      height: 2.25rem;
+      width: 4rem;
+    }
+
+    .preview-xs {
+      height: 1.125rem;
+      margin-right: 0;
+      width: 2rem;
+    }
+
+
+
+</style>
+<script>
+    var keyValue = $.request("keyValue");
+    var itemId = $.request("itemId");
+    var parentId = $.request("parentId");
+    var lastSel;
+    $(function () {
+        initControl();
+        if (!!keyValue) {
+            $.ajax({
+                url: rootUrl + "/BaseManage/Material/GetFormJson",
+                data: { keyValue: keyValue },
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    var obj = {};
+                    data.data2['1_F_UomType'] = '1';
+                    data.data2['2_F_UomType'] = '0';
+                    data.data2['3_F_UomType'] = '0';
+                    data.data2['4_F_UomType'] = '0';
+                    data.data2['1_F_SortCode'] = 1;
+                    data.data2['2_F_SortCode'] = 2;
+                    data.data2['3_F_SortCode'] = 3;
+                    data.data2['4_F_SortCode'] = 4;
+                    data.data2.map(function (item) {
+                        var $index = item.F_SortCode;
+                        for (var key in item) {
+                            item[$index + "_" + key] = item[key];
+                            delete item[key];
+                        }
+                        obj = $.extend(obj, item)
+                    })
+                    
+                    $("#page1").formSerialize(data.data1);
+                    $("#page2").formSerialize(data.data1);
+                    $("#page3").formSerialize(obj);
+                    $("#page4").formSerialize(data.data3);
+                    $('#image').attr("src", rootUrl + "/UploadImgPath/" + data.data3.F_CorpId + "/" + data.data3.F_Picture + "?" + new Date());
+                }
+            });
+        } else {
+            var data = { F_ItemGroupID: "", F_ItemCategoryID: "" };
+            if (parentId == "0") {
+                data.F_ItemGroupID = itemId;
+                data.F_ItemCategoryID = '';
+            } else {
+                data.F_ItemGroupID = parentId;
+                data.F_ItemCategoryID = itemId;
+            }
+            data['1_F_UomType'] = '1';
+            data['2_F_UomType'] = '0';
+            data['3_F_UomType'] = '0';
+            data['4_F_UomType'] = '0';
+            data['1_F_SortCode'] = 1;
+            data['2_F_SortCode'] = 2;
+            data['3_F_SortCode'] = 3;
+            data['4_F_SortCode'] = 4;
+            $("#form1").formSerialize(data);
+        }
+    });
+
+    function initControl() {
+        $("#F_ItemGroupID").bindSelect({
+            url: rootUrl + "/BaseManage/MaterialGroup/GetSelectJson",
+            param: { keyValue: "0" },
+            id: "F_Id",
+            text: "F_FullName"
+        });
+
+        $("#F_ItemCategoryID").bindSelect({
+            url: rootUrl + "/BaseManage/MaterialGroup/GetSelectJson",
+            param: { keyValue: $("#F_ItemGroupID").val() },
+            id: "F_Id",
+            text: "F_FullName"
+        });
+
+        $("#F_WarehouseID").bindSelect({
+            url: rootUrl + "/BaseManage/Warehouse/GetSelectJson",
+            id: "F_Id",
+            text: "F_Name"
+        });
+
+        var tableData = [
+            { id: 'index', type: 'index', label: '#', width: '40px', align: 'center', placeholder: '', required: '' },
+            { id: 'F_UomType', type: 'select', label: '单位类型', width: '80px', align: 'center', placeholder: '', required: '', options: [{ value: 1, label: '基本单位' }, { value: 0, label: '扩展单位' }], disabled: true },
+            { id: 'F_UomId', type: 'select', label: '单位', width: '80px', align: 'center', placeholder: '', required: '', options: { url: rootUrl + "/BaseManage/UnitOfMeasure/GetSelectJson", value: 'F_Id', label: 'F_Name', default: { value: '', label: '=选择=' } }, default: '' },
+            { id: 'F_RateQty', type: 'number', label: '换算率', width: '60px', align: 'center', placeholder: '', required: '' },
+            { id: 'F_Barcode', type: 'text', label: '条形码', width: '120px', align: 'left', placeholder: '', required: '' },
+            { id: 'F_PurchasePrice', type: 'number', label: '采购单价', width: '70px', align: 'center', placeholder: '', required: '' },
+            { id: 'F_SalesPrice', type: 'number', label: '销售单价', width: '60px', align: 'center', placeholder: '', required: '' },
+            { id: 'F_IsPurchaseUOM', type: 'check', label: '采购单位', width: '60px', align: 'center', placeholder: '', required: '', default: false },
+            { id: 'F_IsSalesUOM', type: 'check', label: '销售单位', width: '60px', align: 'center', placeholder: '', required: '', default: false },
+            { id: 'F_EnabledMark', type: 'check', label: '有效否', width: '60px', align: 'center', placeholder: '', required: '', default: true },
+            { id: 'F_SortCode', type: 'hidden', label: '排序', width: 'auto', align: 'center', placeholder: '', required: '', default: true },
+            //{ id: 'opration', type: 'opration', label: '操作', width: '80px', align: 'center', placeholder: '', required: '' },
+        ];
+
+        //表头
+        var $trThead = $('<tr class="ui-jqgrid-labels" role="row"></tr>');
+        tableData.map(function (item) {
+            var $th = $('<th id="gridList_' + item.id + '" role="columnheader" style="width: ' + (item.width ? item.width : 'auto') + ';"><div class="ui-th-div" id="jqgh_gridList_' + item.id + '" style="text-align: center;">' + item.label + '</div></th>');
+            $trThead.append($th);
+        })
+        $("#gbox_gridList").find("thead").append($trThead);
+
+        //表格内容
+        var rowNums = 4;
+        for (var i = 1; i <= rowNums; i++) {
+            var $trBody = $('<tr role="row" id="tr' + i + '" tabindex="' + i + '" class="jqgrow ui-row-ltr"></tr>');
+            tableData.map(function (item) {
+                var $td = "";
+                if (item.type.toLowerCase() == 'index') {
+                    $td = $('<td class="formValue" style="padding:2px;"><div style="text-align:center">' + i + '</div></td>');
+                }
+                if (item.type.toLowerCase() == 'text' || item.type.toLowerCase() == 'number' || item.type.toLowerCase() == 'hidden') {
+                    $td = $('<td class="formValue" style="padding:2px;"><input data-field="' + item.id + '" id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" type="' + item.type + '" class="form-control ' + (item.type == 'number' ? 'text-right' : 'text-left') + ' ' + item.required + '" placeholder="' + item.placeholder + '" ' + (item.disabled && item.disabled == true ? 'disabled="disabled"' : '') + '/></td>');
+                    if (item.default) {
+                        $td.find('input').val(item.default);
+                    }
+                }
+
+                if (item.type.toLowerCase() == 'check') {
+                    $td = $('<td class="formValue" style="padding:2px;"><div class="ckbox" style="left:20px;"><input data-field="' + item.id + '" id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" type="checkbox" ' + (item.default == true ? 'checked="checked"' : '') + '><label for="' + i + '_' + item.id + '"></label></div></td>');
+                }
+                if (item.type.toLowerCase() == 'select') {
+                    $td = $('<td class="formValue"><select data-field="' + item.id + '" id="' + i + '_' + item.id + '" name="' + i + '_' + item.id + '" class="form-control  ' + item.required + '" ' + (item.disabled && item.disabled == true ? 'disabled="disabled"' : '') + '></select></td>');
+                    if (item.options.default) {
+                        var $options = $('<option value="' + item.options.default.value + '">' + item.options.default.label + '</option>');
+                        $td.find('select').append($options);
+                    }
+                    if (!item.options.url) {
+                        item.options.map(function (_item) {
+                            var $options = $('<option value="' + _item.value + '">' + _item.label + '</option>');
+                            $td.find('select').append($options);
+                        })
+                    } else {
+                        $td.find('select').bindSelect({
+                            url: item.options.url,
+                            id: item.options.value,
+                            text: item.options.label
+                        });
+                    }
+                    $td.find('select').bindSelect();
+                }
+                //if (item.type.toLowerCase() == 'opration') {
+                //    $td = $('<td class="formValue" style="padding:2px;"><div style="text-align:center"><a id="NF-delete" href="javasript:;" onclick="btn_delete(' + i + ')"><i class="fa fa-trash-o"></i></a></div></td>');
+                //}
+                $trBody.append($td);
+            })
+            $("#gbox_gridList").find("tbody").append($trBody);
+        }
+        //图片
+    }
+
+    function submitForm() {
+        var dataURL = $("#image").cropper("getCroppedCanvas");//找死了
+        var base64url = dataURL.toDataURL("image/png", 1.0);//这里转成base64
+
+        /*在全局new 一个 FormData()的对象*/
+        var formData = new FormData();
+        /*裁剪后处理里面*/
+        var blob = dataURLtoBlob(base64url);
+        formData.append('file', blob);
+
+        if (!$('#form1').formValid()) {
+            return false;
+        }
+        var postData = {};
+
+        postData.F_MaterialEntity = $("#form1").formSerialize();
+        var tableData = [];
+        $("#gbox_gridList").find("tbody tr").each(function () {
+            tableData.push($(this).formSerialize());
+        });
+
+        tableData = JSON.parse(JSON.stringify(tableData).replace(/&nbsp;/g, ''));
+
+        postData.F_MaterialUomEntity = tableData;
+
+        postData.F_MaterialPictureEntity = {
+            F_Picture: base64url,
+            F_PictureType: 0,
+            F_IsTitle: $("#page4").formSerialize().F_IsTitle
+        };
+
+        $.submitForm({
+            url: rootUrl + "/BaseManage/Material/SubmitForm?keyValue=" + keyValue,
+            param: postData,
+            success: function () {
+                $.currentWindow().$("#gridList").trigger("reloadGrid");
+                $.currentWindow().$(".operate").animate({ "left": '-100.1%' }, 200);
+            }
+        });
+    }
+</script>
+
+<form id="form1">
+    <div style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#page1" data-toggle="tab">基本信息</a></li>
+            <li class=""><a href="#page2" data-toggle="tab">其它信息</a></li>
+            <li class=""><a href="#page3" data-toggle="tab">单位信息</a></li>
+            <li class=""><a href="#page4" data-toggle="tab">商品封面</a></li>
+            <li class=""><a href="#page5" data-toggle="tab">商品照片</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="page1" style="padding-top: 10px;margin-right:10px">
+                <table class="form">
+                    <tr>
+                        <th class="formTitle">商品编码</th>
+                        <td class="formValue">
+                            <input id="F_EnCode" name="F_EnCode" type="text" class="form-control" placeholder="请输入商品编码" />
+                        </td>
+                        <th class="formTitle">商品名称</th>
+                        <td class="formValue">
+                            <input id="F_FullName" name="F_FullName" type="text" class="form-control required" placeholder="请输入商品名称" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">商品简称</th>
+                        <td class="formValue">
+                            <input id="F_ShortName" name="F_ShortName" type="text" class="form-control" placeholder="请输入商品简称" />
+                        </td>
+                        <th class="formTitle">商品大类</th>
+                        <td class="formValue">
+                            <select id="F_ItemGroupID" name="F_ItemGroupID" class="form-control required">
+                                <option value="">==请选择==</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">商品小类</th>
+                        <td class="formValue">
+                            <select id="F_ItemCategoryID" name="F_ItemCategoryID" class="form-control required">
+                                <option value="">==请选择==</option>
+                            </select>
+                        </td>
+                        <th class="formTitle">有效期（月）</th>
+                        <td class="formValue">
+                            <input id="F_Period" name="F_Period" type="number" class="form-control" placeholder="请输入有效期" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">对应仓库</th>
+                        <td class="formValue">
+                            <select id="F_WarehouseID" name="F_WarehouseID" class="form-control">
+                                <option value="">==请选择==</option>
+                            </select>
+                        </td>
+                        <th class="formTitle">安全库存</th>
+                        <td class="formValue">
+                            <input id="F_SaveInventory" name="F_SaveInventory" type="number" class="form-control" placeholder="请输入安全库存" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" style="height: 35px;">选项</th>
+                        <td class="formValue" style="padding-top: 1px;">
+                            <div class="ckbox">
+                                <input id="F_EnabledMark" name="F_EnabledMark" type="checkbox" checked="checked"><label for="F_EnabledMark">有效</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" valign="top" style="padding-top: 5px;">
+                            备注
+                        </th>
+                        <td class="formValue" colspan="3">
+                            <textarea id="F_Description" name="F_Description" class="form-control" style="height: 60px;"></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade in" id="page2" style="padding-top: 10px;margin-right:10px">
+                <table class="form">
+                    <tr>
+                        <th class="formTitle">长度</th>
+                        <td class="formValue">
+                            <input id="F_Length" name="F_Length" type="number" class="form-control" placeholder="请输入长度" />
+                        </td>
+                        <th class="formTitle">宽度</th>
+                        <td class="formValue">
+                            <input id="F_Width" name="F_Width" type="number" class="form-control" placeholder="请输入宽度" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">高度</th>
+                        <td class="formValue">
+                            <input id="F_Height" name="F_Height" type="number" class="form-control" placeholder="请输入高度" />
+                        </td>
+                        <th class="formTitle">毛重</th>
+                        <td class="formValue">
+                            <input id="F_CrossWeigth" name="F_CrossWeigth" type="number" class="form-control" placeholder="请输入毛重" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle">体积</th>
+                        <td class="formValue">
+                            <input id="F_Size" name="F_Size" type="number" class="form-control" placeholder="请输入体积" />
+                        </td>
+                        <th class="formTitle">最后成本</th>
+                        <td class="formValue">
+                            <input id="F_LastCost" name="F_LastCost" type="number" class="form-control" placeholder="请输入最后成本" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="formTitle" style="height: 35px;">选项</th>
+                        <td class="formValue" style="padding-top: 1px;" colspan="3">
+                            <div class="ckbox">
+                                <input id="F_IsBatch" name="F_IsBatch" type="checkbox" checked="checked"><label for="F_IsBatch">批次管理</label>
+                            </div>
+                            <div class="ckbox">
+                                <input id="F_IsForSale" name="F_IsForSale" type="checkbox" checked="checked"><label for="F_IsForSale">可销售否</label>
+                            </div>
+                            <div class="ckbox">
+                                <input id="F_IsZeroValue" name="F_IsZeroValue" type="checkbox" checked="checked"><label for="F_IsZeroValue">库存零价值</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade in gridPanel" id="page3" style="padding-top: 10px;margin-right:10px">
+                <div class="ui-jqgrid " id="gbox_gridList" dir="ltr" style="width: 725px;height:330px">
+                    <table class="ui-jqgrid-htable ui-common-table table table-bordered form" style="width: 725px;" role="presentation" aria-labelledby="gbox_gridList">
+                        <thead>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade in gridPanel" id="page4" style="padding-top: 10px;margin-right:10px">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <!-- <h3>Demo:</h3> -->
+                            <div class="img-container">
+                                <img id="image" src="@Url.Content("~/Content/img/default.jpg")" alt="Picture">
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <!-- <h3>Preview:</h3> -->
+                            <div class="docs-preview clearfix">
+                                <div class="img-preview preview-lg"></div>
+                                <div class="img-preview preview-md"></div>
+                                <div class="img-preview preview-sm"></div>
+                                <div class="img-preview preview-xs"></div>
+                            </div>
+                            <div class="formValue" style="padding-top: 1px;">
+                                <div class="ckbox">
+                                    <input id="F_IsTitle" name="F_IsTitle" type="checkbox" checked="checked"><label for="F_IsTitle">是否封面</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 docs-buttons">
+                            <!-- <h3>Toolbar:</h3> -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" data-method="zoom" data-option="0.1" title="Zoom In">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="放大">
+                                        <span class="fa fa-search-plus"></span>
+                                    </span>
+                                </button>
+                                <button type="button" class="btn btn-primary" data-method="zoom" data-option="-0.1" title="Zoom Out">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="缩小">
+                                        <span class="fa fa-search-minus"></span>
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" data-method="move" data-option="-10" data-second-option="0" title="Move Left">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="左移">
+                                        <span class="fa fa-arrow-left"></span>
+                                    </span>
+                                </button>
+                                <button type="button" class="btn btn-primary" data-method="move" data-option="10" data-second-option="0" title="Move Right">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="右移">
+                                        <span class="fa fa-arrow-right"></span>
+                                    </span>
+                                </button>
+                                <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="-10" title="Move Up">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="上移">
+                                        <span class="fa fa-arrow-up"></span>
+                                    </span>
+                                </button>
+                                <button type="button" class="btn btn-primary" data-method="move" data-option="0" data-second-option="10" title="Move Down">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="下移">
+                                        <span class="fa fa-arrow-down"></span>
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" data-method="rotate" data-option="-45" title="Rotate Left">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="向左旋转">
+                                        <span class="fa fa-rotate-left"></span>
+                                    </span>
+                                </button>
+                                <button type="button" class="btn btn-primary" data-method="rotate" data-option="45" title="Rotate Right">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="向右旋转">
+                                        <span class="fa fa-rotate-right"></span>
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" data-method="scaleX" data-option="-1" title="Flip Horizontal">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="左右翻转">
+                                        <span class="fa fa-arrows-h"></span>
+                                    </span>
+                                </button>
+                                <button type="button" class="btn btn-primary" data-method="scaleY" data-option="-1" title="Flip Vertical">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="上下翻转">
+                                        <span class="fa fa-arrows-v"></span>
+                                    </span>
+                                </button>
+                            </div>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" data-method="reset" title="Reset">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="重置">
+                                        <span class="fa fa-refresh"></span>
+                                    </span>
+                                </button>
+                                <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+                                    <input type="file" class="sr-only" id="inputImage" name="file" accept=".jpg,.jpeg,.png,.gif,.bmp,.tiff">
+                                    <span class="docs-tooltip" data-toggle="tooltip" data-animation="false" title="上传">
+                                        <span class="fa fa-upload"> 上传</span>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <!-- Show the cropped image in modal -->
+                            <div class="modal fade docs-cropped" id="getCroppedCanvasModal" aria-hidden="true" aria-labelledby="getCroppedCanvasTitle" role="dialog" tabindex="-1">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="getCroppedCanvasTitle">Cropped</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body"></div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.jpg">Download</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.modal -->
+
+                        </div><!-- /.docs-buttons -->
+                    </div>
+
+                </div>
+            </div>
+            <div class="tab-pane fade in gridPanel" id="page5" style="padding-top: 10px;margin-right:10px">
+
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    /*需要将dataURL转成Blob对象. 这儿在全局写个方法*/
+    function dataURLtoBlob(dataURI) {
+        var arr = dataURI.split(','),
+            mime = arr[0].match(/:(.*?);/)[1],
+            bstr = (arr[1]),
+            n = bstr.length,
+            u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], {
+            type: mime
+        });
+    }
+
+    $(function () {
+
+        'use strict';
+
+        var console = window.console || { log: function () { } };
+        var URL = window.URL || window.webkitURL;
+        var $image = $('#image');
+        var $download = $('#download');
+        var options = {
+            preview: '.img-preview',
+            minContainerHeight: 280,
+            minContainerWidth: 460,
+            aspectRatio: 1,//裁剪框比例 1：1
+            viewMode: 1,//显示
+            autoCropArea: 1,
+            //guides: false,//裁剪框虚线 默认true有
+            dragMode: "move",
+            build: function (e) { //加载开始
+                //可以放你的过渡 效果
+            },
+            background: true,// 容器是否显示网格背景
+            movable: true,//是否能移动图片
+            cropBoxMovable: true,//是否允许拖动裁剪框
+            cropBoxResizable: true,//是否允许拖动 改变裁剪框大小
+        };
+        var originalImageURL = $image.attr('src');
+        var uploadedImageName = 'cropped.jpg';
+        var uploadedImageType = 'image/jpeg';
+        var uploadedImageURL;
+
+
+        // Tooltip
+        $('[data-toggle="tooltip"]').tooltip();
+
+
+        // Cropper
+        $image.on({
+            //ready: function (e) {
+            //    console.log(e.type);
+            //},
+            //cropstart: function (e) {
+            //    console.log(e.type, e.detail.action);
+            //},
+            //cropmove: function (e) {
+            //    console.log(e.type, e.detail.action);
+            //},
+            //cropend: function (e) {
+            //    console.log(e.type, e.detail.action);
+            //},
+            //crop: function (e) {
+            //    console.log(e.type);
+            //},
+            //zoom: function (e) {
+            //    console.log(e.type, e.detail.ratio);
+            //}
+        }).cropper(options);
+
+
+        // Buttons
+        if (!$.isFunction(document.createElement('canvas').getContext)) {
+            $('button[data-method="getCroppedCanvas"]').prop('disabled', true);
+        }
+
+        if (typeof document.createElement('cropper').style.transition === 'undefined') {
+            $('button[data-method="rotate"]').prop('disabled', true);
+            $('button[data-method="scale"]').prop('disabled', true);
+        }
+
+
+        // Download
+        if (typeof $download[0].download === 'undefined') {
+            $download.addClass('disabled');
+        }
+
+
+
+        // Methods
+        $('.docs-buttons').on('click', '[data-method]', function () {
+            var $this = $(this);
+            var data = $this.data();
+            var cropper = $image.data('cropper');
+            var cropped;
+            var $target;
+            var result;
+
+            if ($this.prop('disabled') || $this.hasClass('disabled')) {
+                return;
+            }
+
+            if (cropper && data.method) {
+                data = $.extend({}, data); // Clone a new one
+
+                if (typeof data.target !== 'undefined') {
+                    $target = $(data.target);
+
+                    if (typeof data.option === 'undefined') {
+                        try {
+                            data.option = JSON.parse($target.val());
+                        } catch (e) {
+                            console.log(e.message);
+                        }
+                    }
+                }
+
+                cropped = cropper.cropped;
+
+                switch (data.method) {
+                    case 'rotate':
+                        if (cropped && options.viewMode > 0) {
+                            $image.cropper('clear');
+                        }
+
+                        break;
+
+                    case 'getCroppedCanvas':
+                        if (uploadedImageType === 'image/jpeg') {
+                            if (!data.option) {
+                                data.option = {};
+                            }
+
+                            data.option.fillColor = '#fff';
+                        }
+
+                        break;
+                }
+
+                result = $image.cropper(data.method, data.option, data.secondOption);
+
+                switch (data.method) {
+                    case 'rotate':
+                        if (cropped && options.viewMode > 0) {
+                            $image.cropper('crop');
+                        }
+
+                        break;
+
+                    case 'scaleX':
+                    case 'scaleY':
+                        $(this).data('option', -data.option);
+                        break;
+
+                    case 'getCroppedCanvas':
+                        if (result) {
+                            // Bootstrap's Modal
+                            $('#getCroppedCanvasModal').modal().find('.modal-body').html(result);
+
+                            if (!$download.hasClass('disabled')) {
+                                download.download = uploadedImageName;
+                                $download.attr('href', result.toDataURL(uploadedImageType));
+                            }
+                        }
+
+                        break;
+
+                    case 'destroy':
+                        if (uploadedImageURL) {
+                            URL.revokeObjectURL(uploadedImageURL);
+                            uploadedImageURL = '';
+                            $image.attr('src', originalImageURL);
+                        }
+
+                        break;
+                }
+
+                if ($.isPlainObject(result) && $target) {
+                    try {
+                        $target.val(JSON.stringify(result));
+                    } catch (e) {
+                        console.log(e.message);
+                    }
+                }
+
+            }
+        });
+
+
+        // Keyboard
+        $(document.body).on('keydown', function (e) {
+
+            if (!$image.data('cropper') || this.scrollTop > 300) {
+                return;
+            }
+
+            switch (e.which) {
+                case 37:
+                    e.preventDefault();
+                    $image.cropper('move', -1, 0);
+                    break;
+
+                case 38:
+                    e.preventDefault();
+                    $image.cropper('move', 0, -1);
+                    break;
+
+                case 39:
+                    e.preventDefault();
+                    $image.cropper('move', 1, 0);
+                    break;
+
+                case 40:
+                    e.preventDefault();
+                    $image.cropper('move', 0, 1);
+                    break;
+            }
+
+        });
+
+
+        // Import image
+        var $inputImage = $('#inputImage');
+
+        if (URL) {
+            $inputImage.change(function () {
+                var files = this.files;
+                var file;
+
+                if (!$image.data('cropper')) {
+                    return;
+                }
+
+                if (files && files.length) {
+                    file = files[0];
+
+                    if (/^image\/\w+$/.test(file.type)) {
+                        uploadedImageName = file.name;
+                        uploadedImageType = file.type;
+
+                        if (uploadedImageURL) {
+                            URL.revokeObjectURL(uploadedImageURL);
+                        }
+
+                        uploadedImageURL = URL.createObjectURL(file);
+                        $image.cropper('destroy').attr('src', uploadedImageURL).cropper(options);
+                        $inputImage.val('');
+                    } else {
+                        window.alert('请选择一张图片');
+                    }
+                }
+            });
+        } else {
+            $inputImage.prop('disabled', true).parent().addClass('disabled');
+        }
+
+    });
+</script>

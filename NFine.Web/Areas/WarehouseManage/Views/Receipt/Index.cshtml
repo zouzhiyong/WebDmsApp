@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "收货单";
+    Layout = "~/Views/Shared/_Query.cshtml";
+}
+<script>
+    var billType = $.request("type");
+
+    var options = {
+        editUrl: "/WarehouseManage/Receipt/Edit?type=" + billType,
+        delUrl: "/WarehouseManage/Receipt/DeleteForm",
+        findUrl: "/WarehouseManage/Receipt/GetGridJson?type=" + billType,
+        colModel: [
+            { label: '主键', name: 'F_Id', hidden: true },
+            { label: '收货单号', name: 'F_EnCode', width: 100, align: 'left' },
+            {
+                label: '单据类型', name: 'F_BillType', width: 100, align: 'left', formatter: function (cellvalue) {
+                    return cellvalue == 1 ? "收货单" : "出库单";
+                }
+            },
+            {
+                label: "订单日期", name: "F_BillDate", width: 80, align: "left", formatter: function (cellvalue) {
+                    return cellvalue == null ? "" : new Date(cellvalue).Format("yyyy-MM-dd");
+                }
+            },
+            {
+                label: "过账日期", name: "F_PostDate", width: 80, align: "left", formatter: function (cellvalue) {
+                    return cellvalue == null ? "" : new Date(cellvalue).Format("yyyy-MM-dd");
+                }
+            },
+            {
+                label: "创建人", name: "F_CreatorUserId", width: 80, align: "left", formatter: function (cellvalue) {
+                    return top.clients.user[cellvalue] == null ? "" : top.clients.user[cellvalue].fullname;
+                }
+            },
+            {
+                label: "审批人", name: "F_ConfirmUserId", width: 80, align: "left", formatter: function (cellvalue) {
+                    return top.clients.user[cellvalue] == null ? "" : top.clients.user[cellvalue].fullname;
+                }
+            },
+
+            {
+                label: "状态", name: "F_Status", width: 60, align: "left",
+                formatter: function (cellvalue) {
+                    return top.clients.dataItems.billStatus[cellvalue] == null ? "" : top.clients.dataItems.billStatus[cellvalue];
+                }
+            },
+            { label: '备注', name: 'F_Description', width: 100, align: 'left' },
+            
+        ],
+    }
+</script>
+
+@{Html.RenderPartial("~/Views/Partial/PartialOrderFind.cshtml");}
+
+
+

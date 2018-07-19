@@ -175,6 +175,8 @@
     <Compile Include="Areas\SystemSecurity\Controllers\LogController.cs" />
     <Compile Include="Areas\SystemSecurity\Controllers\ServerMonitoringController.cs" />
     <Compile Include="Areas\SystemSecurity\SystemSecurityAreaRegistration.cs" />
+    <Compile Include="Areas\WarehouseManage\Controllers\ReceiptController.cs" />
+    <Compile Include="Areas\WarehouseManage\WarehouseManageAreaRegistration.cs" />
     <Compile Include="Controllers\ClientsDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -694,11 +696,17 @@
     <Content Include="Areas\SystemManage\Views\ItemsCust\Form.cshtml" />
     <Content Include="Areas\SystemManage\Views\ItemsCust\Index.cshtml" />
     <Content Include="Areas\PurchaseManage\Views\Purchase\Index.cshtml" />
+    <Content Include="Areas\WarehouseManage\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\WarehouseManage\Views\Receipt\Edit.cshtml" />
+    <Content Include="Areas\WarehouseManage\Views\Receipt\Index.cshtml" />
+    <Content Include="Areas\WarehouseManage\Views\Receipt\Form.cshtml" />
     <None Include="Properties\PublishProfiles\NFine.Framework.Release.pubxml" />
     <Content Include="Views\Shared\_Order.cshtml" />
-    <Content Include="Views\Partial\PartialOrder.cshtml" />
+    <Content Include="Views\Partial\PartialOrderEdit.cshtml" />
     <Content Include="Views\Shared\_Query.cshtml" />
-    <Content Include="Views\Partial\PartialOrderDetail.cshtml" />
+    <Content Include="Views\Partial\PartialOrderFind.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

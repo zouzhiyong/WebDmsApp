@@ -10,8 +10,13 @@
         delUrl: "/PurchaseManage/Purchase/DeleteForm",
         findUrl: "/PurchaseManage/Purchase/GetGridJson?type=" + billType,
         colModel: [
-            { label: '主键', name: 'F_Id', hidden: true },
+            { label: '主键', name: 'F_Id', hidden: true },            
             { label: '采购单号', name: 'F_EnCode', width: 100, align: 'left' },
+            {
+                label: '单据类型', name: 'F_BillType', width: 100, align: 'left', formatter: function (cellvalue) {
+                    return cellvalue == 1 ? "采购单" : "采购退货单";
+                }
+            },
             { label: '供应商', name: 'F_SupplierName', width: 80, align: 'left' },
             {
                 label: "订单日期", name: "F_BillDate", width: 80, align: "left", formatter: function (cellvalue) {
@@ -46,7 +51,7 @@
     }
 </script>
 
-@{Html.RenderPartial("~/Views/Partial/PartialOrderDetail.cshtml");}
+@{Html.RenderPartial("~/Views/Partial/PartialOrderFind.cshtml");}
 
 
 

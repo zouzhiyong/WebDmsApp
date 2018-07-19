@@ -40,6 +40,8 @@
         <EntityTypeShape EntityType="nfinebaseModel.sys_serialnumberdetail" Width="1.5" PointX="16.75" PointY="18.75" />
         <EntityTypeShape EntityType="nfinebaseModel.sys_user" Width="1.5" PointX="18.75" PointY="17.75" />
         <EntityTypeShape EntityType="nfinebaseModel.sys_userlogon" Width="1.5" PointX="20.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.ware_receipt" Width="1.5" PointX="4.75" PointY="20.75" />
+        <EntityTypeShape EntityType="nfinebaseModel.ware_receiptdetail" Width="1.5" PointX="20.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

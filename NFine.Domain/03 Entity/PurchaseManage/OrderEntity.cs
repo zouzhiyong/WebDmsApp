@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using NFine.Code;
 
 namespace NFine.Domain.Entity.PurchaseManage
 {
@@ -43,5 +44,19 @@ namespace NFine.Domain.Entity.PurchaseManage
         public Nullable<int> F_PrintNums { get; set; }
         [NotMapped]
         public List<OrderDetailEntity> details { get; set; }
+    }
+
+    public class SearchOrderEntity
+    {
+        public DateTime BeginTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public string F_SupplierID { get; set; }        
+        public string F_EnCode { get; set; }
+        public int F_BillType { get; set; }
+    }
+
+    public class SearchPagination : Pagination
+    {
+        public SearchOrderEntity searchEntity { get; set; }
     }
 }

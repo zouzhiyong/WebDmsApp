@@ -1,0 +1,595 @@
+﻿<style>
+    /**明细部分*/
+    [v-cloak] { display: none; }
+    .tools .navbar-nav > li > a { padding-top: 12px; padding-bottom: 12px; }
+    .form { margin-bottom: 10px; background: #fff; border: solid 1px #eee; }
+    .gridPanel { border: 0px solid #edebeb; }
+        .gridPanel table { margin-bottom: 0; max-width: 2000px; table-layout: fixed; }
+        .gridPanel .fixed-table-header table > thead > tr > th { border: none; background-color: #eeeeee; height: 40px; padding: 6px; text-align: center; }
+            .gridPanel .fixed-table-header table > thead > tr > th .th-inner { line-height: 30px; }
+        .gridPanel .fixed-table-body { overflow-y: auto; }
+            .gridPanel .fixed-table-body table > tbody > tr > td { border-right: 1px solid #edebeb; border-bottom: 1px solid #edebeb; padding: 0; background-color: #fff; }
+                .gridPanel .fixed-table-body table > tbody > tr > td .select2-container--default .select2-selection--single { border-width: 0; height: 32px; }
+                .gridPanel .fixed-table-body table > tbody > tr > td:last-child { border-right-width: 0; }
+                .gridPanel .fixed-table-body table > tbody > tr > td > div { min-height: 32px; padding: 8px 6px; }
+                .gridPanel .fixed-table-body table > tbody > tr > td input { padding: 3px; width: 100% !important; border-radius: 0; box-shadow: none; height: 32px; border-width: 0; }
+                    .gridPanel .fixed-table-body table > tbody > tr > td input:focus { border-width: 1px; }
+                    .gridPanel .fixed-table-body table > tbody > tr > td input::-webkit-outer-spin-button,
+                    .gridPanel .fixed-table-body table > tbody > tr > td input::-webkit-inner-spin-button { -webkit-appearance: none; }
+                    .gridPanel .fixed-table-body table > tbody > tr > td input[type="number"] { -moz-appearance: textfield; }
+        .gridPanel .fixed-table-footer table > tbody > tr > td { background-color: #eeeeee; border: none; font-weight: bold; }
+        .gridPanel .fixed-table-body table > tbody > tr:not(.active) > td .select2-selection__arrow { display: none; }
+    .form .details .select2-container--default.select2-container--disabled .select2-selection--single { background-color: #fff; cursor: default; }
+    .form .details .select2-selection__rendered { line-height: 32px; }
+</style>
+<div class="order" v-cloak>
+    <div id="content-title" style="height:45px;background-color:#fff;border-bottom:solid 1px #eee;padding:0 15px;display:block">
+        <div class="row">
+            <div class="col-xs-2 title text-left" style="padding:3px;"><h4>{{title}}</h4></div>
+            <div class="col-xs-3 orderid text-left" style="padding:5px;"><h6>{{"单据编号:"+list.F_EnCode}}</h6></div>
+            <div class="col-xs-7 text-right tools">
+                <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">                        
+                        <li id="fat-menu" class="dropdown" v-for="(item,index) in tools" v-if="handleIfFun(item.visible)">
+                            <a :id="'drop'+index" :accesskey="item.accesskey" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                {{item.label}}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" :aria-labelledby="'drop'+index" v-if="item.submenu.length>0">
+                                <li v-if="handleIfFun(subItem.visible)" v-for="subItem in item.submenu"><a href="javascript:;" :accesskey="subItem.accesskey" v-on:click="hanldeToolsClick(subItem)">{{subItem.label}}</a></li>
+                            </ul>
+                        </li>                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin:10px;margin-bottom:0;">
+        <div class="form">
+            <div class="row index">
+                <div class="col-xs-12">
+                    <div class="formValue pull-left" style="width:180px;" v-for="item in controlsList" v-if="item.layer=='header' && item.controlType!='btn'  && item.visible!=false">
+                        <div class="row" v-if="item.controlType=='select'">
+                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right;display:table">{{item.label}}:</label>
+                            <div class="col-xs-7" style="display:table;">
+                                <select :id="item.field" :name="item.field" class="form-control required" v-select v-model="list[item.field]" v-on:change="handleChange(list,item.field)" v-bind:disabled="item.disabled || list.F_Status>=2">
+                                    <option :value="_item[item.id==''?'id':item.id]" v-for="_item in list[item.field+'List']">{{_item[item.text==''?'text':item.text]}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" v-if="item.controlType=='input' && item.dataType=='date'">
+                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right;display:table">{{item.label}}:</label>
+                            <div class="col-xs-7" style="display:table;">
+                                <div class="input-group">
+                                    <input :id="item.field" :name="item.field" type="text" class="form-control datepicker" v-date:list v-model="list[item.field]" readonly :placeholder="item.placeholder" v-bind:disabled="item.disabled || list.F_Status>=2" />
+                                    <label :for="item.field" class="input-group-addon" style="font-size:12px;font-weight:normal !important;padding:6px;border-radius:0;"><i class="glyphicon glyphicon-th"></i></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" v-if="item.controlType=='input' && item.dataType=='text'">
+                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right;display:table">{{item.label}}:</label>
+                            <div class="col-xs-7" style="display:table;">
+                                <input :id="item.field" :name="item.field" type="text" class="form-control" v-model="list[item.field]" :placeholder="item.placeholder" v-bind:disabled="item.disabled || list.F_Status>=2" />
+                            </div>
+                        </div>
+                        <div class="row" v-if="item.controlType=='div'">
+                            <label class="col-xs-5" :for="item.field" style="line-height:30px;text-align:right;display:table">{{item.label}}:</label>
+                            <div class="col-xs-7" style="display:table;">
+                                <div :id="item.field" :name="item.field" style="border: solid 1px #ddd;height: 30px;line-height:30px;padding:0 5px;background-color:#eee">{{list[item.field]}}</div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="formValue pull-left text-center" style="width:120px;" v-for="item in controlsList" v-if="item.layer=='header' && item.controlType=='btn' && item.visible!=false && list.F_Status<2">
+                        <div class="row" v-if="item.controlType=='btn'">
+                            <a :name="item.field" class="btn" :title="item.label" href="javascript:;" v-on:click="hanldeToolsClick(item)"><i :class="item.icon"></i> {{item.label}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gridPanel details">
+                <div class="fixed-table-header" style="margin-right: 0px;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width:50px">
+                                    <div class="th-inner ">序号</div>
+                                </th>
+                                <th v-if="itemThead.visible!=false" v-for="itemThead in controlsDetails" :style="{width:itemThead.width}">
+                                    <div class="th-inner ">{{itemThead.label}}</div>
+                                </th>
+                                <th style="width:80px">
+                                    <div class="th-inner ">操作</div>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="fixed-table-body" style="position: relative">
+                    <table class="table table-condensed" style="margin-top: 0px;table-layout: fixed;">
+                        <tbody>
+                            <tr v-for="(tbodyItem,tbodyIndex) in list.details" :class="tbodyItem.F_ItemID!=''?'active':''">
+                                <td style="text-align:center;width:50px;">
+                                    {{tbodyIndex+1}}
+                                </td>
+                                <td v-if="itemThead.visible!=false" v-for="(itemThead,theadIndex) in controlsDetails" v-bind:id="itemThead.field+tbodyIndex" :data-rowindex="tbodyIndex" :data-colindex="theadIndex" :data-nextfocusfield="itemThead.nextFocusField" :class="itemThead.type=='operate'?'col_operate':''" :style="{width:itemThead.width}" v-on:click.stop="handleClickInput($event,itemThead.field,tbodyIndex,itemThead)">
+                                    <template v-if="itemThead.controlType=='select'">
+                                        <select v-model="tbodyItem[itemThead.field]"
+                                                v-bind:disabled="list.F_Status>=2 || itemThead.disabled"
+                                                v-select
+                                                v-on:change="handleChange(tbodyItem,itemThead.field)"
+                                                class="form-control"
+                                                style="width:100%;border:0px;border-radius:0px;">
+                                            <option v-if="tbodyItem.F_ItemID!=''" v-for="option in tbodyItem[itemThead.field+'List']" v-bind:value="option[itemThead.id==''?'id':itemThead.id]">{{ option[itemThead.text==''?'text':itemThead.text] }}</option>
+                                        </select>
+                                    </template>
+                                    <template v-else>
+                                        <template v-if="inputField!=itemThead.field+tbodyIndex || list.F_Status>=2">
+                                            <div v-bind:style="{'text-align':itemThead.align,'background-color':itemThead.controlType=='autocomplete' || itemThead.controlType=='input'?'rgb(248, 247, 247)':''}"
+                                                 v-bind:data-value="tbodyItem[itemThead.field]"
+                                                 v-on:click.stop="handleClickInput($event,itemThead.field,tbodyIndex,itemThead)">
+                                                <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>
+                                                <span v-else>{{tbodyItem[itemThead.field]}}</span>
+                                            </div>
+                                        </template>
+                                        <template v-else>
+                                            <div v-if="itemThead.controlType=='div'" :style="{'text-align':itemThead.align}">
+                                                <span v-if="itemThead.dataType=='number'" v-number="tbodyItem[itemThead.field]"></span>
+                                                <span v-else>{{tbodyItem[itemThead.field]}}</span>
+                                            </div>
+                                            <select v-if="itemThead.controlType=='select'"
+                                                    v-model="tbodyItem[itemThead.field]"
+                                                    v-bind:disabled="list.F_Status>=2 || itemThead.disabled"
+                                                    v-select
+                                                    v-on:change="handleChange(tbodyItem,itemThead.field)"
+                                                    class="form-control"
+                                                    style="width:100%;border:0px;border-radius:0px;">
+                                                <option v-for="option in tbodyItem[itemThead.field+'List']" v-bind:value="option[itemThead.id==''?'id':itemThead.id]">{{ option[itemThead.text==''?'text':itemThead.text] }}</option>
+                                            </select>
+                                            <input v-if="itemThead.controlType=='autocomplete' && itemThead.dataType=='text'"
+                                                   v-on:focus="handleFocusTo($event,tbodyItem, itemThead)"
+                                                   v-bind:style="{'text-align':itemThead.align}"
+                                                   v-model="tbodyItem[itemThead.field]"
+                                                   v-on:blur="handleBlur(itemThead.field+tbodyIndex,tbodyItem)"
+                                                   v-on:keyup.enter="hanldeEnter($event)"
+                                                   autocomplete="off" class="form-control" type="text" />
+                                            <input v-if="itemThead.controlType=='input' && itemThead.dataType=='date'"
+                                                   v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
+                                                   v-bind:style="{'text-align':itemThead.align}"
+                                                   v-model="tbodyItem[itemThead.field]"
+                                                   v-on:blur="handleBlur(itemThead.field+tbodyIndex,tbodyItem)"
+                                                   v-on:keyup.enter="hanldeEnter($event)"
+                                                   autocomplete="off" class="form-control datepicker" type="text" readonly />
+                                            <input v-if="itemThead.controlType=='input' && itemThead.dataType=='text'"
+                                                   v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
+                                                   v-bind:style="{'text-align':itemThead.align}"
+                                                   v-model="tbodyItem[itemThead.field]"
+                                                   v-on:blur="handleBlur(itemThead.field+tbodyIndex,tbodyItem)"
+                                                   v-on:keyup.enter="hanldeEnter($event)"
+                                                   autocomplete="off" class="form-control" type="text" />
+                                            <input v-if="itemThead.controlType=='input' && itemThead.dataType=='number'"
+                                                   v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
+                                                   v-bind:style="{'text-align':itemThead.align}"
+                                                   v-model="tbodyItem[itemThead.field]"
+                                                   v-on:blur="handleBlur(itemThead.field+tbodyIndex,tbodyItem)"
+                                                   v-on:keyup.enter="hanldeEnter($event)"
+                                                   autocomplete="off" class="form-control input" type="number" />
+                                        </template>
+                                    </template>
+                                </td>
+                                <td style="text-align:center;width:80px;" class="col_operate">
+                                    <div style="text-align:center;padding:0 20px;">
+                                        <a v-if="list.F_Status<2 && tbodyItem.F_ItemID!=''" class="btn" v-on:click="hanldeClickDelete(tbodyIndex)">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="fixed-table-footer" style="margin-right: 0px;">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td style="width:50px;text-align:center;">
+                                    合计：
+                                </td>
+                                <td v-if="itemFooter.visible!=false" v-for="(itemFooter,theadIndex) in controlsDetails" v-bind:style="{width:itemFooter.width,'text-align':itemFooter.align }">
+                                    {{itemFooter.field=='F_ItemCode'? saveData.length+'条记录': itemFooter.totalLabel}}<span v-if="!!itemFooter.isTotal" v-number="total[itemFooter.field]"></span>
+                                </td>
+                                <td style="width:80px;text-align:center;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="formValue">
+                        <div :class="item.divClass" v-for="item in controlsList" v-if="item.layer=='footer' && item.visible!=false">
+                            <template v-if="item.controlType=='input'">
+                                <input type="text" autocomplete="off" class="form-control" :id="item.field" :name="item.field" :placeholder="item.placeholder" v-model="list[item.field]" v-bind:disabled="list.F_Status>=2" />
+                            </template>
+                            <template v-if="item.controlType=='div'">
+                                {{item.label}}：
+                                <span v-if="item.dataType=='date'" style="height: 30px;line-height: 30px;" v-date="list[item.field]"></span>
+                                @*<span v-else-if="item.dataType=='number'" v-number="list[item.field]" style="height: 30px;line-height: 30px;"></span>*@
+                                <span v-else style="height: 30px;line-height: 30px;">{{list[item.field]}}</span>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="text-center" style="padding:10px;margin: 0 -10px;background-color: #fff;">
+            <a v-if="list.F_Status<2" id="NF-save" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickSave(1)"><i class="fa fa-save"></i> 保存</a>
+            <a v-if="list.F_Status<2" id="NF-audit" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickSave(2)"><i class="fa fa-save"></i> 确定</a>
+            <a v-if="list.F_Status>=2" id="NF-print" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickPrint()"><i class="fa fa-print"></i> 打印</a>
+            <a v-if="list.F_Status>=2" id="NF-printview" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickPrintView()"><i class="fa fa-eye"></i> 打印预览</a>
+        </div>
+    </div>
+</div>
+<script>
+    var keyValue = $.request("keyValue");
+    var billType = $.request("type");
+
+    self.frameElement.style.margin = "-10px";
+    self.frameElement.style.marginBottom = "0";
+    self.frameElement.style.width = "calc(100% + 20px)";
+    self.frameElement.style.height = "calc(100% + 10px)";
+
+    Vue.mixin({
+        computed: {
+            saveData: function () {
+                var _self = this;
+                var arr = _self.list.details.filter(function (item) {
+                    return item.F_ItemID != ""
+                });
+
+                arr.map(function (item, index) {
+                    item.F_RowId = index;
+                    _self.handleComputed(item);
+                })
+                _self.autoAddRow(arr);
+                return arr;
+            },
+            total: function () {//求和
+                var _self = this;
+                var totalObj = {};
+                _self.controlsDetails.map(function (item) {
+                    if (!!item.isTotal) {
+                        var total_sum = _self.saveData.reduce(function (sum, row) {
+                            if (row[item.field] != "") {
+                                return (sum) + parseFloat(row[item.field] || 0);
+                            } else {
+                                return (sum);
+                            }
+                        }, 0);
+
+                        totalObj[item.field] = total_sum;
+                    }
+
+                });
+                return totalObj;
+            },
+        },
+        created: function () {
+            var _self = this;
+
+            //初始化主表数据
+            _self.controlsList.map(function (item) {
+                _self.$set(_self.list, item.field, item.defaultValue);
+                if (item.controlType == "select") {
+                    if (item.url == "") {
+                        _self.$set(_self.list, item.field + 'List', JSON.parse(JSON.stringify(item.list)));
+                    } else {
+                        $.ajax({
+                            url: rootUrl + item.url,
+                            async: false,
+                            success: function (data) {
+                                if (!!item.list && item.list.length > 0) {
+                                    data.splice(0, 0, JSON.parse(JSON.stringify(item.list[0])));
+                                } else {
+                                    _self.$set(_self.list, item.field, data[0][item.id]);
+                                }
+                                _self.$set(_self.list, item.field + 'List', data);
+                            }
+                        });
+                    }
+                }
+            })
+            //初始化明细表数据
+            _self.controlsDetails.map(function (item) {
+                _self.$set(_self.detail, item.field, item.defaultValue);
+                if (item.controlType == "select") {
+                    if (item.url == "") {
+                        _self.$set(_self.detail, item.field + 'List', JSON.parse(JSON.stringify(item.list)));
+                    } else {
+                        _self.$set(_self.detail, item.field + 'List', JSON.parse(JSON.stringify(item.list)));
+                    }
+
+                }
+            })
+            //赋值单据类型
+            _self.F_BillType = billType;
+
+            //添加10行明细
+            for (var i = 0; i < 10; i++) {
+                _self.list.details.push(JSON.parse(JSON.stringify(_self.detail)));
+            }
+
+            //初始化数据
+            _self.handleInit(_self.GetFormJson, keyValue,0);
+        },
+        mounted: function () {
+            var _self = this;
+            _self.autoHeight();
+            _self.autoAddRow(_self.list.details);
+
+            _self.autoWidth();
+            //确保表头表体表尾滚动时同步
+            $('.fixed-table-body').scroll(function () {
+                $('.fixed-table-header').scrollLeft($(this).scrollLeft());
+                $('.fixed-table-footer').scrollLeft($(this).scrollLeft());
+            });
+        },
+        methods: {
+            //获取数据
+            handleInit: function (url, keyValue, prenexttype) {
+                var _self = this;
+                if (!!keyValue) {
+                    $.getForm({
+                        url: rootUrl + url + "?keyValue=" + keyValue + "&type=" + billType + "&prenexttype=" + prenexttype,
+                        success: function (data) {
+                            data.details.map(function (item) {
+                                item["F_ItemCodeHide"] = item.F_ItemCode;
+                            })
+                            _self.list = $.extend(true, _self.list, data);
+                        }
+                    });
+                }
+            },
+            //提交
+            handleClickSave: function (type) {
+                var _self = this;
+                if (_self.saveData.length <= 0) {
+                    $.modalMsg("没有明细记录", "warning");
+                    return;
+                }
+
+                //判断标记大于0的字段是否有大于0
+                for (var i = 0; i < _self.controlsDetails.length; i++) {
+                    var item = _self.controlsDetails[i];                    
+                    if (!!item.isThanZero && item.isThanZero == true) {
+                        var tempArr = _self.saveData.filter(function (_item) { return _item[item.field] <= 0; });                        
+                        if (tempArr.length > 0) {
+                            $.modalMsg(item.label + "必须大于0", "warning");
+                            return;
+                        }
+                    }
+                }
+                
+
+                var _self = this;
+                var submitFormData = JSON.parse(JSON.stringify(_self.list));
+                submitFormData.details = JSON.parse(JSON.stringify(_self.saveData));
+                submitFormData.F_Status = type;
+                submitFormData.F_BillType = billType;
+
+                $.submitForm({
+                    url: rootUrl + _self.submitFormUrl,
+                    param: submitFormData,
+                    success: function (result) {
+                        if (result.state == "success") {
+                            _self.list = $.extend(true, _self.list, result.data);
+                        }
+                    }
+                });
+            },
+            //删除
+            hanldeClickDelete: function (index) {
+                this.list.details.splice(index, 1);
+                this.autoWidth();
+            },
+            //计算(默认空)
+            handleComputed: function (item) {
+            },
+            //下拉选择事件
+            handleChange: function (item, field) {
+            },
+            //物料选择
+            handleFocusTo: function (event, trItem, colItem) {
+                var _self = this;
+                var el = event.target;
+                var options = {
+                    minLength: 0,
+                    minChars: 0,
+                    autoFocus: false,
+                    delay: 0,
+                    source: function (request, response) {
+                        $.ajax({
+                            url: rootUrl + colItem.url,
+                            data: {
+                                enCode: request.term
+                            },
+                            success: function (data) {
+                                response(data);
+                            }
+                        });
+
+                    },
+                    classes: {
+                        "ui-autocomplete": "highlight"
+                    },
+                    focus: function (_event, ui) {
+                        return false;
+                    },
+                    select: function (_event, ui) {
+                        trItem["F_ItemID"] = ui.item[colItem.id];
+                        trItem[colItem.field] = ui.item[colItem.code];
+                        trItem["F_ItemCodeHide"] = ui.item[colItem.code];
+                        trItem[colItem.field + "Name"] = ui.item[colItem.text];
+
+
+                        _self.handleSelectMater(trItem, ui.item, colItem);
+
+                        //$(el).blur();
+                        return false;
+                    }
+                };
+                var auto = $(el).autocomplete(options);
+
+                auto.autocomplete("instance")._renderItem = function (ul, item) {
+                    return $("<li>")
+                .append("<div style='font-size:12px;'>" + item[colItem.code] + " " + item[colItem.text] + "</div>")
+                .appendTo(ul);
+                };
+
+                //$(el).autocomplete("search", $(el).val());
+            },
+            //选择物料事件(默认空)
+            handleSelectMater: function (trItem, uiItem) {
+
+            },
+            //选择事件
+            handleFocus: function (event, tbodyItem, itemThead, field) {
+                $(event.target).select();
+            },
+            //点击单元格后变成输入状态
+            handleClickInput: function (event, field, tbodyIndex, itemThead) {
+                var _self = this;
+                _self.inputField = field + tbodyIndex;
+                var $obj = $(event.target).closest('td');
+
+                Vue.nextTick(function () {
+                    if (itemThead.type != "select") {
+                        setTimeout(function () {
+                            $obj.find('input').focus();
+                        }, 100)
+
+                    } else {
+                        $obj.find("[data-name='" + field + "']").focus();
+                        $obj.find("[data-name='" + field + "']").on("change", function (e) {
+                            setTimeout(function () {
+                                $('#' + $obj.data("nextfocusfield") + $obj.data("rowindex")).click();
+                            }, 100)
+
+                        })
+                        $obj.find("[data-name='" + field + "']").select2("open");
+
+                    }
+                })
+            },
+            //离开焦点时变成不可编辑状态
+            handleBlur: function (trIdName, tbodyItem) {
+                //如果焦点移开至非单元格，则清空
+                if (this.inputField == trIdName) {
+                    this.inputField = "";
+                }
+                tbodyItem.F_ItemCode = tbodyItem.F_ItemCodeHide;
+            },
+            //回车事件
+            hanldeEnter: function (event) {
+                var $objTempParentTd = $(event.target).closest('td');
+                var $objTemp = $('#' + $objTempParentTd.data("nextfocusfield") + $objTempParentTd.data("rowindex"));
+
+                if ($objTemp.data("colindex") <= $objTempParentTd.data("colindex")) {
+                    $objTemp = $('#' + $objTempParentTd.data("nextfocusfield") + (Number($objTempParentTd.data("rowindex")) + 1));
+                }
+                $objTemp.click();
+            },
+            autoAddRow: function (arr) {
+                var _self = this;
+
+                var defautRows = Math.ceil($(".fixed-table-body").height() / 32.4);
+                var r = _self.list.details.length - arr.length < defautRows;
+                if (_self.list.details.length - arr.length < defautRows) {
+                    for (var i = 0; i < defautRows ; i++) {
+                        //将单据号赋值给明细
+                        if (_self.list.details && _self.list.details.length > 0) {
+                            _self.list.details.push(JSON.parse(JSON.stringify(_self.detail)));
+                        };
+                    }
+                }
+                _self.autoWidth();
+            },
+            autoHeight: function () {
+                var _self = this;
+                $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 156);
+                $(window).resize(function () {
+                    $(".fixed-table-body").height($(window).height() - $(".fixed-table-body").offset().top - 156);
+                    _self.autoWidth();
+                })
+            },
+            //确保表格宽度一致，滚动条占用了宽度
+            autoWidth: function () {
+                Vue.nextTick(function () {
+                    var w = $(".fixed-table-body .table")[0].getBoundingClientRect().width;
+                    $(".fixed-table-header .table").width(w);
+                    $(".fixed-table-footer .table").width(w);
+                })
+            },
+            //调用工具栏事件
+            hanldeToolsClick: function (subItem) {
+                if (!!subItem.event) {
+                    this[subItem.event](subItem);
+                }                
+            },
+            //判断是否隐藏
+            handleIfFun: function (visible) {
+                if (!visible || visible == "") {
+                    return true;
+                } else {
+                    return eval(visible);
+                }                
+            },
+            //新增(A)
+            handleToolsAdd: function (subItem) {
+                var $obj = $(self.frameElement);
+                $obj.attr("src", $obj.data("id"));
+            },
+            //保存(S)
+            handleToolsSave: function () {
+                this.handleClickSave(1);
+            },
+            //确定(F)
+            handleToolsConfirm: function () {
+                this.handleClickSave(2);
+            },
+            //复制订单(C)
+            handleToolsCopy: function (url) {
+                var _self = this;
+                _self.handleInit(_self.GetCopyFormJson, _self.list.F_Id,0);
+            },
+            //上一条(U)
+            handleToolsUp: function () {
+                var _self = this;
+                _self.handleInit(_self.GetFormJson, _self.list.F_Id, -1);
+            },
+            //下一条(D)
+            handleToolsDown: function () {
+                var _self = this;
+                _self.handleInit(_self.GetFormJson, _self.list.F_Id, 1);
+            },
+            //打印(P)
+            handleToolsPrint: function () { },
+            //打印预览(V)
+            handleToolsPrintView: function () { },
+            //打印模板(T)
+            handleToolsTemplete: function () { },
+        },
+        watch: {
+            'list.F_CreatorUserId': function (newVal, oldVal) {
+                var _self = this;
+                _self.list.F_CreatorUserName = top.clients.user[newVal] == null ? "" : top.clients.user[newVal].fullname;
+            },
+            'list.F_LastModifyUserId': function (newVal, oldVal) {
+                var _self = this;
+                _self.list.F_LastModifyUserName = top.clients.user[newVal] == null ? "" : top.clients.user[newVal].fullname;
+            },
+            'list.F_ConfirmUserId': function (newVal, oldVal) {
+                var _self = this;
+                _self.list.F_ConfirmUserName = top.clients.user[newVal] == null ? "" : top.clients.user[newVal].fullname;
+            },
+        }
+    })
+</script>

@@ -15,7 +15,7 @@ namespace NFine.MySQLModel
     public partial class pur_orderdetail
     {
         public string F_Id { get; set; }
-        public string F_POId { get; set; }
+        public string F_EnCode { get; set; }
         public string F_CorpId { get; set; }
         public Nullable<int> F_RowId { get; set; }
         public string F_ItemID { get; set; }

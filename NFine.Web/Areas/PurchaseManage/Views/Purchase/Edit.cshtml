@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "采购订单&退货单";
+    ViewBag.Title = "采购订单&销售退货单";
     Layout = "~/Views/Shared/_Order.cshtml";
 }
 
@@ -15,6 +15,7 @@
         submitFormUrl: "/PurchaseManage/Purchase/SubmitForm",//提交单据
         editToolsExitUrl: "/PurchaseManage/Purchase/Edit?type=" + (-billType),//进入采购订单或退货单编辑窗口
         findToolsExitUrl: "/PurchaseManage/Purchase/Index?type=" + (-billType),//查看采购订单或退货单
+        findToolsShdUrl: "/WarehouseManage/Receipt/Index?type=" + billType,
         tools:[
             {
                 label: "新建 (N)", accesskey: "n", submenu: [
@@ -81,7 +82,7 @@
         //明细控件相关参数
         controlsDetails: [
             { field: "F_RowId", nextFocusField: "", label: "行号", visible: false, defaultValue: "", totalLabel: "", width: "", align: 'left', divClass: "", inputclass: "", controlType: "", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
-            { field: "F_POId", nextFocusField: "", label: "订单编号", visible: false, defaultValue: "", totalLabel: "", width: "", align: 'left', divClass: "", inputclass: "", controlType: "", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
+            { field: "F_EnCode", nextFocusField: "", label: "订单编号", visible: false, defaultValue: "", totalLabel: "", width: "", align: 'left', divClass: "", inputclass: "", controlType: "", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
             { field: "F_ItemID", nextFocusField: "", label: "商品ID", visible: false, defaultValue: "", totalLabel: "", width: "", align: 'left', divClass: "", inputclass: "", controlType: "", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
             { field: "F_ItemCodeHide", nextFocusField: "", label: "商品ID", visible: false, defaultValue: "", totalLabel: "", width: "", align: 'left', divClass: "", inputclass: "", controlType: "", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false },
 
@@ -106,7 +107,7 @@
         
 
         var modelVue = new Vue({
-            el: '.pur',
+            el: '.order',
             data: JSON.parse(JSON.stringify(InitData)),
             methods: {
                 //计算
@@ -117,7 +118,7 @@
 
                     item.F_Amount = F_UnitAmount * F_BillQty;
                     //赋值单据号
-                    item.F_POId = _self.list.F_EnCode;
+                    item.F_EnCode = _self.list.F_EnCode;
                     //实际数量
                     item.F_OperQty = item.F_OperQty == "" ? 0 : item.F_OperQty;
                     //订单数量
@@ -184,7 +185,12 @@
                     $obj.click();
                 },
                 //查看收货单(H)
-                handleToolsDelivery: function () { },
+                handleToolsDelivery: function () {
+                    var _self = this;
+                    var url = rootUrl + _self.findToolsShdUrl;
+                    var $obj = window.top.$(".menuItem[href='" + url + "']", window.top.document);
+                    $obj.click();
+                },
                 //查看采购发票(W)
                 handleToolsPurchase: function () { },
             },
@@ -211,6 +217,6 @@
 </script>
 
 
-@{Html.RenderPartial("~/Views/Partial/PartialOrder.cshtml");}
+@{Html.RenderPartial("~/Views/Partial/PartialOrderEdit.cshtml");}
 
 

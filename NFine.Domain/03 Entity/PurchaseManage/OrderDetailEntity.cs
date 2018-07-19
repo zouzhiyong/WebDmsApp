@@ -14,7 +14,7 @@ namespace NFine.Domain.Entity.PurchaseManage
     public class OrderDetailEntity : IEntity<OrderDetailEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
     {
         public string F_Id { get; set; }
-        public string F_POId { get; set; }
+        public string F_EnCode { get; set; }
         public string F_CorpId { get; set; }
         public int F_RowId { get; set; }
         public string F_ItemID { get; set; }

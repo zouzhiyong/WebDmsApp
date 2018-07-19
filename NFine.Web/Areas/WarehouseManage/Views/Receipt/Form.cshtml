@@ -1,0 +1,163 @@
+﻿@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Form.cshtml";
+}
+
+<script src="~/Content/js/jqgrid/jqgrid.min.js"></script>
+<script src="~/Content/js/jqgrid/grid.locale-cn.js"></script>
+
+<script>
+    var billType = $.request("type");
+    var $gridList = null;
+    var DefautDate = (new Date()).Format("yyyy-MM-dd");//默认为当天 
+
+    $(function () {
+        //获取日期
+        $(".input-daterange input").val(DefautDate);
+        $(".input-daterange").datepicker({
+            minViewMode: 0,
+            format: "yyyy-mm-dd",
+            defaultDate: +7,
+            language: "zh-CN",
+            autoclose: true,
+            todayBtn: 'linked',//今日按钮
+            weekStart: 1,
+        });
+
+        //获取供应商
+        $("#F_SupplierID").bindSelect({
+            url: rootUrl+"/BaseManage/Supplier/GetSelcetJson",
+            id: "F_Id",
+            text: "F_Name"
+        })
+
+
+        gridList();
+    });
+
+    function gridList() {
+        $gridList = $("#gridList");
+        $gridList.dataGrid({
+            url: rootUrl + "/PurchaseManage/Purchase/GetGridJson",
+            mtype:"POST",
+            postData: {
+                searchEntity: {
+                    BeginTime: $("#BeginTime").val(),
+                    EndTime: $("#EndTime").val(),
+                    F_SupplierID: $("#F_SupplierID").val(),
+                    F_EnCode: $("#F_EnCode").val(),
+                    F_BillType: billType
+                }
+            },
+            height: $(window).height()-90,
+            multiselect: true,
+            shrinkToFit: false,
+            isTools:false,
+            autowidth: false,
+            colModel: [
+            { label: '主键', name: 'F_Id', hidden: true },
+            { label: '采购单号', name: 'F_EnCode', width: 150, align: 'left' },
+            {
+                label: '单据类型', name: 'F_BillType', width: 100, align: 'left', formatter: function (cellvalue) {
+                    return cellvalue == 1 ? "采购单" : "采购退货单";
+                }
+            },
+            { label: '供应商', name: 'F_SupplierName', width: 80, align: 'left' },
+            {
+                label: "订单日期", name: "F_BillDate", width: 80, align: "left", formatter: function (cellvalue) {
+                    return cellvalue == null ? "" : new Date(cellvalue).Format("yyyy-MM-dd");
+                }
+            },
+            {
+                label: "过账日期", name: "F_PostDate", width: 80, align: "left", formatter: function (cellvalue) {
+                    return cellvalue == null ? "" : new Date(cellvalue).Format("yyyy-MM-dd");
+                }
+            },
+            {
+                label: "创建人", name: "F_CreatorUserId", width: 80, align: "left", formatter: function (cellvalue) {
+                    return top.clients.user[cellvalue] == null ? "" : top.clients.user[cellvalue].fullname;
+                }
+            },
+            {
+                label: "审批人", name: "F_ConfirmUserId", width: 80, align: "left", formatter: function (cellvalue) {
+                    return top.clients.user[cellvalue] == null ? "" : top.clients.user[cellvalue].fullname;
+                }
+            },
+
+            {
+                label: "状态", name: "F_Status", width: 60, align: "left",
+                formatter: function (cellvalue) {
+                    return top.clients.dataItems.billStatus[cellvalue] == null ? "" : top.clients.dataItems.billStatus[cellvalue];
+                }
+            }
+
+            ],
+            sortname: 'F_CreatorTime desc'
+        });
+       
+    }
+
+    function btn_search() {
+        $gridList.jqGrid('setGridParam', {
+            postData: {
+                searchEntity: {
+                    BeginTime: $("#BeginTime").val(),
+                    EndTime: $("#EndTime").val(),
+                    F_SupplierID: $("#F_SupplierID").val(),
+                    F_EnCode: $("#F_EnCode").val(),
+                    F_BillType: billType
+                }
+            },
+        }).trigger('reloadGrid');
+    }
+
+
+    function submitForm() {
+        var objArr = [];
+
+        var rowId = $gridList.jqGrid("getGridParam", "selarrrow");
+        for (var i = 0; i < rowId.length; i++) {
+            var rowData = $gridList.jqGrid("getRowData", rowId[i]);
+            objArr.push(rowData);
+        };
+        parent["WarehouseManageReceiptForm"] = JSON.stringify(objArr);
+        $.modalClose();
+    }
+</script>
+<form id="form1">
+    <div class="search">
+        <table class="form">
+            <tr>
+                <th class="formTitle" style="width:75px;">单据日期</th>
+                <td class="formValue" style="width:190px;">
+                    <span class="input-daterange input-group" data-date-format="yyyy-mm-dd">
+                        <input type="text" class="input-sm form-control" name="start" id="BeginTime" readonly style="cursor:pointer;background-color:#fff" />
+                        <span class="input-group-addon" style="font-size:12px;">至</span>
+                        <input type="text" class="input-sm form-control" name="end" id="EndTime" readonly style="cursor:pointer;background-color:#fff" />
+                    </span>
+                </td>
+                <th class="formTitle" style="width:60px;">供应商</th>
+                <td class="formValue" style="width:125px;">
+                    <select id="F_SupplierID" name="F_SupplierID" class="form-control">
+                        <option value="">==请选择==</option>
+                    </select>
+                </td>
+                <th class="formTitle" style="width:60px;">单据号</th>
+                <td class="formValue">
+                    <input id="F_EnCode" name="F_EnCode" type="text" class="form-control" placeholder="请输入单据号" />
+                </td>  
+                <td class="formValue">
+                    <a id="NF-add" authorize="yes" class="btn btn-primary dropdown-text" onclick="btn_search()"><i class="fa fa-search"></i> 查询</a>
+                </td>
+            </tr>
+        </table>
+        
+    </div>
+    <div style="margin-left: 10px; margin-right: 10px;">
+        <div class="gridPanel">
+            <table id="gridList"></table>
+        </div>
+    </div>
+</form>
+
+

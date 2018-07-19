@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using NFine.Application.PurManage;
+using NFine.Application.PurchaseManage;
 using NFine.Code;
 using NFine.Domain.Entity.PurchaseManage;
 using NFine.Web.App_Start._01_Handler;
@@ -25,6 +25,20 @@ namespace NFine.Web.Areas.PurchaseManage.Controllers
                 total = pagination.total,
                 page = pagination.page,
                 records = pagination.records
+            };
+            return Content(data.ToJson());
+        }
+
+        [HttpPost]
+        [HandlerAjaxOnly]
+        public ActionResult GetGridJson(SearchPagination searchPagination)
+        {
+            var data = new
+            {
+                rows = orderApp.GetList(searchPagination),
+                total = searchPagination.total,
+                page = searchPagination.page,
+                records = searchPagination.records
             };
             return Content(data.ToJson());
         }

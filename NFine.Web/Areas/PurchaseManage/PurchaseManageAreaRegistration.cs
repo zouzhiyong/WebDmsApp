@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace NFine.Web.Areas.BaseManage
+namespace NFine.Web.Areas.PurchaseManage
 {
     public class PurchaseManageAreaRegistration : AreaRegistration
     {
