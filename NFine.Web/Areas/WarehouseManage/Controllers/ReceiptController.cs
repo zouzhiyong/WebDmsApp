@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using NFine.Application.WarehouseManage;
 using NFine.Code;
+using NFine.Domain.Entity.PurchaseManage;
 using NFine.Domain.Entity.WarehouseManage;
 using NFine.Web.App_Start._01_Handler;
 
@@ -25,6 +26,14 @@ namespace NFine.Web.Areas.WarehouseManage.Controllers
                 page = pagination.page,
                 records = pagination.records
             };
+            return Content(data.ToJson());
+        }
+
+        [HttpPost]
+        [HandlerAjaxOnly]
+        public ActionResult GetOrderDetailForm(List<OrderEntity> model)
+        {
+            var data = receiptApp.GetDetail(model);
             return Content(data.ToJson());
         }
 

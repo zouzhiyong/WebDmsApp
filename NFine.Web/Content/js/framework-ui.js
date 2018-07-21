@@ -305,7 +305,8 @@ $.getForm = function (options) {
         loading: "正在获取数据...",
         success: null,
         close: true,
-        async: false
+        async: false,
+        type: "get",
     };
     var options = $.extend(defaults, options);
     $.loading(true, options.loading);
@@ -319,7 +320,7 @@ $.getForm = function (options) {
             data: options.param,
             processData: options.processData,
             contentType: options.contentType,
-            type: "get",
+            type: options.type,
             headers: options.headers,
             dataType: "json",
             success: function (data) {

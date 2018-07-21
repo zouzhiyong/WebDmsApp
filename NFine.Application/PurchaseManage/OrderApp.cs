@@ -112,7 +112,19 @@ namespace NFine.Application.PurchaseManage
             return service.FindList(expression, searchPagination);
         }
 
-
+        public List<OrderDetailEntity> GetDetail(List<OrderEntity> model)
+        {
+            List<System.String> listS = new List<System.String>();
+            foreach (var item in model)
+            {
+                listS.Add(item.F_EnCode);
+            }
+            var expression = ExtLinq.True<OrderDetailEntity>();
+            string[] F_EnCode_Arr = listS.ToArray();
+            expression = expression.And(t => F_EnCode_Arr.Contains(t.F_EnCode));
+            var data = serviceDetail.FindList(expression);
+            return data;
+        }
 
         /// <summary>
         /// 获取单据

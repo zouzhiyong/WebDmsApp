@@ -15,18 +15,20 @@ using System.Linq;
 using NFine.Application.BaseManage;
 using NFine.Domain.Entity.BaseManage;
 using NFine.Domain.Entity.WarehouseManage;
+using NFine.Domain.Entity.PurchaseManage;
+using NFine.Application.PurchaseManage;
 
 namespace NFine.Application.WarehouseManage
 {
     public class ReceiptApp
     {
         private IRepositoryEntity<ReceiptEntity> service = new RepositoryEntity<ReceiptEntity>();
-        private IRepositoryEntity<ReceiptDetailEntity> serviceDetail = new RepositoryEntity<ReceiptDetailEntity>();        
+        private IRepositoryEntity<ReceiptDetailEntity> serviceDetail = new RepositoryEntity<ReceiptDetailEntity>();
         private IRepositoryEntity<WarehouseEntity> serviceWarehouse = new RepositoryEntity<WarehouseEntity>();
 
         public ReceiptEntity SubmitForm(ReceiptEntity model)
         {
-            if(model.F_BillType!=1 && model.F_BillType != -1)
+            if (model.F_BillType != 1 && model.F_BillType != -1)
             {
                 throw new Exception("此单据为非法单据!");
             }
@@ -54,11 +56,12 @@ namespace NFine.Application.WarehouseManage
                     if (model.F_BillType == 1)
                     {
                         SerialNumberDetailApp.GetAutoIncrementCode<ReceiptEntity>(model, "PurchaseReceipt");//获取收货单编号  
-                    }else
+                    }
+                    else
                     {
                         SerialNumberDetailApp.GetAutoIncrementCode<ReceiptEntity>(model, "SalesShipment");//获取发货单编号   
-                    }                    
-                                      
+                    }
+
                     db.Insert(model);
                 }
 
@@ -79,7 +82,7 @@ namespace NFine.Application.WarehouseManage
             }
         }
 
-        public List<ReceiptEntity> GetList(Pagination pagination, string keyword,int type)
+        public List<ReceiptEntity> GetList(Pagination pagination, string keyword, int type)
         {
             var expression = ExtLinq.True<ReceiptEntity>();
             expression = expression.And(t => t.F_BillType == type);
@@ -91,7 +94,39 @@ namespace NFine.Application.WarehouseManage
             return service.FindList(expression, pagination);
         }
 
-
+        public List<ReceiptDetailEntity> GetDetail(List<OrderEntity> model)
+        {
+            int i = 0;
+            OrderApp orderApp = new OrderApp();
+            var data = orderApp.GetDetail(model);
+            List<ReceiptDetailEntity> ReceiptDetailEntityList = new List<ReceiptDetailEntity>();
+            foreach(var item in data)
+            {
+                i = i + 1;
+                ReceiptDetailEntity receiptDetailEntity = new ReceiptDetailEntity();
+                receiptDetailEntity.F_CorpId = item.F_CorpId;
+                receiptDetailEntity.F_SourceNo = item.F_EnCode;
+                receiptDetailEntity.F_SourceType = "purorder";
+                receiptDetailEntity.F_RowId = i;
+                receiptDetailEntity.F_ItemID = item.F_ItemID;
+                receiptDetailEntity.F_ItemCode = item.F_ItemCode;
+                receiptDetailEntity.F_ItemCodeName = item.F_ItemCodeName;
+                receiptDetailEntity.F_UomID = item.F_UomID;
+                receiptDetailEntity.F_BillQty = item.F_BillQty;
+                receiptDetailEntity.F_OperQty = item.F_OperQty;
+                receiptDetailEntity.F_BalanceQty = item.F_BalanceQty;
+                receiptDetailEntity.F_UnitAmount = item.F_UnitAmount;
+                receiptDetailEntity.F_UnitCost = item.F_UnitCost;
+                receiptDetailEntity.F_Amount = item.F_Amount;
+                receiptDetailEntity.F_DiscountAmount = item.F_DiscountAmount;
+                receiptDetailEntity.F_IsFree = item.F_IsFree;
+                receiptDetailEntity.F_IsGift = item.F_IsGift;
+                receiptDetailEntity.F_BatchCode = item.F_ItemID;
+                receiptDetailEntity.F_SortCode = item.F_SortCode;
+                ReceiptDetailEntityList.Add(receiptDetailEntity);
+            }
+            return ReceiptDetailEntityList;
+        }
         /// <summary>
         /// 获取单据
         /// </summary>
@@ -106,11 +141,12 @@ namespace NFine.Application.WarehouseManage
                 if (data == null)
                 {
                     throw new Exception("已经是最后一条！");
-                }else
+                }
+                else
                 {
                     return GetReceiptData(data.F_Id);
                 }
-                
+
             }
             //上一页
             else if (PreNextType == -1)
@@ -128,7 +164,7 @@ namespace NFine.Application.WarehouseManage
             else
             {
                 return GetReceiptData(keyValue);
-            }            
+            }
         }
         /// <summary>
         /// 复制单据
@@ -158,7 +194,7 @@ namespace NFine.Application.WarehouseManage
                 item.F_LastModifyUserId = "";
                 item.F_CreatorTime = null;
                 item.F_CreatorUserId = "";
-            }           
+            }
 
             return receiptItem;
         }
@@ -170,7 +206,7 @@ namespace NFine.Application.WarehouseManage
         public void DeleteForm(string keyValue)
         {
             ReceiptEntity receiptEntity = service.FindEntity(t => t.F_Id == keyValue);
-            if (receiptEntity.F_Status >1)
+            if (receiptEntity.F_Status > 1)
             {
                 throw new Exception("此单据状态无法删除!");
             }
