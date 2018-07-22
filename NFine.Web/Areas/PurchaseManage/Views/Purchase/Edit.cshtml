@@ -8,6 +8,7 @@
     var billType = $.request("type");
 
     var InitData = {
+        isOperate: true,
         inputField: "",
         title:billType == 1 ? "采购订单" : "采购退货单",
         GetFormJson: "/PurchaseManage/Purchase/GetFormJson",//获取单据
@@ -92,8 +93,8 @@
             { field: "F_IsGift", nextFocusField: "F_BillQty", label: "是否赠品", visible: true, defaultValue: false, totalLabel: "", width: "70px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "", placeholder: "", url: "", id: "id", text: "text", list: [{ id: false, text: "否" }, { id: true, text: "是" }], isTotal: false },
             { field: "F_UnitAmount", nextFocusField: "F_BillQty", label: "单价(¥)", visible: true, defaultValue: "", totalLabel: "", width: "70px", align: 'center', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: false },
             { field: "F_BillQty", nextFocusField: "F_Description", label: "订单数量", visible: true, defaultValue: "", totalLabel: "", width: "70px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true, isThanZero:true },
-            { field: "F_OperQty", nextFocusField: "", label: "实际数量", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
-            { field: "F_BalanceQty", nextFocusField: "", label: "剩余数量", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
+            { field: "F_OperQty", nextFocusField: "", label: billType == 1?"已收货数量":"已发货数量", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
+            { field: "F_BalanceQty", nextFocusField: "", label: billType == 1 ? "待收货数量" : "待发货数量", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
             { field: "F_Amount", nextFocusField: "F_Description", label: "金额(¥)", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
             { field: "F_WarehouseID", nextFocusField: "F_Description", label: "仓库", visible: true, defaultValue: "", totalLabel: "", width: "100px", align: 'center', divClass: "", inputclass: "", controlType: "select", dataType: "", placeholder: "", url: "", id: "F_Id", text: "F_Name", list: [], isTotal: false },
             { field: "F_Description", nextFocusField: "F_ItemCode", label: "备注", visible: true, defaultValue: "", totalLabel: "", width: "120px", align: 'left', divClass: "", inputclass: "", controlType: "input", dataType: "text", placeholder: "", url: "", id: "", text: "", isTotal: false }
@@ -151,21 +152,10 @@
                 //工具栏事件
                 //保存(S)
                 handleToolsSave: function () {
-                    var _self = this;
-                    var arr = _self.saveData.filter(function (item) { return })
-                    if (_self.saveData.length <= 0) {
-                        $.modalMsg("没有明细记录", "warning");
-                        return;
-                    }
                     this.handleClickSave(1);
                 },
                 //确定(F)
                 handleToolsConfirm: function () {
-                    var _self = this;
-                    if (_self.saveData.length <= 0) {
-                        $.modalMsg("没有明细记录", "warning");
-                        return;
-                    }
                     this.handleClickSave(2);
                 },
                 //采购退货单(E)

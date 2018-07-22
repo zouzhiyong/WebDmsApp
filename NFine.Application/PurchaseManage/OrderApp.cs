@@ -73,6 +73,7 @@ namespace NFine.Application.PurchaseManage
                 {
                     item.Create();
                     item.F_EnCode = model.F_EnCode;
+                    item.F_BalanceQty = item.F_BillQty;
                     db.Insert(item);
                 }
 
@@ -86,7 +87,7 @@ namespace NFine.Application.PurchaseManage
         public List<OrderEntity> GetList(Pagination pagination, string keyword,int type)
         {
             var expression = ExtLinq.True<OrderEntity>();
-            expression = expression.And(t => t.F_BillType == type);
+            expression = expression.And(t => t.F_BillType == type);            
             if (!string.IsNullOrEmpty(keyword))
             {
                 expression = expression.And(t => t.F_EnCode.Contains(keyword));
@@ -100,6 +101,7 @@ namespace NFine.Application.PurchaseManage
             SearchOrderEntity searchOrderEntity = searchPagination.searchEntity;
             var expression = ExtLinq.True<OrderEntity>();
             expression = expression.And(t => t.F_BillType == searchOrderEntity.F_BillType && t.F_BillDate>=searchOrderEntity.BeginTime && t.F_BillDate<=searchOrderEntity.EndTime && t.F_Status==2);
+            expression = expression.And(t => t.F_IsStockFinished < 2);
             if (!string.IsNullOrEmpty(searchOrderEntity.F_EnCode))
             {
                 expression = expression.And(t => t.F_EnCode.Contains(searchOrderEntity.F_EnCode));
@@ -122,6 +124,7 @@ namespace NFine.Application.PurchaseManage
             var expression = ExtLinq.True<OrderDetailEntity>();
             string[] F_EnCode_Arr = listS.ToArray();
             expression = expression.And(t => F_EnCode_Arr.Contains(t.F_EnCode));
+            expression = expression.And(t => t.F_BalanceQty > 0);//待收货大于0的明细
             var data = serviceDetail.FindList(expression);
             return data;
         }

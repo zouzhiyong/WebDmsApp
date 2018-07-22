@@ -25,17 +25,19 @@ namespace NFine.Application.WarehouseManage
         private IRepositoryEntity<ReceiptEntity> service = new RepositoryEntity<ReceiptEntity>();
         private IRepositoryEntity<ReceiptDetailEntity> serviceDetail = new RepositoryEntity<ReceiptDetailEntity>();
         private IRepositoryEntity<WarehouseEntity> serviceWarehouse = new RepositoryEntity<WarehouseEntity>();
+        private IRepositoryEntity<OrderEntity> servicePurOrder = new RepositoryEntity<OrderEntity>();
+        private IRepositoryEntity<OrderDetailEntity> servicePurDetail = new RepositoryEntity<OrderDetailEntity>();
 
         public ReceiptEntity SubmitForm(ReceiptEntity model)
         {
             if (model.F_BillType != 1 && model.F_BillType != -1)
             {
                 throw new Exception("此单据为非法单据!");
-            }
-
-            List<ReceiptDetailEntity> receiptDetailEntitys = model.details;
+            }            
             using (var db = new RepositoryEntity().BeginTrans())
             {
+                List<ReceiptDetailEntity> receiptDetailEntitys = model.details;
+
                 //插入主表数据
                 if (!string.IsNullOrEmpty(model.F_Id))
                 {
@@ -67,12 +69,69 @@ namespace NFine.Application.WarehouseManage
 
                 //删除从表数据
                 db.Delete<ReceiptDetailEntity>(t => t.F_EnCode == model.F_EnCode);
+
+                List<OrderDetailEntity> _OrderDetail = new List<OrderDetailEntity>();
                 //插入从表数据
                 foreach (var item in receiptDetailEntitys)
                 {
                     item.Create();
                     item.F_EnCode = model.F_EnCode;
-                    db.Insert(item);
+                    
+                    if (model.F_Status == 2)
+                    {
+                        //如果是采购单
+                        if (item.F_SourceType == "purorder")
+                        {
+                            //如果是审核，从订单表中取待收数量F_BalanceQty与已收数量F_OperQty
+                            var PurDetail = servicePurDetail.FindEntity(t => t.F_Id == item.F_SourceId);
+                            var F_BalanceQty = PurDetail.F_BalanceQty - item.F_BillQty * model.F_BillType;
+                            var F_OperQty = PurDetail.F_OperQty + item.F_BillQty * model.F_BillType;                     
+                           
+                            //更新订单表中待收数量与已收数量
+                            PurDetail.F_BalanceQty = F_BalanceQty;
+                            PurDetail.F_OperQty = F_OperQty;                            
+                            //db.Update(PurDetail);
+                            _OrderDetail.Add(PurDetail);
+
+                            //更新收货表中待收数量与已收数量
+                            item.F_BalanceQty = F_BalanceQty;
+                            item.F_OperQty = F_OperQty;
+                        }
+                    }
+                    db.Insert(item);                    
+                }
+
+                //更新订单状态
+                if (model.F_Status == 2)
+                {
+                    var orderNoList = receiptDetailEntitys.GroupBy(t => t.F_SourceNo).Select(t => t.Key).ToList();
+                    foreach (var item in orderNoList)
+                    {
+                        var _Order = servicePurOrder.FindEntity(t => t.F_EnCode == item);
+                        int F_BillQty = 0;
+                        int F_OperQty = 0;
+                        int? F_BalanceQty = 0;
+                        foreach (var _item in _OrderDetail.FindAll(t => t.F_EnCode == item))
+                        {
+                            F_BillQty = F_BillQty + _item.F_BillQty;
+                            F_OperQty = F_OperQty + _item.F_OperQty;
+                            F_BalanceQty = F_BalanceQty + (_item.F_BalanceQty == null ? 0 : _item.F_BalanceQty);
+                        }
+                        if ((F_BillQty - F_OperQty) == 0)
+                        {
+                            _Order.F_IsStockFinished = 2;
+                        }
+                        if ((F_BillQty - F_OperQty) > 0)
+                        {
+                            _Order.F_IsStockFinished = 1;
+                        }
+
+                        if ((F_BillQty - F_OperQty) == F_BillQty)
+                        {
+                            _Order.F_IsStockFinished = 0;
+                        }
+                        db.Update(_Order);
+                    }
                 }
 
                 //提交
@@ -94,16 +153,24 @@ namespace NFine.Application.WarehouseManage
             return service.FindList(expression, pagination);
         }
 
+        /// <summary>
+        /// 获取来源订单明细
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public List<ReceiptDetailEntity> GetDetail(List<OrderEntity> model)
         {
             int i = 0;
             OrderApp orderApp = new OrderApp();
+            UnitOfMeasureApp unitOfMeasure = new UnitOfMeasureApp();
+            var unit = unitOfMeasure.GetList();
             var data = orderApp.GetDetail(model);
             List<ReceiptDetailEntity> ReceiptDetailEntityList = new List<ReceiptDetailEntity>();
             foreach(var item in data)
             {
                 i = i + 1;
                 ReceiptDetailEntity receiptDetailEntity = new ReceiptDetailEntity();
+                receiptDetailEntity.F_SourceId = item.F_Id;
                 receiptDetailEntity.F_CorpId = item.F_CorpId;
                 receiptDetailEntity.F_SourceNo = item.F_EnCode;
                 receiptDetailEntity.F_SourceType = "purorder";
@@ -112,7 +179,7 @@ namespace NFine.Application.WarehouseManage
                 receiptDetailEntity.F_ItemCode = item.F_ItemCode;
                 receiptDetailEntity.F_ItemCodeName = item.F_ItemCodeName;
                 receiptDetailEntity.F_UomID = item.F_UomID;
-                receiptDetailEntity.F_BillQty = item.F_BillQty;
+                receiptDetailEntity.F_UomName = unit.Find(t => t.F_Id == item.F_UomID).F_Name;
                 receiptDetailEntity.F_OperQty = item.F_OperQty;
                 receiptDetailEntity.F_BalanceQty = item.F_BalanceQty;
                 receiptDetailEntity.F_UnitAmount = item.F_UnitAmount;
@@ -121,7 +188,7 @@ namespace NFine.Application.WarehouseManage
                 receiptDetailEntity.F_DiscountAmount = item.F_DiscountAmount;
                 receiptDetailEntity.F_IsFree = item.F_IsFree;
                 receiptDetailEntity.F_IsGift = item.F_IsGift;
-                receiptDetailEntity.F_BatchCode = item.F_ItemID;
+                receiptDetailEntity.F_IsGiftName = item.F_IsGift==true ? "是" : "否";
                 receiptDetailEntity.F_SortCode = item.F_SortCode;
                 ReceiptDetailEntityList.Add(receiptDetailEntity);
             }
@@ -224,16 +291,24 @@ namespace NFine.Application.WarehouseManage
             }
         }
 
+        /// <summary>
+        /// 获取订单明细
+        /// </summary>
+        /// <param name="keyValue"></param>
+        /// <returns></returns>
         private ReceiptEntity GetReceiptData(string keyValue)
         {
             ReceiptEntity receiptItem = service.FindEntity(keyValue);
             List<ReceiptDetailEntity> details = serviceDetail.IQueryable(t => t.F_EnCode == receiptItem.F_EnCode).SortBy(t => t.F_RowId).ToList();
             MaterialApp marterialApp = new MaterialApp();
 
+            UnitOfMeasureApp unitOfMeasure = new UnitOfMeasureApp();
+            var unit = unitOfMeasure.GetList();
+
             foreach (var item in details)
             {
-                item.F_UomIDList = marterialApp.getUOM(item.F_ItemID);
-                //item.F_WarehouseIDList = serviceWarehouse.FindList(t => t.F_EnabledMark == true);
+                item.F_IsGiftName = item.F_IsGift == true ? "是" : "否";
+                item.F_UomName = unit.Find(t => t.F_Id == item.F_UomID).F_Name;
             }
             receiptItem.details = details;
             return receiptItem;

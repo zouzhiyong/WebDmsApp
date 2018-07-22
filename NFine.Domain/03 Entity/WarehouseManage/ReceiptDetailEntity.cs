@@ -16,6 +16,7 @@ namespace NFine.Domain.Entity.WarehouseManage
         public string F_Id { get; set; }
         public string F_CorpId { get; set; }
         public string F_EnCode { get; set; }
+        public string F_SourceId { get; set; }
         public string F_SourceNo { get; set; }
         public string F_SourceType { get; set; }
         public Nullable<int> F_RowId { get; set; }
@@ -46,6 +47,9 @@ namespace NFine.Domain.Entity.WarehouseManage
         public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
         [NotMapped]
-        public List<UnitOfMeasureEntity> F_UomIDList { get; set; }        
+        public string F_UomName { get; set; }
+        [NotMapped]
+        public string F_IsGiftName { get; set; }
     }
+    
 }

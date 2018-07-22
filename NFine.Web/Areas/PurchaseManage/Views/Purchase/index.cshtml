@@ -38,9 +38,22 @@
                     return top.clients.user[cellvalue] == null ? "" : top.clients.user[cellvalue].fullname;
                 }
             },
-
             {
-                label: "状态", name: "F_Status", width: 60, align: "left",
+                label: "发货状态", name: "F_IsStockFinished", width: 60, align: "left",
+                formatter: function (cellvalue) {
+                    if (cellvalue == 0) {
+                        return "未收货";
+                    }
+                    else if (cellvalue == 1) {
+                        return "部分收货";
+                    }
+                    else{
+                        return "收货完成";
+                    }
+                }
+            },
+            {
+                label: "单据状态", name: "F_Status", width: 60, align: "left",
                 formatter: function (cellvalue) {
                     return top.clients.dataItems.billStatus[cellvalue] == null ? "" : top.clients.dataItems.billStatus[cellvalue];
                 }

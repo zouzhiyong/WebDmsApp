@@ -97,7 +97,7 @@
                                 <th v-if="itemThead.visible!=false" v-for="itemThead in controlsDetails" :style="{width:itemThead.width}">
                                     <div class="th-inner ">{{itemThead.label}}</div>
                                 </th>
-                                <th style="width:80px">
+                                <th style="width:80px" v-if="isOperate==true">
                                     <div class="th-inner ">操作</div>
                                 </th>
                             </tr>
@@ -149,34 +149,34 @@
                                                    v-on:focus="handleFocusTo($event,tbodyItem, itemThead)"
                                                    v-bind:style="{'text-align':itemThead.align}"
                                                    v-model="tbodyItem[itemThead.field]"
-                                                   v-on:blur="handleBlur(itemThead.field+tbodyIndex,tbodyItem)"
+                                                   v-on:blur="handleBlur(itemThead,itemThead.field+tbodyIndex,tbodyItem)"
                                                    v-on:keyup.enter="hanldeEnter($event)"
                                                    autocomplete="off" class="form-control" type="text" />
                                             <input v-if="itemThead.controlType=='input' && itemThead.dataType=='date'"
                                                    v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
                                                    v-bind:style="{'text-align':itemThead.align}"
                                                    v-model="tbodyItem[itemThead.field]"
-                                                   v-on:blur="handleBlur(itemThead.field+tbodyIndex,tbodyItem)"
+                                                   v-on:blur="handleBlur(itemThead,itemThead.field+tbodyIndex,tbodyItem)"
                                                    v-on:keyup.enter="hanldeEnter($event)"
                                                    autocomplete="off" class="form-control datepicker" type="text" readonly />
                                             <input v-if="itemThead.controlType=='input' && itemThead.dataType=='text'"
                                                    v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
                                                    v-bind:style="{'text-align':itemThead.align}"
                                                    v-model="tbodyItem[itemThead.field]"
-                                                   v-on:blur="handleBlur(itemThead.field+tbodyIndex,tbodyItem)"
+                                                   v-on:blur="handleBlur(itemThead,itemThead.field+tbodyIndex,tbodyItem)"
                                                    v-on:keyup.enter="hanldeEnter($event)"
                                                    autocomplete="off" class="form-control" type="text" />
                                             <input v-if="itemThead.controlType=='input' && itemThead.dataType=='number'"
                                                    v-on:focus="handleFocus($event, tbodyItem,itemThead, itemThead.field)"
                                                    v-bind:style="{'text-align':itemThead.align}"
                                                    v-model="tbodyItem[itemThead.field]"
-                                                   v-on:blur="handleBlur(itemThead.field+tbodyIndex,tbodyItem)"
+                                                   v-on:blur="handleBlur(itemThead,itemThead.field+tbodyIndex,tbodyItem)"
                                                    v-on:keyup.enter="hanldeEnter($event)"
                                                    autocomplete="off" class="form-control input" type="number" />
                                         </template>
                                     </template>
                                 </td>
-                                <td style="text-align:center;width:80px;" class="col_operate">
+                                <td style="text-align:center;width:80px;" class="col_operate" v-if="isOperate==true">
                                     <div style="text-align:center;padding:0 20px;">
                                         <a v-if="list.F_Status<2 && tbodyItem.F_ItemID!=''" class="btn" v-on:click="hanldeClickDelete(tbodyIndex)">
                                             <i class="fa fa-trash-o"></i>
@@ -197,7 +197,7 @@
                                 <td v-if="itemFooter.visible!=false" v-for="(itemFooter,theadIndex) in controlsDetails" v-bind:style="{width:itemFooter.width,'text-align':itemFooter.align }">
                                     {{itemFooter.field=='F_ItemCode'? saveData.length+'条记录': itemFooter.totalLabel}}<span v-if="!!itemFooter.isTotal" v-number="total[itemFooter.field]"></span>
                                 </td>
-                                <td style="width:80px;text-align:center;"></td>
+                                <td style="width:80px;text-align:center;" v-if="isOperate==true"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -377,7 +377,6 @@
                 }
 
 
-                var _self = this;
                 var submitFormData = JSON.parse(JSON.stringify(_self.list));
                 submitFormData.details = JSON.parse(JSON.stringify(_self.saveData));
                 submitFormData.F_Status = type;
@@ -488,12 +487,14 @@
                 })
             },
             //离开焦点时变成不可编辑状态
-            handleBlur: function (trIdName, tbodyItem) {
+            handleBlur: function (itemThead, trIdName, tbodyItem) {
                 //如果焦点移开至非单元格，则清空
                 if (this.inputField == trIdName) {
                     this.inputField = "";
                 }
-                tbodyItem.F_ItemCode = tbodyItem.F_ItemCodeHide;
+                if (itemThead.controlType == 'autocomplete') {
+                    tbodyItem.F_ItemCode = tbodyItem.F_ItemCodeHide;
+                }
             },
             //回车事件
             hanldeEnter: function (event) {
