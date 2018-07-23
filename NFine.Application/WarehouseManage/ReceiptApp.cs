@@ -84,8 +84,8 @@ namespace NFine.Application.WarehouseManage
                         {
                             //如果是审核，从订单表中取待收数量F_BalanceQty与已收数量F_OperQty
                             var PurDetail = servicePurDetail.FindEntity(t => t.F_Id == item.F_SourceId);
-                            var F_BalanceQty = PurDetail.F_BalanceQty - item.F_BillQty * model.F_BillType;
-                            var F_OperQty = PurDetail.F_OperQty + item.F_BillQty * model.F_BillType;                     
+                            var F_BalanceQty = PurDetail.F_BalanceQty - item.F_BillQty;
+                            var F_OperQty = PurDetail.F_OperQty + item.F_BillQty;                     
                            
                             //更新订单表中待收数量与已收数量
                             PurDetail.F_BalanceQty = F_BalanceQty;
