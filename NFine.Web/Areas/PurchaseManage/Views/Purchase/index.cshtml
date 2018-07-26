@@ -19,13 +19,13 @@
             },
             { label: '供应商', name: 'F_SupplierName', width: 80, align: 'left' },
             {
-                label: "订单日期", name: "F_BillDate", width: 80, align: "left", formatter: function (cellvalue) {
-                    return cellvalue == null ? "" : new Date(cellvalue).Format("yyyy-MM-dd");
+                label: "订单日期", name: "F_BillDate", width: 80, align: "left", formatter: "date", formatoptions: {
+                    srcformat: 'Y-m-d', newformat: 'Y-m-d'
                 }
             },
             {
-                label: "过账日期", name: "F_PostDate", width: 80, align: "left", formatter: function (cellvalue) {
-                    return cellvalue == null ? "" : new Date(cellvalue).Format("yyyy-MM-dd");
+                label: "过账日期", name: "F_PostDate", width: 80, align: "left", formatter: "date", formatoptions: {
+                    srcformat: 'Y-m-d', newformat: 'Y-m-d'
                 }
             },
             {

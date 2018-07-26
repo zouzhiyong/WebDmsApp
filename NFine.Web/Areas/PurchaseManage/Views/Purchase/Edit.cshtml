@@ -59,8 +59,8 @@
         //主表控件相关参数
         controlsList: [
             { field: "F_EnCode", label: "单据编号", visible: false, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
-            { field: "F_BillDate", label: "单据日期", visible: true, defaultValue: new Date().Format("yyyy-MM-dd"), layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
-            { field: "F_PostDate", label: "收货日期", visible: true, defaultValue: new Date().Format("yyyy-MM-dd"), layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
+            { field: "F_BillDate", label: "单据日期", visible: true, defaultValue: (new Date()).Format("yyyy-MM-dd"), layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
+            { field: "F_PostDate", label: "收货日期", visible: true, defaultValue: (new Date()).Format("yyyy-MM-dd"), layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
             { field: "F_SupplierID", label: "供应商", visible: true, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入供应商", url: "/BaseManage/Supplier/GetSelcetJson", id: "F_Id", text: "F_Name", list: [] },
             { field: "F_PurchaserID", label: "采购员", visible: true, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请输入采购员", url: "/SystemManage/User/GetSelectJson?custType=Buyer", id: "F_Id", text: "F_RealName", list: [{ F_Id: "", F_RealName: "=请选择=" }] },
             { field: "F_IsStockFinished", label: "发运状态", visible: true, disabled: true, defaultValue: "0", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "id", text: "text", list: [{ id: "0", text: "未收货" }, { id: "1", text: "部分收货" }, { id: "2", text: "收货完成" }] },

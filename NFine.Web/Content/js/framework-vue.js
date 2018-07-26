@@ -75,14 +75,16 @@ Vue.directive('date', {
         }
     },
     update: function (el, binding, vnode) {
+        
         if (el.tagName == "INPUT") {
-            $(el).datepicker('setDate', new Date(el.value).Format("yyyy-MM-dd"));
+            $(el).datepicker('setDate', (new Date(el.value)).Format("yyyy-MM-dd"));
         }
 
         if (el.tagName == "SPAN" || el.tagName == "DIV") {
             var value = binding.value;
+            
             var format = el.getAttribute('format') ? el.getAttribute('format') : "yyyy-MM-dd";
-            el.innerHTML = (value == null || value == "" ? "" : new Date(value).Format(format));
+            el.innerHTML = (value == null || value == "" ? "" : (new Date(value.replace(/-/g, '/'))).Format(format));
         }
     }
 });
