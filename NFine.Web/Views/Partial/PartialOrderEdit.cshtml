@@ -221,10 +221,10 @@
 
         </div>
         <div class="text-center" style="padding:10px;margin: 0 -10px;background-color: #fff;">
-            <a v-if="list.F_Status<2" id="NF-save" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickSave(1)"><i class="fa fa-save"></i> 保存</a>
-            <a v-if="list.F_Status<2" id="NF-audit" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickSave(2)"><i class="fa fa-save"></i> 确定</a>
-            <a v-if="list.F_Status>=2" id="NF-print" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickPrint()"><i class="fa fa-print"></i> 打印</a>
-            <a v-if="list.F_Status>=2" id="NF-printview" authorize="yes" class="btn btn-primary dropdown-text" v-on:click="handleClickPrintView()"><i class="fa fa-eye"></i> 打印预览</a>
+            <a v-if="list.F_Status<2" id="NF-save" authorize="yes" class="btn btn-primary dropdown-text" accesskey="s" v-on:click="handleClickSave(1)"><i class="fa fa-save"></i> 保存 (S)</a>
+            <a v-if="list.F_Status<2" id="NF-audit" authorize="yes" class="btn btn-primary dropdown-text" accesskey="a" v-on:click="handleClickSave(2)"><i class="fa fa-save"></i> 确定 (A)</a>
+            <a v-if="list.F_Status>=2" id="NF-print" authorize="yes" class="btn btn-primary dropdown-text" accesskey="p" v-on:click="handleClickPrint()"><i class="fa fa-print"></i> 打印 (P)</a>
+            <a v-if="list.F_Status>=2" id="NF-printview" authorize="yes" class="btn btn-primary dropdown-text" accesskey="v" v-on:click="handleClickPrintView()"><i class="fa fa-eye"></i> 打印预览 (V)</a>
         </div>
     </div>
 </div>

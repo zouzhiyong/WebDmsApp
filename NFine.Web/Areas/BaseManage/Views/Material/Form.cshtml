@@ -12,6 +12,7 @@
       .docs-preview {
       margin-right: -1rem;padding-left:10px;
     }
+      .gridPanel tbody tr.jqgrow td{line-height:12px;}
 
     .img-preview {
       float: left;
@@ -177,8 +178,8 @@
                         var $options = $('<option value="' + item.options.default.value + '">' + item.options.default.label + '</option>');
                         $td.find('select').append($options);
                     }
-                    if (!item.options.url) {
-                        item.options.map(function (_item) {
+                    if (!item.options.url) {                       
+                        item.options.map(function (_item) {                            
                             var $options = $('<option value="' + _item.value + '">' + _item.label + '</option>');
                             $td.find('select').append($options);
                         })
