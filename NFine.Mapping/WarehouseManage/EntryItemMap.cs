@@ -4,16 +4,16 @@
  * Description: NFine快速开发平台
  * Website：http://www.nfine.cn
 *********************************************************************************/
-using NFine.Domain.Entity.PurchaseManage;
+using NFine.Domain.Entity.WarehouseManage;
 using System.Data.Entity.ModelConfiguration;
 
-namespace NFine.Mapping.PurchaseManage
+namespace NFine.Mapping.WarehouseManage
 {
-    public class OrderDetailMap : EntityTypeConfiguration<OrderDetailEntity>
+    public class EntryItemMap : EntityTypeConfiguration<EntryItemEntity>
     {
-        public OrderDetailMap()
+        public EntryItemMap()
         {
-            this.ToTable("Pur_OrderDetail");
+            this.ToTable("Ware_EntryItem");
             this.HasKey(t => t.F_Id);
         }
     }    

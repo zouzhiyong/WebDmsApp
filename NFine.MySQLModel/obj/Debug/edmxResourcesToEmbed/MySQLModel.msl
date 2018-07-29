@@ -911,6 +911,44 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ware_entryitem">
+      <EntityTypeMapping TypeName="nfinebaseModel.ware_entryitem">
+        <MappingFragment StoreEntitySet="ware_entryitem">
+          <ScalarProperty Name="F_SortCode" ColumnName="F_SortCode" />
+          <ScalarProperty Name="F_DeleteUserId" ColumnName="F_DeleteUserId" />
+          <ScalarProperty Name="F_DeleteTime" ColumnName="F_DeleteTime" />
+          <ScalarProperty Name="F_LastModifyUserId" ColumnName="F_LastModifyUserId" />
+          <ScalarProperty Name="F_LastModifyTime" ColumnName="F_LastModifyTime" />
+          <ScalarProperty Name="F_CreatorUserId" ColumnName="F_CreatorUserId" />
+          <ScalarProperty Name="F_CreatorTime" ColumnName="F_CreatorTime" />
+          <ScalarProperty Name="F_Description" ColumnName="F_Description" />
+          <ScalarProperty Name="F_EnabledMark" ColumnName="F_EnabledMark" />
+          <ScalarProperty Name="F_DeleteMark" ColumnName="F_DeleteMark" />
+          <ScalarProperty Name="F_UnitCost" ColumnName="F_UnitCost" />
+          <ScalarProperty Name="F_Amount" ColumnName="F_Amount" />
+          <ScalarProperty Name="F_UnitAmount" ColumnName="F_UnitAmount" />
+          <ScalarProperty Name="F_BalanceQty" ColumnName="F_BalanceQty" />
+          <ScalarProperty Name="F_OperQty" ColumnName="F_OperQty" />
+          <ScalarProperty Name="F_BillQty" ColumnName="F_BillQty" />
+          <ScalarProperty Name="F_UomID" ColumnName="F_UomID" />
+          <ScalarProperty Name="F_ExpireDate" ColumnName="F_ExpireDate" />
+          <ScalarProperty Name="F_ProduceDate" ColumnName="F_ProduceDate" />
+          <ScalarProperty Name="F_BatchCode" ColumnName="F_BatchCode" />
+          <ScalarProperty Name="F_ItemCodeName" ColumnName="F_ItemCodeName" />
+          <ScalarProperty Name="F_ItemCode" ColumnName="F_ItemCode" />
+          <ScalarProperty Name="F_ItemID" ColumnName="F_ItemID" />
+          <ScalarProperty Name="F_WarehouseID" ColumnName="F_WarehouseID" />
+          <ScalarProperty Name="F_BillType" ColumnName="F_BillType" />
+          <ScalarProperty Name="F_Status" ColumnName="F_Status" />
+          <ScalarProperty Name="F_PostDate" ColumnName="F_PostDate" />
+          <ScalarProperty Name="F_BillDate" ColumnName="F_BillDate" />
+          <ScalarProperty Name="F_RowId" ColumnName="F_RowId" />
+          <ScalarProperty Name="F_EnCode" ColumnName="F_EnCode" />
+          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
+          <ScalarProperty Name="F_Id" ColumnName="F_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ware_receipt">
       <EntityTypeMapping TypeName="nfinebaseModel.ware_receipt">
         <MappingFragment StoreEntitySet="ware_receipt">
@@ -973,7 +1011,9 @@
           <ScalarProperty Name="F_RowId" ColumnName="F_RowId" />
           <ScalarProperty Name="F_SourceType" ColumnName="F_SourceType" />
           <ScalarProperty Name="F_SourceNo" ColumnName="F_SourceNo" />
+          <ScalarProperty Name="F_SourceId" ColumnName="F_SourceId" />
           <ScalarProperty Name="F_EnCode" ColumnName="F_EnCode" />
+          <ScalarProperty Name="F_CorpId" ColumnName="F_CorpId" />
           <ScalarProperty Name="F_Id" ColumnName="F_Id" />
         </MappingFragment>
       </EntityTypeMapping>

@@ -10,13 +10,13 @@
     var InitData = {
         isOperate: true,
         inputField: "",
-        title:billType == 1 ? "采购订单" : "采购退货单",
+        title:billType == "CGDD" ? "采购订单" : "采购退货单",
         GetFormJson: "/PurchaseManage/Purchase/GetFormJson",//获取单据
         GetCopyFormJson: "/PurchaseManage/Purchase/GetCopyFormJson",//复制单据
         submitFormUrl: "/PurchaseManage/Purchase/SubmitForm",//提交单据
-        editToolsExitUrl: "/PurchaseManage/Purchase/Edit?type=" + (-billType),//进入采购订单或退货单编辑窗口
-        findToolsExitUrl: "/PurchaseManage/Purchase/Index?type=" + (-billType),//查看采购订单或退货单
-        findToolsShdUrl: "/WarehouseManage/Receipt/Index?type=" + billType,
+        editToolsExitUrl: "/PurchaseManage/Purchase/Edit?type=CGTH",//进入采购退货单
+        findToolsExitUrl: "/PurchaseManage/Purchase/Index?type=CGTH",//查看采购退货单
+        findToolsShdUrl: "/WarehouseManage/Receipt/Index?type=SHD",
         tools:[
             {
                 label: "新建 (N)", accesskey: "n", submenu: [
@@ -39,14 +39,14 @@
             },
             {
                 label: "快捷 (K)", accesskey: "m", submenu: [
-                  { label: billType == 1 ? "采购退货单(E)" : "采购订单(E)", accesskey: "e", event: "handleToolsInReturn" },
+                  { label: billType == "CGDD" ? "采购退货单(E)" : "采购订单(E)", accesskey: "e", event: "handleToolsInReturn" },
                   { label: "上一单(U)", accesskey: "u", visible: 'this.list.F_Status>0', event: "handleToolsUp" },
                   { label: "下一单(D)", accesskey: "d", visible: 'this.list.F_Status>0', event: "handleToolsDown" }
                 ]
             },
             {
                 label: "查看 (L)", accesskey: "l",submenu: [
-                  { label: billType == 1 ? "采购退货单(T)" : "采购订单(T)", accesskey: "t", event: "handleToolsFinInReturn" },
+                  { label: billType == "CGDD" ? "采购退货单(T)" : "采购订单(T)", accesskey: "t", event: "handleToolsFinInReturn" },
                   { label: "收货单(H)", accesskey: "h", event: "handleToolsDelivery" },
                   { label: "采购发票(W)", accesskey: "w", event: "handleToolsPurchase" }
                 ]

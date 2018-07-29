@@ -6,28 +6,36 @@
 *********************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using NFine.Domain.Entity.BaseManage;
 
 namespace NFine.Domain.Entity.WarehouseManage
 {
-    public class ReceiptEntity : IEntity<ReceiptEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
-    {        
+    public class EntryItemEntity : IEntity<EntryItemEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
+    {
         public string F_Id { get; set; }
+        public string F_BillId { get; set; }
         public string F_CorpId { get; set; }
         public string F_EnCode { get; set; }
+        public string F_DetailId { get; set; }
         public System.DateTime F_BillDate { get; set; }
-        public string F_WarehouseID { get; set; }
-        public string F_BillType { get; set; }
         public Nullable<System.DateTime> F_PostDate { get; set; }
         public Nullable<long> F_Status { get; set; }
-        public string F_TruckID { get; set; }
-        public string F_DriverID { get; set; }
-        public Nullable<int> F_IsStockFinished { get; set; }
-        public Nullable<System.DateTime> F_ConfirmTime { get; set; }
-        public string F_ConfirmUserId { get; set; }
-        public Nullable<int> F_PrintNums { get; set; }
-        public Nullable<int> F_SortCode { get; set; }
+        public string F_BillType { get; set; }
+        public string F_WarehouseID { get; set; }
+        public string F_ItemID { get; set; }
+        public string F_ItemCode { get; set; }
+        public string F_ItemCodeName { get; set; }
+        public string F_BatchCode { get; set; }
+        public Nullable<System.DateTime> F_ProduceDate { get; set; }
+        public Nullable<System.DateTime> F_ExpireDate { get; set; }
+        public string F_UomID { get; set; }
+        public int F_BillQty { get; set; }
+        public Nullable<int> F_OperQty { get; set; }
+        public Nullable<int> F_BalanceQty { get; set; }
+        public decimal F_UnitAmount { get; set; }
+        public decimal F_Amount { get; set; }
+        public decimal F_UnitCost { get; set; }
         public Nullable<bool> F_DeleteMark { get; set; }
         public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }
@@ -37,7 +45,7 @@ namespace NFine.Domain.Entity.WarehouseManage
         public string F_LastModifyUserId { get; set; }
         public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
-        [NotMapped]
-        public List<ReceiptDetailEntity> details { get; set; }
+        public Nullable<int> F_SortCode { get; set; }
     }
+    
 }

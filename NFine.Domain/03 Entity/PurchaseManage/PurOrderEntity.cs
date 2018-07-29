@@ -12,13 +12,13 @@ using NFine.Code;
 
 namespace NFine.Domain.Entity.PurchaseManage
 {
-    public class OrderEntity : IEntity<OrderEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
+    public class PurOrderEntity : IEntity<PurOrderEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
     {
         public string F_Id { get; set; }
         public string F_CorpId { get; set; }
         public string F_EnCode { get; set; }
         public DateTime F_BillDate { get; set; }
-        public int F_BillType { get; set; }
+        public string F_BillType { get; set; }
         public Nullable<System.DateTime> F_PostDate { get; set; }
         public string F_SupplierID { get; set; }
         public string F_SupplierName { get; set; }
@@ -43,7 +43,7 @@ namespace NFine.Domain.Entity.PurchaseManage
         public string F_DeleteUserId { get; set; }
         public Nullable<int> F_PrintNums { get; set; }
         [NotMapped]
-        public List<OrderDetailEntity> details { get; set; }
+        public List<PurOrderDetailEntity> details { get; set; }
     }
 
     public class SearchOrderEntity
@@ -52,7 +52,7 @@ namespace NFine.Domain.Entity.PurchaseManage
         public DateTime EndTime { get; set; }
         public string F_SupplierID { get; set; }        
         public string F_EnCode { get; set; }
-        public int F_BillType { get; set; }
+        public string F_BillType { get; set; }
     }
 
     public class SearchPagination : Pagination

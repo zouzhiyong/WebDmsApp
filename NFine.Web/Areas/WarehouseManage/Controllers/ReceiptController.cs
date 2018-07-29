@@ -17,7 +17,7 @@ namespace NFine.Web.Areas.WarehouseManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetGridJson(Pagination pagination, string keyword, int type)
+        public ActionResult GetGridJson(Pagination pagination, string keyword, string type)
         {
             var data = new
             {
@@ -31,7 +31,7 @@ namespace NFine.Web.Areas.WarehouseManage.Controllers
 
         [HttpPost]
         [HandlerAjaxOnly]
-        public ActionResult GetOrderDetailForm(List<OrderEntity> model)
+        public ActionResult GetOrderDetailForm(List<PurOrderEntity> model)
         {
             var data = receiptApp.GetDetail(model);
             return Content(data.ToJson());
@@ -40,7 +40,7 @@ namespace NFine.Web.Areas.WarehouseManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetFormJson(string keyValue, int type, int prenexttype)
+        public ActionResult GetFormJson(string keyValue, string type, int prenexttype)
         {
             var data = receiptApp.GetForm(keyValue, type, prenexttype);
             return Content(data.ToJson());

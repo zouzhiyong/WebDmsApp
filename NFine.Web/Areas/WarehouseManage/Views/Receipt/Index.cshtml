@@ -14,7 +14,7 @@
             { label: '收货单号', name: 'F_EnCode', width: 100, align: 'left' },
             {
                 label: '单据类型', name: 'F_BillType', width: 100, align: 'left', formatter: function (cellvalue) {
-                    return cellvalue == 1 ? "收货单" : "出库单";
+                    return top.clients.dataItems.billType[cellvalue] == null ? "" : top.clients.dataItems.billType[cellvalue];
                 }
             },
             {

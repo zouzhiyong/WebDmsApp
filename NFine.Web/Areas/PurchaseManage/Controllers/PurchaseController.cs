@@ -12,12 +12,12 @@ namespace NFine.Web.Areas.PurchaseManage.Controllers
 {
     public class PurchaseController : ControllerBase
     {
-        private OrderApp orderApp = new OrderApp();
+        private PurOrderApp orderApp = new PurOrderApp();
 
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetGridJson(Pagination pagination, string keyword,int type)
+        public ActionResult GetGridJson(Pagination pagination, string keyword, string type)
         {
             var data = new
             {
@@ -46,7 +46,7 @@ namespace NFine.Web.Areas.PurchaseManage.Controllers
 
         [HttpGet]
         [HandlerAjaxOnly]
-        public ActionResult GetFormJson(string keyValue, int type, int prenexttype)
+        public ActionResult GetFormJson(string keyValue, string type, int prenexttype)
         {
             var data = orderApp.GetForm(keyValue,type, prenexttype);
             return Content(data.ToJson());
@@ -67,7 +67,7 @@ namespace NFine.Web.Areas.PurchaseManage.Controllers
         [HandlerAjaxOnly]
         [HandlerAuthorize]
         [MyValidateAntiForgeryToken]
-        public ActionResult SubmitForm(OrderEntity model)
+        public ActionResult SubmitForm(PurOrderEntity model)
         {
             var result=orderApp.SubmitForm(model);
             return Success("操作成功。", result);
@@ -87,7 +87,7 @@ namespace NFine.Web.Areas.PurchaseManage.Controllers
         //[HandlerAjaxOnly]
         //public ActionResult GetGridJson()
         //{
-        //string data = serialNumberDetailApp.GetAutoIncrementCode("PurchaseOrder");
+        //string data = serialNumberDetailApp.GetAutoIncrementCode("CGDD");
         //var data = new
         //{
         //    rows = purchaseApp.GetList(pagination, keyword),

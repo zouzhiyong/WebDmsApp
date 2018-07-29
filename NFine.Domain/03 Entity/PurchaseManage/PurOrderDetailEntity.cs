@@ -11,11 +11,12 @@ using NFine.Domain.Entity.BaseManage;
 
 namespace NFine.Domain.Entity.PurchaseManage
 {
-    public class OrderDetailEntity : IEntity<OrderDetailEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
+    public class PurOrderDetailEntity : IEntity<PurOrderDetailEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
     {
         public string F_Id { get; set; }
         public string F_EnCode { get; set; }
         public string F_CorpId { get; set; }
+        public string F_BillType { get; set; }
         public int F_RowId { get; set; }
         public string F_ItemID { get; set; }
         public string F_ItemCode { get; set; }
@@ -24,7 +25,7 @@ namespace NFine.Domain.Entity.PurchaseManage
         public string F_WarehouseID { get; set; }
         public string F_BinID { get; set; }
         public int F_BillQty { get; set; }
-        public int F_OperQty { get; set; }
+        public Nullable<int> F_OperQty { get; set; }
         public Nullable<int> F_BalanceQty { get; set; }
         public decimal F_UnitAmount { get; set; }
         public decimal F_UnitCost { get; set; }

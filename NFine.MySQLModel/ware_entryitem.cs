@@ -12,32 +12,30 @@ namespace NFine.MySQLModel
     using System;
     using System.Collections.Generic;
     
-    public partial class ware_receiptdetail
+    public partial class ware_entryitem
     {
         public string F_Id { get; set; }
         public string F_CorpId { get; set; }
         public string F_EnCode { get; set; }
-        public string F_SourceId { get; set; }
-        public string F_SourceNo { get; set; }
-        public string F_SourceType { get; set; }
         public Nullable<int> F_RowId { get; set; }
+        public System.DateTime F_BillDate { get; set; }
+        public Nullable<System.DateTime> F_PostDate { get; set; }
+        public Nullable<long> F_Status { get; set; }
+        public int F_BillType { get; set; }
+        public string F_WarehouseID { get; set; }
         public string F_ItemID { get; set; }
         public string F_ItemCode { get; set; }
         public string F_ItemCodeName { get; set; }
+        public string F_BatchCode { get; set; }
+        public Nullable<System.DateTime> F_ProduceDate { get; set; }
+        public Nullable<System.DateTime> F_ExpireDate { get; set; }
         public string F_UomID { get; set; }
         public int F_BillQty { get; set; }
         public Nullable<int> F_OperQty { get; set; }
         public Nullable<int> F_BalanceQty { get; set; }
         public decimal F_UnitAmount { get; set; }
-        public decimal F_UnitCost { get; set; }
         public decimal F_Amount { get; set; }
-        public Nullable<decimal> F_DiscountAmount { get; set; }
-        public Nullable<bool> F_IsFree { get; set; }
-        public Nullable<bool> F_IsGift { get; set; }
-        public Nullable<System.DateTime> F_ProduceDate { get; set; }
-        public Nullable<System.DateTime> F_ExpireDate { get; set; }
-        public string F_BatchCode { get; set; }
-        public Nullable<int> F_SortCode { get; set; }
+        public decimal F_UnitCost { get; set; }
         public Nullable<bool> F_DeleteMark { get; set; }
         public Nullable<bool> F_EnabledMark { get; set; }
         public string F_Description { get; set; }
@@ -47,5 +45,6 @@ namespace NFine.MySQLModel
         public string F_LastModifyUserId { get; set; }
         public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
+        public Nullable<int> F_SortCode { get; set; }
     }
 }

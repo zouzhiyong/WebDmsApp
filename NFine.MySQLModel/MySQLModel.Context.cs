@@ -60,6 +60,7 @@ namespace NFine.MySQLModel
         public virtual DbSet<sys_serialnumberdetail> sys_serialnumberdetail { get; set; }
         public virtual DbSet<sys_user> sys_user { get; set; }
         public virtual DbSet<sys_userlogon> sys_userlogon { get; set; }
+        public virtual DbSet<ware_entryitem> ware_entryitem { get; set; }
         public virtual DbSet<ware_receipt> ware_receipt { get; set; }
         public virtual DbSet<ware_receiptdetail> ware_receiptdetail { get; set; }
     }

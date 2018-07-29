@@ -223,6 +223,9 @@
     <Compile Include="sys_userlogon.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ware_entryitem.cs">
+      <DependentUpon>MySQLModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ware_receipt.cs">
       <DependentUpon>MySQLModel.tt</DependentUpon>
     </Compile>

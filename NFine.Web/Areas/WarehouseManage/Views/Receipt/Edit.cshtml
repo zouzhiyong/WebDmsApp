@@ -10,13 +10,13 @@
     var InitData = {
         isOperate:false,
         inputField: "",
-        title:billType == 1 ? "收货单" : "发货单",
+        title:billType == "SHD" ? "收货单" : "发货单",
         GetFormJson: "/WarehouseManage/Receipt/GetFormJson",//获取单据
         GetCopyFormJson: "/WarehouseManage/Receipt/GetCopyFormJson",//复制单据
         submitFormUrl: "/WarehouseManage/Receipt/SubmitForm",//提交单据
-        editToolsExitUrl: "/WarehouseManage/Receipt/Edit?type=" + (-billType),//进入收货单或发货单编辑窗口
-        findToolsExitUrl: "/PurchaseManage/Purchase/Index?type=" + (-billType),//查看收货单或发货单
-        findToolsFrom: "/WarehouseManage/Receipt/Form?type=" + billType,//选择来源单
+        //editToolsExitUrl: "/WarehouseManage/Receipt/Edit?type=SHD",//进入发货单编辑窗口
+        findToolsExitUrl: "/PurchaseManage/Purchase/Index?type=FHD",//查看发货单
+        findToolsFrom: "/WarehouseManage/Receipt/Form",//选择来源采购单或销售单
         getFromOrderDetail: "/WarehouseManage/Receipt/GetOrderDetailForm",//根据来源订单获取明细
         tools:[
             {
@@ -40,15 +40,15 @@
             },
             {
                 label: "快捷 (K)", accesskey: "m", submenu: [
-                  { label: billType == 1 ? "从采购行获取(E)" : "从销售行获取(E)", accesskey: "e", event: "handleToolsInReturn" },
-                  { label: billType == 1 ? "从销售退货行获取(R)" : "从采购退货行获取(R)", accesskey: "r", event: "handleToolsOutReturn" },
+                  //{ label: billType == "SHD" ? "从采购行获取(E)" : "从销售行获取(E)", accesskey: "e", event: "handleToolsInReturn" },
+                  //{ label: billType == "" ? "从销售退货行获取(R)" : "从采购退货行获取(R)", accesskey: "r", event: "handleToolsOutReturn" },
                   { label: "上一单(U)", accesskey: "u", visible: 'this.list.F_Status>0', event: "handleToolsUp" },
                   { label: "下一单(D)", accesskey: "d", visible: 'this.list.F_Status>0', event: "handleToolsDown" }
                 ]
             },
             {
                 label: "查看 (L)", accesskey: "l",submenu: [
-                  { label: billType == 1 ? "采购单(T)" : "采购退货单(T)", accesskey: "t", event: "handleToolsFinInReturn" },
+                  //{ label: billType == 1 ? "采购单(T)" : "采购退货单(T)", accesskey: "t", event: "handleToolsFinInReturn" },
                   { label: "采购发票(W)", accesskey: "w", event: "handleToolsPurchase" }
                 ]
             }
@@ -59,14 +59,13 @@
         },
         //主表控件相关参数
         controlsList: [
-            { field: "F_EnCode", label: "单据编号", visible: false, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
+            { field: "F_EnCode", label: "单据编号", visible: false, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },            
             { field: "F_BillDate", label: "单据日期", visible: true, defaultValue: new Date().Format("yyyy-MM-dd"), layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
             { field: "F_PostDate", label: "收货日期", visible: true, defaultValue: new Date().Format("yyyy-MM-dd"), layer: "header", divClass: "", inputclass: "", controlType: "input", dataType: "date", placeholder: "" },
             { field: "F_WarehouseID", label: "仓库", visible: true, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "请选择仓库", url: "/BaseManage/Warehouse/GetSelectJson", id: "F_Id", text: "F_Name", list: [] },
-            { field: "F_IsStockFinished", label: "发运状态", visible: true, disabled: true, defaultValue: "0", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "id", text: "text", list: [{ id: "0", text: "未收货" }, { id: "1", text: "部分收货" }, { id: "2", text: "收货完成" }] },
             { field: "F_Status", label: "单据状态", visible: true, disabled: true, defaultValue: "0", layer: "header", divClass: "", inputclass: "", controlType: "select", dataType: "text", placeholder: "", url: "", id: "id", text: "text", list: [{ id: "0", text: "新增" }, { id: "1", text: "保存" }, { id: "2", text: "确定" }, { id: "3", text: "待审核" }, { id: "4", text: "已审核" }, { id: "5", text: "关闭" }] },
-            { field: "", label: "来源采购单", visible: true, disabled: true, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "btn", icon: "fa fa-file-text-o", event: "handleFromPur" },
-            { field: "", label: "来源销售退单", visible: true, disabled: true, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "btn", icon: "fa fa-file-text-o", event: "handleFromSale" },
+            { field: "", label:billType == "SHD"? "来源采购订单":"来源销售订单", visible: true, disabled: true, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "btn", icon: "fa fa-file-text-o", event: "handleFromPurSale",par:billType=="SHD"?"CGDD":"XSDD" },
+            { field: "", label: billType == "SHD" ? "来源销售退货单" : "来源采购退货单", visible: true, disabled: true, defaultValue: "", layer: "header", divClass: "", inputclass: "", controlType: "btn", icon: "fa fa-file-text-o", event: "handleFromPurSale", par: billType == "SHD" ? "XSTH" : "CGTH" },
 
             { field: "F_Description", label: "备注", visible: true, defaultValue: "", layer: "footer", divClass: "col-xs-12", inputclass: "", controlType: "input", dataType: "text", placeholder: "请输入您要备注的内容" },
             { field: "F_CreatorUserId", label: "制单人ID", visible: false, defaultValue: "", layer: "footer", divClass: "col-xs-2", inputclass: "", controlType: "div", dataType: "text", placeholder: "" },
@@ -95,8 +94,8 @@
             { field: "F_UnitCost", nextFocusField: "", label: "单位成本", visible: false, defaultValue: "", totalLabel: "", width: "70px", align: 'center', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: false },
             { field: "F_UnitAmount", nextFocusField: "", label: "单价(¥)", visible: false, defaultValue: "", totalLabel: "", width: "70px", align: 'center', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: false },
             { field: "F_BillQty", nextFocusField: "F_Description", label: "订单数量", visible: true, defaultValue: "", totalLabel: "", width: "70px", align: 'right', divClass: "", inputclass: "", controlType: "input", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true, isThanZero: true },
-            { field: "F_BalanceQty", nextFocusField: "F_Description", label: billType == 1 ? "待收货数量" : "待发货数量", visible: true, defaultValue: "", totalLabel: "", width: "70px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true, isThanZero: true },
-            { field: "F_OperQty", nextFocusField: "F_Description", label: billType == 1 ? "已收货数量" : "已发货数量", visible: true, defaultValue: "", totalLabel: "", width: "70px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true, isThanZero: true },
+            { field: "F_BalanceQty", nextFocusField: "F_Description", label: billType == "SHD" ? "待收货数量" : "待发货数量", visible: true, defaultValue: "", totalLabel: "", width: "70px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true, isThanZero: true },
+            { field: "F_OperQty", nextFocusField: "F_Description", label: billType == "SHD" ? "已收货数量" : "已发货数量", visible: true, defaultValue: "", totalLabel: "", width: "70px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true, isThanZero: true },
             { field: "F_ProduceDate", nextFocusField: "F_Description", label: "生产日期", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
             { field: "F_ExpireDate", nextFocusField: "F_Description", label: "过期日期", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
             { field: "F_BatchCode", nextFocusField: "F_Description", label: "批次", visible: true, defaultValue: "", totalLabel: "", width: "80px", align: 'right', divClass: "", inputclass: "", controlType: "div", dataType: "number", placeholder: "", url: "", id: "", text: "", isTotal: true },
@@ -132,35 +131,48 @@
                 },               
                 //工具栏事件
                 //选择采购来源单
-                handleFromPur: function () {
+                handleFromPurSale: function (item) {
                     var _self = this;
                     $.modalOpen({
                         id: "Form",
                         title: "采购订单",
-                        url: rootUrl + _self.findToolsFrom,
+                        url: rootUrl + _self.findToolsFrom + "?type=" + item.par,
                         width: "820px",
                         height: "500px",
                         callBack: function (iframeId) {
                             top.frames[iframeId].submitForm();
                             if (parent["WarehouseManageReceiptForm"] != null) {
                                 var obj = JSON.parse(parent["WarehouseManageReceiptForm"]);
-                                parent["WarehouseManageReceiptForm"] = null;
+                                parent["WarehouseManageReceiptForm"] = null;                                
                                 $.ajax({
                                     url: rootUrl + _self.getFromOrderDetail,
                                     data: { model: obj },
                                     type:"post",
                                     async: false,
                                     success: function (data) {
+                                        var F_BillType = "";
+                                        switch (item.par) {
+                                            case "CGDD": F_BillType = "CGRK";
+                                                break;
+                                            case "CGTH": F_BillType = "CGCK";
+                                                break;
+                                            case "XSDD": F_BillType = "XSCK";
+                                                break;
+                                            case "XSTH": F_BillType = "XSRK";
+                                                break;
+                                        }
+
+                                        data.map(function (_item) {
+                                            _item.F_SourceType = F_BillType;
+                                        });
+
+                                        _self.list.F_BillType = F_BillType;//获取主表单据类型
                                         _self.list.details = data;
                                     }
                                 });                                
                             }
                         }
                     });
-                },
-                //选择销售来源单
-                handleFromSale: function () {
-
                 },
                 //提交
                 handleClickSave: function (type) {
@@ -178,14 +190,15 @@
                         return F_BillQty > F_BalanceQty;
                     })
                     if (arr.length > 0) {
-                        $.modalMsg(billType == 1 ? "收货数量不能大于待收货数量" : "发货数量不能大于待发货数量", "warning");
+                        $.modalMsg(billType == "SHD" ? "收货数量不能大于待收货数量" : "发货数量不能大于待发货数量", "warning");
                         return;
                     }
                     
                     var submitFormData = JSON.parse(JSON.stringify(_self.list));
                     submitFormData.details = JSON.parse(JSON.stringify(_self.saveData));
                     submitFormData.F_Status = type;
-                    submitFormData.F_BillType = billType;
+                    //var F_SourceType = submitFormData.details[0].F_SourceType;
+                    //submitFormData.F_BillType = (F_SourceType == "CGDD" || F_SourceType == "XSTH" ? "CGRK" : "CGCK");
 
                     $.submitForm({
                         url: rootUrl + _self.submitFormUrl,

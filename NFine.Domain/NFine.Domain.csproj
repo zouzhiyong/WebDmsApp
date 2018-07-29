@@ -90,8 +90,8 @@
     <Compile Include="03 Entity\BaseManage\SupplierEntity.cs" />
     <Compile Include="03 Entity\BaseManage\WarehouseUserEntity.cs" />
     <Compile Include="03 Entity\BaseManage\WarehouseEntity.cs" />
-    <Compile Include="03 Entity\PurchaseManage\OrderDetailEntity.cs" />
-    <Compile Include="03 Entity\PurchaseManage\OrderEntity.cs" />
+    <Compile Include="03 Entity\PurchaseManage\PurOrderDetailEntity.cs" />
+    <Compile Include="03 Entity\PurchaseManage\PurOrderEntity.cs" />
     <Compile Include="03 Entity\SystemManage\SerialNumberDetailEntity.cs" />
     <Compile Include="03 Entity\SystemManage\SerialNumberEntity.cs" />
     <Compile Include="03 Entity\SystemManage\CompanyEntity.cs" />
@@ -109,6 +109,7 @@
     <Compile Include="03 Entity\SystemSecurity\FilterIPEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\LogEntity.cs" />
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
+    <Compile Include="03 Entity\WarehouseManage\EntryItemEntity.cs" />
     <Compile Include="03 Entity\WarehouseManage\ReceiptDetailEntity.cs" />
     <Compile Include="03 Entity\WarehouseManage\ReceiptEntity.cs" />
     <Compile Include="04 IRepository\Base\IRepositoryEntity.cs" />

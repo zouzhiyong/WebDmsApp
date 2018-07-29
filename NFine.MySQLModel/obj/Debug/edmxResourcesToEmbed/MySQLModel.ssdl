@@ -879,6 +879,43 @@
     <Property Name="F_Theme" Type="varchar" MaxLength="50" />
     <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <EntityType Name="ware_entryitem">
+    <Key>
+      <PropertyRef Name="F_Id" />
+    </Key>
+    <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_EnCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_RowId" Type="int" />
+    <Property Name="F_BillDate" Type="date" Nullable="false" />
+    <Property Name="F_PostDate" Type="date" />
+    <Property Name="F_Status" Type="uint" />
+    <Property Name="F_BillType" Type="int" Nullable="false" />
+    <Property Name="F_WarehouseID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_ItemID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_ItemCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_ItemCodeName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="F_BatchCode" Type="varchar" MaxLength="50" />
+    <Property Name="F_ProduceDate" Type="date" />
+    <Property Name="F_ExpireDate" Type="date" />
+    <Property Name="F_UomID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_BillQty" Type="int" Nullable="false" />
+    <Property Name="F_OperQty" Type="int" />
+    <Property Name="F_BalanceQty" Type="int" />
+    <Property Name="F_UnitAmount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="F_Amount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="F_UnitCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="F_DeleteMark" Type="bool" />
+    <Property Name="F_EnabledMark" Type="bool" />
+    <Property Name="F_Description" Type="varchar" MaxLength="255" />
+    <Property Name="F_CreatorTime" Type="datetime" Precision="0" />
+    <Property Name="F_CreatorUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_LastModifyTime" Type="datetime" Precision="0" />
+    <Property Name="F_LastModifyUserId" Type="varchar" MaxLength="50" />
+    <Property Name="F_DeleteTime" Type="datetime" Precision="0" />
+    <Property Name="F_DeleteUserId" Type="varchar" MaxLength="255" />
+    <Property Name="F_SortCode" Type="int" />
+  </EntityType>
   <EntityType Name="ware_receipt">
     <Key>
       <PropertyRef Name="F_Id" />
@@ -913,7 +950,9 @@
       <PropertyRef Name="F_Id" />
     </Key>
     <Property Name="F_Id" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_CorpId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_EnCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_SourceId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_SourceNo" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_SourceType" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="F_RowId" Type="int" />
@@ -932,7 +971,7 @@
     <Property Name="F_IsGift" Type="bool" />
     <Property Name="F_ProduceDate" Type="date" />
     <Property Name="F_ExpireDate" Type="date" />
-    <Property Name="F_BatchCode" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="F_BatchCode" Type="varchar" MaxLength="50" />
     <Property Name="F_SortCode" Type="int" />
     <Property Name="F_DeleteMark" Type="bool" />
     <Property Name="F_EnabledMark" Type="bool" />
@@ -980,6 +1019,7 @@
     <EntitySet Name="sys_serialnumberdetail" EntityType="Self.sys_serialnumberdetail" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_user" EntityType="Self.sys_user" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="sys_userlogon" EntityType="Self.sys_userlogon" Schema="nfinebase" store:Type="Tables" />
+    <EntitySet Name="ware_entryitem" EntityType="Self.ware_entryitem" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="ware_receipt" EntityType="Self.ware_receipt" Schema="nfinebase" store:Type="Tables" />
     <EntitySet Name="ware_receiptdetail" EntityType="Self.ware_receiptdetail" Schema="nfinebase" store:Type="Tables" />
   </EntityContainer>

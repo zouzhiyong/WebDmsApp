@@ -89,7 +89,7 @@
     <Compile Include="BaseManage\MaterialUomApp.cs" />
     <Compile Include="BaseManage\WarehouseUserApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PurchaseManage\OrderApp.cs" />
+    <Compile Include="PurchaseManage\PurOrderApp.cs" />
     <Compile Include="SystemManage\SerialNumberDetailApp.cs" />
     <Compile Include="SystemManage\SerialNumberApp.cs" />
     <Compile Include="SystemManage\DepartmentApp.cs" />

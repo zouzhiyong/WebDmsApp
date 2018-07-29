@@ -22,20 +22,20 @@ using MySql.Data.MySqlClient;
 
 namespace NFine.Application.PurchaseManage
 {
-    public class OrderApp
+    public class PurOrderApp
     {
-        private IRepositoryEntity<OrderEntity> service = new RepositoryEntity<OrderEntity>();
-        private IRepositoryEntity<OrderDetailEntity> serviceDetail = new RepositoryEntity<OrderDetailEntity>();        
+        private IRepositoryEntity<PurOrderEntity> service = new RepositoryEntity<PurOrderEntity>();
+        private IRepositoryEntity<PurOrderDetailEntity> serviceDetail = new RepositoryEntity<PurOrderDetailEntity>();        
         private IRepositoryEntity<WarehouseEntity> serviceWarehouse = new RepositoryEntity<WarehouseEntity>();
 
-        public OrderEntity SubmitForm(OrderEntity model)
+        public PurOrderEntity SubmitForm(PurOrderEntity model)
         {
-            if(model.F_BillType!=1 && model.F_BillType != -1)
+            if(model.F_BillType!="CGDD" && model.F_BillType != "CGTH")
             {
                 throw new Exception("此单据为非法单据!");
             }
 
-            List<OrderDetailEntity> orderDetailEntitys = model.details;
+            List<PurOrderDetailEntity> orderDetailEntitys = model.details;
             using (var db = new RepositoryEntity().BeginTrans())
             {
                 //插入主表数据
@@ -55,25 +55,26 @@ namespace NFine.Application.PurchaseManage
                 else
                 {
                     model.Create();
-                    if (model.F_BillType == 1)
+                    if (model.F_BillType == "CGDD")
                     {
-                        SerialNumberDetailApp.GetAutoIncrementCode<OrderEntity>(model, "PurchaseOrder");//获取编号  
+                        SerialNumberDetailApp.GetAutoIncrementCode<PurOrderEntity>(model, "CGDD");//获取编号  
                     }else
                     {
-                        SerialNumberDetailApp.GetAutoIncrementCode<OrderEntity>(model, "PurchaseReturnOrder");//获取编号   
+                        SerialNumberDetailApp.GetAutoIncrementCode<PurOrderEntity>(model, "CGTH");//获取编号   
                     }                    
                                       
                     db.Insert(model);
                 }
 
                 //删除从表数据
-                db.Delete<OrderDetailEntity>(t => t.F_EnCode == model.F_EnCode);
+                db.Delete<PurOrderDetailEntity>(t => t.F_EnCode == model.F_EnCode);
                 //插入从表数据
                 foreach (var item in orderDetailEntitys)
                 {
                     item.Create();
                     item.F_EnCode = model.F_EnCode;
                     item.F_BalanceQty = item.F_BillQty;
+                    item.F_BillType = model.F_BillType;
                     db.Insert(item);
                 }
 
@@ -84,9 +85,9 @@ namespace NFine.Application.PurchaseManage
             }
         }
 
-        public List<OrderEntity> GetList(Pagination pagination, string keyword,int type)
+        public List<PurOrderEntity> GetList(Pagination pagination, string keyword,string type)
         {
-            var expression = ExtLinq.True<OrderEntity>();
+            var expression = ExtLinq.True<PurOrderEntity>();
             expression = expression.And(t => t.F_BillType == type);            
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -96,10 +97,10 @@ namespace NFine.Application.PurchaseManage
             return service.FindList(expression, pagination);
         }
 
-        public List<OrderEntity> GetList(SearchPagination searchPagination)
+        public List<PurOrderEntity> GetList(SearchPagination searchPagination)
         {
             SearchOrderEntity searchOrderEntity = searchPagination.searchEntity;
-            var expression = ExtLinq.True<OrderEntity>();
+            var expression = ExtLinq.True<PurOrderEntity>();
             expression = expression.And(t => t.F_BillType == searchOrderEntity.F_BillType && t.F_BillDate>=searchOrderEntity.BeginTime && t.F_BillDate<=searchOrderEntity.EndTime && t.F_Status==2);
             expression = expression.And(t => t.F_IsStockFinished < 2);
             if (!string.IsNullOrEmpty(searchOrderEntity.F_EnCode))
@@ -114,14 +115,14 @@ namespace NFine.Application.PurchaseManage
             return service.FindList(expression, searchPagination);
         }
 
-        public List<OrderDetailEntity> GetDetail(List<OrderEntity> model)
+        public List<PurOrderDetailEntity> GetDetail(List<PurOrderEntity> model)
         {
             List<System.String> listS = new List<System.String>();
             foreach (var item in model)
             {
                 listS.Add(item.F_EnCode);
             }
-            var expression = ExtLinq.True<OrderDetailEntity>();
+            var expression = ExtLinq.True<PurOrderDetailEntity>();
             string[] F_EnCode_Arr = listS.ToArray();
             expression = expression.And(t => F_EnCode_Arr.Contains(t.F_EnCode));
             expression = expression.And(t => t.F_BalanceQty > 0);//待收货大于0的明细
@@ -134,7 +135,7 @@ namespace NFine.Application.PurchaseManage
         /// </summary>
         /// <param name="keyValue"></param>
         /// <returns></returns>
-        public OrderEntity GetForm(string keyValue, int type, int PreNextType)
+        public PurOrderEntity GetForm(string keyValue, string type, int PreNextType)
         {
             //下一页
             if (PreNextType == 1)
@@ -172,7 +173,7 @@ namespace NFine.Application.PurchaseManage
         /// </summary>
         /// <param name="keyValue"></param>
         /// <returns></returns>
-        public OrderEntity GetCopyForm(string keyValue)
+        public PurOrderEntity GetCopyForm(string keyValue)
         {
             var orderItem = GetOrderData(keyValue);
 
@@ -206,7 +207,7 @@ namespace NFine.Application.PurchaseManage
         /// <param name="keyValue"></param>
         public void DeleteForm(string keyValue)
         {
-            OrderEntity orderEntity = service.FindEntity(t => t.F_Id == keyValue);
+            PurOrderEntity orderEntity = service.FindEntity(t => t.F_Id == keyValue);
             if (orderEntity.F_Status >1)
             {
                 throw new Exception("此单据状态无法删除!");
@@ -225,10 +226,10 @@ namespace NFine.Application.PurchaseManage
             }
         }
 
-        private OrderEntity GetOrderData(string keyValue)
+        private PurOrderEntity GetOrderData(string keyValue)
         {
-            OrderEntity orderItem = service.FindEntity(keyValue);
-            List<OrderDetailEntity> details = serviceDetail.IQueryable(t => t.F_EnCode == orderItem.F_EnCode).SortBy(t => t.F_RowId).ToList();
+            PurOrderEntity orderItem = service.FindEntity(keyValue);
+            List<PurOrderDetailEntity> details = serviceDetail.IQueryable(t => t.F_EnCode == orderItem.F_EnCode).SortBy(t => t.F_RowId).ToList();
             MaterialApp marterialApp = new MaterialApp();
 
             foreach (var item in details)

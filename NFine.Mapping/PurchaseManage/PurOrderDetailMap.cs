@@ -9,11 +9,11 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace NFine.Mapping.PurchaseManage
 {
-    public class OrderMap : EntityTypeConfiguration<OrderEntity>
+    public class PurOrderDetailMap : EntityTypeConfiguration<PurOrderDetailEntity>
     {
-        public OrderMap()
+        public PurOrderDetailMap()
         {
-            this.ToTable("Pur_Order");
+            this.ToTable("Pur_PurOrderDetail");
             this.HasKey(t => t.F_Id);
         }
     }    

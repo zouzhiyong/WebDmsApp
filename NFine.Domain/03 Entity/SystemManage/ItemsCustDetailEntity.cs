@@ -17,6 +17,7 @@ namespace NFine.Domain.Entity.SystemManage
         public string F_ItemName { get; set; }
         public string F_SimpleSpelling { get; set; }
         public bool? F_IsDefault { get; set; }
+        public int? F_ControlValue { get; set; }
         public int? F_Layers { get; set; }
         public int? F_SortCode { get; set; }
         public bool? F_DeleteMark { get; set; }
