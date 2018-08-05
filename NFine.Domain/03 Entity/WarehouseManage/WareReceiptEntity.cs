@@ -8,10 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using NFine.Code;
 
 namespace NFine.Domain.Entity.WarehouseManage
 {
-    public class ReceiptEntity : IEntity<ReceiptEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
+    public class WareReceiptEntity : IEntity<WareReceiptEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
     {        
         public string F_Id { get; set; }
         public string F_CorpId { get; set; }
@@ -38,6 +39,6 @@ namespace NFine.Domain.Entity.WarehouseManage
         public Nullable<System.DateTime> F_DeleteTime { get; set; }
         public string F_DeleteUserId { get; set; }
         [NotMapped]
-        public List<ReceiptDetailEntity> details { get; set; }
+        public List<WareReceiptDetailEntity> details { get; set; }
     }
 }

@@ -6,12 +6,14 @@
 *********************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using NFine.Domain.Entity.BaseManage;
+using NFine.Code;
+
 
 namespace NFine.Domain.Entity.WarehouseManage
 {
-    public class EntryItemEntity : IEntity<EntryItemEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
+    public class WareEntryItemEntity : IEntity<WareEntryItemEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
     {
         public string F_Id { get; set; }
         public string F_BillId { get; set; }

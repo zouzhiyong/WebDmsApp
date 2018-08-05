@@ -9,11 +9,11 @@ using NFine.Domain.Entity.WarehouseManage;
 
 namespace NFine.Mapping.WarehouseManage
 {
-    public class ReceiptMap : EntityTypeConfiguration<ReceiptEntity>
+    public class WareReceiptMap : EntityTypeConfiguration<WareReceiptEntity>
     {
-        public ReceiptMap()
+        public WareReceiptMap()
         {
-            this.ToTable("Ware_Receipt");
+            this.ToTable("Dms_WareReceipt");
             this.HasKey(t => t.F_Id);
         }
     }    

@@ -9,11 +9,11 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace NFine.Mapping.WarehouseManage
 {
-    public class EntryItemMap : EntityTypeConfiguration<EntryItemEntity>
+    public class WareEntryItemMap : EntityTypeConfiguration<WareEntryItemEntity>
     {
-        public EntryItemMap()
+        public WareEntryItemMap()
         {
-            this.ToTable("Ware_EntryItem");
+            this.ToTable("Dms_WareEntryItem");
             this.HasKey(t => t.F_Id);
         }
     }    

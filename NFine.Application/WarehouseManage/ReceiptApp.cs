@@ -22,22 +22,22 @@ namespace NFine.Application.WarehouseManage
 {
     public class ReceiptApp
     {
-        private IRepositoryEntity<ReceiptEntity> service = new RepositoryEntity<ReceiptEntity>();
-        private IRepositoryEntity<ReceiptDetailEntity> serviceDetail = new RepositoryEntity<ReceiptDetailEntity>();
+        private IRepositoryEntity<WareReceiptEntity> service = new RepositoryEntity<WareReceiptEntity>();
+        private IRepositoryEntity<WareReceiptDetailEntity> serviceDetail = new RepositoryEntity<WareReceiptDetailEntity>();
         private IRepositoryEntity<WarehouseEntity> serviceWarehouse = new RepositoryEntity<WarehouseEntity>();
         private IRepositoryEntity<PurOrderEntity> servicePurOrder = new RepositoryEntity<PurOrderEntity>();
         private IRepositoryEntity<PurOrderDetailEntity> servicePurDetail = new RepositoryEntity<PurOrderDetailEntity>();
-        private IRepositoryEntity<EntryItemEntity> serviceEntryItem = new RepositoryEntity<EntryItemEntity>();
+        private IRepositoryEntity<WareEntryItemEntity> serviceEntryItem = new RepositoryEntity<WareEntryItemEntity>();
         /// <summary>
         /// 保存审核
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public ReceiptEntity SubmitForm(ReceiptEntity model)
+        public WareReceiptEntity SubmitForm(WareReceiptEntity model)
         {         
             using (var db = new RepositoryEntity().BeginTrans())
             {
-                List<ReceiptDetailEntity> receiptDetailEntitys = model.details;
+                List<WareReceiptDetailEntity> receiptDetailEntitys = model.details;
                 List<PurOrderDetailEntity> purOrderDetailEntitys = new List<PurOrderDetailEntity>();
 
                 //更新主表数据
@@ -57,12 +57,12 @@ namespace NFine.Application.WarehouseManage
                 else
                 {
                     model.Create();
-                    SerialNumberDetailApp.GetAutoIncrementCode<ReceiptEntity>(model, model.F_BillType);//获取单据编号
+                    SerialNumberDetailApp.GetAutoIncrementCode<WareReceiptEntity>(model, model.F_BillType);//获取单据编号
                     db.Insert(model);
                 }
 
                 //删除从表数据
-                db.Delete<ReceiptDetailEntity>(t => t.F_EnCode == model.F_EnCode);
+                db.Delete<WareReceiptDetailEntity>(t => t.F_EnCode == model.F_EnCode);
                 //插入从表数据                
                 foreach (var item in receiptDetailEntitys)
                 {
@@ -120,11 +120,11 @@ namespace NFine.Application.WarehouseManage
                     }
 
                     //写入物料分录表
-                    db.Delete<EntryItemEntity>(t => t.F_BillId == model.F_Id);
-                    List<EntryItemEntity> entryItemList = new List<EntryItemEntity>();
+                    db.Delete<WareEntryItemEntity>(t => t.F_BillId == model.F_Id);
+                    List<WareEntryItemEntity> entryItemList = new List<WareEntryItemEntity>();
                     foreach (var item in receiptDetailEntitys)
                     {
-                        EntryItemEntity entryItem = new EntryItemEntity();
+                        WareEntryItemEntity entryItem = new WareEntryItemEntity();
                         entryItem.Create();
                         entryItem.F_BillId = model.F_Id;
                         entryItem.F_DetailId = item.F_Id;
@@ -237,9 +237,9 @@ namespace NFine.Application.WarehouseManage
             }
         }
 
-        public List<ReceiptEntity> GetList(Pagination pagination, string keyword, string type)
+        public List<WareReceiptEntity> GetList(Pagination pagination, string keyword, string type)
         {
-            var expression = ExtLinq.True<ReceiptEntity>();
+            var expression = ExtLinq.True<WareReceiptEntity>();
             if (type == "SHD")
             {
                 expression = expression.And(t => t.F_BillType == "CGRK" || t.F_BillType == "XSRK");
@@ -262,18 +262,18 @@ namespace NFine.Application.WarehouseManage
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public List<ReceiptDetailEntity> GetDetail(List<PurOrderEntity> model)
+        public List<WareReceiptDetailEntity> GetDetail(List<PurOrderEntity> model)
         {
             int i = 0;
             PurOrderApp orderApp = new PurOrderApp();
             UnitOfMeasureApp unitOfMeasure = new UnitOfMeasureApp();
             var unit = unitOfMeasure.GetList();
             var data = orderApp.GetDetail(model);
-            List<ReceiptDetailEntity> ReceiptDetailEntityList = new List<ReceiptDetailEntity>();
+            List<WareReceiptDetailEntity> ReceiptDetailEntityList = new List<WareReceiptDetailEntity>();
             foreach(var item in data)
             {
                 i = i + 1;
-                ReceiptDetailEntity receiptDetailEntity = new ReceiptDetailEntity();
+                WareReceiptDetailEntity receiptDetailEntity = new WareReceiptDetailEntity();
                 receiptDetailEntity.F_SourceId = item.F_Id;
                 receiptDetailEntity.F_CorpId = item.F_CorpId;
                 receiptDetailEntity.F_SourceNo = item.F_EnCode;
@@ -303,7 +303,7 @@ namespace NFine.Application.WarehouseManage
         /// </summary>
         /// <param name="keyValue"></param>
         /// <returns></returns>
-        public ReceiptEntity GetForm(string keyValue, string type, int PreNextType)
+        public WareReceiptEntity GetForm(string keyValue, string type, int PreNextType)
         {
             //下一页
             if (PreNextType == 1)
@@ -342,7 +342,7 @@ namespace NFine.Application.WarehouseManage
         /// </summary>
         /// <param name="keyValue"></param>
         /// <returns></returns>
-        public ReceiptEntity GetCopyForm(string keyValue)
+        public WareReceiptEntity GetCopyForm(string keyValue)
         {
             var receiptItem = GetReceiptData(keyValue);
 
@@ -376,7 +376,7 @@ namespace NFine.Application.WarehouseManage
         /// <param name="keyValue"></param>
         public void DeleteForm(string keyValue)
         {
-            ReceiptEntity receiptEntity = service.FindEntity(t => t.F_Id == keyValue);
+            WareReceiptEntity receiptEntity = service.FindEntity(t => t.F_Id == keyValue);
             if (receiptEntity.F_Status > 1)
             {
                 throw new Exception("此单据状态无法删除!");
@@ -400,10 +400,10 @@ namespace NFine.Application.WarehouseManage
         /// </summary>
         /// <param name="keyValue"></param>
         /// <returns></returns>
-        private ReceiptEntity GetReceiptData(string keyValue)
+        private WareReceiptEntity GetReceiptData(string keyValue)
         {
-            ReceiptEntity receiptItem = service.FindEntity(keyValue);
-            List<ReceiptDetailEntity> details = serviceDetail.IQueryable(t => t.F_EnCode == receiptItem.F_EnCode).SortBy(t => t.F_RowId).ToList();
+            WareReceiptEntity receiptItem = service.FindEntity(keyValue);
+            List<WareReceiptDetailEntity> details = serviceDetail.IQueryable(t => t.F_EnCode == receiptItem.F_EnCode).SortBy(t => t.F_RowId).ToList();
             MaterialApp marterialApp = new MaterialApp();
 
             UnitOfMeasureApp unitOfMeasure = new UnitOfMeasureApp();

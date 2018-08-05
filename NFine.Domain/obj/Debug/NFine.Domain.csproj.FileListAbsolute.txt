@@ -16,6 +16,7 @@ D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Domain\bin\
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Domain\obj\Debug\NFine.Domain.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Domain\obj\Debug\NFine.Domain.dll
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Domain\obj\Debug\NFine.Domain.pdb
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\obj\Debug\NFine.Domain.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\NFine.Domain.dll.config
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\NFine.Domain.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\NFine.Domain.pdb
@@ -52,6 +53,5 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\zh-Hans\System.W
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\zh-Hans\System.Web.WebPages.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\bin\Debug\zh-Hans\System.Web.WebPages.Razor.resources.dll
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\obj\Debug\NFine.Domain.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\obj\Debug\NFine.Domain.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Domain\obj\Debug\NFine.Domain.pdb

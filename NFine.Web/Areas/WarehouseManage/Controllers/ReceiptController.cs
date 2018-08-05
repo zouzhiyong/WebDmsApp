@@ -61,7 +61,7 @@ namespace NFine.Web.Areas.WarehouseManage.Controllers
         [HandlerAjaxOnly]
         [HandlerAuthorize]
         [MyValidateAntiForgeryToken]
-        public ActionResult SubmitForm(ReceiptEntity model)
+        public ActionResult SubmitForm(WareReceiptEntity model)
         {
             var result = receiptApp.SubmitForm(model);
             return Success("操作成功。", result);

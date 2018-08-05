@@ -18,6 +18,7 @@ D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Repository\
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Repository\obj\Debug\NFine.Repository.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Repository\obj\Debug\NFine.Repository.dll
 D:\Visual Studio 2015\Projects\NFine快速开发框架\project\NFine.Repository\obj\Debug\NFine.Repository.pdb
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\obj\Debug\NFine.Repository.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Repository.dll.config
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Repository.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Repository.pdb
@@ -29,6 +30,7 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\Newtonsoft.J
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Code.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Data.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Domain.dll
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Mapping.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\System.Web.Helpers.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\System.Web.Mvc.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\System.Web.Razor.dll
@@ -41,6 +43,7 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\ICSharpCode.
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Code.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Data.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Domain.pdb
+D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Mapping.pdb
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\EntityFramework.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\EntityFramework.SqlServer.xml
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\MySql.Data.xml
@@ -59,8 +62,5 @@ D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\zh-Hans\Syst
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\zh-Hans\System.Web.WebPages.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\zh-Hans\System.Web.WebPages.Deployment.resources.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\zh-Hans\System.Web.WebPages.Razor.resources.dll
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\obj\Debug\NFine.Repository.csprojResolveAssemblyReference.cache
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\obj\Debug\NFine.Repository.dll
 D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\obj\Debug\NFine.Repository.pdb
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Mapping.dll
-D:\Visual Studio 2015\Projects\WebDmsApp\NFine.Repository\bin\Debug\NFine.Mapping.pdb

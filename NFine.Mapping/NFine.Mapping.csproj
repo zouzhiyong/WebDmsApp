@@ -122,9 +122,9 @@
     <Compile Include="SystemSecurity\DbBackupMap.cs" />
     <Compile Include="SystemSecurity\FilterIPMap.cs" />
     <Compile Include="SystemSecurity\LogMap.cs" />
-    <Compile Include="WarehouseManage\EntryItemMap.cs" />
-    <Compile Include="WarehouseManage\ReceiptDetailMap.cs" />
-    <Compile Include="WarehouseManage\ReceiptMap.cs" />
+    <Compile Include="WarehouseManage\WareEntryItemMap.cs" />
+    <Compile Include="WarehouseManage\WareReceiptDetailMap.cs" />
+    <Compile Include="WarehouseManage\WareReceiptMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NFine.Domain\NFine.Domain.csproj">

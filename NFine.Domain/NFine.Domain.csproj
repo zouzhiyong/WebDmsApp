@@ -109,9 +109,9 @@
     <Compile Include="03 Entity\SystemSecurity\FilterIPEntity.cs" />
     <Compile Include="03 Entity\SystemSecurity\LogEntity.cs" />
     <Compile Include="02 ViewModel\AuthorizeActionModel.cs" />
-    <Compile Include="03 Entity\WarehouseManage\EntryItemEntity.cs" />
-    <Compile Include="03 Entity\WarehouseManage\ReceiptDetailEntity.cs" />
-    <Compile Include="03 Entity\WarehouseManage\ReceiptEntity.cs" />
+    <Compile Include="03 Entity\WarehouseManage\WareEntryItemEntity.cs" />
+    <Compile Include="03 Entity\WarehouseManage\WareReceiptDetailEntity.cs" />
+    <Compile Include="03 Entity\WarehouseManage\WareReceiptEntity.cs" />
     <Compile Include="04 IRepository\Base\IRepositoryEntity.cs" />
     <Compile Include="04 IRepository\Base\IRepositoryEntity.T.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

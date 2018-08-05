@@ -6,12 +6,13 @@
 *********************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using NFine.Domain.Entity.BaseManage;
+using NFine.Code;
 
 namespace NFine.Domain.Entity.WarehouseManage
 {
-    public class ReceiptDetailEntity : IEntity<ReceiptDetailEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
+    public class WareReceiptDetailEntity : IEntity<WareReceiptDetailEntity>, ICreationAudited, IDeleteAudited, IModificationAudited
     {
         public string F_Id { get; set; }
         public string F_CorpId { get; set; }

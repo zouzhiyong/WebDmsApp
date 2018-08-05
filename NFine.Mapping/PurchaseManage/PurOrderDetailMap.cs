@@ -13,7 +13,7 @@ namespace NFine.Mapping.PurchaseManage
     {
         public PurOrderDetailMap()
         {
-            this.ToTable("Pur_PurOrderDetail");
+            this.ToTable("Dms_PurOrderDetail");
             this.HasKey(t => t.F_Id);
         }
     }    
